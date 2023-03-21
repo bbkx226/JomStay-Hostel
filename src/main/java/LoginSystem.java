@@ -6,20 +6,19 @@ import java.time.LocalDateTime;
 /**
  * LoginRecords
  */
-public class LoginRecord {
+public class LoginSystem {
     private static ArrayList<Login> loginRecords;
-    private static LoginRecord INSTANCE;
 
-    private LoginRecord() {
+    private LoginSystem() {
         loginRecords = new ArrayList<>();
     }
 
-    public static LoginRecord getInstance() {
-        return LoginRecord.INSTANCE;
+    public static LoginSystem getInstance() {
+        return LoginSystemHolder.INSTANCE;
     }
 
-    private static class LoginRecordHolder {
-        private static final LoginRecord INSTANCE = new LoginRecord();
+    private static class LoginSystemHolder {
+        private static final LoginSystem INSTANCE = new LoginSystem();
     }
     
     public static ArrayList<Login> getLoginRecords() {

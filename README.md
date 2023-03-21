@@ -42,6 +42,7 @@ You are also required to identify the relationship among the entities and also d
 - reserve ID for a new entity when an old entity is deleted
 - requires old password when changing password
 - text file formatting & formatted reading & writing
+- search by specific attribute (user, login, payment)
 
 ## Entities & Attributes
 

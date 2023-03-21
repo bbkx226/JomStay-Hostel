@@ -37,7 +37,7 @@ public class HostelManagementSystem {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
                 LocalDate dob = null;
                 try {
-                    dob = LocalDate.parse(dobString);
+                    dob = LocalDate.parse(dobString, formatter);
                 } catch (DateTimeParseException e) {
                     e.printStackTrace();
                 }

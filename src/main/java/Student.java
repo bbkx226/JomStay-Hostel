@@ -14,4 +14,36 @@ public class Student extends User {
         this.NRIC = NRIC;
         this.dob = dob;
     }
+    
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+    
+    public void setNRIC(String nRIC) {
+        NRIC = nRIC;
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public String getNRIC() {
+        return NRIC;
+    }
+
+    public LocalDate getDob() {
+        return dob;
+    }
 }
