@@ -1,9 +1,6 @@
 package main.java;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -32,8 +29,7 @@ public class HostelManagementSystem {
             if (ID.startsWith("AD")) {
                 Admin admin = new Admin(ID, name, email, username, password);
                 admins.add(admin);
-            }
-            else {
+            } else {
                 String gender = lineArr[5];
                 String phoneNo = lineArr[6];
                 String NRIC = lineArr[7];
