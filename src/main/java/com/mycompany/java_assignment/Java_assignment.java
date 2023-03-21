@@ -1,13 +1,22 @@
-package main.java;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
+ */
+
+package com.mycompany.java_assignment;
 
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-// main class
-public class HostelManagementSystem {
-    public static final String USERFILE = "JavaOOP/src/main/java/Users.txt";
+/**
+ *
+ * @author KZ
+ */
+public class Java_assignment {
+
+    public static final String USERFILE = System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\java_assignment\\Users.txt";
 
     private static ArrayList<Student> students = new ArrayList<>();
     private static ArrayList<Admin> admins = new ArrayList<>();
@@ -48,7 +57,7 @@ public class HostelManagementSystem {
             }
         }
     }
-
+    
     public static void main(String[] args) {
         initUsers();
         for (Student student : students) {

@@ -1,8 +1,14 @@
-package main.java;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.java_assignment;
 
-// class for admin user
+/**
+ *
+ * @author KZ
+ */
 public class Admin extends User {
-
     // constructor
     public Admin(String ID, String name, String email, String username, String password) {
         super(ID, name, email, username, password);

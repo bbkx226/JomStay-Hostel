@@ -1,4 +1,8 @@
-package main.java;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.java_assignment;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,10 +11,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
-// A utility class for reading and writing files
+/**
+ *
+ * @author KZ
+ */
 public final class FileUtils {
-
+    
     public static ArrayList<String> readLines(String filePath) {
         /**
         Reads the lines from the specified file and returns them as an ArrayList of strings.
@@ -92,5 +98,5 @@ public final class FileUtils {
             e.printStackTrace();
         }
     }
-
+    
 }

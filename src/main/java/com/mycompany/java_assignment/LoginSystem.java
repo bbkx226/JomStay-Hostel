@@ -1,23 +1,29 @@
-package main.java;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Singleton.java to edit this template
+ */
+package com.mycompany.java_assignment;
 
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
 /**
- * LoginRecords
+ *
+ * @author KZ
  */
 public class LoginSystem {
     private static ArrayList<Login> loginRecords;
-
+    
     private LoginSystem() {
         loginRecords = new ArrayList<>();
     }
-
+    
     public static LoginSystem getInstance() {
         return LoginSystemHolder.INSTANCE;
     }
-
+    
     private static class LoginSystemHolder {
+
         private static final LoginSystem INSTANCE = new LoginSystem();
     }
     
@@ -55,5 +61,4 @@ public class LoginSystem {
         }
         return searchResults;
     }
-
 }
