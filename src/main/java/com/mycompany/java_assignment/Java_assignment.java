@@ -57,9 +57,18 @@ public class Java_assignment {
             }
         }
     }
+
+    private static void initMenus() {
+        Menu welcomeMenu = new Menu("Welcome to the Hostel Management System.\n");
+        welcomeMenu.addOption("Student Login");
+        welcomeMenu.addOption("Admin Login");
+        welcomeMenu.addOption("Student Registration");
+        welcomeMenu.addOption("Exit");
+    }
     
     public static void main(String[] args) {
         initUsers();
+        initMenus();
         for (Student student : students) {
             System.out.println(student.toString());
         }
