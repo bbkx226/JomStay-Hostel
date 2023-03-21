@@ -14,7 +14,11 @@ public class Admin extends User {
         super(ID, name, email, username, password);
     }
 
-    // System login record for authentication and authorisation process
+    // (display) system login record for authentication and authorisation process
+    public void displayLoginRecord() {
+        System.out.println(LoginSystem.loginRecordsToString());
+    }
+
     // Add/update/read/delete hostel room information
     // Manage students’ hostel application
     // Check students’ record
