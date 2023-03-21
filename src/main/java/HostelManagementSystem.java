@@ -7,6 +7,8 @@ import java.time.format.DateTimeParseException;
 
 // main class
 public class HostelManagementSystem {
+    public static final String USERFILE = "JavaOOP/src/main/java/Users.txt";
+
     private static ArrayList<Student> students = new ArrayList<>();
     private static ArrayList<Admin> admins = new ArrayList<>();
 
@@ -18,7 +20,7 @@ public class HostelManagementSystem {
         Otherwise, a Student object is created and added to the students ArrayList.
         @throws ParseException if there is an error parsing the date of birth from the text file
         */
-        ArrayList<String> lines = FileUtils.readLines("Users.txt");
+        ArrayList<String> lines = FileUtils.readLines(USERFILE);
         for (String line : lines) {
             String[] lineArr = line.split(" ");
             String ID = lineArr[0];
@@ -49,5 +51,8 @@ public class HostelManagementSystem {
 
     public static void main(String[] args) {
         initUsers();
+        for (Student student : students) {
+            System.out.println(student.toString());
+        }
     }
 }
