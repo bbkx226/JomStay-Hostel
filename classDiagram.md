@@ -1,8 +1,17 @@
 ## Class Diagram
 > +: public
+
 > -: private
+
 > #: protected
+
 > ~: package (no syntax)
+
+**Utilities**
+```
+---
++ readFileLines(filename) : ArrayList(String)
+```
 
 **User**
 ```
@@ -25,18 +34,34 @@
 ```
 
 **Admin** (extends User)
+
 **Student** (extends User)
 ```
-- phoneNo : long
+- gender : String
+- phoneNo : String
 - ICNo : String
 - DOB : Date
 ---
-+ setPhoneNo(long) : void
++ setGender(String) : void
++ setPhoneNo(String) : void
 + setICNo(String) : void
 + setDOB(Date) : void
-+ getPhoneNo() : long
++ getGender() : String
++ getPhoneNo() : String
 + getICNo() : String
 + getDOB() : Date
+```
+
+**UserDatabase**
+```
+- database : HashMap(String(ID), User)
+---
++ getAllUsers() : HashMap(String(ID), User)
++ addUser(User) : void
++ getUser(ID) : User
++ getUser(String(searchParameter), String(searchValue)) : User
++ delUser(ID) : void
++ writeToFile(String(filename)) : void
 ```
 
 **Hostel**
@@ -44,16 +69,16 @@
 - ID : String
 - name : String
 - address : String
-- phoneNo : long
+- phoneNo : String
 ---
 + setID(String) : void
 + setName(String) : void
 + setAddress(String) : void
-+ setPhoneNo(long) : void
++ setPhoneNo(String) : void
 + getID() : String
 + getName() : String
 + getAddress() : String
-+ getPhoneNo() : long
++ getPhoneNo() : String
 ```
 
 **Room**
@@ -109,11 +134,14 @@
 - ID : String
 - reservationID : String
 - paymentAmt : double
+- paymentDateTime : DateTime
 - (optional) feedbackID : String
 ---
 + setID(String) : void
 + setReservationID(String) : void
 + setPaymentAmt(double) : void
++ setPaymentDateTime(DateTime) : void
++ setPaymentDateTimeString(String(dateTime), String(format)) : 
 + (optional) setFeedbackID(String) : void
 + getID() : String
 + getReservationID() : String
@@ -143,13 +171,15 @@
 + getCloseTimeString(String(format)) : String
 ```
 
-***Login** (optional)*
+**Login**
 (details about system login records for authentication & authorization)
 ```
 - userID : String
 - timestamp : DateTime
 - status (success/fail) : bool
+- loginRecords : HashMap(String(userID), Login)
 ---
++ (constructor) Login(username, password) : bool
 + setTimestamp(DateTime) : void
 + setTimestampString(String(datetime), String(format)) : void
 + setStatus(bool) : void

@@ -38,6 +38,11 @@ You are also required to identify the relationship among the entities and also d
 - Students should use text files for storing and retrieving data required for the system.
 - Not allowed to use any database tools like access / oracle etc.
 
+## Extra / Additional / Roadmap Features
+- reserve ID for a new entity when an old entity is deleted
+- requires old password when changing password
+- text file formatting & formatted reading & writing
+
 ## Entities & Attributes
 
 **User**
