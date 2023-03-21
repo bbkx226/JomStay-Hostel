@@ -3,9 +3,12 @@ package main.java;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-
+// main class
 public class HostelManagementSystem {
     private static ArrayList<Student> students = new ArrayList<>();
     private static ArrayList<Admin> admins = new ArrayList<>();
@@ -35,10 +38,11 @@ public class HostelManagementSystem {
                 String phoneNo = lineArr[6];
                 String NRIC = lineArr[7];
                 String dobString = lineArr[8];
-                Date dob = null;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
+                LocalDate dob = null;
                 try {
-                    dob = new SimpleDateFormat("yyyyMMdd").parse(dobString);
-                } catch (ParseException e) {
+                    dob = LocalDate.parse(dobString);
+                } catch (DateTimeParseException e) {
                     e.printStackTrace();
                 }
                 Student student = new Student(ID, name, email, username, password, gender, phoneNo, NRIC, dob);
