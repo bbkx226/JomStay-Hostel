@@ -19,7 +19,9 @@ This coursework requires students to identify the problem domain for a hostel ma
 - Manage students’ hostel application
 - Check students’ record
 - Generate report such as monthly income, number of rooms available, etc.
-  2.Student
+
+2.Student
+
 - System login record for authentication and authorisation process
 - Make hostel application
 - Check and read information for available hostel room
