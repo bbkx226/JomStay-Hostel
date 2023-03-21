@@ -11,27 +11,14 @@ import java.time.LocalDateTime;
  *
  * @author KZ
  */
-public class LoginSystem {
+public final class LoginSystem {
     private static ArrayList<Login> loginRecords;
-    
-    private LoginSystem() {
-        loginRecords = new ArrayList<>();
-    }
-    
-    public static LoginSystem getInstance() {
-        return LoginSystemHolder.INSTANCE;
-    }
-    
-    private static class LoginSystemHolder {
-
-        private static final LoginSystem INSTANCE = new LoginSystem();
-    }
     
     public static ArrayList<Login> getLoginRecords() {
         return loginRecords;
     }
 
-    public ArrayList<Login> searchLogin(String userID) {
+    public static ArrayList<Login> searchLogin(String userID) {
         ArrayList<Login> searchResults = new ArrayList<>();
         for (Login login : loginRecords) {
             if (login.getUserID().contains(userID)) {
@@ -41,7 +28,7 @@ public class LoginSystem {
         return searchResults;
     }
 
-    public ArrayList<Login> searchLogin(LocalDateTime startTime, LocalDateTime endTime) {
+    public static ArrayList<Login> searchLogin(LocalDateTime startTime, LocalDateTime endTime) {
         ArrayList<Login> searchResults = new ArrayList<>();
         for (Login login : loginRecords) {
             LocalDateTime timestamp = login.getTimestamp();
@@ -52,7 +39,7 @@ public class LoginSystem {
         return searchResults;
     }
     
-    public ArrayList<Login> searchLogin(boolean status) {
+    public static ArrayList<Login> searchLogin(boolean status) {
         ArrayList<Login> searchResults = new ArrayList<>();
         for (Login login : loginRecords) {
             if (login.getStatus() == status) {
@@ -60,5 +47,13 @@ public class LoginSystem {
             }
         }
         return searchResults;
+    }
+
+    public static String loginRecordsToString() {
+        String result = "";
+        for (Login login : loginRecords) {
+            result += login.toString() + "\n";
+        }
+        return result;
     }
 }
