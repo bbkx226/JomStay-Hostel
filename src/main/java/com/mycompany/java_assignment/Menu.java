@@ -39,7 +39,7 @@ public class Menu {
     public void display() {
         System.out.println(title);
         for (int i = 0; i < options.size(); i++) {
-            System.out.printf(" [%d] %s\n", i, options.get(i));
+            System.out.printf(" [%d] %s\n", i + 1, options.get(i));
         }
         System.out.print("Enter your choice: ");
     }

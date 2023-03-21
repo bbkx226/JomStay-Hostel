@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 /**
  *
@@ -16,10 +17,13 @@ import java.time.format.DateTimeParseException;
  */
 public class Java_assignment {
 
-    public static final String USERFILE = System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\java_assignment\\Users.txt";
+    public static final String USER_FILE = System.getProperty("user.dir") + "\\src\\main\\java\\com\\mycompany\\java_assignment\\Users.txt";
+    public static final String INVALID_INPUT_MESSAGE = "*** Invalid input ***";
 
     private static ArrayList<Student> students = new ArrayList<>();
     private static ArrayList<Admin> admins = new ArrayList<>();
+
+    private static Menu welcomeMenu;
 
     private static void initUsers() {
         /**
@@ -29,7 +33,7 @@ public class Java_assignment {
         Otherwise, a Student object is created and added to the students ArrayList.
         @throws ParseException if there is an error parsing the date of birth from the text file
         */
-        ArrayList<String> lines = FileUtils.readLines(USERFILE);
+        ArrayList<String> lines = FileUtils.readLines(USER_FILE);
         for (String line : lines) {
             String[] lineArr = line.split(" ");
             String ID = lineArr[0];
@@ -59,18 +63,46 @@ public class Java_assignment {
     }
 
     private static void initMenus() {
-        Menu welcomeMenu = new Menu("Welcome to the Hostel Management System.\n");
+        welcomeMenu = new Menu("Welcome to the Hostel Management System.\n");
         welcomeMenu.addOption("Student Login");
         welcomeMenu.addOption("Admin Login");
         welcomeMenu.addOption("Student Registration");
+        welcomeMenu.addOption("Rooms Information");
+        welcomeMenu.addOption("Hostel Information");
         welcomeMenu.addOption("Exit");
     }
     
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
         initUsers();
         initMenus();
-        for (Student student : students) {
-            System.out.println(student.toString());
+        while (true) {
+            welcomeMenu.display();
+            int choice = welcomeMenu.getInput(in);
+            switch (choice) {
+                case 1:
+                    System.out.println("Student Login");
+                    break;
+                case 2:
+                    System.out.println("Admin Login");
+                    break;
+                case 3:
+                    System.out.println("Student Registration");
+                    break;
+                case 4:
+                    System.out.println("Rooms Information");
+                    break;
+                case 5:
+                    System.out.println("Hostel Information");
+                    break;
+                case 6:
+                    System.exit(0);
+                    break;
+            
+                default:
+                    System.out.println(INVALID_INPUT_MESSAGE);
+                    break;
+            }
         }
     }
 }
