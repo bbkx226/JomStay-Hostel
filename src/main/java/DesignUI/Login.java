@@ -1,5 +1,6 @@
 package DesignUI;
 
+import Utils.FileDataHandling;
 import Utils.PasswordHandling;
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,48 +26,65 @@ public class Login extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     
-    public boolean checkCredentials(String username, String password){
+    public int checkCredentials(String username, String password){
         File file = new File("src/main/java/databases/auth.txt");
-        BufferedReader reader;
-        try {
-          reader = new BufferedReader(new FileReader(file.getAbsolutePath()));
-          String line = reader.readLine();
-          while (line != null) {
-              String[] data = line.split(" ");
-              if (data[3].equals(username) && data[4].equals(password)) {
-                  return true;
-              }
-              line = reader.readLine();
-          }
-          reader.close();
+        try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line = reader.readLine();
+            while (line != null) {
+                String[] data = line.split(" ");
+                if (data[0].contains("AD")){
+                    if (data[3].equals(username) && data[4].equals(password)) {
+                        return 1;
+                    }
+                } 
+                if (data[0].contains("ST")){
+                    if (data[3].equals(username) && data[6].equals(password)) {
+                        FileDataHandling.updateLoginTime(data[0]);
+                        return 2;
+                    }
+                }
+                line = reader.readLine();
+            }
+            reader.close();
         } catch(IOException e){
            e.printStackTrace();
         }
-        return false;
+        return 0;
     }
     
     private void checkIfExist(){
         String username = nameBox.getText();
-        String password = passBox.getText();
+        String password = new String(passBox.getPassword());
         String decryptedPass = PasswordHandling.decrypt(password);
         
         if (username.equals("") || password.equals("")){
             JOptionPane.showMessageDialog(null, "Please ensure you've fill in every text field", "Friendly Reminder", JOptionPane.QUESTION_MESSAGE);
         } else {
-            if (checkCredentials(username, decryptedPass)){
-                JOptionPane.showMessageDialog(null, 
-                                              "Login Successful!", 
-                                              "Popup Window", 
-                                              JOptionPane.INFORMATION_MESSAGE);
-                setVisible(false);
-                new Hostel().start();
-            } else {
-                nameBox.setText("");
-                passBox.setText("");
-                JOptionPane.showMessageDialog(null, 
-                                              "Invalid credentials, please try again",
-                                              "Wrong credentials",
-                                              JOptionPane.ERROR_MESSAGE);
+            switch (checkCredentials(username, decryptedPass)) {
+                case 1 -> {
+                    JOptionPane.showMessageDialog(null,
+                            "Authentication Successful!",
+                            "Popup Window",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    setVisible(false);
+                    new HostelAD().start();
+                }
+                case 2 -> {
+                    JOptionPane.showMessageDialog(null,
+                            "Login Successful!",
+                            "Popup Window",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    setVisible(false);
+                    new HostelST().start();
+                }
+                default -> {
+                    nameBox.setText("");
+                    passBox.setText("");
+                    JOptionPane.showMessageDialog(null,
+                            "Invalid credentials, please try again",
+                            "Wrong credentials",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
         
@@ -83,8 +101,8 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         nameBox = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
-        passBox = new javax.swing.JTextField();
         registerButton = new javax.swing.JButton();
+        passBox = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -148,21 +166,21 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(53, 53, 53)
                                 .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(passBox))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(nameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(passBox))))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                                    .addComponent(nameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +259,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginButton;
     private javax.swing.JTextField nameBox;
-    private javax.swing.JTextField passBox;
+    private javax.swing.JPasswordField passBox;
     private javax.swing.JButton registerButton;
     // End of variables declaration//GEN-END:variables
 }
