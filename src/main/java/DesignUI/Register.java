@@ -55,7 +55,7 @@ public class Register extends javax.swing.JFrame {
             } else if (EmailValidator.isValidEmail(email) && PasswordHandling.checkPassword(password, confirmPassword) && FileDataHandling.validateData(username, email)){
                 String EncryptedPass = PasswordHandling.encrypt(password);
                 writer = new BufferedWriter(new FileWriter(file.getAbsolutePath(), true));
-                writer.append("ST" + String.format("%03d", FileDataHandling.getID()+1) + " " + formattedName + " " + email + " " + username + " " + gender + " " + EncryptedPass);
+                writer.append("ST" + String.format("%03d", FileDataHandling.getID()+1) + " " + formattedName + " " + email + " " + username + " " + gender + " " + "date" + " " + EncryptedPass);
                 writer.newLine();
                 writer.close();
                 JOptionPane.showMessageDialog(

@@ -1,5 +1,6 @@
 package DesignUI;
 
+import Utils.FileDataHandling;
 import Utils.PasswordHandling;
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,24 +26,30 @@ public class Login extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     
-    public boolean checkCredentials(String username, String password){
+    public int checkCredentials(String username, String password){
         File file = new File("src/main/java/databases/auth.txt");
-        BufferedReader reader;
-        try {
-          reader = new BufferedReader(new FileReader(file.getAbsolutePath()));
-          String line = reader.readLine();
-          while (line != null) {
-              String[] data = line.split(" ");
-              if (data[3].equals(username) && data[4].equals(password)) {
-                  return true;
-              }
-              line = reader.readLine();
-          }
-          reader.close();
+        try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line = reader.readLine();
+            while (line != null) {
+                String[] data = line.split(" ");
+                if (data[0].contains("AD")){
+                    if (data[3].equals(username) && data[4].equals(password)) {
+                        return 1;
+                    }
+                } 
+                if (data[0].contains("ST")){
+                    if (data[3].equals(username) && data[6].equals(password)) {
+                        FileDataHandling.updateLoginTime(data[0]);
+                        return 2;
+                    }
+                }
+                line = reader.readLine();
+            }
+            reader.close();
         } catch(IOException e){
            e.printStackTrace();
         }
-        return false;
+        return 0;
     }
     
     private void checkIfExist(){
@@ -53,20 +60,31 @@ public class Login extends javax.swing.JFrame {
         if (username.equals("") || password.equals("")){
             JOptionPane.showMessageDialog(null, "Please ensure you've fill in every text field", "Friendly Reminder", JOptionPane.QUESTION_MESSAGE);
         } else {
-            if (checkCredentials(username, decryptedPass)){
-                JOptionPane.showMessageDialog(null, 
-                                              "Login Successful!", 
-                                              "Popup Window", 
-                                              JOptionPane.INFORMATION_MESSAGE);
-                setVisible(false);
-                new Hostel().start();
-            } else {
-                nameBox.setText("");
-                passBox.setText("");
-                JOptionPane.showMessageDialog(null, 
-                                              "Invalid credentials, please try again",
-                                              "Wrong credentials",
-                                              JOptionPane.ERROR_MESSAGE);
+            switch (checkCredentials(username, decryptedPass)) {
+                case 1 -> {
+                    JOptionPane.showMessageDialog(null,
+                            "Authentication Successful!",
+                            "Popup Window",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    setVisible(false);
+                    new HostelAD().start();
+                }
+                case 2 -> {
+                    JOptionPane.showMessageDialog(null,
+                            "Login Successful!",
+                            "Popup Window",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    setVisible(false);
+                    new HostelST().start();
+                }
+                default -> {
+                    nameBox.setText("");
+                    passBox.setText("");
+                    JOptionPane.showMessageDialog(null,
+                            "Invalid credentials, please try again",
+                            "Wrong credentials",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
         

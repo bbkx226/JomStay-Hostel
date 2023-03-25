@@ -1,9 +1,13 @@
 package Utils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -15,18 +19,15 @@ public class FileDataHandling {
     
     public static int getID() {
         File file = new File(PATH);
-        BufferedReader reader;
-        try {
-            reader = new BufferedReader(new FileReader(file.getAbsolutePath()));
-            String line = reader.readLine();
-            while (line != null) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 String[] data = line.split(" ");
                 if (data[0].contains("ST")) {
                     count++;
                 }
-                line = reader.readLine();
-        }
-        reader.close();
+            }
+            reader.close();
         } catch(IOException e){
            e.printStackTrace();
         }
@@ -39,11 +40,9 @@ public class FileDataHandling {
     
     public static boolean validateData(String username, String email){
         File file = new File(PATH);
-        BufferedReader reader;
-        try {
-            reader = new BufferedReader(new FileReader(file.getAbsolutePath()));
-            String line = reader.readLine();
-            while (line != null) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 String[] data = line.split(" ");
                 if (data[0].contains("ST")) {
                     System.out.println(username + " " + email + " " + data[3] + " " + data[4]);
@@ -54,12 +53,37 @@ public class FileDataHandling {
                         return false;
                     }
                 }
-                line = reader.readLine();
-        }
-        reader.close();
+            }
+            reader.close();
         } catch(IOException e){
            e.printStackTrace();
         }
         return true;
+    }
+    
+    public static void updateLoginTime(String ID){
+        File file = new File(PATH);
+        String content = "";
+        FileWriter writer;     
+        LocalDateTime currentLocalDateTime = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
+        String dateTime = currentLocalDateTime.format(dateTimeFormatter);
+        System.out.println(dateTime);
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))){ 
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(" ");
+                if (ID.equals(data[0])) {
+                    line = line.replace(data[5], dateTime);
+                }
+                content += line + System.lineSeparator();    
+            }
+            writer = new FileWriter(file);
+            writer.write(content);
+            reader.close();
+            writer.close();
+        } catch(IOException e){
+           e.printStackTrace();
+        }
     }
 }
