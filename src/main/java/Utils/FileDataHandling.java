@@ -1,7 +1,6 @@
 package Utils;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -44,14 +43,9 @@ public class FileDataHandling {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(" ");
-                if (data[0].contains("ST")) {
-                    System.out.println(username + " " + email + " " + data[3] + " " + data[4]);
-                    if(email.equals(data[2])){
-                        return false;
-                    }
-                    if(username.equals(data[3])){
-                        return false;
-                    }
+                System.out.println(email + " " + username + " " + data[2] + " " + data[3]);
+                if (email.equals(data[2]) || username.equals(data[3])) {
+                    return false;
                 }
             }
             reader.close();

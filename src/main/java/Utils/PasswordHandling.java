@@ -39,4 +39,52 @@ public class PasswordHandling {
     public static String decrypt(String pass){
         return encrypt(pass);
     }
+    
+    public static String getPasswordStrength(String password) {
+        // Minimum length requirement
+        int minLength = 8;
+        if (password.length() < minLength) {
+            return "Weak";
+        }
+
+        // Initialize score
+        int score = 0;
+
+        // Check for at least one uppercase letter
+        if (password.matches(".*[A-Z].*")) {
+            score += 2;
+        }
+
+        // Check for at least one lowercase letter
+        if (password.matches(".*[a-z].*")) {
+            score += 2;
+        }
+
+        // Check for at least one digit
+        if (password.matches(".*\\d.*")) {
+            score += 2;
+        }
+
+        // Check for at least one special character
+        if (password.matches(".*[@$!%*?&].*")) {
+            score += 2;
+        }
+
+        // Add bonus points for length and complexity
+        score += Math.min(2, password.length() / 8);
+        score += Math.min(2, (password.matches(".*[a-z].*") ? 1 : 0)
+                            + (password.matches(".*[A-Z].*") ? 1 : 0)
+                            + (password.matches(".*\\d.*") ? 1 : 0)
+                            + (password.matches(".*[@$!%*?&].*") ? 1 : 0));
+
+        // Determine strength based on score
+        if (score <= 4) {
+            return "Weak";
+        } else if (score <= 8) {
+            return "Moderate";
+        } else {
+            return "Strong";
+        }
+    }
+
 }

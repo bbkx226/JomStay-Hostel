@@ -38,8 +38,8 @@ public class Register extends javax.swing.JFrame {
         String fullName = fullNameBox.getText();
         String email = emailBox.getText();
         String username = userNameBox.getText();
-        String password = passwordBox.getText();
-        String confirmPassword = confirmPasswordBox.getText();
+        String password = new String(passwordBox.getPassword());
+        String confirmPassword = new String(confirmPasswordBox.getPassword());
         String gender = (String) genderDropbox.getModel().getSelectedItem();
         String formattedName = FileDataHandling.nameWithSpaces(fullName);
         
@@ -52,7 +52,7 @@ public class Register extends javax.swing.JFrame {
                         "Friendly Reminder", 
                         JOptionPane.QUESTION_MESSAGE
                 );
-            } else if (EmailValidator.isValidEmail(email) && PasswordHandling.checkPassword(password, confirmPassword) && FileDataHandling.validateData(username, email)){
+            } else if (EmailValidator.isValidEmail(email) && PasswordHandling.checkPassword(password, confirmPassword) && FileDataHandling.validateData(username, email) && PasswordHandling.getPasswordStrength(password).equals("Strong")){
                 String EncryptedPass = PasswordHandling.encrypt(password);
                 writer = new BufferedWriter(new FileWriter(file.getAbsolutePath(), true));
                 writer.append("ST" + String.format("%03d", FileDataHandling.getID()+1) + " " + formattedName + " " + email + " " + username + " " + gender + " " + "date" + " " + EncryptedPass);
@@ -93,6 +93,15 @@ public class Register extends javax.swing.JFrame {
                             "Account Exists!", 
                             JOptionPane.ERROR_MESSAGE
                     );  
+                } else if(PasswordHandling.getPasswordStrength(password).equals("Weak") || PasswordHandling.getPasswordStrength(password).equals("Moderate")){
+                    passwordBox.setText("");
+                    confirmPasswordBox.setText("");
+                    JOptionPane.showMessageDialog(
+                    null, 
+                    "Your password must have at least 8 characters and include one uppercase and lowercase letter, one digit, and one special character.",
+                    "Password Strength: Weak!", 
+                    JOptionPane.ERROR_MESSAGE
+                    );                    
                 }
             }
         } catch(IOException e){
@@ -111,14 +120,14 @@ public class Register extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         userNameBox = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        passwordBox = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        confirmPasswordBox = new javax.swing.JTextField();
         genderDropbox = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         confirmButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        passwordBox = new javax.swing.JPasswordField();
+        confirmPasswordBox = new javax.swing.JPasswordField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -170,35 +179,37 @@ public class Register extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fullNameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(passwordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(emailBox, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(confirmPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(genderDropbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userNameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(37, 37, 37))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(194, 194, 194))
+                .addContainerGap(81, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(194, 194, 194))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(fullNameBox, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(passwordBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(emailBox, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6)
+                            .addComponent(confirmPasswordBox))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(genderDropbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userNameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(37, 37, 37))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,15 +243,15 @@ public class Register extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(passwordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(passwordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(confirmPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(genderDropbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(genderDropbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
@@ -297,7 +308,7 @@ public class Register extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JButton confirmButton;
-    private javax.swing.JTextField confirmPasswordBox;
+    private javax.swing.JPasswordField confirmPasswordBox;
     private javax.swing.JTextField emailBox;
     private javax.swing.JTextField fullNameBox;
     private javax.swing.JComboBox<String> genderDropbox;
@@ -309,7 +320,7 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField passwordBox;
+    private javax.swing.JPasswordField passwordBox;
     private javax.swing.JTextField userNameBox;
     // End of variables declaration//GEN-END:variables
 }
