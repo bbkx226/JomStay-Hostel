@@ -62,7 +62,7 @@ public class FileDataHandling {
         LocalDateTime currentLocalDateTime = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
         String dateTime = currentLocalDateTime.format(dateTimeFormatter);
-        System.out.println(dateTime);
+
         try (BufferedReader reader = new BufferedReader(new FileReader(file))){ 
             String line;
             while ((line = reader.readLine()) != null) {
