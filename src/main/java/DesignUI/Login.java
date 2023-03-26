@@ -2,10 +2,12 @@ package DesignUI;
 
 import Utils.FileDataHandling;
 import Utils.PasswordHandling;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -62,28 +64,43 @@ public class Login extends javax.swing.JFrame {
         } else {
             switch (checkCredentials(username, decryptedPass)) {
                 case 1 -> {
+                    ImageIcon authenticateIcon = new ImageIcon("src/main/java/assets/authentication.png");
+                    Image image = authenticateIcon.getImage(); // transform it 
+                    Image newimg = image.getScaledInstance(96, 96,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+                    authenticateIcon = new ImageIcon(newimg); 
                     JOptionPane.showMessageDialog(null,
                             "Authentication Successful!",
                             "Popup Window",
-                            JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.INFORMATION_MESSAGE,
+                            authenticateIcon);
                     setVisible(false);
                     new HostelAD().start();
                 }
                 case 2 -> {
+                    ImageIcon tickIcon = new ImageIcon("src/main/java/assets/tick.png");
+                    Image image = tickIcon.getImage(); // transform it 
+                    Image newimg = image.getScaledInstance(96, 96,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+                    tickIcon = new ImageIcon(newimg); 
                     JOptionPane.showMessageDialog(null,
                             "Login Successful!",
                             "Popup Window",
-                            JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.INFORMATION_MESSAGE,
+                            tickIcon);
                     setVisible(false);
                     new HostelST().start();
                 }
                 default -> {
+                    ImageIcon cancelIcon = new ImageIcon("src/main/java/assets/cancel.png");
+                    Image image = cancelIcon.getImage(); // transform it 
+                    Image newimg = image.getScaledInstance(96, 96,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+                    cancelIcon = new ImageIcon(newimg); 
                     nameBox.setText("");
                     passBox.setText("");
                     JOptionPane.showMessageDialog(null,
                             "Invalid credentials, please try again",
                             "Wrong credentials",
-                            JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.ERROR_MESSAGE,
+                            cancelIcon);
                 }
             }
         }
@@ -140,6 +157,7 @@ public class Login extends javax.swing.JFrame {
 
         loginButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         loginButton.setText("Login");
+        loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButtonActionPerformed(evt);
@@ -148,6 +166,7 @@ public class Login extends javax.swing.JFrame {
 
         registerButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         registerButton.setText("Register");
+        registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerButtonActionPerformed(evt);
@@ -212,7 +231,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        setVisible(false);
+        dispose();
         new Register().start();
     }//GEN-LAST:event_registerButtonActionPerformed
 

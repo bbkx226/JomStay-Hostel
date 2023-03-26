@@ -23,9 +23,6 @@ public class Register extends javax.swing.JFrame {
     }
     
     public void start() {
-        Splash screen = new Splash();
-        screen.setVisible(true);
-        screen.dispose();
         new Register().setVisible(true);
     }
     /**
@@ -161,6 +158,7 @@ public class Register extends javax.swing.JFrame {
 
         confirmButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         confirmButton.setText("Confirm");
+        confirmButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         confirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmButtonActionPerformed(evt);
@@ -168,6 +166,7 @@ public class Register extends javax.swing.JFrame {
         });
 
         backButton.setText("<");
+        backButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
@@ -266,7 +265,7 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_confirmButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        setVisible(false);
+        dispose();
         new Login().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
