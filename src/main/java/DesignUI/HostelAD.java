@@ -33,8 +33,7 @@ public class HostelAD extends javax.swing.JFrame {
         yesOrNo = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         hostelIcon = new javax.swing.JLabel();
-        checkoutIcon = new javax.swing.JLabel();
-        checkinIcon = new javax.swing.JLabel();
+        applicationIcon = new javax.swing.JLabel();
         signoutIcon = new javax.swing.JLabel();
         students = new javax.swing.JLabel();
         reportsIcon = new javax.swing.JLabel();
@@ -75,21 +74,22 @@ public class HostelAD extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
+        hostelIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         hostelIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         hostelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/hostel.png"))); // NOI18N
+        hostelIcon.setText("Rooms");
         hostelIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        checkoutIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        checkoutIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        checkoutIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/checkout.png"))); // NOI18N
-        checkoutIcon.setText("Check-Out");
-        checkoutIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        checkinIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        checkinIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        checkinIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/check-in.png"))); // NOI18N
-        checkinIcon.setText("Check-In");
-        checkinIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        applicationIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        applicationIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        applicationIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/application.png"))); // NOI18N
+        applicationIcon.setText("Application");
+        applicationIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        applicationIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                applicationIconMouseClicked(evt);
+            }
+        });
 
         signoutIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         signoutIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -119,17 +119,15 @@ public class HostelAD extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(37, 37, 37)
                 .addComponent(hostelIcon)
-                .addGap(91, 91, 91)
-                .addComponent(checkinIcon)
-                .addGap(72, 72, 72)
-                .addComponent(checkoutIcon)
-                .addGap(71, 71, 71)
+                .addGap(145, 145, 145)
+                .addComponent(applicationIcon)
+                .addGap(130, 130, 130)
                 .addComponent(students)
-                .addGap(89, 89, 89)
+                .addGap(122, 122, 122)
                 .addComponent(reportsIcon)
-                .addGap(94, 94, 94)
+                .addGap(163, 163, 163)
                 .addComponent(signoutIcon)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -137,13 +135,11 @@ public class HostelAD extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(signoutIcon)
-                        .addComponent(reportsIcon)
-                        .addComponent(students)
-                        .addComponent(checkoutIcon)
-                        .addComponent(checkinIcon))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(signoutIcon)
+                    .addComponent(reportsIcon)
+                    .addComponent(students)
+                    .addComponent(applicationIcon)
                     .addComponent(hostelIcon))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
@@ -546,6 +542,11 @@ public class HostelAD extends javax.swing.JFrame {
             searchRoom();
         }
     }//GEN-LAST:event_searchBoxKeyPressed
+
+    private void applicationIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationIconMouseClicked
+        dispose();
+        new ApplicationAD().start();
+    }//GEN-LAST:event_applicationIconMouseClicked
     
     public void start() {
         new HostelAD().setVisible(true);
@@ -566,7 +567,6 @@ public class HostelAD extends javax.swing.JFrame {
         roomPax.setText(String.valueOf(room.getPax()));
         roomPrice.setText(String.valueOf(room.getPricePerPax()));
     }
-    
     
     private int getValidIndex(int index) {
         if (index >= rooms.size()) {
@@ -748,8 +748,7 @@ public class HostelAD extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
-    private javax.swing.JLabel checkinIcon;
-    private javax.swing.JLabel checkoutIcon;
+    private javax.swing.JLabel applicationIcon;
     private javax.swing.JButton doneButton;
     private javax.swing.JButton firstQuery;
     private javax.swing.JLabel hostelIcon;
