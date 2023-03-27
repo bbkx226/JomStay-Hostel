@@ -97,17 +97,15 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="hostelIcon" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-                  <Component id="checkinIcon" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                  <Component id="checkoutIcon" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
+                  <Component id="applicationIcon" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
                   <Component id="students" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                   <Component id="reportsIcon" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
                   <Component id="signoutIcon" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -117,15 +115,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="signoutIcon" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="reportsIcon" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="students" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkoutIcon" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkinIcon" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="hostelIcon" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="signoutIcon" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="reportsIcon" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="students" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="applicationIcon" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="hostelIcon" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="32" max="32767" attributes="0"/>
               </Group>
@@ -135,44 +130,36 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="hostelIcon">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="18" style="1"/>
+            </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/assets/hostel.png"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Rooms"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="checkoutIcon">
+        <Component class="javax.swing.JLabel" name="applicationIcon">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/assets/checkout.png"/>
+              <Image iconType="3" name="/assets/application.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Check-Out"/>
+            <Property name="text" type="java.lang.String" value="Application"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="checkinIcon">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="18" style="1"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/assets/check-in.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Check-In"/>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
-            </Property>
-          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="applicationIconMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="signoutIcon">
           <Properties>
