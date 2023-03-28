@@ -7,7 +7,7 @@ public class Application {
     private Student student;
     private Room room;
 
-    public Application(String applicationID, String status, String createDate, String startDate, String endDate, Student student, Room room) {
+    public Application(String applicationID, Student student, Room room, String status, String createDate, String startDate, String endDate) {
         this.applicationID = applicationID;
         this.status = status;
         this.createDate = createDate;
