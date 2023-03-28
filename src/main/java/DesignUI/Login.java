@@ -2,12 +2,11 @@ package DesignUI;
 
 import Utils.FileDataHandling;
 import Utils.PasswordHandling;
-import java.awt.Image;
+import Utils.PopUpWindow;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -29,6 +28,9 @@ public class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     
     public int checkCredentials(String username, String password){
+        if(username.equals("abc") && password.equals("202cb962ac59075b964b07152d234b70")){ // Default username: abc, password: 123 (For Testing Purpose)
+            return 1;
+        }
         File file = new File("src/main/java/databases/auth.txt");
         try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line = reader.readLine();
@@ -64,43 +66,20 @@ public class Login extends javax.swing.JFrame {
         } else {
             switch (checkCredentials(username, decryptedPass)) {
                 case 1 -> {
-                    ImageIcon authenticateIcon = new ImageIcon("src/main/java/assets/authentication.png");
-                    Image image = authenticateIcon.getImage(); // transform it 
-                    Image newimg = image.getScaledInstance(96, 96,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-                    authenticateIcon = new ImageIcon(newimg); 
-                    JOptionPane.showMessageDialog(null,
-                            "Authentication Successful!",
-                            "Popup Window",
-                            JOptionPane.INFORMATION_MESSAGE,
-                            authenticateIcon);
+                    PopUpWindow.showAuthenticatedMessage("Access Granted", "Authentication Success");
                     setVisible(false);
                     new HostelAD().start();
                 }
                 case 2 -> {
-                    ImageIcon tickIcon = new ImageIcon("src/main/java/assets/tick.png");
-                    Image image = tickIcon.getImage(); // transform it 
-                    Image newimg = image.getScaledInstance(96, 96,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-                    tickIcon = new ImageIcon(newimg); 
-                    JOptionPane.showMessageDialog(null,
-                            "Login Successful!",
-                            "Popup Window",
-                            JOptionPane.INFORMATION_MESSAGE,
-                            tickIcon);
+                    PopUpWindow.showSuccessfulMessage("Welcome back, " + username + "!", "Login Success!");
                     setVisible(false);
                     new HostelST().start();
                 }
                 default -> {
-                    ImageIcon cancelIcon = new ImageIcon("src/main/java/assets/cancel.png");
-                    Image image = cancelIcon.getImage(); // transform it 
-                    Image newimg = image.getScaledInstance(96, 96,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-                    cancelIcon = new ImageIcon(newimg); 
+                    PopUpWindow.showErrorMessage("Invalid credentials, please try again", "Wrong credentials");
                     nameBox.setText("");
                     passBox.setText("");
-                    JOptionPane.showMessageDialog(null,
-                            "Invalid credentials, please try again",
-                            "Wrong credentials",
-                            JOptionPane.ERROR_MESSAGE,
-                            cancelIcon);
+
                 }
             }
         }
@@ -120,9 +99,11 @@ public class Login extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
         registerButton = new javax.swing.JButton();
         passBox = new javax.swing.JPasswordField();
+        exitButton = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -173,18 +154,22 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/x.png"))); // NOI18N
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,16 +183,27 @@ public class Login extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(nameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                                    .addComponent(nameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 17, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(52, 52, 52)
+                        .addComponent(exitButton)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(exitButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1)))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(nameBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -234,6 +230,10 @@ public class Login extends javax.swing.JFrame {
         dispose();
         new Register().start();
     }//GEN-LAST:event_registerButtonActionPerformed
+
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+        dispose();
+    }//GEN-LAST:event_exitButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -271,6 +271,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel exitButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

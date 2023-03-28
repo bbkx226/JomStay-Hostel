@@ -1,8 +1,5 @@
 package DesignUI;
-/**
- *
- * @author bbkx2
- */
+
 public class Splash extends javax.swing.JFrame {
 
     /**

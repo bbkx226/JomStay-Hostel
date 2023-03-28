@@ -1,18 +1,22 @@
 package DesignUI;
 
-
-import java.awt.Image;
-import javax.swing.ImageIcon;
+import Models.Application;
+import Models.Room;
+import Utils.ApplicationHandling;
+import Utils.PopUpWindow;
+import Utils.RoomHandling;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author bbkx2
- */
 public class ApplicationAD extends javax.swing.JFrame {
-
+    private final ArrayList<Room> rooms = new RoomHandling().totalRooms;    
+    private final ArrayList<Application> totalApplications = new ApplicationHandling().totalApplications;
+    private final ArrayList<Application> pendingApplications = new ApplicationHandling().pendingApplications;
+    private int record = 0;    
     /**
-     * Creates new form ApplicationAD
+     * Creates new form Application
      */
     public ApplicationAD() {
         initComponents();
@@ -27,18 +31,6 @@ public class ApplicationAD extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        hostelIcon1 = new javax.swing.JLabel();
-        applicationIcon1 = new javax.swing.JLabel();
-        signoutIcon1 = new javax.swing.JLabel();
-        students1 = new javax.swing.JLabel();
-        reportsIcon1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        hostelIcon = new javax.swing.JLabel();
-        applicationIcon = new javax.swing.JLabel();
-        signoutIcon = new javax.swing.JLabel();
-        students = new javax.swing.JLabel();
-        reportsIcon = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         roomID = new javax.swing.JLabel();
         firstQuery = new javax.swing.JButton();
@@ -47,154 +39,43 @@ public class ApplicationAD extends javax.swing.JFrame {
         previousQuery = new javax.swing.JButton();
         searchBox = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        acceptButton = new javax.swing.JButton();
+        rejectButton = new javax.swing.JButton();
+        applicationIDBox = new javax.swing.JTextField();
+        applicationDateBox = new javax.swing.JTextField();
+        studentBox = new javax.swing.JTextField();
+        genderBox = new javax.swing.JTextField();
+        ICBox = new javax.swing.JTextField();
+        emailBox = new javax.swing.JTextField();
+        roomIDBox = new javax.swing.JTextField();
+        startDateBox = new javax.swing.JTextField();
+        endDateBox = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        roomTable = new javax.swing.JTable();
-
-        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
-
-        hostelIcon1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        hostelIcon1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        hostelIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/hostel.png"))); // NOI18N
-        hostelIcon1.setText("Rooms");
-        hostelIcon1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        applicationIcon1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        applicationIcon1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        applicationIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/application.png"))); // NOI18N
-        applicationIcon1.setText("Application");
-        applicationIcon1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        applicationIcon1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                applicationIcon1MouseClicked(evt);
-            }
-        });
-
-        signoutIcon1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        signoutIcon1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        signoutIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/log-out.png"))); // NOI18N
-        signoutIcon1.setText("Sign out");
-        signoutIcon1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        signoutIcon1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                signoutIcon1MouseClicked(evt);
-            }
-        });
-
-        students1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        students1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        students1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/student.png"))); // NOI18N
-        students1.setText("Students");
-        students1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        reportsIcon1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        reportsIcon1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        reportsIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/seo-report.png"))); // NOI18N
-        reportsIcon1.setText("Reports");
-        reportsIcon1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(hostelIcon1)
-                .addGap(145, 145, 145)
-                .addComponent(applicationIcon1)
-                .addGap(130, 130, 130)
-                .addComponent(students1)
-                .addGap(122, 122, 122)
-                .addComponent(reportsIcon1)
-                .addGap(163, 163, 163)
-                .addComponent(signoutIcon1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(signoutIcon1)
-                    .addComponent(reportsIcon1)
-                    .addComponent(students1)
-                    .addComponent(applicationIcon1)
-                    .addComponent(hostelIcon1))
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
+        applicationTable = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        hostelIcon = new javax.swing.JLabel();
+        applicationIcon = new javax.swing.JLabel();
+        signoutIcon = new javax.swing.JLabel();
+        students = new javax.swing.JLabel();
+        reportsIcon = new javax.swing.JLabel();
+        exitButton = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
-
-        hostelIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        hostelIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        hostelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/hostel.png"))); // NOI18N
-        hostelIcon.setText("Rooms");
-        hostelIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hostelIcon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hostelIconMouseClicked(evt);
+        setUndecorated(true);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
             }
         });
-
-        applicationIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        applicationIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        applicationIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/application.png"))); // NOI18N
-        applicationIcon.setText("Application");
-        applicationIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        signoutIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        signoutIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        signoutIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/log-out.png"))); // NOI18N
-        signoutIcon.setText("Sign out");
-        signoutIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        signoutIcon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                signoutIconMouseClicked(evt);
-            }
-        });
-
-        students.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        students.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        students.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/student.png"))); // NOI18N
-        students.setText("Students");
-        students.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        reportsIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        reportsIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        reportsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/seo-report.png"))); // NOI18N
-        reportsIcon.setText("Reports");
-        reportsIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(hostelIcon)
-                .addGap(145, 145, 145)
-                .addComponent(applicationIcon)
-                .addGap(130, 130, 130)
-                .addComponent(students)
-                .addGap(122, 122, 122)
-                .addComponent(reportsIcon)
-                .addGap(163, 163, 163)
-                .addComponent(signoutIcon)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(signoutIcon)
-                    .addComponent(reportsIcon)
-                    .addComponent(students)
-                    .addComponent(applicationIcon)
-                    .addComponent(hostelIcon))
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 255)));
@@ -250,39 +131,6 @@ public class ApplicationAD extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(142, 142, 142)
-                .addComponent(roomID, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(326, 383, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(firstQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(previousQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(nextQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lastQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lastQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nextQuery)
-                    .addComponent(previousQuery)
-                    .addComponent(firstQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(roomID)
-                .addContainerGap(397, Short.MAX_VALUE))
-        );
-
         searchBox.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         searchBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -301,18 +149,224 @@ public class ApplicationAD extends javax.swing.JFrame {
             }
         });
 
-        roomTable.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 255)));
-        roomTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        roomTable.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel1.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        jLabel1.setText("ID");
+
+        jLabel4.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        jLabel4.setText("Application Date");
+
+        jLabel5.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        jLabel5.setText("Student");
+
+        jLabel6.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        jLabel6.setText("Gender");
+
+        jLabel7.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        jLabel7.setText("Passport / IC No.");
+
+        jLabel8.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        jLabel8.setText("Email");
+
+        jLabel9.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        jLabel9.setText("Start Date");
+
+        jLabel10.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        jLabel10.setText("End Date");
+
+        jLabel11.setFont(new java.awt.Font("Arial", 3, 16)); // NOI18N
+        jLabel11.setText("Room ID");
+
+        acceptButton.setBackground(new java.awt.Color(153, 153, 255));
+        acceptButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        acceptButton.setForeground(new java.awt.Color(255, 255, 255));
+        acceptButton.setText("Accept");
+        acceptButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        acceptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptButtonActionPerformed(evt);
+            }
+        });
+
+        rejectButton.setBackground(new java.awt.Color(153, 153, 255));
+        rejectButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        rejectButton.setForeground(new java.awt.Color(255, 255, 255));
+        rejectButton.setText("Reject");
+        rejectButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rejectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rejectButtonActionPerformed(evt);
+            }
+        });
+
+        applicationIDBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        applicationIDBox.setText("-");
+        applicationIDBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        applicationDateBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        applicationDateBox.setText("-");
+        applicationDateBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        studentBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        studentBox.setText("-");
+        studentBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        genderBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        genderBox.setText("-");
+        genderBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        ICBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        ICBox.setText("-");
+        ICBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        emailBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        emailBox.setText("-");
+        emailBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        roomIDBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        roomIDBox.setText("-");
+        roomIDBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        startDateBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        startDateBox.setText("-");
+        startDateBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        endDateBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        endDateBox.setText("-");
+        endDateBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel7)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(441, 441, 441)
+                                .addComponent(roomID, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(roomIDBox, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(emailBox, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(firstQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(previousQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addComponent(nextQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lastQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(startDateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(applicationIDBox, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(applicationDateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(studentBox, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(genderBox, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ICBox, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(endDateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(92, 92, 92)
+                                .addComponent(acceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rejectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(88, 88, 88)))
+                        .addGap(168, 168, 168))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lastQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nextQuery)
+                    .addComponent(previousQuery)
+                    .addComponent(firstQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchButton))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(applicationIDBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(roomID))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(applicationDateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(studentBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(genderBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(ICBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(emailBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(roomIDBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(startDateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(endDateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(acceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rejectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23))
+        );
+
+        applicationTable.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 255)));
+        applicationTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        applicationTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Status", "Servicing", "Price", "Price/pax"
+                "Application ID", "Student Name", "Room Number", "Application Date", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -326,80 +380,178 @@ public class ApplicationAD extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        roomTable.getTableHeader().setReorderingAllowed(false);
-        roomTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        applicationTable.getTableHeader().setReorderingAllowed(false);
+        applicationTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                roomTableMouseClicked(evt);
+                applicationTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(roomTable);
+        jScrollPane1.setViewportView(applicationTable);
+
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+
+        hostelIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        hostelIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        hostelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/hostel.png"))); // NOI18N
+        hostelIcon.setText("Rooms");
+        hostelIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        hostelIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hostelIconMouseClicked(evt);
+            }
+        });
+
+        applicationIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        applicationIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        applicationIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/application.png"))); // NOI18N
+        applicationIcon.setText("Application");
+        applicationIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        signoutIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        signoutIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        signoutIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/log-out.png"))); // NOI18N
+        signoutIcon.setText("Sign out");
+        signoutIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        signoutIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                signoutIconMouseClicked(evt);
+            }
+        });
+
+        students.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        students.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        students.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/student.png"))); // NOI18N
+        students.setText("Students");
+        students.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        reportsIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        reportsIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        reportsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/seo-report.png"))); // NOI18N
+        reportsIcon.setText("Reports");
+        reportsIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/x.png"))); // NOI18N
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitButtonMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(hostelIcon)
+                .addGap(110, 110, 110)
+                .addComponent(applicationIcon)
+                .addGap(122, 122, 122)
+                .addComponent(students)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addComponent(reportsIcon)
+                .addGap(130, 130, 130)
+                .addComponent(signoutIcon)
+                .addGap(70, 70, 70)
+                .addComponent(exitButton)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(exitButton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(hostelIcon)
+                            .addComponent(applicationIcon)
+                            .addComponent(students)
+                            .addComponent(reportsIcon)
+                            .addComponent(signoutIcon))))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void applicationIcon1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationIcon1MouseClicked
-        dispose();
-        new ApplicationAD().start();
-    }//GEN-LAST:event_applicationIcon1MouseClicked
+    private void firstQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstQueryActionPerformed
+        showInForm(0);
+    }//GEN-LAST:event_firstQueryActionPerformed
 
-    private void signoutIcon1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signoutIcon1MouseClicked
-        int dialogResult = JOptionPane.showConfirmDialog(
-            null,
-            "Are you ready to sign out?",
-            "Popup window",
-            JOptionPane.YES_NO_OPTION
-        );
-        if (dialogResult == JOptionPane.YES_OPTION)
+    private void nextQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextQueryActionPerformed
+        record++;
+        showInForm(record);
+    }//GEN-LAST:event_nextQueryActionPerformed
+
+    private void lastQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastQueryActionPerformed
+        int total = pendingApplications.size();
+        showInForm(total - 1);
+    }//GEN-LAST:event_lastQueryActionPerformed
+
+    private void previousQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousQueryActionPerformed
+        record--;
+        showInForm(record);
+    }//GEN-LAST:event_previousQueryActionPerformed
+
+    private void searchBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBoxKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
         {
-            ImageIcon goodbyeIcon = new ImageIcon("src/main/java/assets/goodbye.png");
-            Image image = goodbyeIcon.getImage(); // transform it
-            Image newimg = image.getScaledInstance(96, 96,  java.awt.Image.SCALE_SMOOTH);
-            goodbyeIcon = new ImageIcon(newimg);
-            JOptionPane.showMessageDialog(null,
-                "Thanks for using the system, have a nice day~",
-                "Goodbye~",
-                JOptionPane.INFORMATION_MESSAGE,
-                goodbyeIcon);
-
-            setVisible(false);
-            dispose(); // Destroy screen
-            new Login().setVisible(true);
+            searchApplication();
         }
-    }//GEN-LAST:event_signoutIcon1MouseClicked
+    }//GEN-LAST:event_searchBoxKeyPressed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        searchApplication();
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
+        acceptOrRejectApplication("Accepted");
+    }//GEN-LAST:event_acceptButtonActionPerformed
+
+    private void rejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectButtonActionPerformed
+        acceptOrRejectApplication("Rejected");
+    }//GEN-LAST:event_rejectButtonActionPerformed
+
+    private void applicationTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationTableMouseClicked
+        int selectedRow = applicationTable.getSelectedRow();
+        if (selectedRow >= 0)
+        {
+            String selectedApplicationID = String.valueOf(applicationTable.getModel().getValueAt(selectedRow, 0));
+            for(Application application : pendingApplications)
+            {
+                if(application.getApplicationID().equals(selectedApplicationID))
+                {
+                    record = selectedRow;
+                    showInForm(record);
+                    break;
+                }
+            }
+        }
+    }//GEN-LAST:event_applicationTableMouseClicked
 
     private void signoutIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signoutIconMouseClicked
         int dialogResult = JOptionPane.showConfirmDialog(
@@ -410,16 +562,7 @@ public class ApplicationAD extends javax.swing.JFrame {
         );
         if (dialogResult == JOptionPane.YES_OPTION)
         {
-            ImageIcon goodbyeIcon = new ImageIcon("src/main/java/assets/goodbye.png");
-            Image image = goodbyeIcon.getImage(); // transform it
-            Image newimg = image.getScaledInstance(96, 96,  java.awt.Image.SCALE_SMOOTH);
-            goodbyeIcon = new ImageIcon(newimg);
-            JOptionPane.showMessageDialog(null,
-                "Thanks for using the system, have a nice day~",
-                "Goodbye~",
-                JOptionPane.INFORMATION_MESSAGE,
-                goodbyeIcon);
-
+            PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
             setVisible(false);
             dispose(); // Destroy screen
             new Login().setVisible(true);
@@ -431,53 +574,107 @@ public class ApplicationAD extends javax.swing.JFrame {
         new HostelAD().start();
     }//GEN-LAST:event_hostelIconMouseClicked
 
-    private void nextQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextQueryActionPerformed
-        record++;
-        showInForm(record);
-    }//GEN-LAST:event_nextQueryActionPerformed
-
-    private void lastQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastQueryActionPerformed
-        int total = rooms.size();
-        showInForm(total - 1);
-    }//GEN-LAST:event_lastQueryActionPerformed
-
-    private void previousQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousQueryActionPerformed
-        record--;
-        showInForm(record);
-    }//GEN-LAST:event_previousQueryActionPerformed
-
-    private void firstQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstQueryActionPerformed
-        showInForm(0);
-    }//GEN-LAST:event_firstQueryActionPerformed
-
-    private void searchBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBoxKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        DefaultTableModel tableModel =  (DefaultTableModel) applicationTable.getModel();
+        tableModel.setRowCount(0);     
+        for(Application application : pendingApplications)
         {
-            searchRoom();
+            tableModel.addRow(new Object[]{application.getApplicationID(),application.getStudent().getName().replace("_", " "),application.getRoom().getRoomID(),checkAndModifyDate(application.getCreateDate()),application.getStatus()});
         }
-    }//GEN-LAST:event_searchBoxKeyPressed
+        showInForm(0);
+    }//GEN-LAST:event_formComponentShown
 
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        searchRoom();
-    }//GEN-LAST:event_searchButtonActionPerformed
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+        dispose();
+    }//GEN-LAST:event_exitButtonMouseClicked
+    
+    public void start() {
+        new ApplicationAD().setVisible(true);
+    }
+    
+    private void showInForm(int index) {
+        record = getValidIndex(index);
+        Application application = pendingApplications.get(record);
+        applicationIDBox.setText(application.getApplicationID());
+        applicationDateBox.setText(checkAndModifyDate(application.getCreateDate()));
+        studentBox.setText(application.getStudent().getName().replace("_", " "));
+        genderBox.setText(application.getStudent().getGender());
+        ICBox.setText(application.getStudent().getNRIC());
+        emailBox.setText(application.getStudent().getEmail());
+        roomIDBox.setText(application.getRoom().getRoomID());
+        startDateBox.setText(checkAndModifyDate(application.getStartDate()));
+        endDateBox.setText(checkAndModifyDate(application.getEndDate()));
+    }
+    
+    private int getValidIndex(int index) {
+        if (index >= pendingApplications.size()) {
+            return 0;
+        } else if (index < 0) {
+            return pendingApplications.size() - 1;
+        }
+        return index;
+    }
+    
+    private void searchApplication() {
+        String key = searchBox.getText().trim();
+        if (key != null && key.length() > 0) {
+            key = key.substring(0, 1).toUpperCase() + key.substring(1);
+        }
+        record = findRoomRecordNumber(key);
+        if (record >= 0) {
+            showInForm(record);
+        } else {
+            PopUpWindow.showErrorMessage("Your search did not match any records", "Error 404 occurred");
+        }
+        searchBox.setText("");
+    }
 
-    private void roomTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomTableMouseClicked
-        int selectedRow = roomTable.getSelectedRow();
-        if (selectedRow >= 0)
-        {
-            String selectedRoomID = String.valueOf(roomTable.getModel().getValueAt(selectedRow, 0));
-            for(Room data: rooms)
-            {
-                if(data.getRoomID().equals(selectedRoomID))
-                {
-                    record = selectedRow;
-                    showInForm(record);
+    private int findRoomRecordNumber(String searchKey) {
+        for (int i = 0; i < pendingApplications.size(); i++) {
+            Application application = pendingApplications.get(i);
+            if (searchKey.equals(application.getApplicationID())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    private String checkAndModifyDate(String date){
+        String result = "";
+        String[] data = date.split("\\?");
+        String[] time = data[1].split(":");
+        if(Integer.parseInt(time[0]) >= 12){
+            return result + data[0] + " " + time[0] + ":" + time[1] + "PM";
+        } else {
+            return result + data[0] + " " + time[0] + ":" + time[1] + "AM";            
+        }
+    }
+    
+    private void acceptOrRejectApplication(String decision){
+        Application applicationToDecision = pendingApplications.get(record);
+        for (Application application : totalApplications){
+            if(applicationToDecision.getApplicationID().equals(application.getApplicationID())){
+                application.setStatus(decision);
+                break;
+            }
+        }
+        
+        if(decision.equals("Accepted")){
+            for(Room room : rooms){
+                if(room.getRoomID().equals(applicationToDecision.getRoom().getRoomID())){
+                    room.setStatus("Occupied");
                     break;
                 }
             }
         }
-    }//GEN-LAST:event_roomTableMouseClicked
-
+        
+        ApplicationHandling.updateApplicationFile(totalApplications);
+        RoomHandling.updateRoomFile(rooms);
+        dispose();
+        new ApplicationAD().start();
+        PopUpWindow.showSuccessfulMessage("The application details has successfully been updated~", "Congrats!");
+    }
+        
     /**
      * @param args the command line arguments
      */
@@ -504,6 +701,7 @@ public class ApplicationAD extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ApplicationAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -512,33 +710,44 @@ public class ApplicationAD extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void start() {
-        new ApplicationAD().setVisible(true);
-    }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField ICBox;
+    private javax.swing.JButton acceptButton;
+    private javax.swing.JTextField applicationDateBox;
+    private javax.swing.JTextField applicationIDBox;
     private javax.swing.JLabel applicationIcon;
-    private javax.swing.JLabel applicationIcon1;
+    private javax.swing.JTable applicationTable;
+    private javax.swing.JTextField emailBox;
+    private javax.swing.JTextField endDateBox;
+    private javax.swing.JLabel exitButton;
     private javax.swing.JButton firstQuery;
+    private javax.swing.JTextField genderBox;
     private javax.swing.JLabel hostelIcon;
-    private javax.swing.JLabel hostelIcon1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton lastQuery;
     private javax.swing.JButton nextQuery;
     private javax.swing.JButton previousQuery;
+    private javax.swing.JButton rejectButton;
     private javax.swing.JLabel reportsIcon;
-    private javax.swing.JLabel reportsIcon1;
     private javax.swing.JLabel roomID;
-    private javax.swing.JTable roomTable;
+    private javax.swing.JTextField roomIDBox;
     private javax.swing.JTextField searchBox;
     private javax.swing.JButton searchButton;
     private javax.swing.JLabel signoutIcon;
-    private javax.swing.JLabel signoutIcon1;
+    private javax.swing.JTextField startDateBox;
+    private javax.swing.JTextField studentBox;
     private javax.swing.JLabel students;
-    private javax.swing.JLabel students1;
     // End of variables declaration//GEN-END:variables
 }
