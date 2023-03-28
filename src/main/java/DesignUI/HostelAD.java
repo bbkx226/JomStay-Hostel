@@ -1,11 +1,10 @@
 package DesignUI;
 
 import Models.Room;
+import Utils.PopUpWindow;
 import Utils.RoomHandling;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -37,6 +36,7 @@ public class HostelAD extends javax.swing.JFrame {
         signoutIcon = new javax.swing.JLabel();
         students = new javax.swing.JLabel();
         reportsIcon = new javax.swing.JLabel();
+        exitButton = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         searchBox = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -66,6 +66,7 @@ public class HostelAD extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setUndecorated(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -114,6 +115,8 @@ public class HostelAD extends javax.swing.JFrame {
         reportsIcon.setText("Reports");
         reportsIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/x.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -121,26 +124,33 @@ public class HostelAD extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(hostelIcon)
-                .addGap(145, 145, 145)
+                .addGap(121, 121, 121)
                 .addComponent(applicationIcon)
-                .addGap(130, 130, 130)
+                .addGap(123, 123, 123)
                 .addComponent(students)
-                .addGap(122, 122, 122)
+                .addGap(105, 105, 105)
                 .addComponent(reportsIcon)
-                .addGap(163, 163, 163)
+                .addGap(130, 130, 130)
                 .addComponent(signoutIcon)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(exitButton)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(signoutIcon)
-                    .addComponent(reportsIcon)
-                    .addComponent(students)
-                    .addComponent(applicationIcon)
-                    .addComponent(hostelIcon))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(signoutIcon)
+                            .addComponent(reportsIcon)
+                            .addComponent(students)
+                            .addComponent(applicationIcon)
+                            .addComponent(hostelIcon)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(exitButton)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -441,23 +451,14 @@ public class HostelAD extends javax.swing.JFrame {
 
     private void signoutIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signoutIconMouseClicked
         int dialogResult = JOptionPane.showConfirmDialog(
-                null, 
-                "Are you ready to sign out?", 
-                "Popup window", 
-                JOptionPane.YES_NO_OPTION
+            null,
+            "Are you ready to sign out?",
+            "Popup window",
+            JOptionPane.YES_NO_OPTION
         );
         if (dialogResult == JOptionPane.YES_OPTION)
-        {                    
-            ImageIcon goodbyeIcon = new ImageIcon("src/main/java/assets/goodbye.png");
-            Image image = goodbyeIcon.getImage(); // transform it 
-            Image newimg = image.getScaledInstance(96, 96,  java.awt.Image.SCALE_SMOOTH);
-            goodbyeIcon = new ImageIcon(newimg); 
-            JOptionPane.showMessageDialog(null,
-            "Thanks for using the system, have a nice day~",
-            "Goodbye~",
-            JOptionPane.INFORMATION_MESSAGE,
-            goodbyeIcon);
-            
+        {
+            PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
             setVisible(false);
             dispose(); // Destroy screen
             new Login().setVisible(true);
@@ -598,7 +599,7 @@ public class HostelAD extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             flag = false;
             roomPax.setText("");
-            JOptionPane.showMessageDialog(null, "Please ensure you've entered an integer", "Invalid Integer Input", JOptionPane.ERROR_MESSAGE);
+            PopUpWindow.showFormatErrorMessage("Please ensure you've entered an integer", "Invalid Integer Input");
         }
         
         try {
@@ -609,7 +610,7 @@ public class HostelAD extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             flag = false;
             roomPrice.setText("");
-            JOptionPane.showMessageDialog(null, "Please ensure you've entered an integer", "Invalid Integer Input", JOptionPane.ERROR_MESSAGE);
+            PopUpWindow.showFormatErrorMessage("Please ensure you've entered an integer", "Invalid Integer Input");
         }
         
         if (flag) {
@@ -621,7 +622,7 @@ public class HostelAD extends javax.swing.JFrame {
                 RoomHandling.updateRoomFile(rooms);
                 setVisible(false);
                 setVisible(true);
-                showSuccessfulMessage("The room details has successfully been updated!", "Popup Window");
+                PopUpWindow.showSuccessfulMessage("Your updates to the room details have been successfully applied", "Congrats!");
             }
         }
     }
@@ -635,9 +636,9 @@ public class HostelAD extends javax.swing.JFrame {
         if (record >= 0) {
             showInForm(record);
         } else {
-            JOptionPane.showMessageDialog(null, "Your search did not match any records", "Error occurred", JOptionPane.ERROR_MESSAGE);
+            PopUpWindow.showErrorMessage("Your search did not match any records", "Error 404 occurred");
         }
-        searchField.setText("");
+        searchBox.setText("");
     }
 
     private int findRoomRecordNumber(String searchKey) {
@@ -653,7 +654,7 @@ public class HostelAD extends javax.swing.JFrame {
     private void deleteRoom(){
         String roomNo = rooms.get(record).getRoomID();
         RoomHandling.deleteRoomData(rooms, roomNo);
-        showSuccessfulMessage("The room detail has successfully been deleted!", "Popup Window");
+        PopUpWindow.showSuccessfulMessage("The room details have been deleted successfully", "Congrats!");
         dispose();
         new HostelAD().start();
         showInForm(0);
@@ -672,7 +673,7 @@ public class HostelAD extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             flag = false;
             roomPax.setText("");
-            JOptionPane.showMessageDialog(null, "Please ensure you've entered an integer", "Invalid Integer Input", JOptionPane.ERROR_MESSAGE);
+            PopUpWindow.showFormatErrorMessage("Please ensure you've entered an integer", "Invalid Integer Input");
         }
         
         try {
@@ -683,31 +684,19 @@ public class HostelAD extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             flag = false;
             roomPrice.setText("");
-            JOptionPane.showMessageDialog(null, "Please ensure you've entered an integer", "Invalid Integer Input", JOptionPane.ERROR_MESSAGE);
+            PopUpWindow.showFormatErrorMessage("Please ensure you've entered an integer", "Invalid Integer Input");
         }
         
         if (flag){
             Room roomToAppend = new Room(roomID.getText(), (String) roomStatus.getModel().getSelectedItem(), yesRadioButton.isSelected(), Integer.parseInt(roomPax.getText()), Integer.parseInt(roomPrice.getText()));
             rooms.add(roomToAppend);
             RoomHandling.appendRoomFile(rooms);
-            showSuccessfulMessage("The room detail has successfully been added!", "Popup Window");
+        PopUpWindow.showSuccessfulMessage("The room details have been added successfully", "Congrats!");
             isAppend = false;
             dispose();
             new HostelAD().start();
             showInForm(0);
         }
-    }
-    
-    private void showSuccessfulMessage(String message, String title){
-        ImageIcon tickIcon = new ImageIcon("src/main/java/assets/tick.png");
-        Image image = tickIcon.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(96, 96,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-        tickIcon = new ImageIcon(newimg); 
-        JOptionPane.showMessageDialog(null, 
-                              message, 
-                              title, 
-                              JOptionPane.INFORMATION_MESSAGE, 
-                              tickIcon);   
     }
     /**
      * @param args the command line arguments
@@ -750,6 +739,7 @@ public class HostelAD extends javax.swing.JFrame {
     private javax.swing.JButton addButton;
     private javax.swing.JLabel applicationIcon;
     private javax.swing.JButton doneButton;
+    private javax.swing.JLabel exitButton;
     private javax.swing.JButton firstQuery;
     private javax.swing.JLabel hostelIcon;
     private javax.swing.JLabel jLabel1;
