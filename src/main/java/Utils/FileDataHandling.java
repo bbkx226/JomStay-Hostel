@@ -14,7 +14,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class FileDataHandling {
     private static final String PATH = "src/main/java/databases/auth.txt";
-    private static int count = 0;
+    private static int count = 0, buffer = 0;
+    
     
     public static int getID() {
         File file = new File(PATH);
@@ -23,13 +24,15 @@ public class FileDataHandling {
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(" ");
                 if (data[0].contains("ST")) {
-                    count++;
+                    buffer++;
                 }
             }
             reader.close();
         } catch(IOException e){
            e.printStackTrace();
         }
+        count = buffer;
+        buffer = 0;
         return count;
     }
     
@@ -43,7 +46,6 @@ public class FileDataHandling {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(" ");
-                System.out.println(email + " " + username + " " + data[2] + " " + data[3]);
                 if (email.equals(data[2]) || username.equals(data[3])) {
                     return false;
                 }

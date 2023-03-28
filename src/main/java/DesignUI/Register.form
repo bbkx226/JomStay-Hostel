@@ -267,7 +267,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="NRIC"/>
+        <Property name="text" type="java.lang.String" value="NRIC / Passport"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
