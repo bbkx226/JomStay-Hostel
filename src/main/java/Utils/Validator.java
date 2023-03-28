@@ -1,6 +1,5 @@
 package Utils;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -15,8 +14,8 @@ public class Validator {
     private static final String PHONEREGEX = "^(01)[0-46-9]*[0-9]{7,8}$";
     private static final Pattern PHONEPATTERN = Pattern.compile(PHONEREGEX);
     
-    private static final String ICREGEX = "^\\d{6}\\-\\d{2}\\-\\d{4}$";
-    private static final Pattern ICPATTERN = Pattern.compile(ICREGEX);
+    // private static final String ICREGEX = "^\\d{6}\\-\\d{2}\\-\\d{4}$";
+    // private static final Pattern ICPATTERN = Pattern.compile(ICREGEX);
     
     public static boolean isValidEmail(String email) {
         return EMAILPATTERN.matcher(email).matches();
@@ -26,8 +25,8 @@ public class Validator {
         return PHONEPATTERN.matcher(phoneNumber).matches();
     }
     
-    public static boolean isValidNRIC(String nric) {
-        return ICPATTERN.matcher(nric).matches();
-    }
+    // public static boolean isValidNRIC(String nric) {
+    //    return ICPATTERN.matcher(nric).matches();
+    // }
     
 }

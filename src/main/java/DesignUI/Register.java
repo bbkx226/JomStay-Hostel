@@ -51,7 +51,7 @@ public class Register extends javax.swing.JFrame {
                         "Friendly Reminder", 
                         JOptionPane.QUESTION_MESSAGE
                 );
-            } else if (Validator.isValidEmail(email) && Validator.isValidPhone(phoneNumber) && Validator.isValidNRIC(NRIC) && PasswordHandling.checkPassword(password, confirmPassword) && FileDataHandling.validateData(username, email) && PasswordHandling.getPasswordStrength(password).equals("Strong")){
+            } else if (Validator.isValidEmail(email) && Validator.isValidPhone(phoneNumber) && PasswordHandling.checkPassword(password, confirmPassword) && FileDataHandling.validateData(username, email) && PasswordHandling.getPasswordStrength(password).equals("Strong")){
                 String EncryptedPass = PasswordHandling.encrypt(password);
                 writer = new BufferedWriter(new FileWriter(file.getAbsolutePath(), true));
                 writer.append("ST" + String.format("%03d", FileDataHandling.getID()+1) + " " + formattedName + " " + email + " " + username + " " + gender + " " + "date" + " " + EncryptedPass + " " + phoneNumber + " " + NRIC);
@@ -98,14 +98,6 @@ public class Register extends javax.swing.JFrame {
                             null, 
                             "Please re-enter your phone number",
                             "Invalid Phone Number Format!", 
-                            JOptionPane.ERROR_MESSAGE
-                    );  
-                } else if(!Validator.isValidNRIC(NRIC)){
-                    ICBox.setText("");
-                    JOptionPane.showMessageDialog(
-                            null, 
-                            "Please re-enter your NRIC",
-                            "Invalid IC Format!", 
                             JOptionPane.ERROR_MESSAGE
                     );  
                 } else if(PasswordHandling.getPasswordStrength(password).equals("Weak") || PasswordHandling.getPasswordStrength(password).equals("Moderate")){
@@ -205,7 +197,7 @@ public class Register extends javax.swing.JFrame {
 
         ICBox.setToolTipText("");
 
-        jLabel9.setText("NRIC");
+        jLabel9.setText("NRIC / Passport");
 
         jLabel10.setFont(new java.awt.Font("Arial", 2, 10)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 51, 51));
