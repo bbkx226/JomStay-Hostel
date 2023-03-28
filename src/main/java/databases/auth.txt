@@ -4,4 +4,5 @@ ST001 Brandon_Ban_Kai_Xian tp067094@mail.apu.edu.my bbkx226 Male 2023-03-27?20:5
 ST002 Benjamin_Han_Jia_Shen benjamin123@yahoo.com benjamin Male 2023-03-27?22:00 da14f030e4d77310c3860e24d40c552d 0198765432 010101-01-0101
 ST003 Yong_Jun_Fai junfai123@hotmail.com junfai Female date 92b1d7f7a062e062fd4939e5aaaa0717 0123579864 021211-04-8888
 ST004 Ang_Xu_Tian xutian123@gmail.com xutian Others date 13fb106668ac8c2ed30fcc457116bf20 0169696969 AF69837941
-ST005 Lo_Sau_Kang saukang123@ymail.com saukang Female date c446d513208cbea8719127d73468fa5d 0188888888 TF0394851
+ST005 Lo_Sau_Kang saukang123@ymail.com saukang Female 2023-03-28?09:49 c446d513208cbea8719127d73468fa5d 0188888888 TF0394851
+ST006 Chai_Hong_Jie hongjie123@outlook.com hongjie Male 2023-03-28?09:32 e8d9d4c3fb1502f5fd42ec8dd68d7ea8 01111111111 GT02440918
