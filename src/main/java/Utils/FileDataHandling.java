@@ -51,8 +51,8 @@ public class FileDataHandling {
                 line = line.replace(data[5], dateTime);
             }
             content += line + System.lineSeparator();
-            FileHandlerUtils.writeString(PATH, content, false);
         }
+        FileHandlerUtils.writeString(PATH, content, false);
     }
     
 }
