@@ -1,12 +1,6 @@
 package Utils;
 
 import Models.Room;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class RoomHandling {
@@ -44,17 +38,6 @@ public class RoomHandling {
                                             room.getPricePerPax());
         }
         FileHandlerUtils.writeString(PATH, roomListString, false);
-    }
-    
-    public static void appendRoomFile(ArrayList<Room> rooms){
-        File file = new File(PATH);
-        Room room = rooms.get(rooms.size()-1);
-        try(PrintWriter printWriter = new PrintWriter(new FileWriter(file, true))){
-            printWriter.append(String.format("%s %s %b %d %d\n", room.getRoomID(), room.getStatus(), room.isServicing(), room.getPax(), room.getPricePerPax()));
-            printWriter.close();
-        } catch(IOException e){
-            e.printStackTrace();        
-        }    
     }
     
     public static void appendRoomFile(Room room) {
