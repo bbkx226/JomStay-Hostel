@@ -198,38 +198,56 @@ public class ApplicationAD extends javax.swing.JFrame {
             }
         });
 
+        applicationIDBox.setEditable(false);
+        applicationIDBox.setBackground(new java.awt.Color(255, 255, 255));
         applicationIDBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         applicationIDBox.setText("-");
         applicationIDBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        applicationDateBox.setEditable(false);
+        applicationDateBox.setBackground(new java.awt.Color(255, 255, 255));
         applicationDateBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         applicationDateBox.setText("-");
         applicationDateBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        studentBox.setEditable(false);
+        studentBox.setBackground(new java.awt.Color(255, 255, 255));
         studentBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         studentBox.setText("-");
         studentBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        genderBox.setEditable(false);
+        genderBox.setBackground(new java.awt.Color(255, 255, 255));
         genderBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         genderBox.setText("-");
         genderBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        ICBox.setEditable(false);
+        ICBox.setBackground(new java.awt.Color(255, 255, 255));
         ICBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         ICBox.setText("-");
         ICBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        emailBox.setEditable(false);
+        emailBox.setBackground(new java.awt.Color(255, 255, 255));
         emailBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         emailBox.setText("-");
         emailBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        roomIDBox.setEditable(false);
+        roomIDBox.setBackground(new java.awt.Color(255, 255, 255));
         roomIDBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         roomIDBox.setText("-");
         roomIDBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        startDateBox.setEditable(false);
+        startDateBox.setBackground(new java.awt.Color(255, 255, 255));
         startDateBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         startDateBox.setText("-");
         startDateBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        endDateBox.setEditable(false);
+        endDateBox.setBackground(new java.awt.Color(255, 255, 255));
         endDateBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         endDateBox.setText("-");
         endDateBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -423,6 +441,11 @@ public class ApplicationAD extends javax.swing.JFrame {
         students.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/student.png"))); // NOI18N
         students.setText("Students");
         students.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        students.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentsMouseClicked(evt);
+            }
+        });
 
         reportsIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         reportsIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -431,6 +454,7 @@ public class ApplicationAD extends javax.swing.JFrame {
         reportsIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/x.png"))); // NOI18N
+        exitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 exitButtonMouseClicked(evt);
@@ -587,6 +611,11 @@ public class ApplicationAD extends javax.swing.JFrame {
     private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
         dispose();
     }//GEN-LAST:event_exitButtonMouseClicked
+
+    private void studentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentsMouseClicked
+        dispose();
+        new RecordAD().setVisible(true);
+    }//GEN-LAST:event_studentsMouseClicked
     
     public void start() {
         new ApplicationAD().setVisible(true);
@@ -620,7 +649,7 @@ public class ApplicationAD extends javax.swing.JFrame {
         if (key != null && key.length() > 0) {
             key = key.substring(0, 1).toUpperCase() + key.substring(1);
         }
-        record = findRoomRecordNumber(key);
+        record = findApplicationRecordNumber(key);
         if (record >= 0) {
             showInForm(record);
         } else {
@@ -629,7 +658,7 @@ public class ApplicationAD extends javax.swing.JFrame {
         searchBox.setText("");
     }
 
-    private int findRoomRecordNumber(String searchKey) {
+    private int findApplicationRecordNumber(String searchKey) {
         for (int i = 0; i < pendingApplications.size(); i++) {
             Application application = pendingApplications.get(i);
             if (searchKey.equals(application.getApplicationID())) {

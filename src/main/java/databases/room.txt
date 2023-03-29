@@ -6,7 +6,7 @@ R005 Available false 1 850
 R006 Occupied false 4 250
 R007 Available false 2 450
 R008 Available false 2 450
-R009 Available false 1 850
+R009 Occupied false 1 850
 R010 Available false 2 450
 R011 Available true 2 450
 R012 Available false 1 450
