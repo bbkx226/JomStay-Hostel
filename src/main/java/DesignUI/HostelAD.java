@@ -690,7 +690,7 @@ public class HostelAD extends javax.swing.JFrame {
         if (flag){
             Room roomToAppend = new Room(roomID.getText(), (String) roomStatus.getModel().getSelectedItem(), yesRadioButton.isSelected(), Integer.parseInt(roomPax.getText()), Integer.parseInt(roomPrice.getText()));
             rooms.add(roomToAppend);
-            RoomHandling.appendRoomFile(rooms);
+            RoomHandling.appendRoomFile(roomToAppend);
         PopUpWindow.showSuccessfulMessage("The room details have been added successfully", "Congrats!");
             isAppend = false;
             dispose();

@@ -7,12 +7,6 @@ package Utils;
 import Models.Application;
 import Models.Room;
 import Models.Student;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -27,39 +21,27 @@ public class ApplicationHandling {
     public ArrayList<Application> totalApplications = getTotalApplications();
     public ArrayList<Application> pendingApplications = getPendingApplications();
     
-    private ArrayList<Application> getTotalApplications(){
+    private ArrayList<Application> getTotalApplications() {
         ArrayList<Application> buffer = new ArrayList<>();
         
-        File file = new File(PATH);
-        try(BufferedReader reader = new BufferedReader(new FileReader(file))){
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(" ");
-                Student student = compareToStudent(data[1]);
-                Room room = compareToRoom(data[2]);
-                if(student != null && room != null){
-                    Application application = new Application(data[0], student, room, data[3], data[4], data[5], data[6]);
-                    buffer.add(application);
-                }
+        for (String line : FileHandlerUtils.readLines(PATH)) {
+            String[] data = line.split(" ");
+            Student student = compareToStudent(data[1]);
+            Room room = compareToRoom(data[2]);
+            if (student != null && room != null) {
+                Application application = new Application(data[0], student, room, data[3], data[4], data[5], data[6]);
+                buffer.add(application);
             }
-            reader.close();
-        } catch (IOException e){
-            e.printStackTrace();
         }
         return buffer;
     }
     
-    public static void updateApplicationFile(ArrayList<Application> applications){
-        File file = new File(PATH);
-        try(PrintWriter printWriter = new PrintWriter(new FileWriter(file, false))){
-            printWriter.flush();
-            for (Application application : applications){
-                printWriter.append(application.toString());
-            }
-            printWriter.close();
-        } catch(IOException e){
-            e.printStackTrace();        
+    public static void updateApplicationFile(ArrayList<Application> applications) {
+        String applicationListString = "";
+        for (Application application : applications) {
+            applicationListString += application.toString();
         }
+        FileHandlerUtils.writeString(PATH, applicationListString, false);
     }
     
     private ArrayList<Application> getPendingApplications(){
