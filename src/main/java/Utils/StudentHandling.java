@@ -11,11 +11,10 @@ import java.util.ArrayList;
  *
  * @author bbkx2
  */
-public class StudentHandling {
+public final class StudentHandling {
     private static final String PATH = "src/main/java/databases/auth.txt";
-    public ArrayList<Student> totalStudents = getStudents();
     
-    private ArrayList<Student> getStudents() {
+    public static ArrayList<Student> getStudents() {
         ArrayList<Student> buffer = new ArrayList<>();
         for (String line : FileHandlerUtils.readLines(PATH)) {
             String[] data = line.split(" ");

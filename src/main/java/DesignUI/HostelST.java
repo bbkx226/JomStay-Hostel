@@ -110,7 +110,7 @@ public class HostelST extends javax.swing.JFrame {
         homeBtn.setForeground(new java.awt.Color(255, 255, 255));
         homeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/house-chimney.png"))); // NOI18N
         homeBtn.setText("   Home           ");
-        homeBtn.setBorder(null);
+        homeBtn.setBorder(btnMarginBorder);
         homeBtn.setBorderPainted(false);
         homeBtn.setRequestFocusEnabled(false);
         homeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -133,7 +133,7 @@ public class HostelST extends javax.swing.JFrame {
         homeBtn1.setForeground(new java.awt.Color(255, 255, 255));
         homeBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bed-alt.png"))); // NOI18N
         homeBtn1.setText("   Rooms         ");
-        homeBtn1.setBorder(null);
+        homeBtn1.setBorder(btnMarginBorder);
         homeBtn1.setBorderPainted(false);
         homeBtn1.setRequestFocusEnabled(false);
         homeBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,7 +156,7 @@ public class HostelST extends javax.swing.JFrame {
         homeBtn2.setForeground(new java.awt.Color(255, 255, 255));
         homeBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dollar.png"))); // NOI18N
         homeBtn2.setText("   Payment     ");
-        homeBtn2.setBorder(null);
+        homeBtn2.setBorder(btnMarginBorder);
         homeBtn2.setBorderPainted(false);
         homeBtn2.setRequestFocusEnabled(false);
         homeBtn2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -179,7 +179,7 @@ public class HostelST extends javax.swing.JFrame {
         homeBtn3.setForeground(new java.awt.Color(255, 255, 255));
         homeBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/user.png"))); // NOI18N
         homeBtn3.setText("   Profile        ");
-        homeBtn3.setBorder(null);
+        homeBtn3.setBorder(btnMarginBorder);
         homeBtn3.setBorderPainted(false);
         homeBtn3.setRequestFocusEnabled(false);
         homeBtn3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -202,7 +202,7 @@ public class HostelST extends javax.swing.JFrame {
         homeBtn4.setForeground(new java.awt.Color(255, 255, 255));
         homeBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/exit.png"))); // NOI18N
         homeBtn4.setText("   Sign Out     ");
-        homeBtn4.setBorder(null);
+        homeBtn4.setBorder(btnMarginBorder);
         homeBtn4.setBorderPainted(false);
         homeBtn4.setRequestFocusEnabled(false);
         homeBtn4.addMouseListener(new java.awt.event.MouseAdapter() {

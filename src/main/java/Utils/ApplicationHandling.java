@@ -17,7 +17,7 @@ public class ApplicationHandling {
     private static final String PATH = "src/main/java/databases/application.txt";
     
     private final ArrayList<Room> totalRooms = new RoomHandling().totalRooms;
-    private final ArrayList<Student> totalStudents = new StudentHandling().totalStudents;    
+    private final ArrayList<Student> totalStudents = StudentHandling.getStudents();    
     public ArrayList<Application> totalApplications = getTotalApplications();
     public ArrayList<Application> pendingApplications = getPendingApplications();
     

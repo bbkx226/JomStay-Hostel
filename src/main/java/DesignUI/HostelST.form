@@ -80,8 +80,8 @@
                   <Image iconType="3" name="/assets/house-chimney.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="   Home           "/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="btnMarginBorder" type="code"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
@@ -107,8 +107,8 @@
                   <Image iconType="3" name="/assets/bed-alt.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="   Rooms         "/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="btnMarginBorder" type="code"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
@@ -134,8 +134,8 @@
                   <Image iconType="3" name="/assets/dollar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="   Payment     "/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="btnMarginBorder" type="code"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
@@ -161,8 +161,8 @@
                   <Image iconType="3" name="/assets/user.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="   Profile        "/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="btnMarginBorder" type="code"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
@@ -188,8 +188,8 @@
                   <Image iconType="3" name="/assets/exit.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="   Sign Out     "/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="btnMarginBorder" type="code"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
