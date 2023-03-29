@@ -101,7 +101,7 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" + "roomID=" + roomID + ", status=" + status + ", servicing=" + servicing + ", pax=" + pax + ", pricePerPax=" + pricePerPax + '}';
+        return String.format("%s %s %b %d %d\n", roomID, status, servicing, pax, pricePerPax);
     }
 
     

@@ -121,7 +121,7 @@ public class Application {
 
     @Override
     public String toString() {
-        return "Application{" + "applicationID=" + applicationID + ", status=" + status + ", createDate=" + createDate + ", startDate=" + startDate + ", endDate=" + endDate + ", student=" + student + ", room=" + room + '}';
+        return String.format("%s %s %s %s %s %s %s\n", applicationID, student.getID(), room.getRoomID(), status, createDate, startDate, endDate);
     }
     
     

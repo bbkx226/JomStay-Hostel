@@ -54,7 +54,7 @@ public class ApplicationHandling {
         try(PrintWriter printWriter = new PrintWriter(new FileWriter(file, false))){
             printWriter.flush();
             for (Application application : applications){
-                printWriter.append(String.format("%s %s %s %s %s %s %s\n", application.getApplicationID(), application.getStudent().getID(), application.getRoom().getRoomID(), application.getStatus(), application.getCreateDate(), application.getStartDate(), application.getEndDate()));
+                printWriter.append(application.toString());
             }
             printWriter.close();
         } catch(IOException e){
