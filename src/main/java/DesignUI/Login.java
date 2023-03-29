@@ -10,7 +10,7 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Login
      */

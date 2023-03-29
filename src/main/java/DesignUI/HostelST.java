@@ -4,6 +4,9 @@
  */
 package DesignUI;
 import java.awt.Color;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -14,12 +17,17 @@ public class HostelST extends javax.swing.JFrame {
     /**
      * Creates new form HostelST
      */
+    
+    Color btnBgColor = new Color(0,0,0);
+    Color btnHoverColor = new Color(43, 43, 43);
+    
+    Border margin = new EmptyBorder(10, 10, 10, 10);
+    CompoundBorder btnMarginBorder = new CompoundBorder(null, margin);
+    
     public HostelST() {
         initComponents();
     }
     
-    Color btnBgColor = new Color(0,0,0);
-    Color btnHoverColor = new Color(43, 43, 43);
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,9 +39,12 @@ public class HostelST extends javax.swing.JFrame {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         sidePanel = new javax.swing.JPanel();
-        homeBtn = new javax.swing.JToggleButton();
         logo = new javax.swing.JLabel();
-        roomsBtn = new javax.swing.JToggleButton();
+        homeBtn = new javax.swing.JToggleButton();
+        homeBtn1 = new javax.swing.JToggleButton();
+        homeBtn2 = new javax.swing.JToggleButton();
+        homeBtn3 = new javax.swing.JToggleButton();
+        homeBtn4 = new javax.swing.JToggleButton();
         mainPanel = new javax.swing.JPanel();
         homePanel = new javax.swing.JPanel();
         headerPanel = new javax.swing.JPanel();
@@ -68,28 +79,40 @@ public class HostelST extends javax.swing.JFrame {
         headerPanel1 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         sidePanel.setBackground(new java.awt.Color(0, 0, 0));
         sidePanel.setForeground(new java.awt.Color(255, 255, 255));
+        sidePanel.setLayout(new java.awt.GridLayout(6, 1, 0, 50));
+
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/jomstaybg_small.png"))); // NOI18N
+        sidePanel.add(logo);
 
         homeBtn.setBackground(new java.awt.Color(0, 0, 0));
         homeBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         homeBtn.setForeground(new java.awt.Color(255, 255, 255));
+        homeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/house-chimney.png"))); // NOI18N
         homeBtn.setText("   Home           ");
         homeBtn.setBorder(null);
+        homeBtn.setBorderPainted(false);
+        homeBtn.setRequestFocusEnabled(false);
         homeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 homeBtnHover(evt);
@@ -103,46 +126,99 @@ public class HostelST extends javax.swing.JFrame {
                 homeBtnActionPerformed(evt);
             }
         });
+        sidePanel.add(homeBtn);
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/jomstaybg_small.png"))); // NOI18N
-
-        roomsBtn.setBackground(new java.awt.Color(0, 0, 0));
-        roomsBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        roomsBtn.setForeground(new java.awt.Color(255, 255, 255));
-        roomsBtn.setText("     Rooms           ");
-        roomsBtn.setBorder(null);
-        roomsBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        homeBtn1.setBackground(new java.awt.Color(0, 0, 0));
+        homeBtn1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        homeBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        homeBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bed-alt.png"))); // NOI18N
+        homeBtn1.setText("   Rooms         ");
+        homeBtn1.setBorder(null);
+        homeBtn1.setBorderPainted(false);
+        homeBtn1.setRequestFocusEnabled(false);
+        homeBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                roomsBtnHover(evt);
+                homeBtn1Hover(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                roomsBtnExitHover(evt);
+                homeBtn1ExitHover(evt);
             }
         });
-        roomsBtn.addActionListener(new java.awt.event.ActionListener() {
+        homeBtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomsBtnActionPerformed(evt);
+                homeBtn1ActionPerformed(evt);
             }
         });
+        sidePanel.add(homeBtn1);
 
-        javax.swing.GroupLayout sidePanelLayout = new javax.swing.GroupLayout(sidePanel);
-        sidePanel.setLayout(sidePanelLayout);
-        sidePanelLayout.setHorizontalGroup(
-            sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(roomsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(homeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        sidePanelLayout.setVerticalGroup(
-            sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sidePanelLayout.createSequentialGroup()
-                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(roomsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(421, Short.MAX_VALUE))
-        );
+        homeBtn2.setBackground(new java.awt.Color(0, 0, 0));
+        homeBtn2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        homeBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        homeBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dollar.png"))); // NOI18N
+        homeBtn2.setText("   Payment     ");
+        homeBtn2.setBorder(null);
+        homeBtn2.setBorderPainted(false);
+        homeBtn2.setRequestFocusEnabled(false);
+        homeBtn2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                homeBtn2Hover(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                homeBtn2ExitHover(evt);
+            }
+        });
+        homeBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeBtn2ActionPerformed(evt);
+            }
+        });
+        sidePanel.add(homeBtn2);
+
+        homeBtn3.setBackground(new java.awt.Color(0, 0, 0));
+        homeBtn3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        homeBtn3.setForeground(new java.awt.Color(255, 255, 255));
+        homeBtn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/user.png"))); // NOI18N
+        homeBtn3.setText("   Profile        ");
+        homeBtn3.setBorder(null);
+        homeBtn3.setBorderPainted(false);
+        homeBtn3.setRequestFocusEnabled(false);
+        homeBtn3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                homeBtn3Hover(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                homeBtn3ExitHover(evt);
+            }
+        });
+        homeBtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeBtn3ActionPerformed(evt);
+            }
+        });
+        sidePanel.add(homeBtn3);
+
+        homeBtn4.setBackground(new java.awt.Color(0, 0, 0));
+        homeBtn4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        homeBtn4.setForeground(new java.awt.Color(255, 255, 255));
+        homeBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/exit.png"))); // NOI18N
+        homeBtn4.setText("   Sign Out     ");
+        homeBtn4.setBorder(null);
+        homeBtn4.setBorderPainted(false);
+        homeBtn4.setRequestFocusEnabled(false);
+        homeBtn4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                homeBtn4Hover(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                homeBtn4ExitHover(evt);
+            }
+        });
+        homeBtn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeBtn4ActionPerformed(evt);
+            }
+        });
+        sidePanel.add(homeBtn4);
 
         jSplitPane1.setLeftComponent(sidePanel);
 
@@ -201,7 +277,7 @@ public class HostelST extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         overviewPanel.add(jPanel2);
@@ -237,7 +313,7 @@ public class HostelST extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addGap(0, 33, Short.MAX_VALUE))
+                .addGap(0, 64, Short.MAX_VALUE))
         );
 
         overviewPanel.add(jPanel3);
@@ -272,7 +348,7 @@ public class HostelST extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGap(0, 70, Short.MAX_VALUE))
         );
 
         overviewPanel.add(jPanel4);
@@ -307,7 +383,7 @@ public class HostelST extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGap(0, 70, Short.MAX_VALUE))
         );
 
         overviewPanel.add(jPanel5);
@@ -342,7 +418,7 @@ public class HostelST extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel11)
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGap(0, 70, Short.MAX_VALUE))
         );
 
         overviewPanel.add(jPanel6);
@@ -388,11 +464,11 @@ public class HostelST extends javax.swing.JFrame {
                     .addComponent(jLabel18)
                     .addComponent(jLabel17)
                     .addComponent(jLabel16))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToggleButton1)
-                .addGap(59, 59, 59))
+                .addGap(74, 74, 74))
             .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(paymentPanelLayout.createSequentialGroup()
                     .addGap(16, 16, 16)
@@ -414,9 +490,9 @@ public class HostelST extends javax.swing.JFrame {
                 .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jLabel17))
-                .addGap(73, 73, 73)
+                .addGap(87, 87, 87)
                 .addComponent(jToggleButton1)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(paymentPanelLayout.createSequentialGroup()
                     .addGap(16, 16, 16)
@@ -449,15 +525,11 @@ public class HostelST extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(homePanelLayout.createSequentialGroup()
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(overviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(109, 109, 109))
-                    .addGroup(homePanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(paymentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(18, 18, 18)
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(paymentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(overviewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         mainPanel.add(homePanel, "homePanel");
@@ -480,38 +552,177 @@ public class HostelST extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel21.setText("Rooms");
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new java.awt.GridLayout(2, 3));
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
+
+        jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel19.setText("Single");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel22))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(jLabel19)))
+                .addContainerGap(88, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel22)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel19)
+                .addContainerGap(73, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel7);
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
+
+        jLabel26.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel26.setText("Double");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jLabel23))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(jLabel26)))
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel23)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel26)
+                .addContainerGap(68, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel8);
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
+
+        jLabel25.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel25.setText("Private");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel25)))
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel24)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel25)
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel9);
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
+
+        jLabel29.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel29.setText("Female-only");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel28))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(jLabel29)))
+                .addContainerGap(79, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel28)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel29)
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel10);
+
+        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
-        jPanel7.add(jLabel20);
 
-        jLabel19.setText("Room Number: 101");
-        jPanel7.add(jLabel19);
+        jLabel27.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel27.setText("Twin");
 
-        jLabel22.setText("Room Type: Single");
-        jPanel7.add(jLabel22);
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel20))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(jLabel27)))
+                .addContainerGap(79, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel20)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel27)
+                .addContainerGap(69, Short.MAX_VALUE))
+        );
 
-        jLabel23.setText("Room capacity: 5");
-        jPanel7.add(jLabel23);
-
-        jLabel24.setText("Room Location: 5A Block B");
-        jPanel7.add(jLabel24);
-
-        jLabel25.setText("Air-conditioning: yes");
-        jPanel7.add(jLabel25);
-
-        jLabel26.setText("Annual Price (RM): 20000");
-        jPanel7.add(jLabel26);
-
-        jButton1.setText("apply");
-        jPanel7.add(jButton1);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "101", "102", "103", "104" }));
-
-        jToggleButton2.setText("confirm");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
-            }
-        });
+        jPanel1.add(jPanel11);
 
         javax.swing.GroupLayout roomsPanelLayout = new javax.swing.GroupLayout(roomsPanel);
         roomsPanel.setLayout(roomsPanelLayout);
@@ -519,28 +730,16 @@ public class HostelST extends javax.swing.JFrame {
             roomsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(headerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(roomsPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(roomsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roomsPanelLayout.createSequentialGroup()
-                        .addGroup(roomsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(roomsPanelLayout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(roomsPanelLayout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel21)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(roomsPanelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(roomsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator3)
-                            .addGroup(roomsPanelLayout.createSequentialGroup()
-                                .addGroup(roomsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(roomsPanelLayout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel21))
-                                .addGap(0, 33, Short.MAX_VALUE)))))
-                .addContainerGap())
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 907, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         roomsPanelLayout.setVerticalGroup(
             roomsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -551,12 +750,8 @@ public class HostelST extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jToggleButton2)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         mainPanel.add(roomsPanel, "card4");
@@ -591,21 +786,53 @@ public class HostelST extends javax.swing.JFrame {
         homeBtn.setBackground(btnBgColor);
     }//GEN-LAST:event_homeBtnExitHover
 
-    private void roomsBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomsBtnHover
+    private void homeBtn1Hover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtn1Hover
         // TODO add your handling code here:
-    }//GEN-LAST:event_roomsBtnHover
+    }//GEN-LAST:event_homeBtn1Hover
 
-    private void roomsBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomsBtnExitHover
+    private void homeBtn1ExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtn1ExitHover
         // TODO add your handling code here:
-    }//GEN-LAST:event_roomsBtnExitHover
+    }//GEN-LAST:event_homeBtn1ExitHover
 
-    private void roomsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsBtnActionPerformed
+    private void homeBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtn1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_roomsBtnActionPerformed
+    }//GEN-LAST:event_homeBtn1ActionPerformed
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+    private void homeBtn2Hover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtn2Hover
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
+    }//GEN-LAST:event_homeBtn2Hover
+
+    private void homeBtn2ExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtn2ExitHover
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeBtn2ExitHover
+
+    private void homeBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeBtn2ActionPerformed
+
+    private void homeBtn3Hover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtn3Hover
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeBtn3Hover
+
+    private void homeBtn3ExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtn3ExitHover
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeBtn3ExitHover
+
+    private void homeBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtn3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeBtn3ActionPerformed
+
+    private void homeBtn4Hover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtn4Hover
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeBtn4Hover
+
+    private void homeBtn4ExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtn4ExitHover
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeBtn4ExitHover
+
+    private void homeBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtn4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeBtn4ActionPerformed
     public void start() {
         Splash screen = new Splash();
         screen.setVisible(true);
@@ -651,9 +878,11 @@ public class HostelST extends javax.swing.JFrame {
     private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel headerPanel1;
     private javax.swing.JToggleButton homeBtn;
+    private javax.swing.JToggleButton homeBtn1;
+    private javax.swing.JToggleButton homeBtn2;
+    private javax.swing.JToggleButton homeBtn3;
+    private javax.swing.JToggleButton homeBtn4;
     private javax.swing.JPanel homePanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -673,6 +902,9 @@ public class HostelST extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -680,22 +912,25 @@ public class HostelST extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel overviewPanel;
     private javax.swing.JPanel paymentPanel;
-    private javax.swing.JToggleButton roomsBtn;
     private javax.swing.JPanel roomsPanel;
     private javax.swing.JPanel sidePanel;
     // End of variables declaration//GEN-END:variables
