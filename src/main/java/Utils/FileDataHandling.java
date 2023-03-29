@@ -44,9 +44,8 @@ public class FileDataHandling {
     }
     
     public static void updateLoginTime(String ID){
-        File file = new File(PATH);
         String content = "";
-        FileWriter writer;     
+        FileWriter writer;
         LocalDateTime currentLocalDateTime = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
         String dateTime = currentLocalDateTime.format(dateTimeFormatter);
@@ -57,7 +56,7 @@ public class FileDataHandling {
                 line = line.replace(data[5], dateTime);
             }
             content += line + System.lineSeparator();
-            FileHandlerUtils.writeString(PATH, content);
+            FileHandlerUtils.writeString(PATH, content, false);
         }
     }
     
