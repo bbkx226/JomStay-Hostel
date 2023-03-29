@@ -23,7 +23,7 @@ public class ApplicationHandling {
     private static final String PATH = "src/main/java/databases/application.txt";
     
     private final ArrayList<Room> totalRooms = new RoomHandling().totalRooms;
-    private final ArrayList<Student> totalStudents = new StudentHandling().totalStudents;    
+    private final ArrayList<Student> totalStudents = new UserHandling().totalStudents;    
     public ArrayList<Application> totalApplications = getTotalApplications();
     public ArrayList<Application> pendingApplications = getPendingApplications();
     
@@ -59,6 +59,17 @@ public class ApplicationHandling {
             printWriter.close();
         } catch(IOException e){
             e.printStackTrace();        
+        }
+    }
+    
+    public static String checkAndModifyDate(String date){
+        String result = "";
+        String[] data = date.split("\\?");
+        String[] time = data[1].split(":");
+        if(Integer.parseInt(time[0]) >= 12){
+            return result + data[0] + " " + time[0] + ":" + time[1] + "PM";
+        } else {
+            return result + data[0] + " " + time[0] + ":" + time[1] + "AM";            
         }
     }
     

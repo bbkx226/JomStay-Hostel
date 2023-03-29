@@ -108,6 +108,11 @@ public class HostelAD extends javax.swing.JFrame {
         students.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/student.png"))); // NOI18N
         students.setText("Students");
         students.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        students.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentsMouseClicked(evt);
+            }
+        });
 
         reportsIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         reportsIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -116,6 +121,12 @@ public class HostelAD extends javax.swing.JFrame {
         reportsIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/x.png"))); // NOI18N
+        exitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -548,6 +559,15 @@ public class HostelAD extends javax.swing.JFrame {
         dispose();
         new ApplicationAD().start();
     }//GEN-LAST:event_applicationIconMouseClicked
+
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+        dispose();
+    }//GEN-LAST:event_exitButtonMouseClicked
+
+    private void studentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentsMouseClicked
+        dispose();
+        new RecordAD().setVisible(true);
+    }//GEN-LAST:event_studentsMouseClicked
     
     public void start() {
         new HostelAD().setVisible(true);
