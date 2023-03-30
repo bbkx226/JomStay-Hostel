@@ -123,6 +123,11 @@ public class RecordAD extends javax.swing.JFrame {
         reportsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/seo-report.png"))); // NOI18N
         reportsIcon.setText("Reports");
         reportsIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        reportsIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportsIconMouseClicked(evt);
+            }
+        });
 
         exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/x.png"))); // NOI18N
         exitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -304,11 +309,6 @@ public class RecordAD extends javax.swing.JFrame {
         studentIDBox.setBackground(new java.awt.Color(255, 255, 255));
         studentIDBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         studentIDBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        studentIDBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                studentIDBoxActionPerformed(evt);
-            }
-        });
 
         studentNameBox.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         studentNameBox.setText("-");
@@ -601,9 +601,10 @@ public class RecordAD extends javax.swing.JFrame {
         new ApplicationAD().start();
     }//GEN-LAST:event_applicationIconMouseClicked
 
-    private void studentIDBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentIDBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_studentIDBoxActionPerformed
+    private void reportsIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportsIconMouseClicked
+        dispose();
+        new ReportAD().setVisible(true);
+    }//GEN-LAST:event_reportsIconMouseClicked
     
     private void modifyStudent() {
         boolean flag = true;
