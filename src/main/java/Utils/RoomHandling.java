@@ -72,4 +72,24 @@ public class RoomHandling {
             e.printStackTrace();        
         }    
     }
+    
+    public static ArrayList<Room> getAvailableRooms(){
+        ArrayList<Room> buffer = new ArrayList<>();
+        
+        File file = new File(PATH);
+        try(BufferedReader reader = new BufferedReader(new FileReader(file))){
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(" ");
+                if(data[1].equals("Available")){
+                    Room room = new Room(data[0], data[1], Boolean.parseBoolean(data[2]), Integer.parseInt(data[3]), Integer.parseInt(data[4]));
+                    buffer.add(room); 
+                }
+            }
+            reader.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return buffer;
+    }
 }

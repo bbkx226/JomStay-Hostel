@@ -194,6 +194,9 @@
               <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportsIconMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="exitButton">
           <Properties>
@@ -595,9 +598,6 @@
               </Border>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="studentIDBoxActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="studentNameBox">
           <Properties>
