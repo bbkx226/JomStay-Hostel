@@ -1,8 +1,12 @@
 package Models;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Application {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
+    
     private String applicationID, status, createDate, startDate, endDate;
     private Student student;
     private Room room;
@@ -37,6 +41,18 @@ public class Application {
         return endDate;
     }
 
+    public LocalDateTime getLocalCreateDate() {
+        return LocalDateTime.parse(createDate, formatter);
+    }
+    
+    public LocalDateTime getLocalStartDate() {
+        return LocalDateTime.parse(startDate, formatter);
+    }
+    
+    public LocalDateTime getLocalEndDate() {
+        return LocalDateTime.parse(endDate, formatter);
+    }
+    
     public Student getStudent() {
         return student;
     }
