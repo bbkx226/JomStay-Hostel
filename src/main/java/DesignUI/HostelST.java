@@ -46,6 +46,10 @@ public class HostelST extends javax.swing.JFrame {
         card.show(mainPanel, "home");
     }
     
+    public static Application getCurrentUserApplication() {
+        return currentUserApplication;
+    }
+    
     public static Room getCurrentUserRoom() {
         return currentUserRoom;
     }
