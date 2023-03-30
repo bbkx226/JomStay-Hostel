@@ -452,6 +452,11 @@ public class ApplicationAD extends javax.swing.JFrame {
         reportsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/seo-report.png"))); // NOI18N
         reportsIcon.setText("Reports");
         reportsIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        reportsIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportsIconMouseClicked(evt);
+            }
+        });
 
         exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/x.png"))); // NOI18N
         exitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -616,6 +621,11 @@ public class ApplicationAD extends javax.swing.JFrame {
         dispose();
         new RecordAD().setVisible(true);
     }//GEN-LAST:event_studentsMouseClicked
+
+    private void reportsIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportsIconMouseClicked
+        dispose();
+        new ReportAD().setVisible(true);
+    }//GEN-LAST:event_reportsIconMouseClicked
     
     public void start() {
         new ApplicationAD().setVisible(true);
