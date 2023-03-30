@@ -261,7 +261,6 @@ public class HostelST extends javax.swing.JFrame {
     private void roomsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsBtnActionPerformed
         // TODO add your handling code here:
         card.show(mainPanel, "rooms");
-        
     }//GEN-LAST:event_roomsBtnActionPerformed
 
     private void paymentBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtnHover

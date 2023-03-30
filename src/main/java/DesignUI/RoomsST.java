@@ -13,12 +13,13 @@ import java.util.ArrayList;
  */
 public class RoomsST extends javax.swing.JPanel {
     
-    private static final ArrayList<String> roomTypes = RoomTypeHandling.getRoomTypes();
+    private final ArrayList<String> roomTypes;
     
     /**
      * Creates new form RoomsST
      */
     public RoomsST() {
+        roomTypes = RoomTypeHandling.getRoomTypes();
         initComponents();
     }
 
