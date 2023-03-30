@@ -4,12 +4,17 @@
  */
 package DesignUI;
 
+import Utils.*;
+import java.util.ArrayList;
+
 /**
  *
  * @author KZ
  */
 public class RoomsST extends javax.swing.JPanel {
-
+    
+    private static final ArrayList<String> roomTypes = RoomTypeHandling.getRoomTypes();
+    
     /**
      * Creates new form RoomsST
      */
@@ -72,6 +77,13 @@ public class RoomsST extends javax.swing.JPanel {
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
+        jLabel22.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel22.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                singleRoomClicked(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(51, 51, 51));
@@ -89,7 +101,7 @@ public class RoomsST extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(107, 107, 107)
                         .addComponent(jLabel19)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,7 +110,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addComponent(jLabel22)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel19)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel7);
@@ -106,6 +118,13 @@ public class RoomsST extends javax.swing.JPanel {
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
+        jLabel23.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel23.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                doubleRoomClicked(evt);
+            }
+        });
 
         jLabel26.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(51, 51, 51));
@@ -123,7 +142,7 @@ public class RoomsST extends javax.swing.JPanel {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(112, 112, 112)
                         .addComponent(jLabel26)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +151,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addComponent(jLabel23)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel26)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel8);
@@ -140,6 +159,13 @@ public class RoomsST extends javax.swing.JPanel {
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
+        jLabel24.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel24.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel24.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                privateRoomClicked(evt);
+            }
+        });
 
         jLabel25.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(51, 51, 51));
@@ -156,7 +182,7 @@ public class RoomsST extends javax.swing.JPanel {
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(jLabel25)))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +191,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addComponent(jLabel24)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel25)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel9);
@@ -173,6 +199,13 @@ public class RoomsST extends javax.swing.JPanel {
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
+        jLabel28.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel28.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                femaleRoomClicked(evt);
+            }
+        });
 
         jLabel29.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(51, 51, 51));
@@ -190,7 +223,7 @@ public class RoomsST extends javax.swing.JPanel {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addComponent(jLabel29)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +232,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addComponent(jLabel28)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel29)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel10);
@@ -207,6 +240,13 @@ public class RoomsST extends javax.swing.JPanel {
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
+        jLabel20.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                twinRoomClicked(evt);
+            }
+        });
 
         jLabel27.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(51, 51, 51));
@@ -224,7 +264,7 @@ public class RoomsST extends javax.swing.JPanel {
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(130, 130, 130)
                         .addComponent(jLabel27)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +273,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addComponent(jLabel20)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel27)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel11);
@@ -265,6 +305,31 @@ public class RoomsST extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void singleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_singleRoomClicked
+        // TODO add your handling code here:
+        PopUpWindow.showRoom(roomTypes.get(0), "Room Details");
+    }//GEN-LAST:event_singleRoomClicked
+
+    private void doubleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doubleRoomClicked
+        // TODO add your handling code here:
+        PopUpWindow.showRoom(roomTypes.get(1), "Room Details");
+    }//GEN-LAST:event_doubleRoomClicked
+
+    private void privateRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_privateRoomClicked
+        // TODO add your handling code here:
+        PopUpWindow.showRoom(roomTypes.get(2), "Room Details");
+    }//GEN-LAST:event_privateRoomClicked
+
+    private void femaleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_femaleRoomClicked
+        // TODO add your handling code here:
+        PopUpWindow.showRoom(roomTypes.get(3), "Room Details");
+    }//GEN-LAST:event_femaleRoomClicked
+
+    private void twinRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twinRoomClicked
+        // TODO add your handling code here:
+        PopUpWindow.showRoom(roomTypes.get(4), "Room Details");
+    }//GEN-LAST:event_twinRoomClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

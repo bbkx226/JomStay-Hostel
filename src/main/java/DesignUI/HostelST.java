@@ -250,15 +250,18 @@ public class HostelST extends javax.swing.JFrame {
 
     private void roomsBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomsBtnHover
         // TODO add your handling code here:
+        roomsBtn.setBackground(btnHoverColor);
     }//GEN-LAST:event_roomsBtnHover
 
     private void roomsBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomsBtnExitHover
         // TODO add your handling code here:
+        roomsBtn.setBackground(btnBgColor);
     }//GEN-LAST:event_roomsBtnExitHover
 
     private void roomsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsBtnActionPerformed
         // TODO add your handling code here:
         card.show(mainPanel, "rooms");
+        
     }//GEN-LAST:event_roomsBtnActionPerformed
 
     private void paymentBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtnHover
