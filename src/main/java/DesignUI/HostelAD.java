@@ -613,8 +613,8 @@ public class HostelAD extends javax.swing.JFrame {
 
         String newStatus = (String) roomStatus.getSelectedItem();
         boolean newServicing = yesRadioButton.isSelected(), flag = true;
-        flag = checkTextInt(roomPax, flag);
-        flag = checkTextInt(roomPrice, flag);
+        flag = checkPositiveInt(roomPax, flag);
+        flag = checkPositiveInt(roomPrice, flag);
 
         int newPax = Integer.parseInt(roomPax.getText());
         int newPrice = Integer.parseInt(roomPrice.getText());
@@ -673,8 +673,8 @@ public class HostelAD extends javax.swing.JFrame {
     // Appends a room to the end of the room list.
     private void appendRoom(){
         boolean flag = true;
-        flag = checkTextInt(roomPax, flag);
-        flag = checkTextInt(roomPrice,flag);
+        flag = checkPositiveInt(roomPax, flag);
+        flag = checkPositiveInt(roomPrice,flag);
         
         if (flag){
             Room roomToAppend = new Room(roomID.getText(), (String) roomStatus.getModel().getSelectedItem(), yesRadioButton.isSelected(), Integer.parseInt(roomPax.getText()), Integer.parseInt(roomPrice.getText()));
@@ -689,7 +689,7 @@ public class HostelAD extends javax.swing.JFrame {
     }
 
     // Checks if the user input in the text field is an integer
-    private boolean checkTextInt(JTextField text, boolean flag){
+    private boolean checkPositiveInt(JTextField text, boolean flag){
         try {
             int value = Integer.parseInt(text.getText());
             if (value <= 0) throw new NumberFormatException();
