@@ -538,6 +538,9 @@ public class HostelAD extends javax.swing.JFrame {
     private void doneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneButtonActionPerformed
         if(isAppend) appendRoom();
         else modifyRoom();
+        dispose();
+        new HostelAD().start();
+        showInForm(0);
     }//GEN-LAST:event_doneButtonActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
@@ -610,13 +613,11 @@ public class HostelAD extends javax.swing.JFrame {
 
         String newStatus = (String) roomStatus.getSelectedItem();
         boolean newServicing = yesRadioButton.isSelected(), flag = true;
-        int newPax = 0, newPrice = 0;
-
         flag = checkTextInt(roomPax, flag);
         flag = checkTextInt(roomPrice, flag);
 
-        newPax = Integer.parseInt(roomPax.getText());
-        newPrice = Integer.parseInt(roomPrice.getText());
+        int newPax = Integer.parseInt(roomPax.getText());
+        int newPrice = Integer.parseInt(roomPrice.getText());
 
         if (flag) {
             boolean statusChanged = !oldStatus.equals(newStatus);
@@ -669,6 +670,7 @@ public class HostelAD extends javax.swing.JFrame {
         showInForm(0);
     }
     
+    // Appends a room to the end of the room list.
     private void appendRoom(){
         boolean flag = true;
         flag = checkTextInt(roomPax, flag);
@@ -683,9 +685,6 @@ public class HostelAD extends javax.swing.JFrame {
                 "Congrats!"
                 );
             isAppend = false;
-            dispose();
-            new HostelAD().start();
-            showInForm(0);
         }
     }
 
