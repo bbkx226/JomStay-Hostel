@@ -8,6 +8,7 @@ import Models.Application;
 import Models.Room;
 import Models.Student;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  *
@@ -20,6 +21,8 @@ public class ApplicationHandling {
     private final ArrayList<Student> totalStudents = StudentHandling.getStudents();    
     public ArrayList<Application> totalApplications = getTotalApplications();
     public ArrayList<Application> pendingApplications = getPendingApplications();
+    
+    public static final String[] countryNames = getCountryNames();
     
     private ArrayList<Application> getTotalApplications() {
         ArrayList<Application> buffer = new ArrayList<>();
@@ -75,5 +78,14 @@ public class ApplicationHandling {
             }
         }
         return null;
+    }
+    
+    public static String[] getCountryNames() {
+        ArrayList<String> buffer = new ArrayList<>();
+        for (String countryCode : Locale.getISOCountries()) {
+            Locale country = Locale.of("", countryCode);
+            buffer.add(country.getDisplayCountry());
+        }
+        return buffer.toArray(new String[buffer.size()]);
     }
 }

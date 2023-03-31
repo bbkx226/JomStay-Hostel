@@ -12,6 +12,7 @@ import Models.*;
 import Utils.*;
 import java.awt.CardLayout;
 import java.time.LocalDateTime;
+import javax.swing.JPanel;
 
 /**
  *
@@ -22,9 +23,10 @@ public class HostelST extends javax.swing.JFrame {
     /**
      * Creates new form HostelST
      */
-    HomeST homePanel = new HomeST();
-    RoomsST roomsPanel = new RoomsST();
-    CardLayout card;
+    private static HomeST homePanel = new HomeST();
+    private static RoomsST roomsPanel = new RoomsST();
+    private static ApplicationST applicationPanel = new ApplicationST();
+    private static CardLayout card;
     
     // custom component properties
     Color btnBgColor = new Color(0,0,0);
@@ -43,6 +45,7 @@ public class HostelST extends javax.swing.JFrame {
         card = (CardLayout) mainPanel.getLayout();
         mainPanel.add(homePanel, "home");
         mainPanel.add(roomsPanel, "rooms");
+        mainPanel.add(applicationPanel, "apply");
         card.show(mainPanel, "home");
     }
     
@@ -52,6 +55,14 @@ public class HostelST extends javax.swing.JFrame {
     
     public static Room getCurrentUserRoom() {
         return currentUserRoom;
+    }
+    
+    public static JPanel getMainPanel() {
+        return mainPanel;
+    }
+    
+    public static CardLayout getCardManager() {
+        return card;
     }
     
     /**
@@ -358,7 +369,7 @@ public class HostelST extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel logo;
-    private javax.swing.JPanel mainPanel;
+    private static javax.swing.JPanel mainPanel;
     private javax.swing.JToggleButton paymentBtn;
     private javax.swing.JToggleButton profileBtn;
     private javax.swing.JToggleButton roomsBtn;

@@ -48,10 +48,10 @@ public class PopUpWindow {
         JOptionPane.showMessageDialog(null,message,title,JOptionPane.INFORMATION_MESSAGE,authenticateIcon);
     }
     
-    public static void showRoom(String message, String title) {
+    public static int showRoom(String message, String title) {
         ImageIcon roomPic = new ImageIcon("src/main/java/assets/dorm_room_pic_small.png");
         roomPic = getResizedImage(roomPic);
         String[] options = { "Apply" };
-        JOptionPane.showOptionDialog(null, message, title, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, roomPic, options, title);
+        return JOptionPane.showOptionDialog(null, message, title, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, roomPic, options, title);
     }
 }

@@ -6,6 +6,7 @@ package DesignUI;
 
 import Utils.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,7 +14,8 @@ import java.util.ArrayList;
  */
 public class RoomsST extends javax.swing.JPanel {
     
-    private final ArrayList<String> roomTypes;
+    private static ArrayList<String> roomTypes;
+    private static String selectedRoomType;
     
     /**
      * Creates new form RoomsST
@@ -307,9 +309,20 @@ public class RoomsST extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public static String getSelectedRoomType() {
+        return selectedRoomType;
+    }
+    
     private void singleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_singleRoomClicked
         // TODO add your handling code here:
-        PopUpWindow.showRoom(roomTypes.get(0), "Room Details");
+        int apply = PopUpWindow.showRoom(roomTypes.get(0), "Room Details");
+        if (apply == JOptionPane.OK_OPTION) {
+            System.out.println("Applied");
+            selectedRoomType = "Single Room";
+            HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
+        } else {
+            System.out.println("Not Applied");
+        }
     }//GEN-LAST:event_singleRoomClicked
 
     private void doubleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doubleRoomClicked
