@@ -6,13 +6,13 @@ import Utils.RoomHandling;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-public class availableRoom extends javax.swing.JFrame {
+public class AvailableRoom extends javax.swing.JFrame {
     private final ArrayList<Room> rooms = new RoomHandling().getRooms(); 
 
     /**
      * Creates new form availableRoom
      */
-    public availableRoom() {
+    public AvailableRoom() {
         initComponents();
     }
 
@@ -33,7 +33,6 @@ public class availableRoom extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(793, 495));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -131,11 +130,13 @@ public class availableRoom extends javax.swing.JFrame {
         DefaultTableModel tableModel =  (DefaultTableModel) roomTable.getModel();
         tableModel.setRowCount(0);
         ArrayList<Room> availableRoom = RoomHandling.getAvailableRooms();
-        System.out.println(availableRoom);
         for(Room room : availableRoom)
-        {
-            tableModel.addRow(new Object[]{room.getRoomID(),room.getStatus(),room.isServicing(),room.getPax(),room.getPricePerPax()});
-        }
+            tableModel.addRow(new Object[]{
+                room.getRoomID(),
+                room.getStatus(),
+                room.isServicing(),
+                room.getPax(),
+                room.getPricePerPax()});
     }//GEN-LAST:event_formComponentShown
 
     private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
@@ -143,7 +144,7 @@ public class availableRoom extends javax.swing.JFrame {
     }//GEN-LAST:event_exitButtonMouseClicked
     
     public void start(){
-        new availableRoom().setVisible(true);
+        new AvailableRoom().setVisible(true);
     }
     
     /**
@@ -164,20 +165,21 @@ public class availableRoom extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(availableRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AvailableRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(availableRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AvailableRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(availableRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AvailableRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(availableRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AvailableRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new availableRoom().setVisible(true);
+                new AvailableRoom().setVisible(true);
             }
         });
     }

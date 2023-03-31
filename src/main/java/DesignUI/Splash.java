@@ -1,6 +1,8 @@
 // @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
+import Utils.PopUpWindow;
+
 public class Splash extends javax.swing.JFrame {
 
     /**
@@ -69,29 +71,22 @@ public class Splash extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void start() {
-        // This is the main method for the Splash class
         Splash screen = new Splash(); // Splash screen is created
         screen.setVisible(true); // Splash screen is made visible
-        
         loadProgressBar(screen);
-        
         screen.dispose();
         new Login().setVisible(true);
     }
     
     private void loadProgressBar(Splash screen){
-        try
-        {
-           for (int i=0; i<=100; i++) // A for loop is used to increment the progress bar
-           {
-               Thread.sleep(25); // The progress bar is updated and the loading percentage is shown
-               screen.loadingProgress.setValue(i);
-               screen.loadingProgress.setString(i+"%");
-           }
-        } 
-        catch(InterruptedException e)
-        {
-            System.err.println("Error occurred.");
+        try {
+            for (int i=0; i<=100; i++) {// A for loop is used to increment the progress bar
+                Thread.sleep(25); // The progress bar is updated and the loading percentage is shown
+                screen.loadingProgress.setValue(i);
+                screen.loadingProgress.setString(i+"%");
+            }
+        } catch(InterruptedException e) {
+            PopUpWindow.showErrorMessage("Error Occurred...", "Error loading progress bar");
         }
     }
 

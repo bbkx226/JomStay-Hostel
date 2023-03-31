@@ -538,8 +538,7 @@ public class ApplicationAD extends javax.swing.JFrame {
     }//GEN-LAST:event_nextQueryActionPerformed
 
     private void lastQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastQueryActionPerformed
-        int total = pendingApplications.size();
-        showInForm(total - 1);
+        showInForm(pendingApplications.size() - 1);
     }//GEN-LAST:event_lastQueryActionPerformed
 
     private void previousQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousQueryActionPerformed
@@ -548,10 +547,7 @@ public class ApplicationAD extends javax.swing.JFrame {
     }//GEN-LAST:event_previousQueryActionPerformed
 
     private void searchBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBoxKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
-        {
-            searchApplication();
-        }
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) searchApplication();
     }//GEN-LAST:event_searchBoxKeyPressed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -568,13 +564,10 @@ public class ApplicationAD extends javax.swing.JFrame {
 
     private void applicationTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationTableMouseClicked
         int selectedRow = applicationTable.getSelectedRow();
-        if (selectedRow >= 0)
-        {
+        if (selectedRow >= 0) {
             String selectedApplicationID = String.valueOf(applicationTable.getModel().getValueAt(selectedRow, 0));
-            for(Application application : pendingApplications)
-            {
-                if(application.getApplicationID().equals(selectedApplicationID))
-                {
+            for(Application application : pendingApplications) {
+                if(application.getApplicationID().equals(selectedApplicationID)) {
                     record = selectedRow;
                     showInForm(record);
                     break;
@@ -590,8 +583,7 @@ public class ApplicationAD extends javax.swing.JFrame {
             "Popup window",
             JOptionPane.YES_NO_OPTION
         );
-        if (dialogResult == JOptionPane.YES_OPTION)
-        {
+        if (dialogResult == JOptionPane.YES_OPTION){
             PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
             setVisible(false);
             dispose(); // Destroy screen
@@ -607,10 +599,12 @@ public class ApplicationAD extends javax.swing.JFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         DefaultTableModel tableModel =  (DefaultTableModel) applicationTable.getModel();
         tableModel.setRowCount(0);     
-        for(Application application : pendingApplications)
-        {
-            tableModel.addRow(new Object[]{application.getApplicationID(),application.getStudent().getName().replace("_", " "),application.getRoom().getRoomID(),checkAndModifyDate(application.getCreateDate()),application.getStatus()});
-        }
+        for(Application application : pendingApplications) 
+            tableModel.addRow(new Object[]{application.getApplicationID(),
+                application.getStudent().getName().replace("_", " "),
+                application.getRoom().getRoomID(),
+                checkAndModifyDate(application.getCreateDate()),
+                application.getStatus()});
         showInForm(0);
     }//GEN-LAST:event_formComponentShown
 
@@ -632,6 +626,7 @@ public class ApplicationAD extends javax.swing.JFrame {
         new ApplicationAD().setVisible(true);
     }
     
+    // Show application details in form
     private void showInForm(int index) {
         record = getValidIndex(index);
         Application application = pendingApplications.get(record);
@@ -646,50 +641,44 @@ public class ApplicationAD extends javax.swing.JFrame {
         endDateBox.setText(checkAndModifyDate(application.getEndDate()));
     }
     
+    // Check if the index is valid
     private int getValidIndex(int index) {
-        if (index >= pendingApplications.size()) {
-            return 0;
-        } else if (index < 0) {
-            return pendingApplications.size() - 1;
-        }
+        if (index >= pendingApplications.size()) return 0;
+        else if (index < 0) return pendingApplications.size() - 1;
         return index;
     }
     
+    // Search application by application ID
     private void searchApplication() {
         String key = searchBox.getText().trim();
-        if (key != null && key.length() > 0) {
-            key = key.substring(0, 1).toUpperCase() + key.substring(1);
-        }
+
+        if (key != null && key.length() > 0) key = key.substring(0, 1).toUpperCase() + key.substring(1);
         record = findApplicationRecordNumber(key);
-        if (record >= 0) {
-            showInForm(record);
-        } else {
-            PopUpWindow.showErrorMessage("Your search did not match any records", "Error 404 occurred");
-        }
+
+        if (record >= 0) showInForm(record);
+        else PopUpWindow.showErrorMessage("Your search did not match any records", "Error 404 occurred");
         searchBox.setText("");
     }
 
+    // Find the record number of the application
     private int findApplicationRecordNumber(String searchKey) {
         for (int i = 0; i < pendingApplications.size(); i++) {
             Application application = pendingApplications.get(i);
-            if (searchKey.equals(application.getApplicationID())) {
-                return i;
-            }
+            if (searchKey.equals(application.getApplicationID())) return i;
         }
         return -1;
     }
     
+    // Check and modify the date format
     private String checkAndModifyDate(String date){
         String result = "";
-        String[] data = date.split("\\?");
-        String[] time = data[1].split(":");
-        if(Integer.parseInt(time[0]) >= 12){
-            return result + data[0] + " " + time[0] + ":" + time[1] + "PM";
-        } else {
-            return result + data[0] + " " + time[0] + ":" + time[1] + "AM";            
-        }
+        String[] data = date.split("\\?"), time = data[1].split(":");
+
+        if(Integer.parseInt(time[0]) >= 12) return result + data[0] + " " + time[0] + ":" + time[1] + "PM";
+        else return result + data[0] + " " + time[0] + ":" + time[1] + "AM";
     }
     
+    // Accept or reject the application
     private void acceptOrRejectApplication(String decision){
         Application applicationToDecision = pendingApplications.get(record);
         for (Application application : totalApplications){
@@ -731,15 +720,10 @@ public class ApplicationAD extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ApplicationAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ApplicationAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ApplicationAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ApplicationAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
         //</editor-fold>
         //</editor-fold>
 
