@@ -131,7 +131,6 @@ public class availableRoom extends javax.swing.JFrame {
         DefaultTableModel tableModel =  (DefaultTableModel) roomTable.getModel();
         tableModel.setRowCount(0);
         ArrayList<Room> availableRoom = RoomHandling.getAvailableRooms();
-        System.out.println(availableRoom);
         for(Room room : availableRoom)
         {
             tableModel.addRow(new Object[]{room.getRoomID(),room.getStatus(),room.isServicing(),room.getPax(),room.getPricePerPax()});

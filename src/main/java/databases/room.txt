@@ -1,5 +1,5 @@
 R001 Available false 2 1000
-R002 Occupied true 4 1000
+R002 Occupied false 4 1000
 R003 Available false 4 1000
 R004 Available false 2 900
 R005 Available false 1 1250

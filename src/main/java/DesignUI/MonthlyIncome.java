@@ -264,10 +264,7 @@ public class MonthlyIncome extends javax.swing.JFrame {
             }
         }
         
-        for(Application application:acceptedApplication){
-            System.out.println(application);
-            totalRevenue += application.getRoom().getPricePerPax();
-        }
+        for(Application application:acceptedApplication) totalRevenue += application.getRoom().getPricePerPax();
         return totalRevenue;
     }
     
@@ -277,7 +274,6 @@ public class MonthlyIncome extends javax.swing.JFrame {
     
     private void showInForm() {
         getTotalRevenue();
-        System.out.println("Testing 123");
         LocalDateTime currentLocalDateTime = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String dateTime = currentLocalDateTime.format(dateTimeFormatter);

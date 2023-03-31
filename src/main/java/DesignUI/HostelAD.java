@@ -474,8 +474,7 @@ public class HostelAD extends javax.swing.JFrame {
             "Popup window",
             JOptionPane.YES_NO_OPTION
         );
-        if (dialogResult == JOptionPane.YES_OPTION)
-        {
+        if (dialogResult == JOptionPane.YES_OPTION){
             PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
             setVisible(false);
             dispose();
@@ -485,13 +484,10 @@ public class HostelAD extends javax.swing.JFrame {
 
     private void roomTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomTableMouseClicked
         int selectedRow = roomTable.getSelectedRow();
-        if (selectedRow >= 0)
-        {
+        if (selectedRow >= 0){
             String selectedRoomID = String.valueOf(roomTable.getModel().getValueAt(selectedRow, 0));
-            for(Room data: rooms)
-            {
-                if(data.getRoomID().equals(selectedRoomID))
-                {
+            for(Room data: rooms){
+                if(data.getRoomID().equals(selectedRoomID)){
                     showInForm(selectedRow);
                     break;
                 }
@@ -547,9 +543,7 @@ public class HostelAD extends javax.swing.JFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         DefaultTableModel tableModel = (DefaultTableModel) roomTable.getModel();
         tableModel.setRowCount(0);
-        for (Room room : rooms) {
-            tableModel.addRow(new Object[]{room.getRoomID(), room.getStatus(), room.isServicing(), room.getPax(), room.getPricePerPax()});
-        }
+        for (Room room : rooms) tableModel.addRow(new Object[]{room.getRoomID(), room.getStatus(), room.isServicing(), room.getPax(), room.getPricePerPax()});
         showInForm(0);
     }//GEN-LAST:event_formComponentShown
 
@@ -584,11 +578,7 @@ public class HostelAD extends javax.swing.JFrame {
     // This method is used to show the details of the room selected by the user.
     // It takes in the index of the room selected from the JList.
     private void showInForm(int index) {
-        // retrieve the index from the list
-        record = getValidIndex(index);
-        // get the room object
-        Room room = rooms.get(record);
-        // set the text fields
+        Room room = rooms.get(getValidIndex(index));
         roomID.setText(room.getRoomID());
         roomStatus.setSelectedItem(room.getStatus());
         if (room.isServicing()) yesRadioButton.doClick();
@@ -597,15 +587,15 @@ public class HostelAD extends javax.swing.JFrame {
         roomPrice.setText(String.valueOf(room.getPricePerPax()));
     }
 
-    // The code below is used to check the index of the room 
-    // and to make sure that the index is not out of bounds.
+    // The code below is used to check the index of the room
+    // and to make sure that the index is not out of bounds
     private int getValidIndex(int index) {
         if (index >= rooms.size()) return 0;
         else if (index < 0) return rooms.size() - 1;
         return index;
     }
-    
-    // This function modifies the room. It is called when a player wants to modify the room.
+
+    // This function modifies the room. It is called when a player wants to modify the room
     private void modifyRoom() {
         Room roomToModify = rooms.get(record);
         String oldStatus = roomToModify.getStatus();
@@ -614,11 +604,9 @@ public class HostelAD extends javax.swing.JFrame {
 
         String newStatus = (String) roomStatus.getSelectedItem();
         boolean newServicing = yesRadioButton.isSelected(), flag = true;
-        flag = checkPositiveInt(roomPax, flag);
-        flag = checkPositiveInt(roomPrice, flag);
-
-        int newPax = Integer.parseInt(roomPax.getText());
-        int newPrice = Integer.parseInt(roomPrice.getText());
+        int newPax = Integer.parseInt(roomPax.getText()), newPrice = Integer.parseInt(roomPrice.getText());
+        
+        flag = checkPositiveInt(roomPax, flag) && checkPositiveInt(roomPrice, flag);
 
         if (flag) {
             boolean statusChanged = !oldStatus.equals(newStatus);
@@ -674,8 +662,7 @@ public class HostelAD extends javax.swing.JFrame {
     // Appends a room to the end of the room list.
     private void appendRoom(){
         boolean flag = true;
-        flag = checkPositiveInt(roomPax, flag);
-        flag = checkPositiveInt(roomPrice,flag);
+        flag = checkPositiveInt(roomPax, flag) && checkPositiveInt(roomPrice,flag);
         
         if (flag){
             Room roomToAppend = new Room(roomID.getText(), (String) roomStatus.getModel().getSelectedItem(), yesRadioButton.isSelected(), Integer.parseInt(roomPax.getText()), Integer.parseInt(roomPrice.getText()));
@@ -684,7 +671,7 @@ public class HostelAD extends javax.swing.JFrame {
             PopUpWindow.showSuccessfulMessage(
                 "The room details have been added successfully", 
                 "Congrats!"
-                );
+            );
             isAppend = false;
         }
     }
