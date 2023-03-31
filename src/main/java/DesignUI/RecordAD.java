@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
 import Models.Application;
@@ -13,8 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class RecordAD extends javax.swing.JFrame {
-    private final ArrayList<Student> totalStudents = new UserHandling().totalStudents;
-    private final ArrayList<Application> totalApplications = new ApplicationHandling().totalApplications;
+    private final ArrayList<Student> totalStudents = new UserHandling().getStudents();
+    private final ArrayList<Application> totalApplications = new ApplicationHandling().getTotalApplications();
     private ArrayList<Application> studentApplications;
     private int record = 0;
 

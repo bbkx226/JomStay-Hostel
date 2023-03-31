@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+// @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
-/**
- *
- * @author bbkx2
- */
 public class Feedback extends javax.swing.JFrame {
 
     /**

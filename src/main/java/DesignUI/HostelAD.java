@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
 import Models.Room;
@@ -10,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class HostelAD extends javax.swing.JFrame {
-    private final ArrayList<Room> rooms = new RoomHandling().totalRooms;
+    private final ArrayList<Room> rooms = new RoomHandling().getRooms();
     private int record = 0;
     private boolean isAppend = false; // True for append, False for Edit
     /**

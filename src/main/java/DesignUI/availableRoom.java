@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
 import Models.Room;
@@ -6,7 +7,7 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 public class availableRoom extends javax.swing.JFrame {
-    private final ArrayList<Room> rooms = new RoomHandling().totalRooms;    
+    private final ArrayList<Room> rooms = new RoomHandling().getRooms(); 
 
     /**
      * Creates new form availableRoom

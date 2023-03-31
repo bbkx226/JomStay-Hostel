@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
 public class Splash extends javax.swing.JFrame {
