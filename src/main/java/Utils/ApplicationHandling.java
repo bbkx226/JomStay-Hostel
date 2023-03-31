@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+// @author Brandon Ban Kai Xian TP067094
 package Utils;
 
 import Models.Application;
@@ -15,19 +12,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-/**
- *
- * @author bbkx2
- */
 public class ApplicationHandling {
     private static final String PATH = "src/main/java/databases/application.txt";
     
-    private final ArrayList<Room> totalRooms = new RoomHandling().totalRooms;
-    private final ArrayList<Student> totalStudents = new UserHandling().totalStudents;    
-    public ArrayList<Application> totalApplications = getTotalApplications();
-    public ArrayList<Application> pendingApplications = getPendingApplications();
+    private final ArrayList<Room> totalRooms = new RoomHandling().getRooms();
+    private final ArrayList<Student> totalStudents = new UserHandling().getStudents();    
     
-    private ArrayList<Application> getTotalApplications(){
+    // Get all applications
+    public ArrayList<Application> getTotalApplications(){
         ArrayList<Application> buffer = new ArrayList<>();
         
         File file = new File(PATH);
@@ -44,65 +36,64 @@ public class ApplicationHandling {
             }
             reader.close();
         } catch (IOException e){
-            e.printStackTrace();
+            PopUpWindow.showErrorMessage("Error reading from file", "Error");
         }
         return buffer;
     }
     
+    // Get all applications by student
     public static void updateApplicationFile(ArrayList<Application> applications){
         File file = new File(PATH);
         try(PrintWriter printWriter = new PrintWriter(new FileWriter(file, false))){
             printWriter.flush();
-            for (Application application : applications){
-                printWriter.append(String.format("%s %s %s %s %s %s %s\n", application.getApplicationID(), application.getStudent().getID(), application.getRoom().getRoomID(), application.getStatus(), application.getCreateDate(), application.getStartDate(), application.getEndDate()));
-            }
-            printWriter.close();
+            for (Application application : applications) 
+                printWriter.append(String.format("%s %s %s %s %s %s %s\n", 
+                    application.getApplicationID(), 
+                    application.getStudent().getID(), 
+                    application.getRoom().getRoomID(), 
+                    application.getStatus(), 
+                    application.getCreateDate(), 
+                    application.getStartDate(), 
+                    application.getEndDate()));
         } catch(IOException e){
-            e.printStackTrace();        
+            PopUpWindow.showErrorMessage("Error reading from file", "Error");     
         }
     }
     
-    public static String checkAndModifyDate(String date){
+    // Format date to remove spaces
+    public static String checkAndModifyDate(String date) {
         String result = "";
         String[] data = date.split("\\?");
         String[] time = data[1].split(":");
-        if(Integer.parseInt(time[0]) >= 12){
-            return result + data[0] + " " + time[0] + ":" + time[1] + "PM";
-        } else {
-            return result + data[0] + " " + time[0] + ":" + time[1] + "AM";            
-        }
+        if(Integer.parseInt(time[0]) >= 12) return result + data[0] + " " + time[0] + ":" + time[1] + "PM";
+        else return result + data[0] + " " + time[0] + ":" + time[1] + "AM";
     }
     
-    private ArrayList<Application> getPendingApplications(){
+    // Return pending applications
+    public ArrayList<Application> getPendingApplications(){
         ArrayList<Application> total = getTotalApplications();
         ArrayList<Application> buffer = new ArrayList<>();
         try{
             for(Application application : total){
-                if(application.getStatus().equals("Pending")){
-                    buffer.add(application);
-                }
+                if(application.getStatus().equals("Pending")) buffer.add(application);
             }
         } catch(Exception e){
-            e.printStackTrace();  
+            PopUpWindow.showErrorMessage("No pending application is exist right now", "Error 404");
         }
         return buffer;
     }
     
+    // Return Particular Student Object 
     private Student compareToStudent(String studentID){
-        for (Student student : totalStudents){
-            if(studentID.equals(student.getID())){
-                return student;
-            }
-        }
+        for (Student student : totalStudents)
+            if(studentID.equals(student.getID())) return student;
         return null;
     }
     
+    // Return Particular Room Object
     private Room compareToRoom(String roomID){
-        for (Room room : totalRooms){
-            if(roomID.equals(room.getRoomID())){
-                return room;
-            }
-        }
+        for (Room room : totalRooms)
+            if(roomID.equals(room.getRoomID())) return room;
         return null;
     }
 }

@@ -1,11 +1,8 @@
+// @author They Kai Zhe
 package Models;
 
 import java.util.Objects;
 
-/**
- *
- * @author bbkx2
- */
 public class Student extends User {
     private String email, gender, loginDate, phoneNo, NRIC;
 

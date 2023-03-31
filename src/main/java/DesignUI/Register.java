@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
 import Utils.Validator;
@@ -8,13 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author bbkx2
- */
 public class Register extends javax.swing.JFrame {
 
     /**

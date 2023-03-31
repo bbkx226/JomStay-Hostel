@@ -1,8 +1,4 @@
 package hostelsystem;
-/**
- *
- * @author bbkx
- */
 
 import DesignUI.Splash;
 

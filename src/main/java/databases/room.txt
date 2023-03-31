@@ -1,4 +1,4 @@
-R001 Available false 4 1000
+R001 Available false 2 1000
 R002 Occupied true 4 1000
 R003 Available false 4 1000
 R004 Available false 2 900
@@ -12,7 +12,7 @@ R011 Available true 2 900
 R012 Available false 1 1300
 R013 Available false 4 1000
 R014 Available false 2 900
-R015 Occupied true 1 1300
+R015 Available true 1 1300
 R016 Available false 2 900
 R017 Occupied false 2 1200
 R018 Available false 1 1300

@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
 import Models.Application;
@@ -11,9 +12,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ApplicationAD extends javax.swing.JFrame {
-    private final ArrayList<Room> rooms = new RoomHandling().totalRooms;    
-    private final ArrayList<Application> totalApplications = new ApplicationHandling().totalApplications;
-    private final ArrayList<Application> pendingApplications = new ApplicationHandling().pendingApplications;
+    private final ArrayList<Room> rooms = new RoomHandling().getRooms();  
+    private final ArrayList<Application> totalApplications = new ApplicationHandling().getTotalApplications();
+    private final ArrayList<Application> pendingApplications = new ApplicationHandling().getPendingApplications();
     private int record = 0;    
     /**
      * Creates new form Application

@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
 import Models.Application;
@@ -7,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class MonthlyIncome extends javax.swing.JFrame {
-    private final ArrayList<Application> totalApplications = new ApplicationHandling().totalApplications;
+    private final ArrayList<Application> totalApplications = new ApplicationHandling().getTotalApplications();
     /**
      * Creates new form MonthlyIncome
      */
