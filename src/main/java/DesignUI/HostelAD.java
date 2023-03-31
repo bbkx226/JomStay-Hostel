@@ -488,6 +488,7 @@ public class HostelAD extends javax.swing.JFrame {
             String selectedRoomID = String.valueOf(roomTable.getModel().getValueAt(selectedRow, 0));
             for(Room data: rooms){
                 if(data.getRoomID().equals(selectedRoomID)){
+                    record = selectedRow;
                     showInForm(selectedRow);
                     break;
                 }
@@ -709,13 +710,7 @@ public class HostelAD extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HostelAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HostelAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HostelAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(HostelAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>

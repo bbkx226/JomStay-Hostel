@@ -542,13 +542,17 @@ public class RecordAD extends javax.swing.JFrame {
         studentApplications = new ArrayList<>();
         
         for(Application application : totalApplications){
-            if(application.getStudent().getID().equals(totalStudents.get(record).getID())){
-                studentApplications.add(application);
-            }
+            if(application.getStudent().getID().equals(totalStudents.get(record).getID())) studentApplications.add(application);
         }
-        for(Application application : studentApplications){
-            recordModel.addRow(new Object[]{application.getApplicationID(), application.getRoom().getRoomID(), application.getStatus(), ApplicationHandling.checkAndModifyDate(application.getStartDate()), ApplicationHandling.checkAndModifyDate(application.getEndDate()), ApplicationHandling.checkAndModifyDate(application.getCreateDate())});
-        }
+        for(Application application : studentApplications) 
+            recordModel.addRow(new Object[]{
+                application.getApplicationID(), 
+                application.getRoom().getRoomID(), 
+                application.getStatus(), 
+                ApplicationHandling.checkAndModifyDate(application.getStartDate()), 
+                ApplicationHandling.checkAndModifyDate(application.getEndDate()), 
+                ApplicationHandling.checkAndModifyDate(application.getCreateDate())
+            });
         recordTable.setModel(recordModel);
         recordModel.fireTableDataChanged();
     }//GEN-LAST:event_studentTableMouseClicked
@@ -590,9 +594,14 @@ public class RecordAD extends javax.swing.JFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         DefaultTableModel studentModel =  (DefaultTableModel) studentTable.getModel();
         studentModel.setRowCount(0);         
-        for(Student student : totalStudents){
-            studentModel.addRow(new Object[]{student.getID(),student.getName().replace("_", " "),student.getGender(),student.getNRIC(),student.getEmail()});
-        }
+        for(Student student : totalStudents) 
+            studentModel.addRow(new Object[]{
+                student.getID(),
+                student.getName().replace("_", " "),
+                student.getGender(),
+                student.getNRIC(),
+                student.getEmail()
+            });
    
         showStudentForm(0);
     }//GEN-LAST:event_formComponentShown
@@ -607,6 +616,7 @@ public class RecordAD extends javax.swing.JFrame {
         new ReportAD().setVisible(true);
     }//GEN-LAST:event_reportsIconMouseClicked
     
+    // Modify student details
     private void modifyStudent() {
         boolean flag = true;
         Student studentToModify = totalStudents.get(record);
@@ -639,7 +649,14 @@ public class RecordAD extends javax.swing.JFrame {
         }
         
         if (flag) {
-            if (!oldName.equals(formattedNewName) || !oldUserName.equals(newUserName) || !oldEmail.equals(newEmail) || !oldIC.equals(newIC) || !oldGender.equals(newGender) || !oldPhone.equals(newPhone)) {
+            boolean nameChanged = !oldName.equals(formattedNewName);
+            boolean userNameChanged = !oldUserName.equals(newUserName);
+            boolean emailChanged = !oldEmail.equals(newEmail);
+            boolean IDChanged = !oldIC.equals(newIC);
+            boolean genderChanged = !oldGender.equals(newGender);
+            boolean phoneChanged = !oldPhone.equals(newPhone);
+
+            if ( nameChanged || userNameChanged || emailChanged || IDChanged || genderChanged || phoneChanged) {
                 studentToModify.setName(formattedNewName);
                 studentToModify.setUsername(newUserName);
                 studentToModify.setEmail(newEmail);
@@ -653,7 +670,8 @@ public class RecordAD extends javax.swing.JFrame {
             }
         }
     }
-    
+
+    // Show the student form
     private void showStudentForm(int index) {
         record = getValidIndex(index);
         Student student = totalStudents.get(record);
@@ -666,40 +684,34 @@ public class RecordAD extends javax.swing.JFrame {
         emailBox.setText(student.getEmail());
         genderDropbox.setSelectedItem(student.getGender());
     }
-    
+
+    // Get the valid index
     private int getValidIndex(int index) {
-        if (index >= totalStudents.size()) {
-            return 0;
-        } else if (index < 0) {
-            return totalStudents.size() - 1;
-        }
+        if (index >= totalStudents.size()) return 0;
+        else if (index < 0) return totalStudents.size() - 1;
         return index;
     }
-    
+
+    // Search for the student
     private void searchStudent() {
         String key = searchBox.getText().trim();
-        if (key != null && key.length() > 0) {
-            key = key.substring(0, 1).toUpperCase() + key.substring(1);
-        }
+        if (key != null && key.length() > 0) key = key.substring(0, 1).toUpperCase() + key.substring(1);
         record = findStudentRecordNumber(key);
-        if (record >= 0) {
-            showStudentForm(record);
-        } else {
-            PopUpWindow.showErrorMessage("Your search did not match any records", "Error 404 occurred");
-        }
+        if (record >= 0) showStudentForm(record);
+        else PopUpWindow.showErrorMessage("Your search did not match any records", "Error 404 occurred");
         searchBox.setText("");
     }
 
+    // Find the record number of the student
     private int findStudentRecordNumber(String searchKey) {
         for (int i = 0; i < totalStudents.size(); i++) {
             Student student = totalStudents.get(i);
-            if (searchKey.equals(student.getID())) {
-                return i;
-            }
+            if (searchKey.equals(student.getID())) return i;
         }
         return -1;
     }
     
+    // Start screen for the record
     public void start() {
         new RecordAD().setVisible(true);
     }

@@ -332,8 +332,7 @@ public class ReportAD extends javax.swing.JFrame {
             "Popup window",
             JOptionPane.YES_NO_OPTION
         );
-        if (dialogResult == JOptionPane.YES_OPTION)
-        {
+        if (dialogResult == JOptionPane.YES_OPTION) {
             PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
             setVisible(false);
             dispose(); // Destroy screen
@@ -363,7 +362,7 @@ public class ReportAD extends javax.swing.JFrame {
     }//GEN-LAST:event_feedbackButtonMouseClicked
 
     private void availableRoomsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_availableRoomsButtonMouseClicked
-        new availableRoom().start();
+        new AvailableRoom().start();
     }//GEN-LAST:event_availableRoomsButtonMouseClicked
 
     private void monthlyIncomeImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_monthlyIncomeImgMouseClicked
@@ -371,7 +370,7 @@ public class ReportAD extends javax.swing.JFrame {
     }//GEN-LAST:event_monthlyIncomeImgMouseClicked
 
     private void availableRoomsImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_availableRoomsImgMouseClicked
-        new availableRoom().start();
+        new AvailableRoom().start();
     }//GEN-LAST:event_availableRoomsImgMouseClicked
 
     public void start() {
