@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+// @author Brandon Ban Kai Xian TP067094
 package Utils;
 
 import Models.Application;
@@ -15,15 +12,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-/**
- *
- * @author bbkx2
- */
 public class ApplicationHandling {
     private static final String PATH = "src/main/java/databases/application.txt";
     
-    private final ArrayList<Room> totalRooms = new RoomHandling().totalRooms;
-    private final ArrayList<Student> totalStudents = new UserHandling().totalStudents;    
+    private final ArrayList<Room> totalRooms = new RoomHandling().getRooms();
+    private final ArrayList<Student> totalStudents = new UserHandling().getStudents();    
     public ArrayList<Application> totalApplications = getTotalApplications();
     public ArrayList<Application> pendingApplications = getPendingApplications();
     

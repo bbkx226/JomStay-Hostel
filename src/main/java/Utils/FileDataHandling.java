@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package Utils;
 
 import java.io.BufferedReader;
@@ -7,11 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-/**
- *
- * @author bbkx2
- */
 public class FileDataHandling {
     private static final String PATH = "src/main/java/databases/auth.txt";
     private static int count = 0, buffer = 0;
