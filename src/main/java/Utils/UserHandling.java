@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Utils;
 
 import Models.Admin;
@@ -14,18 +10,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-/**
- *
- * @author bbkx2
- */
 public class UserHandling {
     private static final String PATH = "src/main/java/databases/auth.txt";
-    public ArrayList<Student> totalStudents = getStudents();
-    public ArrayList<Admin> totalAdmins = getAdmins();  
-    
-    private ArrayList<Student> getStudents(){
+
+    // Returns an ArrayList of Student objects from the database
+    public ArrayList<Student> getStudents(){
         ArrayList<Student> buffer = new ArrayList<>();
-        
         File file = new File(PATH);
         try(BufferedReader reader = new BufferedReader(new FileReader(file))){
             String line;
@@ -38,12 +28,13 @@ public class UserHandling {
             }
             reader.close();
         } catch (IOException e){
-            e.printStackTrace();
+            PopUpWindow.showErrorMessage("Error reading from file", "Error");
         }
         return buffer;
     }
-    
-    private static ArrayList<Admin> getAdmins(){
+
+    // Returns an ArrayList of Admin objects from the database
+    public static ArrayList<Admin> getAdmins(){
         ArrayList<Admin> buffer = new ArrayList<>();
         
         File file = new File(PATH);
@@ -58,25 +49,30 @@ public class UserHandling {
             }
             reader.close();
         } catch (IOException e){
-            e.printStackTrace();
+            PopUpWindow.showErrorMessage("Error reading from file", "Error");
         }
         return buffer;
     }
-    
+
+    //Takes in an ArrayList of students and writes the new student data to the students file
     public static void updateStudentFile(ArrayList<Student> students){
+        //creates a new file object
         File file = new File(PATH);
+        //gets the admin arraylist
         ArrayList<Admin> admins = getAdmins();
+        //try with resources, opens a printwriter on the file
         try(PrintWriter printWriter = new PrintWriter(new FileWriter(file, false))){
+            //flushes the file
             printWriter.flush();
-            for (Admin admin : admins) {
-                printWriter.append(String.format("%s %s %s %s %s \n", admin.getID(), admin.getName(),admin.getEmail(), admin.getUsername(), admin.getPassword()));
-            }
-            for (Student student : students){
-                printWriter.append(String.format("%s %s %s %s %s %s %s %s %s\n", student.getID(), student.getName(), student.getEmail(), student.getUsername(), student.getGender(), student.getLoginDate(), student.getPassword(), student.getPhoneNo(), student.getNRIC()));
-            }
+            //for each admin in the admin arraylist, writes the admin details to the file
+            for (Admin admin : admins) printWriter.append(String.format("%s %s %s %s %s \n", admin.getID(), admin.getName(),admin.getEmail(), admin.getUsername(), admin.getPassword()));
+            //for each student in the student arraylist, writes the student details to the file
+            for (Student student : students) printWriter.append(String.format("%s %s %s %s %s %s %s %s %s\n", student.getID(), student.getName(), student.getEmail(), student.getUsername(), student.getGender(), student.getLoginDate(), student.getPassword(), student.getPhoneNo(), student.getNRIC()));
+            //closes the printwriter
             printWriter.close();
         } catch(IOException e){
-            e.printStackTrace();        
+            //if the printwriter throws an IOException, shows an error message
+            PopUpWindow.showErrorMessage("Error writing to file", "Error");
         }
     }
 }
