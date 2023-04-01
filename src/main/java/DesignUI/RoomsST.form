@@ -163,6 +163,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Single"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

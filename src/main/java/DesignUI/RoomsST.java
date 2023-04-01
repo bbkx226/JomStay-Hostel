@@ -91,6 +91,11 @@ public class RoomsST extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(51, 51, 51));
         jLabel19.setText("Single");
+        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -315,37 +320,54 @@ public class RoomsST extends javax.swing.JPanel {
     
     private void singleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_singleRoomClicked
         // TODO add your handling code here:
-        int apply = PopUpWindow.showRoom(roomTypes.get(0), "Room Details");
-        if (apply == JOptionPane.OK_OPTION) {
-            System.out.println("Applied");
+        boolean apply = PopUpWindow.showRoom(roomTypes.get(0), "Room Details");
+        if (apply) {
             selectedRoomType = "Single Room";
             HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
-        } else {
-            System.out.println("Not Applied");
         }
     }//GEN-LAST:event_singleRoomClicked
 
     private void doubleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doubleRoomClicked
         // TODO add your handling code here:
-        PopUpWindow.showRoom(roomTypes.get(1), "Room Details");
+        boolean apply = PopUpWindow.showRoom(roomTypes.get(1), "Room Details");
+        if (apply) {
+            selectedRoomType = "Double Room";
+            HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
+        }
     }//GEN-LAST:event_doubleRoomClicked
 
     private void privateRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_privateRoomClicked
         // TODO add your handling code here:
-        PopUpWindow.showRoom(roomTypes.get(2), "Room Details");
+        boolean apply = PopUpWindow.showRoom(roomTypes.get(2), "Room Details");
+        if (apply) {
+            selectedRoomType = "Private Room";
+            HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
+        }
     }//GEN-LAST:event_privateRoomClicked
 
     private void femaleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_femaleRoomClicked
         // TODO add your handling code here:
-        PopUpWindow.showRoom(roomTypes.get(3), "Room Details");
+        boolean apply = PopUpWindow.showRoom(roomTypes.get(3), "Room Details");
+        if (apply) {
+            selectedRoomType = "Female-Only Room";
+            HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
+        }
     }//GEN-LAST:event_femaleRoomClicked
 
     private void twinRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twinRoomClicked
         // TODO add your handling code here:
-        PopUpWindow.showRoom(roomTypes.get(4), "Room Details");
+        boolean apply = PopUpWindow.showRoom(roomTypes.get(4), "Room Details");
+        if (apply) {
+            selectedRoomType = "Twin Room";
+            HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
+        }
     }//GEN-LAST:event_twinRoomClicked
 
+    private void labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_labelClicked
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel headerPanel1;
     private javax.swing.JLabel jLabel19;
