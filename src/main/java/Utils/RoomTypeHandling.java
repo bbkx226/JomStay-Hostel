@@ -11,21 +11,18 @@ import java.util.ArrayList;
  * @author KZ
  */
 public final class RoomTypeHandling {
-    private static String PATH = "src/main/java/databases/room.txt";
+    private static final String PATH = "src/main/java/databases/roomtypes.txt";
     
-    private static ArrayList<String> getRoomTypes() {
+    public static ArrayList<String> getRoomTypes() {
         ArrayList<String> buffer = new ArrayList<>();
+        String roomString = "";
         for (String line : FileHandlerUtils.readLines(PATH)) {
-            String roomString = "";
             if (line.isEmpty()) {
                 buffer.add(roomString);
                 roomString = "";
-            } else {
-                roomString += line + "\n";
-                roomString = "";
             }
+            roomString += line + "\n";
         }
-        System.out.println(buffer);
         return buffer;
     }
 }
