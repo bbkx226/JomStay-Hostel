@@ -33,9 +33,7 @@ public class RoomsST extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel21 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
@@ -52,14 +50,11 @@ public class RoomsST extends javax.swing.JPanel {
         jPanel11 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(930, 750));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel21.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel21.setText("Rooms");
-        add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, 38));
         add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 50, 1058, 10));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -98,7 +93,7 @@ public class RoomsST extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(107, 107, 107)
                         .addComponent(jLabel19)))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,7 +102,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addComponent(jLabel22)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel19)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel7);
@@ -139,7 +134,7 @@ public class RoomsST extends javax.swing.JPanel {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(112, 112, 112)
                         .addComponent(jLabel26)))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,7 +143,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addComponent(jLabel23)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel26)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel8);
@@ -179,7 +174,7 @@ public class RoomsST extends javax.swing.JPanel {
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(jLabel25)))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +183,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addComponent(jLabel24)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel25)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel9);
@@ -220,7 +215,7 @@ public class RoomsST extends javax.swing.JPanel {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addComponent(jLabel29)))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +224,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addComponent(jLabel28)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel29)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel10);
@@ -261,7 +256,7 @@ public class RoomsST extends javax.swing.JPanel {
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(130, 130, 130)
                         .addComponent(jLabel27)))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,14 +265,16 @@ public class RoomsST extends javax.swing.JPanel {
                 .addComponent(jLabel20)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel27)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel11);
 
-        jScrollPane1.setViewportView(jPanel1);
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1050, 490));
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1050, 560));
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel1.setText("Rooms");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     public static String getSelectedRoomType() {
@@ -335,9 +332,9 @@ public class RoomsST extends javax.swing.JPanel {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -352,7 +349,6 @@ public class RoomsST extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
     // End of variables declaration//GEN-END:variables
 }

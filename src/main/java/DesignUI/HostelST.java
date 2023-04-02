@@ -15,8 +15,9 @@ public class HostelST extends javax.swing.JFrame {
     /**
      * Creates new form HostelST
      */
-    private static HomeST homePanel = new HomeST();
-    private static RoomsST roomsPanel = new RoomsST();
+    private static final HomeST homePanel = new HomeST();
+    private static final RoomsST roomsPanel = new RoomsST();
+    private static final ProfileST profilePanel = new ProfileST();
     private static CardLayout card;
     
     // custom component properties
@@ -26,8 +27,8 @@ public class HostelST extends javax.swing.JFrame {
     Border margin = new EmptyBorder(10, 10, 10, 10);
     CompoundBorder btnMarginBorder = new CompoundBorder(null, margin);
     
-    private static ArrayList<Application> applications = new ApplicationHandling().totalApplications;
-    private static Student currentUser = Login.getCurrentUser();
+    private static final ArrayList<Application> applications = new ApplicationHandling().totalApplications;
+    private static final Student currentUser = Login.getCurrentUser();
     private static Application currentUserApplication = null;
     private static Room currentUserRoom = null;
     
@@ -36,6 +37,7 @@ public class HostelST extends javax.swing.JFrame {
         card = (CardLayout) mainPanel.getLayout();
         mainPanel.add(homePanel, "home");
         mainPanel.add(roomsPanel, "rooms");
+        mainPanel.add(profilePanel, "profile");
         card.show(mainPanel, "home");
     }
     
@@ -63,18 +65,17 @@ public class HostelST extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        headerPanel = new javax.swing.JPanel();
+        sidePanel = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
         homeBtn = new javax.swing.JToggleButton();
         roomsBtn = new javax.swing.JToggleButton();
         profileBtn = new javax.swing.JToggleButton();
         paymentBtn = new javax.swing.JToggleButton();
-        homeBtn4 = new javax.swing.JToggleButton();
+        signOutBtn = new javax.swing.JToggleButton();
         mainPanel = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -82,11 +83,26 @@ public class HostelST extends javax.swing.JFrame {
         jPanel2.setMinimumSize(new java.awt.Dimension(1280, 720));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel1.setLayout(new java.awt.GridLayout(7, 1));
+        headerPanel.setBackground(new java.awt.Color(153, 153, 255));
+
+        javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
+        headerPanel.setLayout(headerPanelLayout);
+        headerPanelLayout.setHorizontalGroup(
+            headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1070, Short.MAX_VALUE)
+        );
+        headerPanelLayout.setVerticalGroup(
+            headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 80, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 1070, 80));
+
+        sidePanel.setBackground(new java.awt.Color(0, 0, 0));
+        sidePanel.setLayout(new java.awt.GridLayout(7, 1));
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/jomstaybg_small.png"))); // NOI18N
-        jPanel1.add(logo);
+        sidePanel.add(logo);
 
         homeBtn.setBackground(new java.awt.Color(0, 0, 0));
         homeBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -109,7 +125,7 @@ public class HostelST extends javax.swing.JFrame {
                 homeBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(homeBtn);
+        sidePanel.add(homeBtn);
 
         roomsBtn.setBackground(new java.awt.Color(0, 0, 0));
         roomsBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -132,7 +148,7 @@ public class HostelST extends javax.swing.JFrame {
                 roomsBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(roomsBtn);
+        sidePanel.add(roomsBtn);
 
         profileBtn.setBackground(new java.awt.Color(0, 0, 0));
         profileBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -155,7 +171,7 @@ public class HostelST extends javax.swing.JFrame {
                 profileBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(profileBtn);
+        sidePanel.add(profileBtn);
 
         paymentBtn.setBackground(new java.awt.Color(0, 0, 0));
         paymentBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -178,51 +194,36 @@ public class HostelST extends javax.swing.JFrame {
                 paymentBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(paymentBtn);
+        sidePanel.add(paymentBtn);
 
-        homeBtn4.setBackground(new java.awt.Color(0, 0, 0));
-        homeBtn4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        homeBtn4.setForeground(new java.awt.Color(255, 255, 255));
-        homeBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/exit.png"))); // NOI18N
-        homeBtn4.setText("   Sign Out     ");
-        homeBtn4.setBorder(btnMarginBorder);
-        homeBtn4.setBorderPainted(false);
-        homeBtn4.setRequestFocusEnabled(false);
-        homeBtn4.addMouseListener(new java.awt.event.MouseAdapter() {
+        signOutBtn.setBackground(new java.awt.Color(0, 0, 0));
+        signOutBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        signOutBtn.setForeground(new java.awt.Color(255, 255, 255));
+        signOutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/exit.png"))); // NOI18N
+        signOutBtn.setText("   Sign Out     ");
+        signOutBtn.setBorder(btnMarginBorder);
+        signOutBtn.setBorderPainted(false);
+        signOutBtn.setRequestFocusEnabled(false);
+        signOutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                homeBtn4Hover(evt);
+                signOutBtnHover(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                homeBtn4ExitHover(evt);
+                signOutBtnExitHover(evt);
             }
         });
-        homeBtn4.addActionListener(new java.awt.event.ActionListener() {
+        signOutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                homeBtn4ActionPerformed(evt);
+                signOutBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(homeBtn4);
+        sidePanel.add(signOutBtn);
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 730));
+        jPanel2.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 730));
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
         mainPanel.setLayout(new java.awt.CardLayout());
-        jPanel2.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 1070, 630));
-
-        jPanel3.setBackground(new java.awt.Color(153, 153, 255));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1070, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 1070, -1));
+        jPanel2.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 1070, 650));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -272,10 +273,12 @@ public class HostelST extends javax.swing.JFrame {
 
     private void paymentBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtnHover
         // TODO add your handling code here:
+        paymentBtn.setBackground(btnHoverColor);
     }//GEN-LAST:event_paymentBtnHover
 
     private void paymentBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtnExitHover
         // TODO add your handling code here:
+        paymentBtn.setBackground(btnBgColor);
     }//GEN-LAST:event_paymentBtnExitHover
 
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtnActionPerformed
@@ -284,27 +287,32 @@ public class HostelST extends javax.swing.JFrame {
 
     private void profileBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileBtnHover
         // TODO add your handling code here:
+        profileBtn.setBackground(btnHoverColor);
     }//GEN-LAST:event_profileBtnHover
 
     private void profileBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileBtnExitHover
         // TODO add your handling code here:
+        profileBtn.setBackground(btnBgColor);
     }//GEN-LAST:event_profileBtnExitHover
 
     private void profileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileBtnActionPerformed
         // TODO add your handling code here:
+        card.show(mainPanel, "profile");
     }//GEN-LAST:event_profileBtnActionPerformed
 
-    private void homeBtn4Hover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtn4Hover
+    private void signOutBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signOutBtnHover
         // TODO add your handling code here:
-    }//GEN-LAST:event_homeBtn4Hover
+        signOutBtn.setBackground(btnHoverColor);
+    }//GEN-LAST:event_signOutBtnHover
 
-    private void homeBtn4ExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtn4ExitHover
+    private void signOutBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signOutBtnExitHover
         // TODO add your handling code here:
-    }//GEN-LAST:event_homeBtn4ExitHover
+        signOutBtn.setBackground(btnBgColor);
+    }//GEN-LAST:event_signOutBtnExitHover
 
-    private void homeBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtn4ActionPerformed
+    private void signOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_homeBtn4ActionPerformed
+    }//GEN-LAST:event_signOutBtnActionPerformed
     public void start() {
         LocalDateTime currentTime = LocalDateTime.now();
         for (Application application : applications) {
@@ -360,15 +368,15 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel headerPanel;
     private javax.swing.JToggleButton homeBtn;
-    private javax.swing.JToggleButton homeBtn4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel logo;
     private static javax.swing.JPanel mainPanel;
     private javax.swing.JToggleButton paymentBtn;
     private javax.swing.JToggleButton profileBtn;
     private javax.swing.JToggleButton roomsBtn;
+    private javax.swing.JPanel sidePanel;
+    private javax.swing.JToggleButton signOutBtn;
     // End of variables declaration//GEN-END:variables
 }
