@@ -25,7 +25,6 @@ public class HostelST extends javax.swing.JFrame {
      */
     private static HomeST homePanel = new HomeST();
     private static RoomsST roomsPanel = new RoomsST();
-    private static ApplicationST applicationPanel = new ApplicationST();
     private static CardLayout card;
     
     // custom component properties
@@ -45,7 +44,6 @@ public class HostelST extends javax.swing.JFrame {
         card = (CardLayout) mainPanel.getLayout();
         mainPanel.add(homePanel, "home");
         mainPanel.add(roomsPanel, "rooms");
-        mainPanel.add(applicationPanel, "apply");
         card.show(mainPanel, "home");
     }
     
