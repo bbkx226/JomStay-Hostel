@@ -4,6 +4,8 @@
  */
 package Utils;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author KZ
@@ -11,4 +13,19 @@ package Utils;
 public final class RoomTypeHandling {
     private static String PATH = "src/main/java/databases/room.txt";
     
+    private static ArrayList<String> getRoomTypes() {
+        ArrayList<String> buffer = new ArrayList<>();
+        for (String line : FileHandlerUtils.readLines(PATH)) {
+            String roomString = "";
+            if (line.isEmpty()) {
+                buffer.add(roomString);
+                roomString = "";
+            } else {
+                roomString += line + "\n";
+                roomString = "";
+            }
+        }
+        System.out.println(buffer);
+        return buffer;
+    }
 }

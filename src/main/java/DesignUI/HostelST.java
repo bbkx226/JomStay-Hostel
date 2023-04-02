@@ -84,10 +84,16 @@ public class HostelST extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
+
+        jSplitPane1.setPreferredSize(new java.awt.Dimension(1280, 720));
 
         sidePanel.setBackground(new java.awt.Color(0, 0, 0));
         sidePanel.setForeground(new java.awt.Color(255, 255, 255));
-        sidePanel.setLayout(new java.awt.GridLayout(6, 1, 0, 50));
+        sidePanel.setFocusable(false);
+        sidePanel.setPreferredSize(new java.awt.Dimension(188, 720));
+        sidePanel.setLayout(new java.awt.GridLayout(6, 1));
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/jomstaybg_small.png"))); // NOI18N
         sidePanel.add(logo);
@@ -210,6 +216,7 @@ public class HostelST extends javax.swing.JFrame {
         jSplitPane1.setLeftComponent(sidePanel);
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        mainPanel.setPreferredSize(new java.awt.Dimension(942, 720));
         mainPanel.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -231,11 +238,11 @@ public class HostelST extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
