@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
 import Utils.FileDataHandling;
@@ -5,7 +6,6 @@ import Utils.PasswordHandling;
 import Utils.PopUpWindow;
 import javax.swing.JOptionPane;
 import Models.Student;
-import Utils.StudentHandling;
 import Utils.FileHandlerUtils;
 
 public class Login extends javax.swing.JFrame {
@@ -150,6 +150,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/x.png"))); // NOI18N
+        exitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 exitButtonMouseClicked(evt);

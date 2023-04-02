@@ -1,4 +1,7 @@
+// @author Brandon Ban Kai Xian TP067094
 package DesignUI;
+
+import Utils.PopUpWindow;
 
 public class Splash extends javax.swing.JFrame {
 
@@ -68,24 +71,25 @@ public class Splash extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void start() {
-        Splash screen = new Splash();
-        screen.setVisible(true);
-        try
-        {
-           for (int i=0; i<=100; i++)
-           {
-               Thread.sleep(25);
-               screen.loadingProgress.setValue(i);
-               screen.loadingProgress.setString(i+"%");
-           }
-        } 
-        catch(InterruptedException e)
-        {
-            System.err.println("Error occurred.");
-        }
+        Splash screen = new Splash(); // Splash screen is created
+        screen.setVisible(true); // Splash screen is made visible
+        loadProgressBar(screen);
         screen.dispose();
         new Login().setVisible(true);
     }
+    
+    private void loadProgressBar(Splash screen){
+        try {
+            for (int i=0; i<=100; i++) {// A for loop is used to increment the progress bar
+                Thread.sleep(25); // The progress bar is updated and the loading percentage is shown
+                screen.loadingProgress.setValue(i);
+                screen.loadingProgress.setString(i+"%");
+            }
+        } catch(InterruptedException e) {
+            PopUpWindow.showErrorMessage("Error Occurred...", "Error loading progress bar");
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -103,22 +107,16 @@ public class Splash extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Splash.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Splash.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Splash.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Splash.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Splash().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> { // Event Dispatch Thread (EDT): Create and display a new window
+            new Splash().setVisible(true);
         });
     }
 

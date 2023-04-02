@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package Utils;
 
 import Models.Room;
@@ -7,7 +8,7 @@ public class RoomHandling {
     private static final String PATH = "src/main/java/databases/room.txt";
     public ArrayList<Room> totalRooms = getRooms();
     
-    private ArrayList<Room> getRooms() {
+    public ArrayList<Room> getRooms() {
         ArrayList<Room> buffer = new ArrayList<>();
         for (String line : FileHandlerUtils.readLines(PATH)) {
             String[] data = line.split(" ");
@@ -42,5 +43,18 @@ public class RoomHandling {
     
     public static void appendRoomFile(Room room) {
         FileHandlerUtils.writeString(PATH, room.toString(), true);
+    }
+    
+    // Get available rooms
+    public static ArrayList<Room> getAvailableRooms() {
+        ArrayList<Room> buffer = new ArrayList<>();
+        for (String line : FileHandlerUtils.readLines(PATH)) {
+            String[] data = line.split(" ");
+            if (data[1].equals("Available")) {
+                Room room = new Room(data[0], data[1], Boolean.parseBoolean(data[2]), Integer.parseInt(data[3]), Integer.parseInt(data[4]));
+                buffer.add(room);
+            }
+        }
+        return buffer;
     }
 }

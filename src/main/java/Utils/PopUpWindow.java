@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package Utils;
 
 import java.awt.Image;
@@ -58,11 +59,5 @@ public class PopUpWindow {
         } else {
             return false;
         }
-    }
-    
-    public static String datePicker() {
-        DatePicker mainPanel = new DatePicker(2000, 1, "yyyy-MMMM-dd");
-        JOptionPane.showConfirmDialog(null, mainPanel);
-        return "N/A";
     }
 }

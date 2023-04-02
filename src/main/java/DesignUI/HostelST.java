@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package DesignUI;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -14,10 +10,6 @@ import java.awt.CardLayout;
 import java.time.LocalDateTime;
 import javax.swing.JPanel;
 
-/**
- *
- * @author bbkx2
- */
 public class HostelST extends javax.swing.JFrame {
 
     /**

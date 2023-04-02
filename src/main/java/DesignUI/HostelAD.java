@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
 import Models.Room;
@@ -6,10 +7,11 @@ import Utils.RoomHandling;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class HostelAD extends javax.swing.JFrame {
-    private final ArrayList<Room> rooms = new RoomHandling().totalRooms;
+    private final ArrayList<Room> rooms = new RoomHandling().getRooms();
     private int record = 0;
     private boolean isAppend = false; // True for append, False for Edit
     /**
@@ -108,14 +110,30 @@ public class HostelAD extends javax.swing.JFrame {
         students.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/student.png"))); // NOI18N
         students.setText("Students");
         students.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        students.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentsMouseClicked(evt);
+            }
+        });
 
         reportsIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         reportsIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         reportsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/seo-report.png"))); // NOI18N
         reportsIcon.setText("Reports");
         reportsIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        reportsIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportsIconMouseClicked(evt);
+            }
+        });
 
         exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/x.png"))); // NOI18N
+        exitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -456,26 +474,22 @@ public class HostelAD extends javax.swing.JFrame {
             "Popup window",
             JOptionPane.YES_NO_OPTION
         );
-        if (dialogResult == JOptionPane.YES_OPTION)
-        {
+        if (dialogResult == JOptionPane.YES_OPTION){
             PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
             setVisible(false);
-            dispose(); // Destroy screen
+            dispose();
             new Login().setVisible(true);
         }
     }//GEN-LAST:event_signoutIconMouseClicked
 
     private void roomTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomTableMouseClicked
         int selectedRow = roomTable.getSelectedRow();
-        if (selectedRow >= 0)
-        {
+        if (selectedRow >= 0){
             String selectedRoomID = String.valueOf(roomTable.getModel().getValueAt(selectedRow, 0));
-            for(Room data: rooms)
-            {
-                if(data.getRoomID().equals(selectedRoomID))
-                {
+            for(Room data: rooms){
+                if(data.getRoomID().equals(selectedRoomID)){
                     record = selectedRow;
-                    showInForm(record);
+                    showInForm(selectedRow);
                     break;
                 }
             }
@@ -520,184 +534,164 @@ public class HostelAD extends javax.swing.JFrame {
     }//GEN-LAST:event_removeButtonActionPerformed
 
     private void doneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneButtonActionPerformed
-        if(isAppend){
-            appendRoom();
-        } else {
-            modifyRoom();
-        }
+        if(isAppend) appendRoom();
+        else modifyRoom();
+        dispose();
+        new HostelAD().start();
+        showInForm(0);
     }//GEN-LAST:event_doneButtonActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        DefaultTableModel tableModel =  (DefaultTableModel) roomTable.getModel();
-        tableModel.setRowCount(0);     
-        for(Room room : rooms)
-        {
-            tableModel.addRow(new Object[]{room.getRoomID(),room.getStatus(),room.isServicing(),room.getPax(),room.getPricePerPax()});
-        }
+        DefaultTableModel tableModel = (DefaultTableModel) roomTable.getModel();
+        tableModel.setRowCount(0);
+        for (Room room : rooms) tableModel.addRow(new Object[]{room.getRoomID(), room.getStatus(), room.isServicing(), room.getPax(), room.getPricePerPax()});
         showInForm(0);
     }//GEN-LAST:event_formComponentShown
 
     private void searchBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBoxKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
-        {
-            searchRoom();
-        }
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) searchRoom();
     }//GEN-LAST:event_searchBoxKeyPressed
 
     private void applicationIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationIconMouseClicked
         dispose();
         new ApplicationAD().start();
     }//GEN-LAST:event_applicationIconMouseClicked
+
+    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
+        dispose();
+    }//GEN-LAST:event_exitButtonMouseClicked
+
+    private void studentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentsMouseClicked
+        dispose();
+        new RecordAD().start();
+    }//GEN-LAST:event_studentsMouseClicked
+
+    private void reportsIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportsIconMouseClicked
+        dispose();
+        new ReportAD().start();
+    }//GEN-LAST:event_reportsIconMouseClicked
     
+    // This method is used to set the screen to visible
     public void start() {
         new HostelAD().setVisible(true);
     }
     
+    // This method is used to show the details of the room selected by the user.
+    // It takes in the index of the room selected from the JList.
     private void showInForm(int index) {
-        record = getValidIndex(index);
-        Room room = rooms.get(record);
+        Room room = rooms.get(getValidIndex(index));
         roomID.setText(room.getRoomID());
         roomStatus.setSelectedItem(room.getStatus());
-
-        if (room.isServicing()) {
-            yesRadioButton.doClick();
-        } else {
-            noRadioButton.doClick();
-        }
-        
+        if (room.isServicing()) yesRadioButton.doClick();
+        else noRadioButton.doClick();
         roomPax.setText(String.valueOf(room.getPax()));
         roomPrice.setText(String.valueOf(room.getPricePerPax()));
     }
-    
+
+    // The code below is used to check the index of the room
+    // and to make sure that the index is not out of bounds
     private int getValidIndex(int index) {
-        if (index >= rooms.size()) {
-            return 0;
-        } else if (index < 0) {
-            return rooms.size() - 1;
-        }
+        if (index >= rooms.size()) return 0;
+        else if (index < 0) return rooms.size() - 1;
         return index;
     }
-    
+
+    // This function modifies the room. It is called when a player wants to modify the room
     private void modifyRoom() {
         Room roomToModify = rooms.get(record);
         String oldStatus = roomToModify.getStatus();
         boolean oldServicing = roomToModify.isServicing(); 
-        int oldPax = roomToModify.getPax();
-        int oldPrice = roomToModify.getPricePerPax();
+        int oldPax = roomToModify.getPax(), oldPrice = roomToModify.getPricePerPax();
 
         String newStatus = (String) roomStatus.getSelectedItem();
-        boolean newServicing = yesRadioButton.isSelected();
-        int newPax = 0;
-        int newPrice = 0;
-        boolean flag = true;
+        boolean newServicing = yesRadioButton.isSelected(), flag = true;
+        int newPax = Integer.parseInt(roomPax.getText()), newPrice = Integer.parseInt(roomPrice.getText());
         
-        try {
-            newPax = Integer.parseInt(roomPax.getText());
-            if (newPax <= 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            flag = false;
-            roomPax.setText("");
-            PopUpWindow.showFormatErrorMessage("Please ensure you've entered an integer", "Invalid Integer Input");
-        }
-        
-        try {
-            newPrice = Integer.parseInt(roomPrice.getText());
-            if (newPrice <= 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            flag = false;
-            roomPrice.setText("");
-            PopUpWindow.showFormatErrorMessage("Please ensure you've entered an integer", "Invalid Integer Input");
-        }
-        
+        flag = checkPositiveInt(roomPax, flag) && checkPositiveInt(roomPrice, flag);
+
         if (flag) {
-            if (!oldStatus.equals(newStatus) || oldServicing != newServicing || oldPax != newPax || oldPrice != newPrice) {
+            boolean statusChanged = !oldStatus.equals(newStatus);
+            boolean servicingChanged = oldServicing != newServicing;
+            boolean paxChanged = oldPax != newPax;
+            boolean priceChanged = oldPrice != newPrice;
+            
+            if (statusChanged || servicingChanged || paxChanged || priceChanged) {
                 roomToModify.setStatus(newStatus);
                 roomToModify.setServicing(newServicing);
                 roomToModify.setPax(newPax);
                 roomToModify.setPricePerPax(newPrice);
                 RoomHandling.updateRoomFile(rooms);
-                setVisible(false);
-                setVisible(true);
-                PopUpWindow.showSuccessfulMessage("Your updates to the room details have been successfully applied", "Congrats!");
+                PopUpWindow.showSuccessfulMessage(
+                    "Your updates to the room details have been successfully applied", 
+                    "Congrats!"
+                );
             }
         }
     }
 
+    // This function searches a room number in the room list
     private void searchRoom() {
         String key = searchBox.getText().trim();
-        if (key != null && key.length() > 0) {
-            key = key.substring(0, 1).toUpperCase() + key.substring(1);
-        }
+        if (key != null && key.length() > 0) key = key.substring(0, 1).toUpperCase() + key.substring(1);
         record = findRoomRecordNumber(key);
-        if (record >= 0) {
-            showInForm(record);
-        } else {
-            PopUpWindow.showErrorMessage("Your search did not match any records", "Error 404 occurred");
-        }
+        if (record >= 0) showInForm(record);
+        else PopUpWindow.showErrorMessage("Your search did not match any records", "Error 404 occurred");
         searchBox.setText("");
     }
 
+    // This function finds the index of the room in the room list
     private int findRoomRecordNumber(String searchKey) {
         for (int i = 0; i < rooms.size(); i++) {
-            Room room = rooms.get(i);
-            if (searchKey.equals(room.getRoomID())) {
-                return i;
-            }
+            if (searchKey.equals(rooms.get(i).getRoomID())) return i;
         }
         return -1;
     }
     
+    // This function deletes a room
     private void deleteRoom(){
         String roomNo = rooms.get(record).getRoomID();
         RoomHandling.deleteRoomData(rooms, roomNo);
-        PopUpWindow.showSuccessfulMessage("The room details have been deleted successfully", "Congrats!");
+        PopUpWindow.showSuccessfulMessage(
+            "The room details have been deleted successfully", 
+            "Congrats!"
+        );
         dispose();
         new HostelAD().start();
         showInForm(0);
     }
     
+    // Appends a room to the end of the room list.
     private void appendRoom(){
-
         boolean flag = true;
-        int newPax, newPrice;
-        
-        try {
-            newPax = Integer.parseInt(roomPax.getText());
-            if (newPax <= 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            flag = false;
-            roomPax.setText("");
-            PopUpWindow.showFormatErrorMessage("Please ensure you've entered an integer", "Invalid Integer Input");
-        }
-        
-        try {
-            newPrice = Integer.parseInt(roomPrice.getText());
-            if (newPrice <= 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            flag = false;
-            roomPrice.setText("");
-            PopUpWindow.showFormatErrorMessage("Please ensure you've entered an integer", "Invalid Integer Input");
-        }
+        flag = checkPositiveInt(roomPax, flag) && checkPositiveInt(roomPrice,flag);
         
         if (flag){
             Room roomToAppend = new Room(roomID.getText(), (String) roomStatus.getModel().getSelectedItem(), yesRadioButton.isSelected(), Integer.parseInt(roomPax.getText()), Integer.parseInt(roomPrice.getText()));
-            rooms.add(roomToAppend);
             RoomHandling.appendRoomFile(roomToAppend);
-        PopUpWindow.showSuccessfulMessage("The room details have been added successfully", "Congrats!");
+            PopUpWindow.showSuccessfulMessage(
+                "The room details have been added successfully", 
+                "Congrats!"
+            );
             isAppend = false;
-            dispose();
-            new HostelAD().start();
-            showInForm(0);
         }
     }
+
+    // Checks if the user input in the text field is an integer
+    private boolean checkPositiveInt(JTextField text, boolean flag){
+        try {
+            int value = Integer.parseInt(text.getText());
+            if (value <= 0) throw new NumberFormatException();
+        } catch (NumberFormatException e) {
+            flag = false;
+            text.setText("");
+            PopUpWindow.showFormatErrorMessage(
+                "Please ensure you've entered an integer", 
+                "Invalid Integer Input"
+            );
+        }
+        return flag;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -715,23 +709,15 @@ public class HostelAD extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HostelAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HostelAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HostelAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(HostelAD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HostelAD().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new HostelAD().setVisible(true);
         });
     }
 

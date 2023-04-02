@@ -1,3 +1,4 @@
+// @author Brandon Ban Kai Xian TP067094
 package Models;
 
 import java.time.LocalDateTime;
@@ -104,34 +105,16 @@ public class Application {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         final Application other = (Application) obj;
-        if (!Objects.equals(this.applicationID, other.applicationID)) {
-            return false;
-        }
-        if (!Objects.equals(this.status, other.status)) {
-            return false;
-        }
-        if (!Objects.equals(this.createDate, other.createDate)) {
-            return false;
-        }
-        if (!Objects.equals(this.startDate, other.startDate)) {
-            return false;
-        }
-        if (!Objects.equals(this.endDate, other.endDate)) {
-            return false;
-        }
-        if (!Objects.equals(this.student, other.student)) {
-            return false;
-        }
+        if (!Objects.equals(this.applicationID, other.applicationID)) return false;
+        if (!Objects.equals(this.status, other.status)) return false;
+        if (!Objects.equals(this.createDate, other.createDate)) return false;
+        if (!Objects.equals(this.startDate, other.startDate)) return false;
+        if (!Objects.equals(this.endDate, other.endDate)) return false;
+        if (!Objects.equals(this.student, other.student)) return false;
         return Objects.equals(this.room, other.room);
     }
 
@@ -139,6 +122,4 @@ public class Application {
     public String toString() {
         return String.format("%s %s %s %s %s %s %s\n", applicationID, student.getID(), room.getRoomID(), status, createDate, startDate, endDate);
     }
-    
-    
 }

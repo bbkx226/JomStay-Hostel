@@ -5,6 +5,7 @@ import java.util.Objects;
 /**
  *
  * @author bbkx2
+ * @author KZ
  */
 public class Student extends User {
     private String gender, loginDate, phoneNo, NRIC;

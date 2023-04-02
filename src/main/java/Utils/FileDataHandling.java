@@ -1,13 +1,10 @@
+// @author Brandon Ban Kai Xian TP067094
 package Utils;
 
 import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- *
- * @author bbkx2
- */
 public class FileDataHandling {
     private static final String PATH = "src/main/java/databases/auth.txt";
     private static int count = 0, buffer = 0;
@@ -24,6 +21,7 @@ public class FileDataHandling {
         return count;
     }
     
+    // Format name to remove spaces
     public static String nameWithSpaces(String name){
         return name.replaceAll("\\s", "_");
     }
@@ -38,6 +36,7 @@ public class FileDataHandling {
         return true;
     }
     
+    // Update login time of user
     public static void updateLoginTime(String ID){
         String content = "";
         FileWriter writer;
