@@ -71,32 +71,30 @@ public class HostelST extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jSplitPane1 = new javax.swing.JSplitPane();
-        sidePanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
         homeBtn = new javax.swing.JToggleButton();
         roomsBtn = new javax.swing.JToggleButton();
-        paymentBtn = new javax.swing.JToggleButton();
         profileBtn = new javax.swing.JToggleButton();
+        paymentBtn = new javax.swing.JToggleButton();
         homeBtn4 = new javax.swing.JToggleButton();
         mainPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1280, 720));
-        setResizable(false);
 
-        jSplitPane1.setPreferredSize(new java.awt.Dimension(1280, 720));
+        jPanel2.setMinimumSize(new java.awt.Dimension(1280, 720));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        sidePanel.setBackground(new java.awt.Color(0, 0, 0));
-        sidePanel.setForeground(new java.awt.Color(255, 255, 255));
-        sidePanel.setFocusable(false);
-        sidePanel.setPreferredSize(new java.awt.Dimension(188, 720));
-        sidePanel.setLayout(new java.awt.GridLayout(6, 1));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setLayout(new java.awt.GridLayout(7, 1));
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/jomstaybg_small.png"))); // NOI18N
-        sidePanel.add(logo);
+        jPanel1.add(logo);
 
         homeBtn.setBackground(new java.awt.Color(0, 0, 0));
         homeBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -119,7 +117,7 @@ public class HostelST extends javax.swing.JFrame {
                 homeBtnActionPerformed(evt);
             }
         });
-        sidePanel.add(homeBtn);
+        jPanel1.add(homeBtn);
 
         roomsBtn.setBackground(new java.awt.Color(0, 0, 0));
         roomsBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -142,30 +140,7 @@ public class HostelST extends javax.swing.JFrame {
                 roomsBtnActionPerformed(evt);
             }
         });
-        sidePanel.add(roomsBtn);
-
-        paymentBtn.setBackground(new java.awt.Color(0, 0, 0));
-        paymentBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        paymentBtn.setForeground(new java.awt.Color(255, 255, 255));
-        paymentBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dollar.png"))); // NOI18N
-        paymentBtn.setText("   Payment     ");
-        paymentBtn.setBorder(btnMarginBorder);
-        paymentBtn.setBorderPainted(false);
-        paymentBtn.setRequestFocusEnabled(false);
-        paymentBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                paymentBtnHover(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                paymentBtnExitHover(evt);
-            }
-        });
-        paymentBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentBtnActionPerformed(evt);
-            }
-        });
-        sidePanel.add(paymentBtn);
+        jPanel1.add(roomsBtn);
 
         profileBtn.setBackground(new java.awt.Color(0, 0, 0));
         profileBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -188,7 +163,30 @@ public class HostelST extends javax.swing.JFrame {
                 profileBtnActionPerformed(evt);
             }
         });
-        sidePanel.add(profileBtn);
+        jPanel1.add(profileBtn);
+
+        paymentBtn.setBackground(new java.awt.Color(0, 0, 0));
+        paymentBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        paymentBtn.setForeground(new java.awt.Color(255, 255, 255));
+        paymentBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dollar.png"))); // NOI18N
+        paymentBtn.setText("   Payment     ");
+        paymentBtn.setBorder(btnMarginBorder);
+        paymentBtn.setBorderPainted(false);
+        paymentBtn.setRequestFocusEnabled(false);
+        paymentBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                paymentBtnHover(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                paymentBtnExitHover(evt);
+            }
+        });
+        paymentBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(paymentBtn);
 
         homeBtn4.setBackground(new java.awt.Color(0, 0, 0));
         homeBtn4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -211,41 +209,42 @@ public class HostelST extends javax.swing.JFrame {
                 homeBtn4ActionPerformed(evt);
             }
         });
-        sidePanel.add(homeBtn4);
+        jPanel1.add(homeBtn4);
 
-        jSplitPane1.setLeftComponent(sidePanel);
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 730));
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
-        mainPanel.setPreferredSize(new java.awt.Dimension(942, 720));
         mainPanel.setLayout(new java.awt.CardLayout());
+        jPanel2.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 1070, 630));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 942, Short.MAX_VALUE)
+        jPanel3.setBackground(new java.awt.Color(153, 153, 255));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1070, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 777, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        mainPanel.add(jPanel1, "card2");
-
-        jSplitPane1.setRightComponent(mainPanel);
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 1070, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     
@@ -372,12 +371,12 @@ public class HostelST extends javax.swing.JFrame {
     private javax.swing.JToggleButton homeBtn;
     private javax.swing.JToggleButton homeBtn4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel logo;
     private static javax.swing.JPanel mainPanel;
     private javax.swing.JToggleButton paymentBtn;
     private javax.swing.JToggleButton profileBtn;
     private javax.swing.JToggleButton roomsBtn;
-    private javax.swing.JPanel sidePanel;
     // End of variables declaration//GEN-END:variables
 }
