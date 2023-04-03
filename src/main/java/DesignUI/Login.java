@@ -11,12 +11,13 @@ import Utils.UserHandling;
 
 public class Login extends javax.swing.JFrame {
     
-    private static Student currentUser = null;
+    private static Student currentUser;
     
     /**
      * Creates new form Login
      */
     public Login() {
+        currentUser = null;
         initComponents();
     }
 

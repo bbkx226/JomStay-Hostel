@@ -17,18 +17,20 @@ public class HostelST extends javax.swing.JFrame {
      */
     private static final HomeST homePanel = new HomeST();
     private static final RoomsST roomsPanel = new RoomsST();
+    private static final ApplicationST applicationPanel = new ApplicationST();
     private static final ProfileST profilePanel = new ProfileST();
+    private static final PaymentST paymentPanel = new PaymentST();
     private static CardLayout card;
     
     // custom component properties
-    Color btnBgColor = new Color(0,0,0);
-    Color btnHoverColor = new Color(43, 43, 43);
+    private static final Color btnBgColor = Color.BLACK;
+    private static final Color btnHoverColor = new Color(43, 43, 43);
     
     Border margin = new EmptyBorder(10, 10, 10, 10);
     CompoundBorder btnMarginBorder = new CompoundBorder(null, margin);
     
     private static final ArrayList<Application> applications = new ApplicationHandling().totalApplications;
-    private static final Student currentUser = Login.getCurrentUser();
+    private static Student currentUser = Login.getCurrentUser();
     private static Application currentUserApplication = null;
     private static Room currentUserRoom = null;
     
@@ -37,7 +39,9 @@ public class HostelST extends javax.swing.JFrame {
         card = (CardLayout) mainPanel.getLayout();
         mainPanel.add(homePanel, "home");
         mainPanel.add(roomsPanel, "rooms");
+        mainPanel.add(applicationPanel, "apply");
         mainPanel.add(profilePanel, "profile");
+        mainPanel.add(paymentPanel, "payment");
         card.show(mainPanel, "home");
     }
     
@@ -243,6 +247,7 @@ public class HostelST extends javax.swing.JFrame {
     
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // TODO add your handling code here:
+        homeBtn.setBackground(btnBgColor);
         card.show(mainPanel, "home");
     }//GEN-LAST:event_homeBtnActionPerformed
 
@@ -268,6 +273,7 @@ public class HostelST extends javax.swing.JFrame {
 
     private void roomsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsBtnActionPerformed
         // TODO add your handling code here:
+        roomsBtn.setBackground(btnBgColor);
         card.show(mainPanel, "rooms");
     }//GEN-LAST:event_roomsBtnActionPerformed
 
@@ -283,6 +289,8 @@ public class HostelST extends javax.swing.JFrame {
 
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtnActionPerformed
         // TODO add your handling code here:
+        paymentBtn.setBackground(btnBgColor);
+        card.show(mainPanel, "payment");
     }//GEN-LAST:event_paymentBtnActionPerformed
 
     private void profileBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileBtnHover
@@ -297,6 +305,7 @@ public class HostelST extends javax.swing.JFrame {
 
     private void profileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileBtnActionPerformed
         // TODO add your handling code here:
+        profileBtn.setBackground(btnBgColor);
         card.show(mainPanel, "profile");
     }//GEN-LAST:event_profileBtnActionPerformed
 
@@ -312,7 +321,14 @@ public class HostelST extends javax.swing.JFrame {
 
     private void signOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutBtnActionPerformed
         // TODO add your handling code here:
+        signOutBtn.setBackground(btnBgColor);
+        PopUpWindow.showGoodByeMessage("Thank you for using the system. See you!", "Sign Out");
+        currentUser = null;
+        setVisible(false);
+        dispose();
+        new Login().setVisible(true);
     }//GEN-LAST:event_signOutBtnActionPerformed
+    
     public void start() {
         LocalDateTime currentTime = LocalDateTime.now();
         for (Application application : applications) {
