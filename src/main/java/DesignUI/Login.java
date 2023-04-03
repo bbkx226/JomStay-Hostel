@@ -7,6 +7,7 @@ import Utils.PopUpWindow;
 import javax.swing.JOptionPane;
 import Models.Student;
 import Utils.FileHandlerUtils;
+import Utils.UserHandling;
 
 public class Login extends javax.swing.JFrame {
     
@@ -41,7 +42,11 @@ public class Login extends javax.swing.JFrame {
             } else if (data[0].startsWith("ST")){
                 if (data[3].equals(username) && data[6].equals(password)) {
                     FileDataHandling.updateLoginTime(data[0]);
-                    currentUser = new Student(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
+                    for (Student student : UserHandling.getStudents()) {
+                        if (data[0].equals(student.getID())) {
+                            currentUser = student;
+                        }
+                    }
                     return 2;
                 }
             }

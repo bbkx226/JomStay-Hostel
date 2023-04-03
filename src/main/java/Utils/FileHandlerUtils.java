@@ -3,19 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Utils;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author KZ
  */
 public final class FileHandlerUtils {
-    
+
     public static ArrayList<String> readLines(String filePath) {
         ArrayList<String> lines = new ArrayList<>();
         try {
@@ -32,10 +32,10 @@ public final class FileHandlerUtils {
         }
         return lines;
     }
-    
+
     public static void writeString(String filePath, String str, boolean append) {
         try {
-            FileWriter writer = new FileWriter("file.txt", append);
+            FileWriter writer = new FileWriter(filePath, append);
             writer.write(str);
             writer.close();
         } catch (IOException e) {

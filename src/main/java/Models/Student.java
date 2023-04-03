@@ -1,5 +1,7 @@
 package Models;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -8,9 +10,12 @@ import java.util.Objects;
  * @author KZ
  */
 public class Student extends User {
+    private static DateTimeFormatter formatter;
+    
     private String gender, loginDate, phoneNo, NRIC;
+    private static LocalDate DOB;
     private static String nationality, race, religion, permanentAddress, medicalCondition, emerContactName, emerContactRelationship, emerContactNo;
-
+    
     public Student(String ID, String name, String email, String username, String gender, String loginDate, String password, String phoneNo, String NRIC) {
         super(ID, name, email, username, password);
         this.gender = gender;
@@ -35,6 +40,15 @@ public class Student extends User {
         return NRIC;
     }
 
+    public static LocalDate getDOB() {
+        return DOB;
+    }
+    
+    public static String getDOBString(String format) {
+        formatter = DateTimeFormatter.ofPattern(format);
+        return DOB.format(formatter);
+    }
+    
     public static String getNationality() {
         return nationality;
     }
@@ -66,7 +80,7 @@ public class Student extends User {
     public static String getEmerContactNo() {
         return emerContactNo;
     }
-
+    
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -83,6 +97,15 @@ public class Student extends User {
         this.NRIC = NRIC;
     }
 
+    public void setDOB(LocalDate DOB) {
+        Student.DOB = DOB;
+    }
+    
+    public void setDOBString(String DOB, String format) {
+        formatter = DateTimeFormatter.ofPattern(format);
+        Student.DOB = LocalDate.parse(DOB, formatter);
+    }
+    
     public static void setNationality(String nationality) {
         Student.nationality = nationality;
     }
@@ -162,6 +185,7 @@ public class Student extends User {
         sb.append(", loginDate=").append(loginDate);
         sb.append(", phoneNo=").append(phoneNo);
         sb.append(", NRIC=").append(NRIC);
+        sb.append(", DOB=").append(Student.getDOBString("yyyy-MM-dd"));
         sb.append(", nationality=").append(nationality);
         sb.append(", race=").append(race);
         sb.append(", permanentAddress=").append(permanentAddress);

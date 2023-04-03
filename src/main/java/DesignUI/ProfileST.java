@@ -4,17 +4,20 @@
  */
 package DesignUI;
 
-import javax.swing.SwingConstants;
-import java.awt.Font;
+import Models.Student;
+import Utils.FileDataHandling;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author KZ
  */
 public class ProfileST extends javax.swing.JPanel {
-
-    private static final Font attributeNameFont = new Font("Arial", Font.BOLD, 18);
-    private static final Font attributeFont = new Font("Arial", Font.PLAIN, 24);
+    
+    private static Student currentStudent;
+    private static final String DOBFormat = "dd MMMM yyyy";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DOBFormat);
     
     /**
      * Creates new form ProfileST
@@ -22,7 +25,7 @@ public class ProfileST extends javax.swing.JPanel {
     public ProfileST() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,7 +97,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel20.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel20.setText("They Kai Zhe");
+        jLabel20.setText(currentStudent.getName().replace("_", " "));
         jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel20labelClicked(evt);
@@ -104,7 +107,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel34.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel34.setText("0123456789");
+        jLabel34.setText(currentStudent.getPhoneNo());
         jLabel34.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel34labelClicked(evt);
@@ -134,7 +137,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel22.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel22.setText("Male");
+        jLabel22.setText(currentStudent.getGender());
         jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel22labelClicked(evt);
@@ -144,7 +147,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel38.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel38.setText("a random address");
+        jLabel38.setText(currentStudent.getPermanentAddress().replace("_", " "));
         jLabel38.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel38labelClicked(evt);
@@ -174,7 +177,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel24.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel24.setText("123456-12-1234");
+        jLabel24.setText(currentStudent.getNRIC());
         jLabel24.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel24labelClicked(evt);
@@ -184,7 +187,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel36.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel36.setText("abc@example.com");
+        jLabel36.setText(currentStudent.getEmail());
         jLabel36.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel36labelClicked(evt);
@@ -214,7 +217,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel26.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel26.setText("9th April 2004");
+        jLabel26.setText(currentStudent.getDOB().format(formatter));
         jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel26labelClicked(evt);
@@ -224,7 +227,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel40.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel40.setText("N/A");
+        jLabel40.setText(currentStudent.getMedicalCondition().replace("_", " "));
         jLabel40.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel40labelClicked(evt);
@@ -254,7 +257,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel28.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel28.setText("Malaysia");
+        jLabel28.setText(currentStudent.getNationality().replace("_", " "));
         jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel28labelClicked(evt);
@@ -264,7 +267,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel45.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel45.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel45.setText("Brandon Ban Kai Xian");
+        jLabel45.setText(currentStudent.getEmerContactName().replace("_", " "));
         jLabel45.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel45labelClicked(evt);
@@ -294,7 +297,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel30.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel30.setText("Chinese");
+        jLabel30.setText(currentStudent.getRace().replace("_", " "));
         jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel30labelClicked(evt);
@@ -304,7 +307,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel46.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel46.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel46.setText("Friend");
+        jLabel46.setText(currentStudent.getEmerContactRelationship().replace("_", " "));
         jLabel46.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel46labelClicked(evt);
@@ -334,7 +337,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel32.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel32.setText("Buddhism");
+        jLabel32.setText(currentStudent.getReligion().replace("_", " "));
         jLabel32.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel32labelClicked(evt);
@@ -344,7 +347,7 @@ public class ProfileST extends javax.swing.JPanel {
 
         jLabel42.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel42.setText("0123456789");
+        jLabel42.setText(currentStudent.getEmerContactNo());
         jLabel42.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel42labelClicked(evt);
