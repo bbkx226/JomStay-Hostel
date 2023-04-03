@@ -4,14 +4,14 @@ package DesignUI;
 import Utils.FileDataHandling;
 import Utils.PasswordHandling;
 import Utils.PopUpWindow;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import javax.swing.JOptionPane;
+import Models.Student;
+import Utils.FileHandlerUtils;
 
 public class Login extends javax.swing.JFrame {
-
+    
+    private static Student currentUser = null;
+    
     /**
      * Creates new form Login
      */
@@ -32,27 +32,19 @@ public class Login extends javax.swing.JFrame {
         if(username.equals("abc") && password.equals("202cb962ac59075b964b07152d234b70")){ // Default username: abc, password: 123 (For Testing Purpose)
             return 1;
         }
-        File file = new File("src/main/java/databases/auth.txt");
-        try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line = reader.readLine();
-            while (line != null) {
-                String[] data = line.split(" ");
-                if (data[0].contains("AD")){
-                    if (data[3].equals(username) && data[4].equals(password)) {
-                        return 1;
-                    }
-                } 
-                if (data[0].contains("ST")){
-                    if (data[3].equals(username) && data[6].equals(password)) {
-                        FileDataHandling.updateLoginTime(data[0]);
-                        return 2;
-                    }
+        for (String line : FileHandlerUtils.readLines("src/main/java/databases/auth.txt")) {
+            String[] data = line.split(" ");
+            if (data[0].startsWith("AD")) {
+                if (data[3].equals(username) && data[4].equals(password)) {
+                    return 1;
                 }
-                line = reader.readLine();
+            } else if (data[0].startsWith("ST")){
+                if (data[3].equals(username) && data[6].equals(password)) {
+                    FileDataHandling.updateLoginTime(data[0]);
+                    currentUser = new Student(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
+                    return 2;
+                }
             }
-            reader.close();
-        } catch(IOException e){
-           e.printStackTrace();
         }
         return 0;
     }
@@ -84,8 +76,10 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         }
-        
-        
+    }
+    
+    public static Student getCurrentUser() {
+        return currentUser;
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

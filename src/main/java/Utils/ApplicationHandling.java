@@ -4,60 +4,40 @@ package Utils;
 import Models.Application;
 import Models.Room;
 import Models.Student;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ApplicationHandling {
     private static final String PATH = "src/main/java/databases/application.txt";
     
     private final ArrayList<Room> totalRooms = new RoomHandling().getRooms();
-    private final ArrayList<Student> totalStudents = new UserHandling().getStudents();    
+    private final ArrayList<Student> totalStudents = new UserHandling().getStudents();   
+    public ArrayList<Application> totalApplications = getTotalApplications();
+    public ArrayList<Application> pendingApplications = getPendingApplications();
     
-    // Get all applications
-    public ArrayList<Application> getTotalApplications(){
+    public static final String[] countryNames = getCountryNames();
+    
+    public ArrayList<Application> getTotalApplications() {
         ArrayList<Application> buffer = new ArrayList<>();
         
-        File file = new File(PATH);
-        try(BufferedReader reader = new BufferedReader(new FileReader(file))){
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(" ");
-                Student student = compareToStudent(data[1]);
-                Room room = compareToRoom(data[2]);
-                if(student != null && room != null){
-                    Application application = new Application(data[0], student, room, data[3], data[4], data[5], data[6]);
-                    buffer.add(application);
-                }
+        for (String line : FileHandlerUtils.readLines(PATH)) {
+            String[] data = line.split(" ");
+            Student student = compareToStudent(data[1]);
+            Room room = compareToRoom(data[2]);
+            if (student != null && room != null) {
+                Application application = new Application(data[0], student, room, data[3], data[4], data[5], data[6]);
+                buffer.add(application);
             }
-            reader.close();
-        } catch (IOException e){
-            PopUpWindow.showErrorMessage("Error reading from file", "Error");
         }
         return buffer;
     }
     
-    // Get all applications by student
-    public static void updateApplicationFile(ArrayList<Application> applications){
-        File file = new File(PATH);
-        try(PrintWriter printWriter = new PrintWriter(new FileWriter(file, false))){
-            printWriter.flush();
-            for (Application application : applications) 
-                printWriter.append(String.format("%s %s %s %s %s %s %s\n", 
-                    application.getApplicationID(), 
-                    application.getStudent().getID(), 
-                    application.getRoom().getRoomID(), 
-                    application.getStatus(), 
-                    application.getCreateDate(), 
-                    application.getStartDate(), 
-                    application.getEndDate()));
-        } catch(IOException e){
-            PopUpWindow.showErrorMessage("Error reading from file", "Error");     
+    public static void updateApplicationFile(ArrayList<Application> applications) {
+        String applicationListString = "";
+        for (Application application : applications) {
+            applicationListString += application.toString();
         }
+        FileHandlerUtils.writeString(PATH, applicationListString, false);
     }
     
     // Format date to remove spaces
@@ -95,5 +75,14 @@ public class ApplicationHandling {
         for (Room room : totalRooms)
             if(roomID.equals(room.getRoomID())) return room;
         return null;
+    }
+    
+    public static String[] getCountryNames() {
+        ArrayList<String> buffer = new ArrayList<>();
+        for (String countryCode : Locale.getISOCountries()) {
+            Locale country = Locale.of("", countryCode);
+            buffer.add(country.getDisplayCountry());
+        }
+        return buffer.toArray(new String[buffer.size()]);
     }
 }
