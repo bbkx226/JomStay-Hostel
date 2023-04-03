@@ -97,9 +97,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Full Name: "/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel19labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel33">
           <Properties>
@@ -111,9 +108,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="HP No:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel33labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel20">
           <Properties>
@@ -127,9 +121,6 @@
               <Connection code="currentStudent.getName().replace(&quot;_&quot;, &quot; &quot;)" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel20labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel34">
           <Properties>
@@ -143,9 +134,6 @@
               <Connection code="currentStudent.getPhoneNo()" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel34labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel21">
           <Properties>
@@ -157,9 +145,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Gender:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel21labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel37">
           <Properties>
@@ -171,9 +156,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Permanent Address:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel37labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel22">
           <Properties>
@@ -187,9 +169,6 @@
               <Connection code="currentStudent.getGender()" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel22labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel38">
           <Properties>
@@ -203,9 +182,6 @@
               <Connection code="currentStudent.getPermanentAddress().replace(&quot;_&quot;, &quot; &quot;)" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel38labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel23">
           <Properties>
@@ -217,9 +193,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="IC/Passport Number:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel23labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel35">
           <Properties>
@@ -231,9 +204,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Email:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel35labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel24">
           <Properties>
@@ -247,9 +217,6 @@
               <Connection code="currentStudent.getNRIC()" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel24labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel36">
           <Properties>
@@ -263,9 +230,6 @@
               <Connection code="currentStudent.getEmail()" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel36labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel25">
           <Properties>
@@ -277,9 +241,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Date of Birth:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel25labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel39">
           <Properties>
@@ -291,9 +252,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Medical Condition(s):"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel39labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel26">
           <Properties>
@@ -307,9 +265,6 @@
               <Connection code="currentStudent.getDOB().format(formatter)" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel26labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel40">
           <Properties>
@@ -323,9 +278,6 @@
               <Connection code="currentStudent.getMedicalCondition().replace(&quot;_&quot;, &quot; &quot;)" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel40labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel27">
           <Properties>
@@ -337,9 +289,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Nationality:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel27labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel44">
           <Properties>
@@ -351,9 +300,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Emergency Contact Name:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel44labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel28">
           <Properties>
@@ -367,9 +313,6 @@
               <Connection code="currentStudent.getNationality().replace(&quot;_&quot;, &quot; &quot;)" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel28labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel45">
           <Properties>
@@ -383,9 +326,6 @@
               <Connection code="currentStudent.getEmerContactName().replace(&quot;_&quot;, &quot; &quot;)" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel45labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel29">
           <Properties>
@@ -397,9 +337,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Race:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel29labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel43">
           <Properties>
@@ -411,9 +348,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Emergency Contact Relationship:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel43labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel30">
           <Properties>
@@ -427,9 +361,6 @@
               <Connection code="currentStudent.getRace().replace(&quot;_&quot;, &quot; &quot;)" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel30labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel46">
           <Properties>
@@ -443,9 +374,6 @@
               <Connection code="currentStudent.getEmerContactRelationship().replace(&quot;_&quot;, &quot; &quot;)" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel46labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel31">
           <Properties>
@@ -457,9 +385,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Religion:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel31labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel41">
           <Properties>
@@ -471,9 +396,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Emergency Contact Number:"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel41labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel32">
           <Properties>
@@ -487,9 +409,6 @@
               <Connection code="currentStudent.getReligion().replace(&quot;_&quot;, &quot; &quot;)" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel32labelClicked"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel42">
           <Properties>
@@ -503,9 +422,6 @@
               <Connection code="currentStudent.getEmerContactNo()" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel42labelClicked"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
