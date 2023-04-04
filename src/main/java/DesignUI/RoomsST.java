@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class RoomsST extends javax.swing.JPanel {
     
     private static ArrayList<String> roomTypes;
-    private static String selectedRoomType;
+    private static ApplicationST applyPanel;
     
     /**
      * Creates new form RoomsST
@@ -33,6 +33,7 @@ public class RoomsST extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -50,11 +51,14 @@ public class RoomsST extends javax.swing.JPanel {
         jPanel11 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(930, 750));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel1.setText("Rooms");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
         add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 50, 1058, 10));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -75,11 +79,6 @@ public class RoomsST extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(51, 51, 51));
         jLabel19.setText("Single");
-        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -271,21 +270,14 @@ public class RoomsST extends javax.swing.JPanel {
         jPanel1.add(jPanel11);
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1050, 490));
-
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        jLabel1.setText("Rooms");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    public static String getSelectedRoomType() {
-        return selectedRoomType;
-    }
     
     private void singleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_singleRoomClicked
         // TODO add your handling code here:
         boolean apply = PopUpWindow.showRoom(roomTypes.get(0), "Room Details");
         if (apply) {
-            selectedRoomType = "Single Room";
+            ApplicationST.setSelectedRoomType("Single Room");
             HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
         }
     }//GEN-LAST:event_singleRoomClicked
@@ -294,7 +286,7 @@ public class RoomsST extends javax.swing.JPanel {
         // TODO add your handling code here:
         boolean apply = PopUpWindow.showRoom(roomTypes.get(1), "Room Details");
         if (apply) {
-            selectedRoomType = "Double Room";
+            ApplicationST.setSelectedRoomType("Double Room");
             HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
         }
     }//GEN-LAST:event_doubleRoomClicked
@@ -303,7 +295,7 @@ public class RoomsST extends javax.swing.JPanel {
         // TODO add your handling code here:
         boolean apply = PopUpWindow.showRoom(roomTypes.get(2), "Room Details");
         if (apply) {
-            selectedRoomType = "Private Room";
+            ApplicationST.setSelectedRoomType("Private Room");
             HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
         }
     }//GEN-LAST:event_privateRoomClicked
@@ -312,7 +304,7 @@ public class RoomsST extends javax.swing.JPanel {
         // TODO add your handling code here:
         boolean apply = PopUpWindow.showRoom(roomTypes.get(3), "Room Details");
         if (apply) {
-            selectedRoomType = "Female-Only Room";
+            ApplicationST.setSelectedRoomType("Female-Only Room");
             HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
         }
     }//GEN-LAST:event_femaleRoomClicked
@@ -321,14 +313,10 @@ public class RoomsST extends javax.swing.JPanel {
         // TODO add your handling code here:
         boolean apply = PopUpWindow.showRoom(roomTypes.get(4), "Room Details");
         if (apply) {
-            selectedRoomType = "Twin Room";
+            ApplicationST.setSelectedRoomType("Twin Room");
             HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
         }
     }//GEN-LAST:event_twinRoomClicked
-
-    private void labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_labelClicked
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

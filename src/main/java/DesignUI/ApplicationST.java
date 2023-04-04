@@ -4,6 +4,11 @@
  */
 package DesignUI;
 
+import Models.Student;
+import Utils.PopUpWindow;
+import java.util.ArrayList;
+import javax.swing.JTextField;
+
 /**
  *
  * @author KZ
@@ -11,15 +16,21 @@ package DesignUI;
 public class ApplicationST extends javax.swing.JPanel {
 
     private static String selectedRoomType;
+    private static Student currentUser = Login.getCurrentUser();
+    private static final ArrayList<JTextField> requiredFields = new ArrayList<>();
     
     /**
      * Creates new form ApplicationST
      */
     public ApplicationST() {
-        selectedRoomType = RoomsST.getSelectedRoomType();
         initComponents();
     }
 
+    public static void setSelectedRoomType(String selectedRoomType) {
+        ApplicationST.selectedRoomType = selectedRoomType;
+        jLabel4.setText(selectedRoomType);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,7 +39,6 @@ public class ApplicationST extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel1 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -37,10 +47,10 @@ public class ApplicationST extends javax.swing.JPanel {
         roomDetailsSection = new javax.swing.JPanel();
         jLabel49 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel47 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         studentDetailsSection = new javax.swing.JPanel();
         jLabel50 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -54,28 +64,27 @@ public class ApplicationST extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
         jLabel39 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
         emerContactSection = new javax.swing.JPanel();
         jLabel51 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel44 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
         jLabel43 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
         jLabel41 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jTextField8 = new javax.swing.JTextField();
+        warningLabel = new javax.swing.JLabel();
+        confirmBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -102,7 +111,7 @@ public class ApplicationST extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGap(0, 465, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,30 +120,31 @@ public class ApplicationST extends javax.swing.JPanel {
 
         roomDetailsSection.add(jPanel1);
 
-        jLabel47.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel47.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel47.setText("Room Number:");
-        roomDetailsSection.add(jLabel47);
-
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("jLabel2");
-        roomDetailsSection.add(jLabel2);
-
         jLabel48.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel48.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel48.setText("Room Type:");
+        jLabel48.setText("Room Type");
         roomDetailsSection.add(jLabel48);
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText(selectedRoomType);
+        System.out.println(selectedRoomType);
+        jLabel4.setText("N/A");
         roomDetailsSection.add(jLabel4);
 
-        jPanel2.add(roomDetailsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 938, 160));
+        jLabel47.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel47.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel47.setText("Room Number");
+        roomDetailsSection.add(jLabel47);
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("N/A");
+        roomDetailsSection.add(jLabel2);
+
+        jPanel2.add(roomDetailsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 930, 160));
 
         studentDetailsSection.setBackground(new java.awt.Color(255, 255, 255));
-        studentDetailsSection.setLayout(new java.awt.GridLayout(12, 2, 0, 30));
+        studentDetailsSection.setLayout(new java.awt.GridLayout(11, 2, 0, 30));
 
         jLabel50.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel50.setForeground(new java.awt.Color(51, 51, 51));
@@ -147,126 +157,108 @@ public class ApplicationST extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGap(0, 465, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 34, Short.MAX_VALUE)
+            .addGap(0, 30, Short.MAX_VALUE)
         );
 
         studentDetailsSection.add(jPanel3);
 
         jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel19.setText("Full Name: ");
+        jLabel19.setText("Full Name");
         studentDetailsSection.add(jLabel19);
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("jLabel2");
+        jLabel5.setText(currentUser.getName().replace("_", " "));
         studentDetailsSection.add(jLabel5);
 
         jLabel35.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel35.setText("Email:");
+        jLabel35.setText("Email");
         studentDetailsSection.add(jLabel35);
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("jLabel2");
+        jLabel6.setText(currentUser.getEmail());
         studentDetailsSection.add(jLabel6);
 
         jLabel21.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel21.setText("Gender:");
+        jLabel21.setText("Gender");
         studentDetailsSection.add(jLabel21);
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("jLabel2");
+        jLabel7.setText(currentUser.getGender());
         studentDetailsSection.add(jLabel7);
 
         jLabel33.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel33.setText("HP No:");
+        jLabel33.setText("HP No");
         studentDetailsSection.add(jLabel33);
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("jLabel2");
+        jLabel8.setText(currentUser.getPhoneNo());
         studentDetailsSection.add(jLabel8);
 
         jLabel23.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel23.setText("IC/Passport Number:");
+        jLabel23.setText("IC/Passport Number");
         studentDetailsSection.add(jLabel23);
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("jLabel2");
+        jLabel9.setText(currentUser.getNRIC());
         studentDetailsSection.add(jLabel9);
-
-        jLabel25.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel25.setText("Date of Birth:");
-        studentDetailsSection.add(jLabel25);
-
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("jLabel2");
-        studentDetailsSection.add(jLabel10);
 
         jLabel27.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel27.setText("Nationality:");
+        jLabel27.setText("<html>Nationality<font color='red'>*</font></html>");
         studentDetailsSection.add(jLabel27);
 
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("jLabel2");
-        studentDetailsSection.add(jLabel11);
+        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        studentDetailsSection.add(jTextField1);
+        requiredFields.add(jTextField1);
 
         jLabel29.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel29.setText("Race:");
+        jLabel29.setText("Race");
         studentDetailsSection.add(jLabel29);
 
-        jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("jLabel2");
-        studentDetailsSection.add(jLabel12);
+        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
+        studentDetailsSection.add(jTextField2);
 
         jLabel31.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel31.setText("Religion:");
+        jLabel31.setText("Religion");
         studentDetailsSection.add(jLabel31);
 
-        jLabel13.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setText("jLabel2");
-        studentDetailsSection.add(jLabel13);
+        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
+        studentDetailsSection.add(jTextField3);
 
         jLabel37.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel37.setText("Permanent Address:");
+        jLabel37.setText("<html>Permanent Address<font color='red'>*</font></html>");
         studentDetailsSection.add(jLabel37);
 
-        jLabel14.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText("jLabel2");
-        studentDetailsSection.add(jLabel14);
+        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
+        studentDetailsSection.add(jTextField4);
+        requiredFields.add(jTextField4);
 
         jLabel39.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel39.setText("Medical Condition(s):");
+        jLabel39.setText("Medical Condition (if any)");
         studentDetailsSection.add(jLabel39);
 
-        jLabel15.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText("jLabel2");
-        studentDetailsSection.add(jLabel15);
+        jTextField5.setBackground(new java.awt.Color(255, 255, 255));
+        studentDetailsSection.add(jTextField5);
 
-        jPanel2.add(studentDetailsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 938, 740));
+        jPanel2.add(studentDetailsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 930, 630));
 
         emerContactSection.setBackground(new java.awt.Color(255, 255, 255));
         emerContactSection.setLayout(new java.awt.GridLayout(4, 2, 0, 30));
@@ -282,7 +274,7 @@ public class ApplicationST extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
+            .addGap(0, 465, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,64 +285,71 @@ public class ApplicationST extends javax.swing.JPanel {
 
         jLabel44.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel44.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel44.setText("Emergency Contact Name:");
+        jLabel44.setText("<html>Emergency Contact Name<font color='red'>*</font></html>");
         emerContactSection.add(jLabel44);
 
-        jLabel16.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("jLabel2");
-        emerContactSection.add(jLabel16);
+        jTextField6.setBackground(new java.awt.Color(255, 255, 255));
+        emerContactSection.add(jTextField6);
+        requiredFields.add(jTextField6);
 
         jLabel43.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel43.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel43.setText("Emergency Contact Relationship:");
+        jLabel43.setText("<html>Emergency Contact Relationship<font color='red'>*</font></html>");
         emerContactSection.add(jLabel43);
 
-        jLabel17.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setText("jLabel2");
-        emerContactSection.add(jLabel17);
+        jTextField7.setBackground(new java.awt.Color(255, 255, 255));
+        emerContactSection.add(jTextField7);
+        requiredFields.add(jTextField7);
 
         jLabel41.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel41.setText("Emergency Contact Number:");
+        jLabel41.setText("<html>Emergency Contact Number<font color='red'>*</font></html>");
         emerContactSection.add(jLabel41);
 
-        jLabel18.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("jLabel2");
-        emerContactSection.add(jLabel18);
+        jTextField8.setBackground(new java.awt.Color(255, 255, 255));
+        emerContactSection.add(jTextField8);
+        requiredFields.add(jTextField8);
 
-        jPanel2.add(emerContactSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 980, 920, 250));
+        jPanel2.add(emerContactSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 870, 930, 250));
+
+        warningLabel.setText("<html><font color='red'>Please fill in all the required (*) fields</font></html>");
+        jPanel2.add(warningLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, -1, -1));
 
         jScrollPane1.setViewportView(jPanel2);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1060, 1280));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1040, 460));
 
-        jButton1.setText("Confirm");
-        jButton1.setToolTipText("");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 1370, -1, -1));
+        confirmBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        confirmBtn.setText("Confirm");
+        confirmBtn.setToolTipText("");
+        confirmBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmBtnActionPerformed(evt);
+            }
+        });
+        add(confirmBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 540, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
+        // TODO add your handling code here:
+        for (JTextField field : requiredFields) {
+            if (field.getText().isBlank()) {
+                PopUpWindow.showErrorMessage("Please fill in all the required(*) fields.", "Error");
+                break;
+            }
+        }
+        
+    }//GEN-LAST:event_confirmBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton confirmBtn;
     private javax.swing.JPanel emerContactSection;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel31;
@@ -358,7 +357,7 @@ public class ApplicationST extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
+    private static javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
@@ -378,7 +377,16 @@ public class ApplicationST extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
     private javax.swing.JPanel roomDetailsSection;
     private javax.swing.JPanel studentDetailsSection;
+    private javax.swing.JLabel warningLabel;
     // End of variables declaration//GEN-END:variables
 }

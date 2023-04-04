@@ -1,6 +1,5 @@
 package Models;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
@@ -10,7 +9,6 @@ import java.util.Objects;
  * @author KZ
  */
 public class Student extends User {
-    private static DateTimeFormatter formatter;
     
     private String gender, loginDate, phoneNo, NRIC;
     private static String nationality, race, religion, permanentAddress, medicalCondition, emerContactName, emerContactRelationship, emerContactNo;
