@@ -18,6 +18,7 @@ public class HostelST extends javax.swing.JFrame {
     private static final HomeST homePanel = new HomeST();
     private static final RoomsST roomsPanel = new RoomsST();
     private static final ApplicationST applicationPanel = new ApplicationST();
+    private static final ApplyTnCST TnCPanel = new ApplyTnCST();
     private static final ProfileST profilePanel = new ProfileST();
     private static final PaymentST paymentPanel = new PaymentST();
     private static CardLayout card;
