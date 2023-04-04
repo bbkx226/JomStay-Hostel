@@ -13,7 +13,6 @@ public class Student extends User {
     private static DateTimeFormatter formatter;
     
     private String gender, loginDate, phoneNo, NRIC;
-    private static LocalDate DOB;
     private static String nationality, race, religion, permanentAddress, medicalCondition, emerContactName, emerContactRelationship, emerContactNo;
     
     public Student(String ID, String name, String email, String username, String gender, String loginDate, String password, String phoneNo, String NRIC) {
@@ -38,15 +37,6 @@ public class Student extends User {
 
     public String getNRIC() {
         return NRIC;
-    }
-
-    public static LocalDate getDOB() {
-        return DOB;
-    }
-    
-    public static String getDOBString(String format) {
-        formatter = DateTimeFormatter.ofPattern(format);
-        return DOB.format(formatter);
     }
     
     public static String getNationality() {
@@ -95,15 +85,6 @@ public class Student extends User {
 
     public void setNRIC(String NRIC) {
         this.NRIC = NRIC;
-    }
-
-    public void setDOB(LocalDate DOB) {
-        Student.DOB = DOB;
-    }
-    
-    public void setDOBString(String DOB, String format) {
-        formatter = DateTimeFormatter.ofPattern(format);
-        Student.DOB = LocalDate.parse(DOB, formatter);
     }
     
     public static void setNationality(String nationality) {
@@ -185,7 +166,6 @@ public class Student extends User {
         sb.append(", loginDate=").append(loginDate);
         sb.append(", phoneNo=").append(phoneNo);
         sb.append(", NRIC=").append(NRIC);
-        sb.append(", DOB=").append(Student.getDOBString("yyyy-MM-dd"));
         sb.append(", nationality=").append(nationality);
         sb.append(", race=").append(race);
         sb.append(", permanentAddress=").append(permanentAddress);

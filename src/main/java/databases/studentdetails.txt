@@ -1,7 +1,7 @@
-ST001 1974-04-05 Malaysia Chinese Buddhism 69,_Jalan_ABC,_Taman_BCD N/A They_Kai_Zhe Friend 01234556789
-ST002 1975-06-08 Malaysia Chinese Buddhism a_random_address N/A Yong_Jun_Fai Friend 01234556789
-ST003 1992-10-10 Malaysia Chinese Christian a_random_address N/A Lo_Sau_Kang Friend 01234556789
-ST004 1993-08-10 Malaysia Chinese N/A a_random_address N/A Chai_Hong_Jie Friend 01234556789
-ST005 2001-08-24 Malaysia Malay Islam a_random_address N/A Brandon_Ban_Kai_Xian Friend 01234556789
-ST006 2002-09-28 Malaysia Chinese N/A a_random_address N/A They_Kai_Zhe Friend 01234556789
-ST007 2004-03-24 United_States American Christian a_random_address N/A Ang_Xu_Tian Friend 01234556789
+ST001 Malaysia Chinese Buddhism 69,_Jalan_ABC,_Taman_BCD N/A They_Kai_Zhe Friend 01234556789
+ST002 Malaysia Chinese Buddhism a_random_address N/A Yong_Jun_Fai Friend 01234556789
+ST003 Malaysia Chinese Christian a_random_address N/A Lo_Sau_Kang Friend 01234556789
+ST004 Malaysia Chinese N/A a_random_address N/A Chai_Hong_Jie Friend 01234556789
+ST005 Malaysia Malay Islam a_random_address N/A Brandon_Ban_Kai_Xian Friend 01234556789
+ST006 Malaysia Chinese N/A a_random_address N/A They_Kai_Zhe Friend 01234556789
+ST007 United_States American Christian a_random_address N/A Ang_Xu_Tian Friend 01234556789

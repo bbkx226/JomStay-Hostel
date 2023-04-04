@@ -49,9 +49,7 @@ public class ProfileST extends javax.swing.JPanel {
         jLabel35 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
@@ -134,20 +132,10 @@ public class ProfileST extends javax.swing.JPanel {
         jLabel36.setText(currentStudent.getEmail());
         jPanel2.add(jLabel36);
 
-        jLabel25.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel25.setText("Date of Birth:");
-        jPanel2.add(jLabel25);
-
         jLabel39.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(51, 51, 51));
         jLabel39.setText("Medical Condition(s):");
         jPanel2.add(jLabel39);
-
-        jLabel26.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel26.setText(currentStudent.getDOB().format(formatter));
-        jPanel2.add(jLabel26);
 
         jLabel40.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(51, 51, 51));
@@ -252,8 +240,6 @@ public class ProfileST extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;

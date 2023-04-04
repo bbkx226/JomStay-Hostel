@@ -30,15 +30,14 @@ public class UserHandling {
                         break;
                     }
                     if (sData[0].equals(student.getID())) {
-                        student.setDOBString(sData[1], "yyyy-MM-dd");
-                        student.setNationality(sData[2]);
-                        student.setRace(sData[3]);
-                        student.setReligion(sData[4]);
-                        student.setPermanentAddress(sData[5]);
-                        student.setMedicalCondition(sData[6]);
-                        student.setEmerContactName(sData[7]);
-                        student.setEmerContactRelationship(sData[8]);
-                        student.setEmerContactNo(sData[9]);
+                        student.setNationality(sData[1]);
+                        student.setRace(sData[2]);
+                        student.setReligion(sData[3]);
+                        student.setPermanentAddress(sData[4]);
+                        student.setMedicalCondition(sData[5]);
+                        student.setEmerContactName(sData[6]);
+                        student.setEmerContactRelationship(sData[7]);
+                        student.setEmerContactNo(sData[8]);
                         buffer.add(student);
                         flag = true;
                     }
