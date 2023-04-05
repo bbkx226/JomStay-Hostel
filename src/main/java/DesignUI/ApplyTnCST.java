@@ -4,9 +4,10 @@
  */
 package DesignUI;
 
-import Models.Student;
+import Utils.ApplicationHandling;
 import Utils.PopUpWindow;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -153,8 +154,12 @@ public class ApplyTnCST extends javax.swing.JPanel {
         if (! jCheckBox1.isSelected()) {
             PopUpWindow.showErrorMessage("Please ensure that you have agreed to the Terms and Conditions as stated by checking the checkbox.", "Error");
         } else {
-            PopUpWindow.showSuccessfulMessage("Application has been sent to JomStay. We will get back to you when your application has been checked and accepted.", "Application Sent");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
+            String createDate = LocalDateTime.now().format(formatter);
+            ApplicationHandling.addNewApplication("Pending", createDate, "Pending", "Pending", ApplicationST.getCurrentUser(), ApplicationST.getSelectedRoom());
+            PopUpWindow.showSuccessfulMessage("Application has been sent to JomStay. We will get back to you when your application has been checked and accepted.", "Success");
             HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
+            
         }
     }//GEN-LAST:event_confirmBtnActionPerformed
 

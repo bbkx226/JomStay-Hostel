@@ -7,7 +7,6 @@ import javax.swing.border.EmptyBorder;
 import Models.*;
 import Utils.*;
 import java.awt.CardLayout;
-import java.time.LocalDateTime;
 import javax.swing.JPanel;
 
 public class HostelST extends javax.swing.JFrame {
@@ -15,12 +14,12 @@ public class HostelST extends javax.swing.JFrame {
     /**
      * Creates new form HostelST
      */
-    private static final HomeST homePanel = new HomeST();
-    private static final RoomsST roomsPanel = new RoomsST();
-    private static final ApplicationST applicationPanel = new ApplicationST();
-    private static final ApplyTnCST TnCPanel = new ApplyTnCST();
-    private static final ProfileST profilePanel = new ProfileST();
-    private static final PaymentST paymentPanel = new PaymentST();
+    private static HomeST homePanel;
+    private static RoomsST roomsPanel;
+    private static ApplicationST applicationPanel;
+    private static ApplyTnCST TnCPanel;
+    private static ProfileST profilePanel;
+    private static PaymentST paymentPanel;
     private static CardLayout card;
     
     // custom component properties
@@ -29,30 +28,25 @@ public class HostelST extends javax.swing.JFrame {
     
     Border margin = new EmptyBorder(10, 10, 10, 10);
     CompoundBorder btnMarginBorder = new CompoundBorder(null, margin);
-    
-    private static final ArrayList<Application> applications = new ApplicationHandling().totalApplications;
+
     private static Student currentUser = Login.getCurrentUser();
-    private static Application currentUserApplication = null;
-    private static Room currentUserRoom = null;
     
     public HostelST() {
+        homePanel = new HomeST();
+        roomsPanel = new RoomsST();
+        applicationPanel = new ApplicationST();
+        TnCPanel = new ApplyTnCST();
+        profilePanel = new ProfileST();
+        paymentPanel = new PaymentST();
         initComponents();
         card = (CardLayout) mainPanel.getLayout();
         mainPanel.add(homePanel, "home");
         mainPanel.add(roomsPanel, "rooms");
         mainPanel.add(applicationPanel, "apply");
-        mainPanel.add(TnCPanel, "t&c");
+        mainPanel.add(TnCPanel, "T&C");
         mainPanel.add(profilePanel, "profile");
         mainPanel.add(paymentPanel, "payment");
         card.show(mainPanel, "home");
-    }
-    
-    public static Application getCurrentUserApplication() {
-        return currentUserApplication;
-    }
-    
-    public static Room getCurrentUserRoom() {
-        return currentUserRoom;
     }
     
     public static JPanel getMainPanel() {
@@ -274,7 +268,7 @@ public class HostelST extends javax.swing.JFrame {
 
     
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
-        // TODO add your handling code here:
+        // TODO set color back to bg color when clicked:
         homeBtn.setBackground(btnBgColor);
         card.show(mainPanel, "home");
     }//GEN-LAST:event_homeBtnActionPerformed
@@ -373,16 +367,8 @@ public class HostelST extends javax.swing.JFrame {
     }//GEN-LAST:event_applicationBtnActionPerformed
     
     public void start() {
-        LocalDateTime currentTime = LocalDateTime.now();
-        for (Application application : applications) {
-            if (currentTime.isAfter(application.getLocalEndDate())) {
-                continue;
-            }
-            if (application.getStudent().getID().equals(currentUser.getID())) {
-                currentUserApplication = application;
-                currentUserRoom = application.getRoom();
-            }
-        }
+        Application currentUserApplication = ApplicationHandling.getCurrentStudentApplication(currentUser);
+        Room currentUserRoom = currentUserApplication.getRoom();
         if (currentUserRoom == null) {
             System.out.println("You have no room");
         }

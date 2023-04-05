@@ -4,11 +4,15 @@
  */
 package DesignUI;
 
+import Models.Application;
 import Models.Room;
 import Models.Student;
+import Utils.ApplicationHandling;
+import Utils.RoomHandling;
 import Utils.PopUpWindow;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JTextField;
 
 /**
@@ -17,15 +21,18 @@ import javax.swing.JTextField;
  */
 public class ApplicationST extends javax.swing.JPanel {
 
+    private static ArrayList<Room> availableRooms;
+    private static Room selectedRoom;
     private static String selectedRoomType;
-    private static Student currentUser = Login.getCurrentUser();
-    private static Room currentUserRoom = HostelST.getCurrentUserRoom();
-    private static final ArrayList<JTextField> requiredFields = new ArrayList<>();
+    private static Student currentUser;
+    private static Application currentUserApplication;
+    private static Room currentUserRoom;
     
     /**
      * Creates new form ApplicationST
      */
     public ApplicationST() {
+        initData();
         initComponents();
         if (currentUserRoom == null) {
             appliedPanel.setVisible(false);
@@ -37,11 +44,38 @@ public class ApplicationST extends javax.swing.JPanel {
             appliedPanel.setVisible(true);
         }
     }
-
+    
+    private static void initData() {
+        selectedRoomType = null;
+        availableRooms = RoomHandling.getAvailableRooms();
+        currentUser = Login.getCurrentUser();
+        currentUserApplication = ApplicationHandling.getCurrentStudentApplication(Login.getCurrentUser());
+        currentUserRoom = currentUserApplication.getRoom();
+    }
+    
+    public static void setSelectedRoom() {
+        if (availableRooms.isEmpty()) {
+            PopUpWindow.showErrorMessage("Sorry, there are no available rooms at the moment.", "Unavailable");
+        } else {
+            // TODO: change to set the first selected room type that is available
+            selectedRoom = availableRooms.get(0);
+            jLabel2.setText(selectedRoom.getRoomID());
+        }
+    }
+    
+    public static Room getSelectedRoom() {
+        return selectedRoom;
+    }
+    
     public static void setSelectedRoomType(String selectedRoomType) {
         ApplicationST.selectedRoomType = selectedRoomType;
         jLabel4.setText(selectedRoomType);
     }
+    
+    public static Student getCurrentUser() {
+        return currentUser;
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -306,7 +340,6 @@ public class ApplicationST extends javax.swing.JPanel {
 
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         studentDetailsSection.add(jTextField1);
-        requiredFields.add(jTextField1);
 
         jLabel29.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(51, 51, 51));
@@ -331,7 +364,6 @@ public class ApplicationST extends javax.swing.JPanel {
 
         jTextField4.setBackground(new java.awt.Color(255, 255, 255));
         studentDetailsSection.add(jTextField4);
-        requiredFields.add(jTextField4);
 
         jLabel39.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(51, 51, 51));
@@ -373,7 +405,6 @@ public class ApplicationST extends javax.swing.JPanel {
 
         jTextField6.setBackground(new java.awt.Color(255, 255, 255));
         emerContactSection.add(jTextField6);
-        requiredFields.add(jTextField6);
 
         jLabel43.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel43.setForeground(new java.awt.Color(51, 51, 51));
@@ -382,7 +413,6 @@ public class ApplicationST extends javax.swing.JPanel {
 
         jTextField7.setBackground(new java.awt.Color(255, 255, 255));
         emerContactSection.add(jTextField7);
-        requiredFields.add(jTextField7);
 
         jLabel41.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(51, 51, 51));
@@ -391,7 +421,6 @@ public class ApplicationST extends javax.swing.JPanel {
 
         jTextField8.setBackground(new java.awt.Color(255, 255, 255));
         emerContactSection.add(jTextField8);
-        requiredFields.add(jTextField8);
 
         jPanel2.add(emerContactSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 870, 930, 250));
 
@@ -416,15 +445,37 @@ public class ApplicationST extends javax.swing.JPanel {
         }
     }// </editor-fold>//GEN-END:initComponents
 
-    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
-        // TODO add your handling code here:
-        for (JTextField field : requiredFields) {
-            if (field.getText().isBlank()) {
-                PopUpWindow.showErrorMessage("Please fill in all the required(*) fields.", "Error");
-                break;
-            }
+    private boolean requiredFieldsValid() {
+        boolean valid = true;
+        
+        if (jTextField1.getText().isBlank()) {
+            valid = false;
+        }
+        if (jTextField4.getText().isBlank()) {
+            valid = false;
+        }
+        if (jTextField6.getText().isBlank()) {
+            valid = false;
+        }
+        if (jTextField7.getText().isBlank()) {
+            valid = false;
+        }
+        if (jTextField8.getText().isBlank()) {
+            valid = false;
         }
         
+        return valid;
+    }
+    
+    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
+        // TODO add your handling code here:
+        if (selectedRoomType == null) {
+            PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
+            HostelST.getCardManager().show(HostelST.getMainPanel(), "rooms");
+        } else if (requiredFieldsValid() == false) {
+            PopUpWindow.showErrorMessage("Please fill in all the required(*) fields.", "Error");
+        }
+        HostelST.getCardManager().show(HostelST.getMainPanel(), "T&C");
     }//GEN-LAST:event_confirmBtnActionPerformed
 
 
@@ -437,7 +488,7 @@ public class ApplicationST extends javax.swing.JPanel {
     private static javax.swing.JLabel jLabel11;
     private static javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
+    private static javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel27;

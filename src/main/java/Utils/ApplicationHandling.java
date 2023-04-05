@@ -10,15 +10,13 @@ import java.util.ArrayList;
 
 public class ApplicationHandling {
     private static final String PATH = "src/main/java/databases/application.txt";
-    private static final String dateFormat = "yyyy-MM-dd?HH:mm";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
     
-    private final ArrayList<Room> totalRooms = new RoomHandling().getRooms();
-    private final ArrayList<Student> totalStudents = new UserHandling().getStudents();   
-    public ArrayList<Application> totalApplications = getTotalApplications();
+    private static final ArrayList<Room> totalRooms = new RoomHandling().getRooms();
+    private static final ArrayList<Student> totalStudents = new UserHandling().getStudents();   
+    public static ArrayList<Application> totalApplications = getTotalApplications();
     public ArrayList<Application> pendingApplications = getPendingApplications();
     
-    public ArrayList<Application> getTotalApplications() {
+    public static ArrayList<Application> getTotalApplications() {
         ArrayList<Application> buffer = new ArrayList<>();
         
         for (String line : FileHandlerUtils.readLines(PATH)) {
@@ -65,25 +63,42 @@ public class ApplicationHandling {
     }
     
     // Return Particular Student Object 
-    private Student compareToStudent(String studentID){
+    private static Student compareToStudent(String studentID){
         for (Student student : totalStudents)
             if(studentID.equals(student.getID())) return student;
         return null;
     }
     
     // Return Particular Room Object
-    private Room compareToRoom(String roomID){
+    private static Room compareToRoom(String roomID){
         for (Room room : totalRooms)
             if(roomID.equals(room.getRoomID())) return room;
         return null;
     }
     
-    public void addNewApplication(String status, LocalDateTime createDate, LocalDateTime startDate, LocalDateTime endDate, Student student, Room room) {
-        String newApplicationID = String.format("A%03d", totalApplications.size());
-        String dateCreated = createDate.format(formatter);
-        String dateStarted = startDate.format(formatter);
-        String dateEnded = endDate.format(formatter);
-        Application application = new Application(newApplicationID, student, room, status, dateCreated, dateStarted, dateEnded);
+    public static void addNewApplication(String status, String createDate, String startDate, String endDate, Student student, Room room) {
+        String newApplicationID = String.format("A%03d", totalApplications.size() + 1);
+        Application application = new Application(newApplicationID, student, room, status, createDate, startDate, endDate);
         FileHandlerUtils.writeString(PATH, application.toString(), true);
     }
+    
+    public static Application getCurrentStudentApplication(Student currentStudent) {
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
+        for (String line : FileHandlerUtils.readLines(PATH)) {
+            String[] data = line.split(" ");
+            LocalDateTime endDate = LocalDateTime.parse(data[6], formatter);
+            if (currentTime.isAfter(endDate)) {
+                continue;
+            }
+            if (currentStudent.getID().equals(data[1])) {
+                Student student = compareToStudent(data[1]);
+                Room room = compareToRoom(data[2]);
+                return new Application(data[0], student, room, data[3], data[4], data[5], data[6]);
+            }
+        }
+        return new Application("N/A", currentStudent, null, "N/A", "N/A", "N/A", "N/A");
+    }
+    
+    
 }

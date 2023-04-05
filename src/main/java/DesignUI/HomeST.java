@@ -5,9 +5,8 @@
 package DesignUI;
 
 import Models.Application;
-import Models.Payment;
 import Models.Room;
-import java.time.format.DateTimeFormatter;
+import Utils.ApplicationHandling;
 
 /**
  *
@@ -15,15 +14,21 @@ import java.time.format.DateTimeFormatter;
  */
 public class HomeST extends javax.swing.JPanel {
     
-    private static Application currentApplication = HostelST.getCurrentUserApplication();
-    private static Room currentRoom = HostelST.getCurrentUserRoom();
+    private static Application currentApplication;
+    private static Room currentRoom;
     private static String roomNumLabel, servicingLabel, checkInDateLabel, checkOutDateLabel, paxLabel, paidLabel, totalPayableLabel, payDueDateLabel;
     
     /**
      * Creates new form HomeST
      */
     public HomeST() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        initData();
+        initComponents();
+    }
+
+    private static void initData() {
+        currentApplication = ApplicationHandling.getCurrentStudentApplication(Login.getCurrentUser());
+        currentRoom = currentApplication.getRoom();
         if (currentRoom == null) {
             roomNumLabel = "N/A";
             servicingLabel = "N/A";
@@ -44,9 +49,8 @@ public class HomeST extends javax.swing.JPanel {
             checkOutDateLabel = currentApplication.getEndDate().split("\\?")[0];
             paxLabel = Integer.toString(currentRoom.getPax());
         }
-        initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

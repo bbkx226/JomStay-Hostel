@@ -4,6 +4,7 @@
  */
 package DesignUI;
 
+import Models.Room;
 import Utils.*;
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class RoomsST extends javax.swing.JPanel {
     
     private static ArrayList<String> roomTypes;
+    private static Room selectedRoom;
     
     /**
      * Creates new form RoomsST
@@ -274,8 +276,9 @@ public class RoomsST extends javax.swing.JPanel {
     
     private void singleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_singleRoomClicked
         // TODO add your handling code here:
-        boolean apply = PopUpWindow.showRoom(roomTypes.get(0), "Room Details");
+        boolean apply = PopUpWindow.showRoom(roomTypes.get(0) + "Available: IDK", "Room Details");
         if (apply) {
+            ApplicationST.setSelectedRoom();
             ApplicationST.setSelectedRoomType("Single Room");
             HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
         }
@@ -283,8 +286,9 @@ public class RoomsST extends javax.swing.JPanel {
 
     private void doubleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doubleRoomClicked
         // TODO add your handling code here:
-        boolean apply = PopUpWindow.showRoom(roomTypes.get(1), "Room Details");
+        boolean apply = PopUpWindow.showRoom(roomTypes.get(1) + "Available: IDK", "Room Details");
         if (apply) {
+            ApplicationST.setSelectedRoom();
             ApplicationST.setSelectedRoomType("Double Room");
             HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
         }
@@ -292,8 +296,9 @@ public class RoomsST extends javax.swing.JPanel {
 
     private void privateRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_privateRoomClicked
         // TODO add your handling code here:
-        boolean apply = PopUpWindow.showRoom(roomTypes.get(2), "Room Details");
+        boolean apply = PopUpWindow.showRoom(roomTypes.get(2) + "Available: IDK", "Room Details");
         if (apply) {
+            ApplicationST.setSelectedRoom();
             ApplicationST.setSelectedRoomType("Private Room");
             HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
         }
@@ -301,8 +306,9 @@ public class RoomsST extends javax.swing.JPanel {
 
     private void femaleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_femaleRoomClicked
         // TODO add your handling code here:
-        boolean apply = PopUpWindow.showRoom(roomTypes.get(3), "Room Details");
+        boolean apply = PopUpWindow.showRoom(roomTypes.get(3) + "Available: IDK", "Room Details");
         if (apply) {
+            ApplicationST.setSelectedRoom();
             ApplicationST.setSelectedRoomType("Female-Only Room");
             HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
         }
@@ -310,8 +316,9 @@ public class RoomsST extends javax.swing.JPanel {
 
     private void twinRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twinRoomClicked
         // TODO add your handling code here:
-        boolean apply = PopUpWindow.showRoom(roomTypes.get(4), "Room Details");
+        boolean apply = PopUpWindow.showRoom(roomTypes.get(4) + "Available: IDK", "Room Details");
         if (apply) {
+            ApplicationST.setSelectedRoom();
             ApplicationST.setSelectedRoomType("Twin Room");
             HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
         }
