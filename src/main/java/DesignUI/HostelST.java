@@ -41,6 +41,7 @@ public class HostelST extends javax.swing.JFrame {
         mainPanel.add(homePanel, "home");
         mainPanel.add(roomsPanel, "rooms");
         mainPanel.add(applicationPanel, "apply");
+        mainPanel.add(TnCPanel, "t&c");
         mainPanel.add(profilePanel, "profile");
         mainPanel.add(paymentPanel, "payment");
         card.show(mainPanel, "home");
@@ -77,6 +78,7 @@ public class HostelST extends javax.swing.JFrame {
         logo = new javax.swing.JLabel();
         homeBtn = new javax.swing.JToggleButton();
         roomsBtn = new javax.swing.JToggleButton();
+        applicationBtn = new javax.swing.JToggleButton();
         profileBtn = new javax.swing.JToggleButton();
         paymentBtn = new javax.swing.JToggleButton();
         signOutBtn = new javax.swing.JToggleButton();
@@ -104,7 +106,7 @@ public class HostelST extends javax.swing.JFrame {
         jPanel2.add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 1070, 80));
 
         sidePanel.setBackground(new java.awt.Color(0, 0, 0));
-        sidePanel.setLayout(new java.awt.GridLayout(7, 1));
+        sidePanel.setLayout(new java.awt.GridLayout(7, 1, 0, 30));
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/jomstaybg_small.png"))); // NOI18N
         sidePanel.add(logo);
@@ -154,6 +156,29 @@ public class HostelST extends javax.swing.JFrame {
             }
         });
         sidePanel.add(roomsBtn);
+
+        applicationBtn.setBackground(new java.awt.Color(0, 0, 0));
+        applicationBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        applicationBtn.setForeground(new java.awt.Color(255, 255, 255));
+        applicationBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/form.png"))); // NOI18N
+        applicationBtn.setText("    Apply          ");
+        applicationBtn.setBorder(btnMarginBorder);
+        applicationBtn.setBorderPainted(false);
+        applicationBtn.setRequestFocusEnabled(false);
+        applicationBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                applicationBtnHover(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                applicationBtnExitHover(evt);
+            }
+        });
+        applicationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                applicationBtnActionPerformed(evt);
+            }
+        });
+        sidePanel.add(applicationBtn);
 
         profileBtn.setBackground(new java.awt.Color(0, 0, 0));
         profileBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -224,11 +249,11 @@ public class HostelST extends javax.swing.JFrame {
         });
         sidePanel.add(signOutBtn);
 
-        jPanel2.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 730));
+        jPanel2.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 690));
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
         mainPanel.setLayout(new java.awt.CardLayout());
-        jPanel2.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 1070, 650));
+        jPanel2.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 1070, 610));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -238,7 +263,9 @@ public class HostelST extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -329,6 +356,21 @@ public class HostelST extends javax.swing.JFrame {
         dispose();
         new Login().setVisible(true);
     }//GEN-LAST:event_signOutBtnActionPerformed
+
+    private void applicationBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationBtnHover
+        // TODO add your handling code here:
+        applicationBtn.setBackground(btnHoverColor);
+    }//GEN-LAST:event_applicationBtnHover
+
+    private void applicationBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationBtnExitHover
+        // TODO add your handling code here:
+        applicationBtn.setBackground(btnBgColor);
+    }//GEN-LAST:event_applicationBtnExitHover
+
+    private void applicationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applicationBtnActionPerformed
+        // TODO add your handling code here:
+        card.show(mainPanel, "apply");
+    }//GEN-LAST:event_applicationBtnActionPerformed
     
     public void start() {
         LocalDateTime currentTime = LocalDateTime.now();
@@ -385,6 +427,7 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton applicationBtn;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JToggleButton homeBtn;
     private javax.swing.JPanel jPanel2;

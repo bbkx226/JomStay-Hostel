@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class RoomsST extends javax.swing.JPanel {
     
     private static ArrayList<String> roomTypes;
-    private static ApplicationST applyPanel;
     
     /**
      * Creates new form RoomsST

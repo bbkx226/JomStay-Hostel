@@ -4,8 +4,10 @@
  */
 package DesignUI;
 
+import Models.Room;
 import Models.Student;
 import Utils.PopUpWindow;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JTextField;
 
@@ -17,6 +19,7 @@ public class ApplicationST extends javax.swing.JPanel {
 
     private static String selectedRoomType;
     private static Student currentUser = Login.getCurrentUser();
+    private static Room currentUserRoom = HostelST.getCurrentUserRoom();
     private static final ArrayList<JTextField> requiredFields = new ArrayList<>();
     
     /**
@@ -24,6 +27,15 @@ public class ApplicationST extends javax.swing.JPanel {
      */
     public ApplicationST() {
         initComponents();
+        if (currentUserRoom == null) {
+            appliedPanel.setVisible(false);
+            notAppliedPanel.setVisible(true);
+            confirmBtn.setVisible(true);
+        } else {
+            notAppliedPanel.setVisible(false);
+            confirmBtn.setVisible(false);
+            appliedPanel.setVisible(true);
+        }
     }
 
     public static void setSelectedRoomType(String selectedRoomType) {
@@ -42,7 +54,16 @@ public class ApplicationST extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        appliedPanel = new javax.swing.JPanel();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        notAppliedPanel = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         roomDetailsSection = new javax.swing.JPanel();
         jLabel49 = new javax.swing.JLabel();
@@ -93,6 +114,68 @@ public class ApplicationST extends javax.swing.JPanel {
         jLabel1.setText("Apply");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
         add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1058, 10));
+
+        appliedPanel.setBackground(new java.awt.Color(255, 255, 255));
+        appliedPanel.setLayout(new java.awt.GridLayout(4, 2, 0, 30));
+
+        jLabel53.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel53.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel53.setText("Application Status");
+        appliedPanel.add(jLabel53);
+
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Pending");
+        if (jLabel10.getText().equals("Pending")) {
+            jLabel10.setForeground(Color.BLUE);
+        } else if (jLabel10.getText().equals("Rejected")) {
+            jLabel10.setForeground(Color.RED);
+        } else {
+            jLabel10.setForeground(Color.GREEN);
+        }
+        appliedPanel.add(jLabel10);
+
+        jLabel52.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel52.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel52.setText("Room Details");
+        appliedPanel.add(jLabel52);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 520, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 65, Short.MAX_VALUE)
+        );
+
+        appliedPanel.add(jPanel6);
+
+        jLabel54.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel54.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel54.setText("Room Number");
+        appliedPanel.add(jLabel54);
+
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("R001");
+        appliedPanel.add(jLabel11);
+
+        jLabel55.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel55.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel55.setText("Room Type");
+        appliedPanel.add(jLabel55);
+
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel12.setText("Single");
+        appliedPanel.add(jLabel12);
+
+        add(appliedPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 1040, 350));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -315,9 +398,9 @@ public class ApplicationST extends javax.swing.JPanel {
         warningLabel.setText("<html><font color='red'>Please fill in all the required (*) fields</font></html>");
         jPanel2.add(warningLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, -1, -1));
 
-        jScrollPane1.setViewportView(jPanel2);
+        notAppliedPanel.setViewportView(jPanel2);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1040, 460));
+        add(notAppliedPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1040, 460));
 
         confirmBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         confirmBtn.setText("Confirm");
@@ -328,6 +411,9 @@ public class ApplicationST extends javax.swing.JPanel {
             }
         });
         add(confirmBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 540, -1, -1));
+        if (currentUserRoom != null) {
+            warningLabel.setVisible(false);
+        }
     }// </editor-fold>//GEN-END:initComponents
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
@@ -343,9 +429,13 @@ public class ApplicationST extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel appliedPanel;
     private javax.swing.JButton confirmBtn;
     private javax.swing.JPanel emerContactSection;
     private javax.swing.JLabel jLabel1;
+    private static javax.swing.JLabel jLabel10;
+    private static javax.swing.JLabel jLabel11;
+    private static javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
@@ -367,6 +457,10 @@ public class ApplicationST extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -375,7 +469,7 @@ public class ApplicationST extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
@@ -385,6 +479,7 @@ public class ApplicationST extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JScrollPane notAppliedPanel;
     private javax.swing.JPanel roomDetailsSection;
     private javax.swing.JPanel studentDetailsSection;
     private javax.swing.JLabel warningLabel;

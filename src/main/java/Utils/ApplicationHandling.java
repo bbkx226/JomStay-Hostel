@@ -4,18 +4,19 @@ package Utils;
 import Models.Application;
 import Models.Room;
 import Models.Student;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ApplicationHandling {
     private static final String PATH = "src/main/java/databases/application.txt";
+    private static final String dateFormat = "yyyy-MM-dd?HH:mm";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
     
     private final ArrayList<Room> totalRooms = new RoomHandling().getRooms();
     private final ArrayList<Student> totalStudents = new UserHandling().getStudents();   
     public ArrayList<Application> totalApplications = getTotalApplications();
     public ArrayList<Application> pendingApplications = getPendingApplications();
-    
-    public static final String[] countryNames = getCountryNames();
     
     public ArrayList<Application> getTotalApplications() {
         ArrayList<Application> buffer = new ArrayList<>();
@@ -58,7 +59,7 @@ public class ApplicationHandling {
                 if(application.getStatus().equals("Pending")) buffer.add(application);
             }
         } catch(Exception e){
-            PopUpWindow.showErrorMessage("No pending application is exist right now", "Error 404");
+            PopUpWindow.showErrorMessage("There are no pending applications", "Error 404");
         }
         return buffer;
     }
@@ -77,12 +78,12 @@ public class ApplicationHandling {
         return null;
     }
     
-    public static String[] getCountryNames() {
-        ArrayList<String> buffer = new ArrayList<>();
-        for (String countryCode : Locale.getISOCountries()) {
-            Locale country = Locale.of("", countryCode);
-            buffer.add(country.getDisplayCountry());
-        }
-        return buffer.toArray(new String[buffer.size()]);
+    public void addNewApplication(String status, LocalDateTime createDate, LocalDateTime startDate, LocalDateTime endDate, Student student, Room room) {
+        String newApplicationID = String.format("A%03d", totalApplications.size());
+        String dateCreated = createDate.format(formatter);
+        String dateStarted = startDate.format(formatter);
+        String dateEnded = endDate.format(formatter);
+        Application application = new Application(newApplicationID, student, room, status, dateCreated, dateStarted, dateEnded);
+        FileHandlerUtils.writeString(PATH, application.toString(), true);
     }
 }
