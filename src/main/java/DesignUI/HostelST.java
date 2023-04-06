@@ -118,6 +118,11 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     public static void showApplication() {
+        if (selectedRoomType == null) {
+            PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
+            HostelST.showRooms();
+            return;
+        }
         ApplicationST applicationPanel = new ApplicationST();
         mainPanel.add(applicationPanel, "apply");
         card.show(mainPanel, "apply");

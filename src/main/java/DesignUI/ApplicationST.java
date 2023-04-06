@@ -22,12 +22,7 @@ public class ApplicationST extends javax.swing.JPanel {
         initComponents();
         card = (CardLayout) contentPanel.getLayout();
         if (HostelST.getCurrentUserRoom() == null) {
-            if (HostelST.getSelectedRoomType() == null) {
-                PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
-                HostelST.showRooms();
-            } else {
-                showNotAppliedPage();            
-            }
+            showNotAppliedPage();
         } else {
             showAppliedPage();
         }
