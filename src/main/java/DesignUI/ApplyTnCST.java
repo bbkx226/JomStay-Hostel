@@ -4,7 +4,9 @@
  */
 package DesignUI;
 
+import Models.Application;
 import Utils.ApplicationHandling;
+import static Utils.ApplicationHandling.totalApplications;
 import Utils.PopUpWindow;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +16,10 @@ import java.time.format.DateTimeFormatter;
  * @author KZ
  */
 public class ApplyTnCST extends javax.swing.JPanel {
-    
+
+    private static LocalDateTime startDate;
+    private static int stayPeriod;
+
     /**
      * Creates new form ApplyTnCST
      */
@@ -103,7 +108,7 @@ public class ApplyTnCST extends javax.swing.JPanel {
         jCheckBox1.setText("I have read and agreed to the Terms and Conditions");
         roomDetailsSection.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, -1, -1));
 
-        jPanel2.add(roomDetailsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 930, 450));
+        jPanel2.add(roomDetailsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 930, 440));
 
         confirmBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         confirmBtn.setText("Confirm Application");
@@ -142,24 +147,48 @@ public class ApplyTnCST extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(confirmBtn)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public static void setStartDate(LocalDateTime startDate) {
+        ApplyTnCST.startDate = startDate;
+    }
+
+    public static void setStayPeriod(int stayPeriod) {
+        ApplyTnCST.stayPeriod = stayPeriod;
+    }
+
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
-        if (! jCheckBox1.isSelected()) {
+        if (!jCheckBox1.isSelected()) {
             PopUpWindow.showErrorMessage("Please ensure that you have agreed to the Terms and Conditions as stated by checking the checkbox.", "Error");
         } else {
+            String newApplicationID = String.format("A%03d", totalApplications.size() + 1);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
             String createDate = LocalDateTime.now().format(formatter);
-            ApplicationHandling.addNewApplication("Pending", createDate, "Pending", "Pending", ApplicationST.getCurrentUser(), ApplicationST.getSelectedRoom());
+
+            String startDateString = startDate.format(formatter);
+            LocalDateTime endDate = startDate.plusYears(stayPeriod);
+            String endDateString = endDate.format(formatter);
+
+            Application application = new Application(
+                    newApplicationID,
+                    HostelST.getCurrentUser(),
+                    HostelST.getSelectedRoom(),
+                    "Pending", createDate,
+                    startDateString,
+                    endDateString);
+            ApplicationHandling.addNewApplication(application);
+            HostelST.setCurrentUserApplication(application);
+            HostelST.setCurrentUserRoom(HostelST.getSelectedRoom());
+
             PopUpWindow.showSuccessfulMessage("Application has been sent to JomStay. We will get back to you when your application has been checked and accepted.", "Success");
-            HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
-            
+            HostelST.showApplication();
+
         }
     }//GEN-LAST:event_confirmBtnActionPerformed
 

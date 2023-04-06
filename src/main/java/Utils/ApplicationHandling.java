@@ -76,15 +76,14 @@ public class ApplicationHandling {
         return null;
     }
     
-    public static void addNewApplication(String status, String createDate, String startDate, String endDate, Student student, Room room) {
-        String newApplicationID = String.format("A%03d", totalApplications.size() + 1);
-        Application application = new Application(newApplicationID, student, room, status, createDate, startDate, endDate);
+    public static void addNewApplication(Application application) {
         FileHandlerUtils.writeString(PATH, application.toString(), true);
     }
     
     public static Application getCurrentStudentApplication(Student currentStudent) {
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
+        Application buffer = new Application("N/A", currentStudent, null, "N/A", "N/A", "N/A", "N/A");
         for (String line : FileHandlerUtils.readLines(PATH)) {
             String[] data = line.split(" ");
             LocalDateTime endDate = LocalDateTime.parse(data[6], formatter);
@@ -94,10 +93,11 @@ public class ApplicationHandling {
             if (currentStudent.getID().equals(data[1])) {
                 Student student = compareToStudent(data[1]);
                 Room room = compareToRoom(data[2]);
-                return new Application(data[0], student, room, data[3], data[4], data[5], data[6]);
+                buffer = new Application(data[0], student, room, data[3], data[4], data[5], data[6]);
+                break;
             }
         }
-        return new Application("N/A", currentStudent, null, "N/A", "N/A", "N/A", "N/A");
+        return buffer;
     }
     
     

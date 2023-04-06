@@ -6,7 +6,6 @@ package DesignUI;
 
 import Models.Application;
 import Models.Room;
-import Utils.ApplicationHandling;
 
 /**
  *
@@ -14,8 +13,6 @@ import Utils.ApplicationHandling;
  */
 public class HomeST extends javax.swing.JPanel {
     
-    private static Application currentApplication;
-    private static Room currentRoom;
     private static String roomNumLabel, servicingLabel, checkInDateLabel, checkOutDateLabel, paxLabel, paidLabel, totalPayableLabel, payDueDateLabel;
     
     /**
@@ -27,9 +24,9 @@ public class HomeST extends javax.swing.JPanel {
     }
 
     private static void initData() {
-        currentApplication = ApplicationHandling.getCurrentStudentApplication(Login.getCurrentUser());
-        currentRoom = currentApplication.getRoom();
-        if (currentRoom == null) {
+        Application application = HostelST.getCurrentUserApplication();
+        Room room = HostelST.getCurrentUserRoom();
+        if (room == null) {
             roomNumLabel = "N/A";
             servicingLabel = "N/A";
             checkInDateLabel = "N/A";
@@ -39,15 +36,15 @@ public class HomeST extends javax.swing.JPanel {
             totalPayableLabel = "N/A";
             payDueDateLabel = "N/A";
         } else {
-            roomNumLabel = currentRoom.getRoomID();
-            if (currentRoom.isServicing()) {
+            roomNumLabel = room.getRoomID();
+            if (room.isServicing()) {
                 servicingLabel = "Yes";
             } else {
                 servicingLabel = "No";
             }
-            checkInDateLabel = currentApplication.getStartDate().split("\\?")[0];
-            checkOutDateLabel = currentApplication.getEndDate().split("\\?")[0];
-            paxLabel = Integer.toString(currentRoom.getPax());
+            checkInDateLabel = application.getStartDate().split("\\?")[0];
+            checkOutDateLabel = application.getEndDate().split("\\?")[0];
+            paxLabel = Integer.toString(room.getPax());
         }
     }
     

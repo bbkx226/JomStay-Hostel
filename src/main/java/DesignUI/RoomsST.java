@@ -14,17 +14,13 @@ import java.util.ArrayList;
  */
 public class RoomsST extends javax.swing.JPanel {
     
-    private static ArrayList<String> roomTypes;
-    private static Room selectedRoom;
-    
     /**
      * Creates new form RoomsST
      */
     public RoomsST() {
-        roomTypes = RoomTypeHandling.getRoomTypes();
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -272,56 +268,48 @@ public class RoomsST extends javax.swing.JPanel {
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1050, 490));
     }// </editor-fold>//GEN-END:initComponents
-
+   
+    private static void apply(int roomTypeNum) {
+        ArrayList<Room> availableRooms = HostelST.getAvailableRooms();
+        ArrayList<String> roomTypes = HostelST.getRoomTypes();
+        boolean apply = PopUpWindow.showRoom(roomTypes.get(roomTypeNum) + "Available: IDK", "Room Details");
+        if (apply) {
+            if (HostelST.getCurrentUserRoom() != null) {
+                PopUpWindow.showErrorMessage("You may only apply for one room at a time.", "Error");
+            } else if (availableRooms.isEmpty()) {
+                PopUpWindow.showErrorMessage("Sorry, there are no available rooms at the moment.", "Unavailable");
+            } else {
+                // TODO: change to set the first selected room type that is available
+                HostelST.setSelectedRoom(availableRooms.get(0));
+                HostelST.setSelectedRoomType(roomTypes.get(roomTypeNum).split("\n")[0].split(": ")[1]);
+            }
+            HostelST.showApplication();
+        }
+    }
     
     private void singleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_singleRoomClicked
         // TODO add your handling code here:
-        boolean apply = PopUpWindow.showRoom(roomTypes.get(0) + "Available: IDK", "Room Details");
-        if (apply) {
-            ApplicationST.setSelectedRoom();
-            ApplicationST.setSelectedRoomType("Single Room");
-            HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
-        }
+        apply(0);
     }//GEN-LAST:event_singleRoomClicked
 
     private void doubleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doubleRoomClicked
         // TODO add your handling code here:
-        boolean apply = PopUpWindow.showRoom(roomTypes.get(1) + "Available: IDK", "Room Details");
-        if (apply) {
-            ApplicationST.setSelectedRoom();
-            ApplicationST.setSelectedRoomType("Double Room");
-            HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
-        }
+        apply(1);
     }//GEN-LAST:event_doubleRoomClicked
 
     private void privateRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_privateRoomClicked
         // TODO add your handling code here:
-        boolean apply = PopUpWindow.showRoom(roomTypes.get(2) + "Available: IDK", "Room Details");
-        if (apply) {
-            ApplicationST.setSelectedRoom();
-            ApplicationST.setSelectedRoomType("Private Room");
-            HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
-        }
+        apply(2);
     }//GEN-LAST:event_privateRoomClicked
 
     private void femaleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_femaleRoomClicked
         // TODO add your handling code here:
-        boolean apply = PopUpWindow.showRoom(roomTypes.get(3) + "Available: IDK", "Room Details");
-        if (apply) {
-            ApplicationST.setSelectedRoom();
-            ApplicationST.setSelectedRoomType("Female-Only Room");
-            HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
-        }
+        apply(3);
     }//GEN-LAST:event_femaleRoomClicked
 
     private void twinRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twinRoomClicked
         // TODO add your handling code here:
-        boolean apply = PopUpWindow.showRoom(roomTypes.get(4) + "Available: IDK", "Room Details");
-        if (apply) {
-            ApplicationST.setSelectedRoom();
-            ApplicationST.setSelectedRoomType("Twin Room");
-            HostelST.getCardManager().show(HostelST.getMainPanel(), "apply");
-        }
+        apply(4);
     }//GEN-LAST:event_twinRoomClicked
 
     
