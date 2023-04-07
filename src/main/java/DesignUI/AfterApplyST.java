@@ -5,6 +5,8 @@
 package DesignUI;
 
 import java.awt.Color;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -12,11 +14,27 @@ import java.awt.Color;
  */
 public class AfterApplyST extends javax.swing.JPanel {
 
+    private static String dateCreatedString;
+    private static String dateStartedString;
+    private static String dateEndedString;
+    
     /**
      * Creates new form AfterApplyST
      */
     public AfterApplyST() {
+        initData();
         initComponents();
+    }
+    
+    private static void initData() {
+        DateTimeFormatter getFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
+        DateTimeFormatter setFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm a");
+        LocalDateTime dateCreated = LocalDateTime.parse(HostelST.getCurrentUserApplication().getCreateDate(), getFormatter);
+        LocalDateTime dateStarted = LocalDateTime.parse(HostelST.getCurrentUserApplication().getStartDate(), getFormatter);
+        LocalDateTime dateEnded = LocalDateTime.parse(HostelST.getCurrentUserApplication().getEndDate(), getFormatter);
+        dateCreatedString = dateCreated.format(setFormatter);
+        dateStartedString = dateStarted.format(setFormatter);
+        dateEndedString = dateEnded.format(setFormatter);
     }
 
     /**
@@ -95,7 +113,7 @@ public class AfterApplyST extends javax.swing.JPanel {
 
         jLabel15.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText(HostelST.getCurrentUserApplication().getCreateDate());
+        jLabel15.setText(dateCreatedString);
         if (jLabel10.getText().equals("Pending")) {
             jLabel10.setForeground(Color.BLUE);
         } else if (jLabel10.getText().equals("Rejected")) {
@@ -112,7 +130,7 @@ public class AfterApplyST extends javax.swing.JPanel {
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setText(HostelST.getCurrentUserApplication().getStartDate());
+        jLabel13.setText(dateStartedString);
         if (jLabel10.getText().equals("Pending")) {
             jLabel10.setForeground(Color.BLUE);
         } else if (jLabel10.getText().equals("Rejected")) {
@@ -129,7 +147,7 @@ public class AfterApplyST extends javax.swing.JPanel {
 
         jLabel14.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText(HostelST.getCurrentUserApplication().getEndDate());
+        jLabel14.setText(dateEndedString);
         if (jLabel10.getText().equals("Pending")) {
             jLabel10.setForeground(Color.BLUE);
         } else if (jLabel10.getText().equals("Rejected")) {

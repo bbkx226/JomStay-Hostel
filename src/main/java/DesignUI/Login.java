@@ -72,6 +72,7 @@ public class Login extends javax.swing.JFrame {
                 case 2 -> {
                     PopUpWindow.showSuccessfulMessage("Welcome back, " + username + "!", "Login Success!");
                     setVisible(false);
+                    
                     new HostelST().start();
                 }
                 default -> {

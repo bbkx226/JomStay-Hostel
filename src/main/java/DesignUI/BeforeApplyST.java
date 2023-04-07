@@ -4,7 +4,9 @@
  */
 package DesignUI;
 
+import Models.Student;
 import Utils.PopUpWindow;
+import Utils.UserHandling;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -336,27 +338,25 @@ public class BeforeApplyST extends javax.swing.JPanel {
         notAppliedPanel.setLayout(notAppliedPanelLayout);
         notAppliedPanelLayout.setHorizontalGroup(
             notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1040, Short.MAX_VALUE)
+            .addGroup(notAppliedPanelLayout.createSequentialGroup()
+                .addGap(439, 439, 439)
+                .addComponent(confirmBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(notAppliedPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(notAppliedPanelLayout.createSequentialGroup()
-                            .addGap(460, 460, 460)
-                            .addComponent(confirmBtn)))
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1047, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         notAppliedPanelLayout.setVerticalGroup(
             notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, notAppliedPanelLayout.createSequentialGroup()
+                .addContainerGap(461, Short.MAX_VALUE)
+                .addComponent(confirmBtn)
+                .addGap(16, 16, 16))
             .addGroup(notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(notAppliedPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(20, 20, 20)
-                    .addComponent(confirmBtn)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 68, Short.MAX_VALUE)))
         );
 
         if (HostelST.getSelectedRoom() == null) {
@@ -367,21 +367,13 @@ public class BeforeApplyST extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1040, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(notAppliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(notAppliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1044, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 9, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(notAppliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(notAppliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -410,7 +402,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         return valid;
     }
     
-    private LocalDateTime getInputDate() {
+    private static LocalDateTime getInputDate() {
         String startDateString = jTextField9.getText();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate date;
@@ -425,6 +417,33 @@ public class BeforeApplyST extends javax.swing.JPanel {
         return date.atTime(12, 0);
     }
     
+    public static void confirmApplication() {
+        ApplyTnCST.setStartDate(getInputDate());
+        ApplyTnCST.setStayPeriod(jComboBox1.getSelectedIndex() + 1);
+        Student student = HostelST.getCurrentUser();
+        student.setNationality(jTextField1.getText());
+        if (jTextField2.getText().isBlank()) {
+            student.setRace("N/A");
+        } else {
+            student.setRace(jTextField2.getText());
+        }
+        if (jTextField3.getText().isBlank()) {
+            student.setReligion("N/A");
+        } else {
+            student.setReligion(jTextField3.getText());
+        }
+        student.setPermanentAddress(jTextField4.getText());
+        if (jTextField5.getText().isBlank()) {
+            student.setMedicalCondition("N/A");
+        } else {
+            student.setMedicalCondition(jTextField5.getText());
+        }
+        student.setEmerContactName(jTextField6.getText());
+        student.setEmerContactRelationship(jTextField7.getText());
+        student.setEmerContactNo(jTextField8.getText());
+        UserHandling.updateStudentDetail(student);
+    }
+    
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
         if (HostelST.getSelectedRoomType() == null) {
@@ -435,8 +454,6 @@ public class BeforeApplyST extends javax.swing.JPanel {
         } else if (getInputDate() == null) {
             PopUpWindow.showErrorMessage("Invalid date or format.", "Error");
         } else {
-            ApplyTnCST.setStartDate(getInputDate());
-            ApplyTnCST.setStayPeriod(jComboBox1.getSelectedIndex() + 1);
             HostelST.showTnC();
         }
     }//GEN-LAST:event_confirmBtnActionPerformed
@@ -444,7 +461,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton confirmBtn;
     private javax.swing.JPanel emerContactSection;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private static javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel19;
     private static javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
@@ -476,15 +493,15 @@ public class BeforeApplyST extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private static javax.swing.JTextField jTextField1;
+    private static javax.swing.JTextField jTextField2;
+    private static javax.swing.JTextField jTextField3;
+    private static javax.swing.JTextField jTextField4;
+    private static javax.swing.JTextField jTextField5;
+    private static javax.swing.JTextField jTextField6;
+    private static javax.swing.JTextField jTextField7;
+    private static javax.swing.JTextField jTextField8;
+    private static javax.swing.JTextField jTextField9;
     private javax.swing.JPanel notAppliedPanel;
     private javax.swing.JPanel roomDetailsSection;
     private javax.swing.JScrollPane scrollPane;

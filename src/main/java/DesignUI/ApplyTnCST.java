@@ -159,6 +159,8 @@ public class ApplyTnCST extends javax.swing.JPanel {
         if (!jCheckBox1.isSelected()) {
             PopUpWindow.showErrorMessage("Please ensure that you have agreed to the Terms and Conditions as stated by checking the checkbox.", "Error");
         } else {
+            BeforeApplyST.confirmApplication();
+            
             String newApplicationID = String.format("A%03d", totalApplications.size() + 1);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
             String createDate = LocalDateTime.now().format(formatter);
@@ -177,7 +179,7 @@ public class ApplyTnCST extends javax.swing.JPanel {
             ApplicationHandling.addNewApplication(application);
             HostelST.setCurrentUserApplication(application);
             HostelST.setCurrentUserRoom(HostelST.getSelectedRoom());
-
+            
             PopUpWindow.showSuccessfulMessage("Application has been sent to JomStay. We will get back to you when your application has been checked and accepted.", "Success");
             HostelST.showApplication();
 

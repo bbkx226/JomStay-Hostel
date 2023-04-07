@@ -91,17 +91,18 @@ public class UserHandling {
     }
     
     public static void updateStudentDetail(Student student) {
-        StringBuilder lineToWrite = new StringBuilder();
-        lineToWrite.append(student.getNationality()).append(" ");
-        lineToWrite.append(student.getRace()).append(" ");
-        lineToWrite.append(student.getReligion()).append(" ");
-        lineToWrite.append(student.getPermanentAddress()).append(" ");
-        lineToWrite.append(student.getMedicalCondition()).append(" ");
-        lineToWrite.append(student.getEmerContactName()).append(" ");
-        lineToWrite.append(student.getEmerContactRelationship()).append(" ");
-        lineToWrite.append(student.getEmerContactNo()).append("\n");
-        
         String ID = student.getID();
+        StringBuilder lineToWrite = new StringBuilder();
+        lineToWrite.append(ID).append(" ");
+        lineToWrite.append(student.getNationality().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getRace().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getReligion().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getPermanentAddress().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getMedicalCondition().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getEmerContactName().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getEmerContactRelationship().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getEmerContactNo()).append("\n");
+
         int index = Integer.parseInt(ID.substring(ID.length() - 3)) - 1;
         
         ArrayList<String> lines = FileHandlerUtils.readLines(STUDENT_DETAILS_PATH);

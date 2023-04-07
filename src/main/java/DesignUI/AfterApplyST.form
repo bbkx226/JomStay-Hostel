@@ -138,7 +138,7 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="HostelST.getCurrentUserApplication().getCreateDate()" type="code"/>
+              <Connection code="dateCreatedString" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -166,7 +166,7 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="HostelST.getCurrentUserApplication().getStartDate()" type="code"/>
+              <Connection code="dateStartedString" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -194,7 +194,7 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="HostelST.getCurrentUserApplication().getEndDate()" type="code"/>
+              <Connection code="dateEndedString" type="code"/>
             </Property>
           </Properties>
           <AuxValues>

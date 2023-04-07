@@ -41,6 +41,7 @@ public class HostelST extends javax.swing.JFrame {
 
     public static void initData() {
         currentUser = Login.getCurrentUser();
+        System.out.println(currentUser.toString());
         currentUserApplication = ApplicationHandling.getCurrentStudentApplication(currentUser);
         currentUserRoom = currentUserApplication.getRoom();
         availableRooms = RoomHandling.getAvailableRooms();
@@ -118,7 +119,7 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     public static void showApplication() {
-        if (selectedRoomType == null) {
+        if (selectedRoomType == null && currentUserRoom == null) {
             PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
             HostelST.showRooms();
             return;
