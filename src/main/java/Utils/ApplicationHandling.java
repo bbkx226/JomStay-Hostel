@@ -4,20 +4,19 @@ package Utils;
 import Models.Application;
 import Models.Room;
 import Models.Student;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ApplicationHandling {
     private static final String PATH = "src/main/java/databases/application.txt";
     
-    private final ArrayList<Room> totalRooms = new RoomHandling().getRooms();
-    private final ArrayList<Student> totalStudents = new UserHandling().getStudents();   
-    public ArrayList<Application> totalApplications = getTotalApplications();
+    private static final ArrayList<Room> totalRooms = new RoomHandling().getRooms();
+    private static final ArrayList<Student> totalStudents = new UserHandling().getStudents();   
+    public static ArrayList<Application> totalApplications = getTotalApplications();
     public ArrayList<Application> pendingApplications = getPendingApplications();
     
-    public static final String[] countryNames = getCountryNames();
-    
-    public ArrayList<Application> getTotalApplications() {
+    public static ArrayList<Application> getTotalApplications() {
         ArrayList<Application> buffer = new ArrayList<>();
         
         for (String line : FileHandlerUtils.readLines(PATH)) {
@@ -58,31 +57,48 @@ public class ApplicationHandling {
                 if(application.getStatus().equals("Pending")) buffer.add(application);
             }
         } catch(Exception e){
-            PopUpWindow.showErrorMessage("No pending application is exist right now", "Error 404");
+            PopUpWindow.showErrorMessage("There are no pending applications", "Error 404");
         }
         return buffer;
     }
     
     // Return Particular Student Object 
-    private Student compareToStudent(String studentID){
+    private static Student compareToStudent(String studentID){
         for (Student student : totalStudents)
             if(studentID.equals(student.getID())) return student;
         return null;
     }
     
     // Return Particular Room Object
-    private Room compareToRoom(String roomID){
+    private static Room compareToRoom(String roomID){
         for (Room room : totalRooms)
             if(roomID.equals(room.getRoomID())) return room;
         return null;
     }
     
-    public static String[] getCountryNames() {
-        ArrayList<String> buffer = new ArrayList<>();
-        for (String countryCode : Locale.getISOCountries()) {
-            Locale country = Locale.of("", countryCode);
-            buffer.add(country.getDisplayCountry());
-        }
-        return buffer.toArray(new String[buffer.size()]);
+    public static void addNewApplication(Application application) {
+        FileHandlerUtils.writeString(PATH, application.toString(), true);
     }
+    
+    public static Application getCurrentStudentApplication(Student currentStudent) {
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
+        Application buffer = new Application("N/A", currentStudent, null, "N/A", "N/A", "N/A", "N/A");
+        for (String line : FileHandlerUtils.readLines(PATH)) {
+            String[] data = line.split(" ");
+            LocalDateTime endDate = LocalDateTime.parse(data[6], formatter);
+            if (currentTime.isAfter(endDate)) {
+                continue;
+            }
+            if (currentStudent.getID().equals(data[1])) {
+                Student student = compareToStudent(data[1]);
+                Room room = compareToRoom(data[2]);
+                buffer = new Application(data[0], student, room, data[3], data[4], data[5], data[6]);
+                break;
+            }
+        }
+        return buffer;
+    }
+    
+    
 }

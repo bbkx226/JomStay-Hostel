@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class UserHandling {
     private static final String PATH = "src/main/java/databases/auth.txt";
-    private static final String STUDENTDETAILSPATH = "src/main/java/databases/studentdetails.txt";
+    private static final String STUDENT_DETAILS_PATH = "src/main/java/databases/studentdetails.txt";
 
     // Returns an ArrayList of Student objects from the database
     public static ArrayList<Student> getStudents() {
@@ -23,7 +23,7 @@ public class UserHandling {
             String[] data = line.split(" ");
             if (data[0].startsWith("ST")) {
                 Student student = new Student(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
-                for (String sLine : FileHandlerUtils.readLines(STUDENTDETAILSPATH)) {
+                for (String sLine : FileHandlerUtils.readLines(STUDENT_DETAILS_PATH)) {
                     String[] sData = sLine.split(" ");
                     if (flag) {
                         flag = false;
@@ -88,5 +88,28 @@ public class UserHandling {
             //if the printwriter throws an IOException, shows an error message
             PopUpWindow.showErrorMessage("Error writing to file", "Error");
         }
+    }
+    
+    public static void updateStudentDetail(Student student) {
+        String ID = student.getID();
+        StringBuilder lineToWrite = new StringBuilder();
+        lineToWrite.append(ID).append(" ");
+        lineToWrite.append(student.getNationality().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getRace().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getReligion().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getPermanentAddress().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getMedicalCondition().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getEmerContactName().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getEmerContactRelationship().replace(" ", "_")).append(" ");
+        lineToWrite.append(student.getEmerContactNo()).append("\n");
+
+        int index = Integer.parseInt(ID.substring(ID.length() - 3)) - 1;
+        
+        ArrayList<String> lines = FileHandlerUtils.readLines(STUDENT_DETAILS_PATH);
+        lines.set(index, lineToWrite.toString());
+        
+        String result = String.join("\n", lines);
+        
+        FileHandlerUtils.writeString(STUDENT_DETAILS_PATH, result, false);
     }
 }

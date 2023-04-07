@@ -4,25 +4,27 @@
  */
 package DesignUI;
 
-import javax.swing.SwingConstants;
-import java.awt.Font;
+import Models.Student;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author KZ
  */
 public class ProfileST extends javax.swing.JPanel {
-
-    private static final Font attributeNameFont = new Font("Arial", Font.BOLD, 18);
-    private static final Font attributeFont = new Font("Arial", Font.PLAIN, 24);
+    
+    private static Student currentStudent;
+    private static final String DOBFormat = "dd MMMM yyyy";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DOBFormat);
     
     /**
      * Creates new form ProfileST
      */
     public ProfileST() {
+        currentStudent = Login.getCurrentUser();
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,9 +49,7 @@ public class ProfileST extends javax.swing.JPanel {
         jLabel35 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
@@ -75,430 +75,161 @@ public class ProfileST extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(51, 51, 51));
         jLabel19.setText("Full Name: ");
-        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel19labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel19);
 
         jLabel33.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(51, 51, 51));
         jLabel33.setText("HP No:");
-        jLabel33.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel33labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel33);
 
         jLabel20.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel20.setText("They Kai Zhe");
-        jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel20labelClicked(evt);
-            }
-        });
+        jLabel20.setText(currentStudent.getName().replace("_", " "));
         jPanel2.add(jLabel20);
 
         jLabel34.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel34.setText("0123456789");
-        jLabel34.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel34labelClicked(evt);
-            }
-        });
+        jLabel34.setText(currentStudent.getPhoneNo());
         jPanel2.add(jLabel34);
 
         jLabel21.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(51, 51, 51));
         jLabel21.setText("Gender:");
-        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel21labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel21);
 
         jLabel37.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(51, 51, 51));
         jLabel37.setText("Permanent Address:");
-        jLabel37.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel37labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel37);
 
         jLabel22.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel22.setText("Male");
-        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel22labelClicked(evt);
-            }
-        });
+        jLabel22.setText(currentStudent.getGender());
         jPanel2.add(jLabel22);
 
         jLabel38.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel38.setText("a random address");
-        jLabel38.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel38labelClicked(evt);
-            }
-        });
+        jLabel38.setText(currentStudent.getPermanentAddress().replace("_", " "));
         jPanel2.add(jLabel38);
 
         jLabel23.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(51, 51, 51));
         jLabel23.setText("IC/Passport Number:");
-        jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel23labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel23);
 
         jLabel35.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(51, 51, 51));
         jLabel35.setText("Email:");
-        jLabel35.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel35labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel35);
 
         jLabel24.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel24.setText("123456-12-1234");
-        jLabel24.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel24labelClicked(evt);
-            }
-        });
+        jLabel24.setText(currentStudent.getNRIC());
         jPanel2.add(jLabel24);
 
         jLabel36.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel36.setText("abc@example.com");
-        jLabel36.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel36labelClicked(evt);
-            }
-        });
+        jLabel36.setText(currentStudent.getEmail());
         jPanel2.add(jLabel36);
-
-        jLabel25.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel25.setText("Date of Birth:");
-        jLabel25.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel25labelClicked(evt);
-            }
-        });
-        jPanel2.add(jLabel25);
 
         jLabel39.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(51, 51, 51));
         jLabel39.setText("Medical Condition(s):");
-        jLabel39.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel39labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel39);
-
-        jLabel26.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel26.setText("9th April 2004");
-        jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel26labelClicked(evt);
-            }
-        });
-        jPanel2.add(jLabel26);
 
         jLabel40.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel40.setText("N/A");
-        jLabel40.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel40labelClicked(evt);
-            }
-        });
+        jLabel40.setText(currentStudent.getMedicalCondition().replace("_", " "));
         jPanel2.add(jLabel40);
 
         jLabel27.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(51, 51, 51));
         jLabel27.setText("Nationality:");
-        jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel27labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel27);
 
         jLabel44.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel44.setForeground(new java.awt.Color(51, 51, 51));
         jLabel44.setText("Emergency Contact Name:");
-        jLabel44.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel44labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel44);
 
         jLabel28.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel28.setText("Malaysia");
-        jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel28labelClicked(evt);
-            }
-        });
+        jLabel28.setText(currentStudent.getNationality().replace("_", " "));
         jPanel2.add(jLabel28);
 
         jLabel45.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel45.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel45.setText("Brandon Ban Kai Xian");
-        jLabel45.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel45labelClicked(evt);
-            }
-        });
+        jLabel45.setText(currentStudent.getEmerContactName().replace("_", " "));
         jPanel2.add(jLabel45);
 
         jLabel29.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(51, 51, 51));
         jLabel29.setText("Race:");
-        jLabel29.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel29labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel29);
 
         jLabel43.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel43.setForeground(new java.awt.Color(51, 51, 51));
         jLabel43.setText("Emergency Contact Relationship:");
-        jLabel43.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel43labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel43);
 
         jLabel30.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel30.setText("Chinese");
-        jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel30labelClicked(evt);
-            }
-        });
+        jLabel30.setText(currentStudent.getRace().replace("_", " "));
         jPanel2.add(jLabel30);
 
         jLabel46.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel46.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel46.setText("Friend");
-        jLabel46.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel46labelClicked(evt);
-            }
-        });
+        jLabel46.setText(currentStudent.getEmerContactRelationship().replace("_", " "));
         jPanel2.add(jLabel46);
 
         jLabel31.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(51, 51, 51));
         jLabel31.setText("Religion:");
-        jLabel31.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel31labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel31);
 
         jLabel41.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(51, 51, 51));
         jLabel41.setText("Emergency Contact Number:");
-        jLabel41.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel41labelClicked(evt);
-            }
-        });
         jPanel2.add(jLabel41);
 
         jLabel32.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel32.setText("Buddhism");
-        jLabel32.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel32labelClicked(evt);
-            }
-        });
+        jLabel32.setText(currentStudent.getReligion().replace("_", " "));
         jPanel2.add(jLabel32);
 
         jLabel42.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel42.setText("0123456789");
-        jLabel42.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel42labelClicked(evt);
-            }
-        });
+        jLabel42.setText(currentStudent.getEmerContactNo());
         jPanel2.add(jLabel42);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 1058, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(4, 4, 4)
-                            .addComponent(jLabel1)))
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 70, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50))
+                    .addComponent(jSeparator3)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(40, 40, 40)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(0, 594, Short.MAX_VALUE)))
+                .addGap(44, 44, 44))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel19labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel19labelClicked
-
-    private void jLabel20labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel20labelClicked
-
-    private void jLabel21labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel21labelClicked
-
-    private void jLabel22labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel22labelClicked
-
-    private void jLabel23labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel23labelClicked
-
-    private void jLabel24labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel24labelClicked
-
-    private void jLabel25labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel25labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel25labelClicked
-
-    private void jLabel26labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel26labelClicked
-
-    private void jLabel27labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel27labelClicked
-
-    private void jLabel28labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel28labelClicked
-
-    private void jLabel29labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel29labelClicked
-
-    private void jLabel30labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel30labelClicked
-
-    private void jLabel31labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel31labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel31labelClicked
-
-    private void jLabel32labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel32labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel32labelClicked
-
-    private void jLabel33labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel33labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel33labelClicked
-
-    private void jLabel34labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel34labelClicked
-
-    private void jLabel35labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel35labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel35labelClicked
-
-    private void jLabel36labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel36labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel36labelClicked
-
-    private void jLabel37labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel37labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel37labelClicked
-
-    private void jLabel38labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel38labelClicked
-
-    private void jLabel39labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel39labelClicked
-
-    private void jLabel40labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel40labelClicked
-
-    private void jLabel41labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel41labelClicked
-
-    private void jLabel42labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel42labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel42labelClicked
-
-    private void jLabel43labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel43labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel43labelClicked
-
-    private void jLabel44labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel44labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel44labelClicked
-
-    private void jLabel45labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel45labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel45labelClicked
-
-    private void jLabel46labelClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel46labelClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel46labelClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -509,8 +240,6 @@ public class ProfileST extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;

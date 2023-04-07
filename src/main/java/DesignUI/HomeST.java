@@ -5,9 +5,7 @@
 package DesignUI;
 
 import Models.Application;
-import Models.Payment;
 import Models.Room;
-import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -15,16 +13,20 @@ import java.time.format.DateTimeFormatter;
  */
 public class HomeST extends javax.swing.JPanel {
     
-    private static Application currentApplication = HostelST.getCurrentUserApplication();
-    private static Room currentRoom = HostelST.getCurrentUserRoom();
     private static String roomNumLabel, servicingLabel, checkInDateLabel, checkOutDateLabel, paxLabel, paidLabel, totalPayableLabel, payDueDateLabel;
     
     /**
      * Creates new form HomeST
      */
     public HomeST() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        if (currentRoom == null) {
+        initData();
+        initComponents();
+    }
+
+    private static void initData() {
+        Application application = HostelST.getCurrentUserApplication();
+        Room room = HostelST.getCurrentUserRoom();
+        if (room == null) {
             roomNumLabel = "N/A";
             servicingLabel = "N/A";
             checkInDateLabel = "N/A";
@@ -34,19 +36,18 @@ public class HomeST extends javax.swing.JPanel {
             totalPayableLabel = "N/A";
             payDueDateLabel = "N/A";
         } else {
-            roomNumLabel = currentRoom.getRoomID();
-            if (currentRoom.isServicing()) {
+            roomNumLabel = room.getRoomID();
+            if (room.isServicing()) {
                 servicingLabel = "Yes";
             } else {
                 servicingLabel = "No";
             }
-            checkInDateLabel = currentApplication.getStartDate().split("\\?")[0];
-            checkOutDateLabel = currentApplication.getEndDate().split("\\?")[0];
-            paxLabel = Integer.toString(currentRoom.getPax());
+            checkInDateLabel = application.getStartDate().split("\\?")[0];
+            checkOutDateLabel = application.getEndDate().split("\\?")[0];
+            paxLabel = Integer.toString(room.getPax());
         }
-        initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

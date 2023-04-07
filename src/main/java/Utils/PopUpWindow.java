@@ -54,10 +54,6 @@ public class PopUpWindow {
         roomPic = getResizedImage(roomPic);
         String[] options = { "Apply" };
         int confirm = JOptionPane.showOptionDialog(null, message, title, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, roomPic, options, title);
-        if (confirm == JOptionPane.OK_OPTION) {
-            return true;
-        } else {
-            return false;
-        }
+        return confirm == JOptionPane.OK_OPTION;
     }
 }

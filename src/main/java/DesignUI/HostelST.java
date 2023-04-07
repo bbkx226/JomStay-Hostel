@@ -1,62 +1,160 @@
 package DesignUI;
+
 import java.awt.Color;
-import java.util.ArrayList;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import Models.*;
 import Utils.*;
 import java.awt.CardLayout;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class HostelST extends javax.swing.JFrame {
 
+    private static Student currentUser;
+    private static Application currentUserApplication;
+    private static Room currentUserRoom;
+    private static ArrayList<Room> availableRooms;
+    private static ArrayList<String> roomTypes;
+    private static Room selectedRoom = null;
+    private static String selectedRoomType = null;
+
     /**
      * Creates new form HostelST
      */
-    private static final HomeST homePanel = new HomeST();
-    private static final RoomsST roomsPanel = new RoomsST();
-    private static final ProfileST profilePanel = new ProfileST();
     private static CardLayout card;
-    
+
     // custom component properties
-    Color btnBgColor = new Color(0,0,0);
-    Color btnHoverColor = new Color(43, 43, 43);
-    
+    private static final Color btnBgColor = Color.BLACK;
+    private static final Color btnHoverColor = new Color(43, 43, 43);
+
     Border margin = new EmptyBorder(10, 10, 10, 10);
     CompoundBorder btnMarginBorder = new CompoundBorder(null, margin);
-    
-    private static final ArrayList<Application> applications = new ApplicationHandling().totalApplications;
-    private static final Student currentUser = Login.getCurrentUser();
-    private static Application currentUserApplication = null;
-    private static Room currentUserRoom = null;
-    
+
     public HostelST() {
+        initData();
         initComponents();
         card = (CardLayout) mainPanel.getLayout();
-        mainPanel.add(homePanel, "home");
-        mainPanel.add(roomsPanel, "rooms");
-        mainPanel.add(profilePanel, "profile");
-        card.show(mainPanel, "home");
+        showHome();
     }
-    
+
+    public static void initData() {
+        currentUser = Login.getCurrentUser();
+        System.out.println(currentUser.toString());
+        currentUserApplication = ApplicationHandling.getCurrentStudentApplication(currentUser);
+        currentUserRoom = currentUserApplication.getRoom();
+        availableRooms = RoomHandling.getAvailableRooms();
+        roomTypes = RoomTypeHandling.getRoomTypes();
+    }
+
+    // setters and getters
+    public static void setSelectedRoom(Room selectedRoom) {
+        HostelST.selectedRoom = selectedRoom;
+    }
+
+    public static void setSelectedRoomType(String selectedRoomType) {
+        HostelST.selectedRoomType = selectedRoomType;
+    }
+
+    public static Room getSelectedRoom() {
+        return selectedRoom;
+    }
+
+    public static String getSelectedRoomType() {
+        return selectedRoomType;
+    }
+
+    public static Student getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(Student currentUser) {
+        HostelST.currentUser = currentUser;
+    }
+
     public static Application getCurrentUserApplication() {
         return currentUserApplication;
     }
-    
+
+    public static void setCurrentUserApplication(Application currentUserApplication) {
+        HostelST.currentUserApplication = currentUserApplication;
+    }
+
+    public static ArrayList<Room> getAvailableRooms() {
+        return availableRooms;
+    }
+
+    public static void setAvailableRooms(ArrayList<Room> availableRooms) {
+        HostelST.availableRooms = availableRooms;
+    }
+
+    public static ArrayList<String> getRoomTypes() {
+        return roomTypes;
+    }
+
+    public static void setRoomTypes(ArrayList<String> roomTypes) {
+        HostelST.roomTypes = roomTypes;
+    }
+
     public static Room getCurrentUserRoom() {
         return currentUserRoom;
     }
-    
+
+    public static void setCurrentUserRoom(Room currentUserRoom) {
+        HostelST.currentUserRoom = currentUserRoom;
+    }
+
+    // methods to show pages
+    public static void showHome() {
+        HomeST homePanel = new HomeST();
+        mainPanel.add(homePanel, "home");
+        card.show(mainPanel, "home");
+    }
+
+    public static void showRooms() {
+        RoomsST roomsPanel = new RoomsST();
+        mainPanel.add(roomsPanel, "rooms");
+        card.show(mainPanel, "rooms");
+    }
+
+    public static void showApplication() {
+        if (selectedRoomType == null && currentUserRoom == null) {
+            PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
+            HostelST.showRooms();
+            return;
+        }
+        ApplicationST applicationPanel = new ApplicationST();
+        mainPanel.add(applicationPanel, "apply");
+        card.show(mainPanel, "apply");
+    }
+
+    public static void showTnC() {
+        ApplyTnCST TnCPanel = new ApplyTnCST();
+        mainPanel.add(TnCPanel, "T&C");
+        card.show(mainPanel, "T&C");
+    }
+
+    public static void showProfile() {
+        ProfileST profilePanel = new ProfileST();
+        mainPanel.add(profilePanel, "profile");
+        card.show(mainPanel, "profile");
+    }
+
+    public static void showPayment() {
+        PaymentST paymentPanel = new PaymentST();
+        mainPanel.add(paymentPanel, "payment");
+        card.show(mainPanel, "payment");
+    }
+
     public static JPanel getMainPanel() {
         return mainPanel;
     }
-    
+
     public static CardLayout getCardManager() {
         return card;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,6 +170,7 @@ public class HostelST extends javax.swing.JFrame {
         logo = new javax.swing.JLabel();
         homeBtn = new javax.swing.JToggleButton();
         roomsBtn = new javax.swing.JToggleButton();
+        applicationBtn = new javax.swing.JToggleButton();
         profileBtn = new javax.swing.JToggleButton();
         paymentBtn = new javax.swing.JToggleButton();
         signOutBtn = new javax.swing.JToggleButton();
@@ -99,7 +198,7 @@ public class HostelST extends javax.swing.JFrame {
         jPanel2.add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 1070, 80));
 
         sidePanel.setBackground(new java.awt.Color(0, 0, 0));
-        sidePanel.setLayout(new java.awt.GridLayout(7, 1));
+        sidePanel.setLayout(new java.awt.GridLayout(7, 1, 0, 30));
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/jomstaybg_small.png"))); // NOI18N
         sidePanel.add(logo);
@@ -149,6 +248,29 @@ public class HostelST extends javax.swing.JFrame {
             }
         });
         sidePanel.add(roomsBtn);
+
+        applicationBtn.setBackground(new java.awt.Color(0, 0, 0));
+        applicationBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        applicationBtn.setForeground(new java.awt.Color(255, 255, 255));
+        applicationBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/form.png"))); // NOI18N
+        applicationBtn.setText("    Apply          ");
+        applicationBtn.setBorder(btnMarginBorder);
+        applicationBtn.setBorderPainted(false);
+        applicationBtn.setRequestFocusEnabled(false);
+        applicationBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                applicationBtnHover(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                applicationBtnExitHover(evt);
+            }
+        });
+        applicationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                applicationBtnActionPerformed(evt);
+            }
+        });
+        sidePanel.add(applicationBtn);
 
         profileBtn.setBackground(new java.awt.Color(0, 0, 0));
         profileBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -219,11 +341,11 @@ public class HostelST extends javax.swing.JFrame {
         });
         sidePanel.add(signOutBtn);
 
-        jPanel2.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 730));
+        jPanel2.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 690));
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
         mainPanel.setLayout(new java.awt.CardLayout());
-        jPanel2.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 1070, 650));
+        jPanel2.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 1070, 610));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -233,17 +355,20 @@ public class HostelST extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
-        // TODO add your handling code here:
-        card.show(mainPanel, "home");
+        // TODO set color back to bg color when clicked:
+        homeBtn.setBackground(btnBgColor);
+        showHome();
     }//GEN-LAST:event_homeBtnActionPerformed
 
     private void homeBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnHover
@@ -268,7 +393,8 @@ public class HostelST extends javax.swing.JFrame {
 
     private void roomsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsBtnActionPerformed
         // TODO add your handling code here:
-        card.show(mainPanel, "rooms");
+        roomsBtn.setBackground(btnBgColor);
+        showRooms();
     }//GEN-LAST:event_roomsBtnActionPerformed
 
     private void paymentBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtnHover
@@ -283,6 +409,8 @@ public class HostelST extends javax.swing.JFrame {
 
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtnActionPerformed
         // TODO add your handling code here:
+        paymentBtn.setBackground(btnBgColor);
+        showPayment();
     }//GEN-LAST:event_paymentBtnActionPerformed
 
     private void profileBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileBtnHover
@@ -297,7 +425,8 @@ public class HostelST extends javax.swing.JFrame {
 
     private void profileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileBtnActionPerformed
         // TODO add your handling code here:
-        card.show(mainPanel, "profile");
+        profileBtn.setBackground(btnBgColor);
+        showProfile();
     }//GEN-LAST:event_profileBtnActionPerformed
 
     private void signOutBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signOutBtnHover
@@ -312,18 +441,30 @@ public class HostelST extends javax.swing.JFrame {
 
     private void signOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutBtnActionPerformed
         // TODO add your handling code here:
+        signOutBtn.setBackground(btnBgColor);
+        PopUpWindow.showGoodByeMessage("Thank you for using the system. See you!", "Sign Out");
+        currentUser = null;
+        setVisible(false);
+        dispose();
+        new Login().setVisible(true);
     }//GEN-LAST:event_signOutBtnActionPerformed
+
+    private void applicationBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationBtnHover
+        // TODO add your handling code here:
+        applicationBtn.setBackground(btnHoverColor);
+    }//GEN-LAST:event_applicationBtnHover
+
+    private void applicationBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationBtnExitHover
+        // TODO add your handling code here:
+        applicationBtn.setBackground(btnBgColor);
+    }//GEN-LAST:event_applicationBtnExitHover
+
+    private void applicationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applicationBtnActionPerformed
+        // TODO add your handling code here:
+        showApplication();
+    }//GEN-LAST:event_applicationBtnActionPerformed
+
     public void start() {
-        LocalDateTime currentTime = LocalDateTime.now();
-        for (Application application : applications) {
-            if (currentTime.isAfter(application.getLocalEndDate())) {
-                continue;
-            }
-            if (application.getStudent().getID().equals(currentUser.getID())) {
-                currentUserApplication = application;
-                currentUserRoom = application.getRoom();
-            }
-        }
         if (currentUserRoom == null) {
             System.out.println("You have no room");
         }
@@ -332,6 +473,7 @@ public class HostelST extends javax.swing.JFrame {
         screen.dispose();
         new HostelST().setVisible(true);
     }
+
     /**
      * @param args the command line arguments
      */
@@ -358,7 +500,7 @@ public class HostelST extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(HostelST.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -368,6 +510,7 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton applicationBtn;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JToggleButton homeBtn;
     private javax.swing.JPanel jPanel2;

@@ -20,8 +20,9 @@ public final class RoomTypeHandling {
             if (line.isEmpty()) {
                 buffer.add(roomString);
                 roomString = "";
+            } else {
+                roomString += line + "\n";
             }
-            roomString += line + "\n";
         }
         return buffer;
     }

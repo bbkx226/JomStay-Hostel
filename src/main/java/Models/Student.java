@@ -1,5 +1,6 @@
 package Models;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -8,9 +9,10 @@ import java.util.Objects;
  * @author KZ
  */
 public class Student extends User {
+    
     private String gender, loginDate, phoneNo, NRIC;
     private static String nationality, race, religion, permanentAddress, medicalCondition, emerContactName, emerContactRelationship, emerContactNo;
-
+    
     public Student(String ID, String name, String email, String username, String gender, String loginDate, String password, String phoneNo, String NRIC) {
         super(ID, name, email, username, password);
         this.gender = gender;
@@ -34,7 +36,7 @@ public class Student extends User {
     public String getNRIC() {
         return NRIC;
     }
-
+    
     public static String getNationality() {
         return nationality;
     }
@@ -66,7 +68,7 @@ public class Student extends User {
     public static String getEmerContactNo() {
         return emerContactNo;
     }
-
+    
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -82,7 +84,7 @@ public class Student extends User {
     public void setNRIC(String NRIC) {
         this.NRIC = NRIC;
     }
-
+    
     public static void setNationality(String nationality) {
         Student.nationality = nationality;
     }
