@@ -2,16 +2,18 @@
 package DesignUI;
 
 import Models.Room;
+import Models.RoomType;
 import Utils.PopUpWindow;
 import Utils.RoomHandling;
+import Utils.RoomTypeHandling;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class HostelAD extends javax.swing.JFrame {
-    private final ArrayList<Room> rooms = new RoomHandling().getRooms();
+    private final ArrayList<Room> rooms = RoomHandling.getRooms();
+    
     private int record = 0;
     private boolean isAppend = false; // True for append, False for Edit
     /**
@@ -32,13 +34,13 @@ public class HostelAD extends javax.swing.JFrame {
 
         searchField = new javax.swing.JTextField();
         yesOrNo = new javax.swing.ButtonGroup();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         hostelIcon = new javax.swing.JLabel();
         applicationIcon = new javax.swing.JLabel();
         signoutIcon = new javax.swing.JLabel();
         students = new javax.swing.JLabel();
         reportsIcon = new javax.swing.JLabel();
-        exitButton = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         searchBox = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -54,21 +56,31 @@ public class HostelAD extends javax.swing.JFrame {
         noRadioButton = new javax.swing.JRadioButton();
         lastQuery = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
-        roomPrice = new javax.swing.JTextField();
+        noOfBedsBox = new javax.swing.JTextField();
         addButton = new javax.swing.JButton();
         previousQuery = new javax.swing.JButton();
         removeButton = new javax.swing.JButton();
         doneButton = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        roomPax = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        roomType = new javax.swing.JComboBox<>();
+        jLabel17 = new javax.swing.JLabel();
+        priceBox = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        firstFacilitiesBox = new javax.swing.JTextField();
+        specificationBox = new javax.swing.JTextField();
+        secondFacilitiesBox = new javax.swing.JTextField();
+        freeWifiBox = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         roomTable = new javax.swing.JTable();
 
         searchField.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JomStay Hostel");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setUndecorated(true);
+        setResizable(false);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -77,61 +89,88 @@ public class HostelAD extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
-        hostelIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        hostelIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        hostelIcon.setBackground(new java.awt.Color(102, 102, 255));
+        hostelIcon.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
+        hostelIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         hostelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/hostel.png"))); // NOI18N
         hostelIcon.setText("Rooms");
+        hostelIcon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
         hostelIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        hostelIcon.setOpaque(true);
 
-        applicationIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        applicationIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        applicationIcon.setBackground(new java.awt.Color(153, 153, 255));
+        applicationIcon.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
+        applicationIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         applicationIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/application.png"))); // NOI18N
         applicationIcon.setText("Application");
         applicationIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        applicationIcon.setOpaque(true);
         applicationIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 applicationIconMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                applicationIconMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                applicationIconMouseExited(evt);
+            }
         });
 
-        signoutIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        signoutIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        signoutIcon.setBackground(new java.awt.Color(153, 153, 255));
+        signoutIcon.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
+        signoutIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         signoutIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/log-out.png"))); // NOI18N
         signoutIcon.setText("Sign out");
         signoutIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        signoutIcon.setOpaque(true);
         signoutIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 signoutIconMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                signoutIconMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                signoutIconMouseExited(evt);
+            }
         });
 
-        students.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        students.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        students.setBackground(new java.awt.Color(153, 153, 255));
+        students.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
+        students.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         students.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/student.png"))); // NOI18N
         students.setText("Students");
         students.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        students.setOpaque(true);
         students.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 studentsMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                studentsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                studentsMouseExited(evt);
+            }
         });
 
-        reportsIcon.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        reportsIcon.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        reportsIcon.setBackground(new java.awt.Color(153, 153, 255));
+        reportsIcon.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
+        reportsIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         reportsIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/seo-report.png"))); // NOI18N
         reportsIcon.setText("Reports");
         reportsIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        reportsIcon.setOpaque(true);
         reportsIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 reportsIconMouseClicked(evt);
             }
-        });
-
-        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/x.png"))); // NOI18N
-        exitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                exitButtonMouseClicked(evt);
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                reportsIconMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                reportsIconMouseExited(evt);
             }
         });
 
@@ -140,43 +179,30 @@ public class HostelAD extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(hostelIcon)
-                .addGap(121, 121, 121)
-                .addComponent(applicationIcon)
-                .addGap(123, 123, 123)
-                .addComponent(students)
-                .addGap(105, 105, 105)
-                .addComponent(reportsIcon)
-                .addGap(130, 130, 130)
-                .addComponent(signoutIcon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addComponent(exitButton)
-                .addContainerGap())
+                .addComponent(hostelIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(applicationIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(students, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reportsIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(signoutIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(signoutIcon)
-                            .addComponent(reportsIcon)
-                            .addComponent(students)
-                            .addComponent(applicationIcon)
-                            .addComponent(hostelIcon)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(exitButton)))
-                .addContainerGap(32, Short.MAX_VALUE))
+            .addComponent(applicationIcon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(hostelIcon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+            .addComponent(students, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(reportsIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(signoutIcon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Baskerville Old Face", 1, 42)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Room Management");
 
-        searchBox.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        searchBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 14)); // NOI18N
         searchBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 searchBoxKeyPressed(evt);
@@ -184,10 +210,17 @@ public class HostelAD extends javax.swing.JFrame {
         });
 
         searchButton.setBackground(new java.awt.Color(153, 153, 255));
-        searchButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        searchButton.setForeground(new java.awt.Color(255, 255, 255));
+        searchButton.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
         searchButton.setText("Search");
         searchButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        searchButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                searchButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                searchButtonMouseExited(evt);
+            }
+        });
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
@@ -197,76 +230,116 @@ public class HostelAD extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 255)));
 
-        jLabel2.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Baskerville Old Face", 1, 16)); // NOI18N
         jLabel2.setText("ID:");
 
         roomID.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
         firstQuery.setBackground(new java.awt.Color(153, 153, 255));
-        firstQuery.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        firstQuery.setForeground(new java.awt.Color(240, 240, 240));
+        firstQuery.setFont(new java.awt.Font("Baskerville Old Face", 1, 12)); // NOI18N
         firstQuery.setText("|<");
         firstQuery.setToolTipText("");
+        firstQuery.setAlignmentY(0.0F);
         firstQuery.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        firstQuery.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         firstQuery.setMaximumSize(new java.awt.Dimension(22, 22));
         firstQuery.setMinimumSize(new java.awt.Dimension(22, 22));
+        firstQuery.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                firstQueryMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                firstQueryMouseExited(evt);
+            }
+        });
         firstQuery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 firstQueryActionPerformed(evt);
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
         jLabel8.setText("Status:");
 
-        roomStatus.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        roomStatus.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
         roomStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Occupied" }));
 
         nextQuery.setBackground(new java.awt.Color(153, 153, 255));
-        nextQuery.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        nextQuery.setForeground(new java.awt.Color(240, 240, 240));
+        nextQuery.setFont(new java.awt.Font("Baskerville Old Face", 1, 12)); // NOI18N
         nextQuery.setText(">");
+        nextQuery.setAlignmentY(0.0F);
         nextQuery.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        nextQuery.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        nextQuery.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nextQueryMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                nextQueryMouseExited(evt);
+            }
+        });
         nextQuery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nextQueryActionPerformed(evt);
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
         jLabel13.setText("Servicing:");
 
         yesRadioButton.setBackground(new java.awt.Color(255, 255, 255));
         yesOrNo.add(yesRadioButton);
-        yesRadioButton.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        yesRadioButton.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
         yesRadioButton.setText("Yes");
 
         noRadioButton.setBackground(new java.awt.Color(255, 255, 255));
         yesOrNo.add(noRadioButton);
-        noRadioButton.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        noRadioButton.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
         noRadioButton.setText("No");
 
         lastQuery.setBackground(new java.awt.Color(153, 153, 255));
-        lastQuery.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        lastQuery.setForeground(new java.awt.Color(240, 240, 240));
+        lastQuery.setFont(new java.awt.Font("Baskerville Old Face", 1, 12)); // NOI18N
         lastQuery.setText(">|");
+        lastQuery.setAlignmentY(0.0F);
         lastQuery.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lastQuery.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lastQuery.setMaximumSize(new java.awt.Dimension(22, 22));
         lastQuery.setMinimumSize(new java.awt.Dimension(22, 22));
+        lastQuery.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lastQueryMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lastQueryMouseExited(evt);
+            }
+        });
         lastQuery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lastQueryActionPerformed(evt);
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
-        jLabel14.setText("Pax:");
+        jLabel14.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
+        jLabel14.setText("Room Type:");
+
+        noOfBedsBox.setEditable(false);
+        noOfBedsBox.setBackground(new java.awt.Color(255, 255, 255));
+        noOfBedsBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
+        noOfBedsBox.setBorder(null);
 
         addButton.setBackground(new java.awt.Color(153, 153, 255));
-        addButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        addButton.setForeground(new java.awt.Color(255, 255, 255));
+        addButton.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
         addButton.setText("Add");
+        addButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         addButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                addButtonMouseExited(evt);
+            }
+        });
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
@@ -274,10 +347,19 @@ public class HostelAD extends javax.swing.JFrame {
         });
 
         previousQuery.setBackground(new java.awt.Color(153, 153, 255));
-        previousQuery.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        previousQuery.setForeground(new java.awt.Color(240, 240, 240));
+        previousQuery.setFont(new java.awt.Font("Baskerville Old Face", 1, 12)); // NOI18N
         previousQuery.setText("<");
+        previousQuery.setAlignmentY(0.0F);
         previousQuery.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        previousQuery.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        previousQuery.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                previousQueryMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                previousQueryMouseExited(evt);
+            }
+        });
         previousQuery.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 previousQueryActionPerformed(evt);
@@ -285,10 +367,17 @@ public class HostelAD extends javax.swing.JFrame {
         });
 
         removeButton.setBackground(new java.awt.Color(153, 153, 255));
-        removeButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        removeButton.setForeground(new java.awt.Color(255, 255, 255));
+        removeButton.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
         removeButton.setText("Remove");
         removeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        removeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                removeButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                removeButtonMouseExited(evt);
+            }
+        });
         removeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeButtonActionPerformed(evt);
@@ -296,19 +385,66 @@ public class HostelAD extends javax.swing.JFrame {
         });
 
         doneButton.setBackground(new java.awt.Color(153, 153, 255));
-        doneButton.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        doneButton.setForeground(new java.awt.Color(255, 255, 255));
+        doneButton.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
         doneButton.setText("Done");
         doneButton.setToolTipText("");
         doneButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        doneButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                doneButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                doneButtonMouseExited(evt);
+            }
+        });
         doneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 doneButtonActionPerformed(evt);
             }
         });
 
-        jLabel15.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
-        jLabel15.setText("Price:");
+        jLabel15.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
+        jLabel15.setText("No. of Beds:");
+
+        jLabel16.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
+        jLabel16.setText("Specification:");
+
+        roomType.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
+        roomType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Single", "Double", "Private", "Female-Only", "Twin" }));
+
+        jLabel17.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
+        jLabel17.setText("Price (Monthly):");
+
+        priceBox.setEditable(false);
+        priceBox.setBackground(new java.awt.Color(255, 255, 255));
+        priceBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
+        priceBox.setBorder(null);
+
+        jLabel18.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
+        jLabel18.setText("Free Wifi:");
+
+        jLabel19.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
+        jLabel19.setText("Facilities:");
+
+        firstFacilitiesBox.setEditable(false);
+        firstFacilitiesBox.setBackground(new java.awt.Color(255, 255, 255));
+        firstFacilitiesBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
+        firstFacilitiesBox.setBorder(null);
+
+        specificationBox.setEditable(false);
+        specificationBox.setBackground(new java.awt.Color(255, 255, 255));
+        specificationBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
+        specificationBox.setBorder(null);
+
+        secondFacilitiesBox.setEditable(false);
+        secondFacilitiesBox.setBackground(new java.awt.Color(255, 255, 255));
+        secondFacilitiesBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
+        secondFacilitiesBox.setBorder(null);
+
+        freeWifiBox.setEditable(false);
+        freeWifiBox.setBackground(new java.awt.Color(255, 255, 255));
+        freeWifiBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
+        freeWifiBox.setBorder(null);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -316,96 +452,140 @@ public class HostelAD extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(234, 234, 234)
-                            .addComponent(firstQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(previousQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(12, 12, 12)
-                            .addComponent(nextQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lastQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel13)
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel15))
-                            .addGap(26, 26, 26)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(yesRadioButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(noRadioButton))
-                                    .addComponent(roomStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(roomID, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(roomPax, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(roomPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(doneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(442, 442, 442)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(removeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(firstQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(previousQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(nextQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lastQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel15))
+                                        .addGap(26, 26, 26))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel19)
+                                            .addComponent(jLabel16))
+                                        .addGap(18, 18, Short.MAX_VALUE)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(yesRadioButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(noRadioButton))
+                                    .addComponent(roomStatus, 0, 127, Short.MAX_VALUE)
+                                    .addComponent(roomID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(noOfBedsBox)
+                                    .addComponent(specificationBox, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(doneButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(removeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel18)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(freeWifiBox)
+                                        .addGap(21, 21, 21))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel17)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(priceBox))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(roomType, 0, 141, Short.MAX_VALUE)))
+                                .addGap(28, 28, 28))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(secondFacilitiesBox, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(firstFacilitiesBox, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lastQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nextQuery)
-                    .addComponent(previousQuery)
-                    .addComponent(firstQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lastQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nextQuery)
+                        .addComponent(previousQuery)
+                        .addComponent(firstQuery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(roomID)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(roomStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(yesRadioButton)
-                    .addComponent(noRadioButton))
+                    .addComponent(noRadioButton)
+                    .addComponent(jLabel18)
+                    .addComponent(freeWifiBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(priceBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel15)
+                        .addComponent(noOfBedsBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel17)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(roomPax, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(roomPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(doneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addComponent(removeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel14)
+                    .addComponent(roomType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(specificationBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(firstFacilitiesBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(secondFacilitiesBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(removeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(doneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         roomTable.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 255)));
-        roomTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        roomTable.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
         roomTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Status", "Servicing", "Price", "Price/pax"
+                "ID", "Status", "Servicing", "Room Type"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -434,16 +614,16 @@ public class HostelAD extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,16 +631,15 @@ public class HostelAD extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(16, 16, 16))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -486,8 +665,8 @@ public class HostelAD extends javax.swing.JFrame {
         int selectedRow = roomTable.getSelectedRow();
         if (selectedRow >= 0){
             String selectedRoomID = String.valueOf(roomTable.getModel().getValueAt(selectedRow, 0));
-            for(Room data: rooms){
-                if(data.getRoomID().equals(selectedRoomID)){
+            for(Room room: rooms){
+                if(room.getRoomID().equals(selectedRoomID)){
                     record = selectedRow;
                     showInForm(selectedRow);
                     break;
@@ -520,8 +699,14 @@ public class HostelAD extends javax.swing.JFrame {
         roomID.setText(ID);
         roomStatus.setSelectedItem("Available");
         noRadioButton.doClick();
-        roomPax.setText("");
-        roomPrice.setText("");
+        priceBox.setText("");
+        noOfBedsBox.setText("");
+        specificationBox.setText("");
+        firstFacilitiesBox.setText("");
+        secondFacilitiesBox.setText("");
+        freeWifiBox.setText("");
+        roomType.setSelectedItem("Select");
+        
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void previousQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousQueryActionPerformed
@@ -544,7 +729,13 @@ public class HostelAD extends javax.swing.JFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         DefaultTableModel tableModel = (DefaultTableModel) roomTable.getModel();
         tableModel.setRowCount(0);
-        for (Room room : rooms) tableModel.addRow(new Object[]{room.getRoomID(), room.getStatus(), room.isServicing(), room.getPax(), room.getPricePerPax()});
+        for (Room room : rooms) 
+            tableModel.addRow(new Object[]{
+                room.getRoomID(), 
+                room.getStatus(), 
+                room.isServicing(), 
+                room.getRoomType()
+            });
         showInForm(0);
     }//GEN-LAST:event_formComponentShown
 
@@ -557,10 +748,6 @@ public class HostelAD extends javax.swing.JFrame {
         new ApplicationAD().start();
     }//GEN-LAST:event_applicationIconMouseClicked
 
-    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
-        dispose();
-    }//GEN-LAST:event_exitButtonMouseClicked
-
     private void studentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentsMouseClicked
         dispose();
         new RecordAD().start();
@@ -570,6 +757,102 @@ public class HostelAD extends javax.swing.JFrame {
         dispose();
         new ReportAD().start();
     }//GEN-LAST:event_reportsIconMouseClicked
+
+    private void applicationIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationIconMouseEntered
+        applicationIcon.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_applicationIconMouseEntered
+
+    private void applicationIconMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationIconMouseExited
+        applicationIcon.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_applicationIconMouseExited
+
+    private void studentsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentsMouseEntered
+        students.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_studentsMouseEntered
+
+    private void studentsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentsMouseExited
+        students.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_studentsMouseExited
+
+    private void reportsIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportsIconMouseEntered
+        reportsIcon.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_reportsIconMouseEntered
+
+    private void reportsIconMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportsIconMouseExited
+        reportsIcon.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_reportsIconMouseExited
+
+    private void signoutIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signoutIconMouseEntered
+        signoutIcon.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_signoutIconMouseEntered
+
+    private void signoutIconMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signoutIconMouseExited
+        signoutIcon.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_signoutIconMouseExited
+
+    private void addButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseEntered
+        addButton.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_addButtonMouseEntered
+
+    private void addButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseExited
+        addButton.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_addButtonMouseExited
+
+    private void firstQueryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstQueryMouseEntered
+        firstQuery.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_firstQueryMouseEntered
+
+    private void firstQueryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstQueryMouseExited
+        firstQuery.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_firstQueryMouseExited
+
+    private void previousQueryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_previousQueryMouseEntered
+        previousQuery.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_previousQueryMouseEntered
+
+    private void previousQueryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_previousQueryMouseExited
+        previousQuery.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_previousQueryMouseExited
+
+    private void nextQueryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextQueryMouseEntered
+        nextQuery.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_nextQueryMouseEntered
+
+    private void nextQueryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextQueryMouseExited
+        nextQuery.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_nextQueryMouseExited
+
+    private void lastQueryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lastQueryMouseEntered
+        lastQuery.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_lastQueryMouseEntered
+
+    private void lastQueryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lastQueryMouseExited
+        lastQuery.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_lastQueryMouseExited
+
+    private void removeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeButtonMouseEntered
+        removeButton.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_removeButtonMouseEntered
+
+    private void removeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeButtonMouseExited
+        removeButton.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_removeButtonMouseExited
+
+    private void doneButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doneButtonMouseEntered
+        doneButton.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_doneButtonMouseEntered
+
+    private void doneButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doneButtonMouseExited
+        doneButton.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_doneButtonMouseExited
+
+    private void searchButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchButtonMouseEntered
+        searchButton.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_searchButtonMouseEntered
+
+    private void searchButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchButtonMouseExited
+        searchButton.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_searchButtonMouseExited
     
     // This method is used to set the screen to visible
     public void start() {
@@ -580,19 +863,48 @@ public class HostelAD extends javax.swing.JFrame {
     // It takes in the index of the room selected from the JList.
     private void showInForm(int index) {
         Room room = rooms.get(getValidIndex(index));
+        RoomType type = RoomTypeHandling.matchRoom(room);
+        
         roomID.setText(room.getRoomID());
         roomStatus.setSelectedItem(room.getStatus());
+        
         if (room.isServicing()) yesRadioButton.doClick();
         else noRadioButton.doClick();
-        roomPax.setText(String.valueOf(room.getPax()));
-        roomPrice.setText(String.valueOf(room.getPricePerPax()));
+        
+        noOfBedsBox.setText(Integer.toString(type.getBeds()));
+        freeWifiBox.setText(Boolean.toString(type.isFreeWifi()));
+        priceBox.setText(Double.toString(type.getRentalFee()));
+        specificationBox.setText(type.getSpecification());
+        roomType.setSelectedItem(type.getTypeName());
+        formatFacilitiesData(type);
     }
 
+    private void formatFacilitiesData(RoomType type){
+        int countLength = 0;
+        String formattedFacilities = type.getFacilities().replaceAll("_", " ");
+        String[] dataSplitShow = formattedFacilities.split(",");
+        String firstBox =  "", secondBox = "";
+        for(String data : dataSplitShow){
+            countLength += data.length();
+            if (countLength <= 30)firstBox += data + ", ";
+            else secondBox += data + ", ";
+        }
+        firstBox = firstBox.substring(0, firstBox.length() - 2);
+        secondBox = secondBox.substring(0, secondBox.length() - 2);
+        firstFacilitiesBox.setText(firstBox);
+        secondFacilitiesBox.setText(secondBox); 
+    }
     // The code below is used to check the index of the room
     // and to make sure that the index is not out of bounds
     private int getValidIndex(int index) {
-        if (index >= rooms.size()) return 0;
-        else if (index < 0) return rooms.size() - 1;
+        if (index >= rooms.size()) {
+            record = 0;
+            return record;
+        }
+        else if (index < 0) {
+            record = rooms.size() - 1;
+            return record;
+        }
         return index;
     }
 
@@ -600,32 +912,32 @@ public class HostelAD extends javax.swing.JFrame {
     private void modifyRoom() {
         Room roomToModify = rooms.get(record);
         String oldStatus = roomToModify.getStatus();
-        boolean oldServicing = roomToModify.isServicing(); 
-        int oldPax = roomToModify.getPax(), oldPrice = roomToModify.getPricePerPax();
-
-        String newStatus = (String) roomStatus.getSelectedItem();
-        boolean newServicing = yesRadioButton.isSelected(), flag = true;
-        int newPax = Integer.parseInt(roomPax.getText()), newPrice = Integer.parseInt(roomPrice.getText());
+        boolean oldServicing = roomToModify.isServicing();
+        String oldRoomType = roomToModify.getRoomType();
         
-        flag = checkPositiveInt(roomPax, flag) && checkPositiveInt(roomPrice, flag);
-
-        if (flag) {
-            boolean statusChanged = !oldStatus.equals(newStatus);
-            boolean servicingChanged = oldServicing != newServicing;
-            boolean paxChanged = oldPax != newPax;
-            boolean priceChanged = oldPrice != newPrice;
+        String newStatus = (String) roomStatus.getSelectedItem();
+        boolean newServicing = yesRadioButton.isSelected();
+        String newRoomType = (String) roomType.getModel().getSelectedItem();
+        
+  
+        boolean statusChanged = !oldStatus.equals(newStatus);
+        boolean servicingChanged = oldServicing != newServicing;
+        boolean roomTypeChange = !oldRoomType.equals(newRoomType);
             
-            if (statusChanged || servicingChanged || paxChanged || priceChanged) {
-                roomToModify.setStatus(newStatus);
-                roomToModify.setServicing(newServicing);
-                roomToModify.setPax(newPax);
-                roomToModify.setPricePerPax(newPrice);
-                RoomHandling.updateRoomFile(rooms);
-                PopUpWindow.showSuccessfulMessage(
-                    "Your updates to the room details have been successfully applied", 
-                    "Congrats!"
-                );
-            }
+        if (statusChanged || servicingChanged || roomTypeChange) {
+            roomToModify.setStatus(newStatus);
+            roomToModify.setServicing(newServicing);
+            roomToModify.setRoomType(newRoomType);
+            RoomHandling.updateRoomFile(rooms);
+            PopUpWindow.showSuccessfulMessage(
+                "Your updates to the room details have been successfully applied", 
+                "Congrats!"
+            );
+        } else {
+            PopUpWindow.showSuccessfulMessage(
+                "You didn't make any changes", 
+                "Nothing happened"
+            );            
         }
     }
 
@@ -662,35 +974,34 @@ public class HostelAD extends javax.swing.JFrame {
     
     // Appends a room to the end of the room list.
     private void appendRoom(){
-        boolean flag = true;
-        flag = checkPositiveInt(roomPax, flag) && checkPositiveInt(roomPrice,flag);
-        
-        if (flag){
-            Room roomToAppend = new Room(roomID.getText(), (String) roomStatus.getModel().getSelectedItem(), yesRadioButton.isSelected(), Integer.parseInt(roomPax.getText()), Integer.parseInt(roomPrice.getText()));
-            RoomHandling.appendRoomFile(roomToAppend);
-            PopUpWindow.showSuccessfulMessage(
-                "The room details have been added successfully", 
-                "Congrats!"
-            );
-            isAppend = false;
-        }
+        Room roomToAppend = new Room(
+                roomID.getText(), 
+                (String) roomStatus.getModel().getSelectedItem(), 
+                yesRadioButton.isSelected(), 
+                (String) roomType.getModel().getSelectedItem());
+        RoomHandling.appendRoomFile(roomToAppend);
+        PopUpWindow.showSuccessfulMessage(
+            "The room details have been added successfully", 
+            "Congrats!"
+        );
+        isAppend = false;
     }
 
     // Checks if the user input in the text field is an integer
-    private boolean checkPositiveInt(JTextField text, boolean flag){
-        try {
-            int value = Integer.parseInt(text.getText());
-            if (value <= 0) throw new NumberFormatException();
-        } catch (NumberFormatException e) {
-            flag = false;
-            text.setText("");
-            PopUpWindow.showFormatErrorMessage(
-                "Please ensure you've entered an integer", 
-                "Invalid Integer Input"
-            );
-        }
-        return flag;
-    }
+    // private boolean checkPositiveInt(JTextField text, boolean flag){
+    //    try {
+    //        int value = Integer.parseInt(text.getText());
+    //        if (value <= 0) throw new NumberFormatException();
+    //    } catch (NumberFormatException e) {
+    //        flag = false;
+    //        text.setText("");
+    //        PopUpWindow.showFormatErrorMessage(
+    //        "Please ensure you've entered an integer", 
+    //        "Invalid Integer Input"
+    //        );
+    //    }
+    //    return flag;
+    //}
 
     /**
      * @param args the command line arguments
@@ -724,14 +1035,20 @@ public class HostelAD extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JLabel applicationIcon;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton doneButton;
-    private javax.swing.JLabel exitButton;
+    private javax.swing.JTextField firstFacilitiesBox;
     private javax.swing.JButton firstQuery;
+    private javax.swing.JTextField freeWifiBox;
     private javax.swing.JLabel hostelIcon;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -739,19 +1056,22 @@ public class HostelAD extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton lastQuery;
     private javax.swing.JButton nextQuery;
+    private javax.swing.JTextField noOfBedsBox;
     private javax.swing.JRadioButton noRadioButton;
     private javax.swing.JButton previousQuery;
+    private javax.swing.JTextField priceBox;
     private javax.swing.JButton removeButton;
     private javax.swing.JLabel reportsIcon;
     private javax.swing.JLabel roomID;
-    private javax.swing.JTextField roomPax;
-    private javax.swing.JTextField roomPrice;
     private javax.swing.JComboBox<String> roomStatus;
     private javax.swing.JTable roomTable;
+    private javax.swing.JComboBox<String> roomType;
     private javax.swing.JTextField searchBox;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchField;
+    private javax.swing.JTextField secondFacilitiesBox;
     private javax.swing.JLabel signoutIcon;
+    private javax.swing.JTextField specificationBox;
     private javax.swing.JLabel students;
     private javax.swing.ButtonGroup yesOrNo;
     private javax.swing.JRadioButton yesRadioButton;
