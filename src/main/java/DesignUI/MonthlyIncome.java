@@ -2,13 +2,16 @@
 package DesignUI;
 
 import Models.Application;
+import Models.Room;
+import Models.RoomType;
 import Utils.ApplicationHandling;
+import Utils.RoomTypeHandling;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class MonthlyIncome extends javax.swing.JFrame {
-    private final ArrayList<Application> totalApplications = new ApplicationHandling().getTotalApplications();
+    private final ArrayList<Application> totalApplications = ApplicationHandling.getTotalApplications();
     /**
      * Creates new form MonthlyIncome
      */
@@ -27,7 +30,6 @@ public class MonthlyIncome extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        exitButton = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -42,8 +44,9 @@ public class MonthlyIncome extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Monthly Income");
+        setResizable(false);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
@@ -52,16 +55,8 @@ public class MonthlyIncome extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Baskerville Old Face", 1, 40)); // NOI18N
         jLabel1.setText("Monthly Income Report");
-
-        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/x.png"))); // NOI18N
-        exitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                exitButtonMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -71,59 +66,53 @@ public class MonthlyIncome extends javax.swing.JFrame {
                 .addGap(94, 94, 94)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(exitButton)
-                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(exitButton)
-                .addGap(12, 12, 12)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel1)
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setText("Hotel Name:           JomStay Hotel");
+        jLabel2.setFont(new java.awt.Font("Baskerville Old Face", 1, 30)); // NOI18N
+        jLabel2.setText("Hotel Name:        JomStay Hotel");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Baskerville Old Face", 1, 30)); // NOI18N
         jLabel3.setText("Date Generated:");
 
         dateGeneratedBox.setEditable(false);
         dateGeneratedBox.setBackground(new java.awt.Color(255, 255, 255));
-        dateGeneratedBox.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        dateGeneratedBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 24)); // NOI18N
         dateGeneratedBox.setText("-");
         dateGeneratedBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         totalRevenueBox.setEditable(false);
         totalRevenueBox.setBackground(new java.awt.Color(255, 255, 255));
-        totalRevenueBox.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        totalRevenueBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 24)); // NOI18N
         totalRevenueBox.setText("-");
         totalRevenueBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Baskerville Old Face", 1, 30)); // NOI18N
         jLabel4.setText("Total revenue:");
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Baskerville Old Face", 1, 30)); // NOI18N
         jLabel5.setText("Expenses:");
 
         expensesBox.setEditable(false);
         expensesBox.setBackground(new java.awt.Color(255, 255, 255));
-        expensesBox.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        expensesBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 24)); // NOI18N
         expensesBox.setText("-");
         expensesBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Baskerville Old Face", 1, 30)); // NOI18N
         jLabel6.setText("Net Income:");
 
         netIncomeBox.setEditable(false);
         netIncomeBox.setBackground(new java.awt.Color(255, 255, 255));
-        netIncomeBox.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        netIncomeBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 24)); // NOI18N
         netIncomeBox.setText("-");
         netIncomeBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         netIncomeBox.addActionListener(new java.awt.event.ActionListener() {
@@ -132,15 +121,15 @@ public class MonthlyIncome extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Baskerville Old Face", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setText("Staff salaries: RM 1500");
 
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Baskerville Old Face", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(204, 204, 204));
         jLabel8.setText("Maintenance fee: RM 300");
 
-        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Baskerville Old Face", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("Utilities fee: RM 200");
 
@@ -162,7 +151,7 @@ public class MonthlyIncome extends javax.swing.JFrame {
                                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,14 +225,10 @@ public class MonthlyIncome extends javax.swing.JFrame {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         showInForm();
     }//GEN-LAST:event_formComponentShown
-
-    private void exitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitButtonMouseClicked
-        dispose();
-    }//GEN-LAST:event_exitButtonMouseClicked
     
-    private int getTotalRevenue(){
+    private double getTotalRevenue(){
         ArrayList<Application> acceptedApplication = new ArrayList<>();
-        int totalRevenue = 0;
+        double totalRevenue = 0;
         LocalDateTime currentLocalDateTime = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
         String dateTime = currentLocalDateTime.format(dateTimeFormatter);
@@ -258,17 +243,22 @@ public class MonthlyIncome extends javax.swing.JFrame {
             String compareNow = "" + dateNowSplit[0] + dateNowSplit[1];
             
             if(application.getStatus().equals("Accepted")){
-                if(Integer.parseInt(compareNow) >= Integer.parseInt(compareStart) && Integer.parseInt(compareNow) <= Integer.parseInt(compareEnd)){
+                if(Integer.parseInt(compareNow) >= Integer.parseInt(compareStart) 
+                        && Integer.parseInt(compareNow) <= Integer.parseInt(compareEnd)){
                     acceptedApplication.add(application);
                 }
             }
         }
         
-        for(Application application:acceptedApplication) totalRevenue += application.getRoom().getPricePerPax();
+        for(Application application:acceptedApplication) {
+            Room room = application.getRoom();
+            RoomType searchRoomPrice = RoomTypeHandling.matchRoom(room);
+            totalRevenue += (searchRoomPrice.getRentalFee() / 12);
+        }
         return totalRevenue;
     }
     
-    private int getNetIncome(){
+    private double getNetIncome(){
         return getTotalRevenue() - 1500 - 300 - 200;
     }
     
@@ -277,10 +267,11 @@ public class MonthlyIncome extends javax.swing.JFrame {
         LocalDateTime currentLocalDateTime = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String dateTime = currentLocalDateTime.format(dateTimeFormatter);
+        
         dateGeneratedBox.setText(dateTime);
-        totalRevenueBox.setText(Integer.toString(getTotalRevenue()));
+        totalRevenueBox.setText(String.format("%.2f",getTotalRevenue()));
         expensesBox.setText("2000");
-        netIncomeBox.setText(Integer.toString(getNetIncome()));
+        netIncomeBox.setText(String.format("%.2f",getNetIncome()));
     }
     public void start(){
         new MonthlyIncome().setVisible(true);
@@ -314,16 +305,13 @@ public class MonthlyIncome extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MonthlyIncome().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MonthlyIncome().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField dateGeneratedBox;
-    private javax.swing.JLabel exitButton;
     private javax.swing.JTextField expensesBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

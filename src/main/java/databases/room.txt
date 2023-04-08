@@ -1,20 +1,20 @@
-R001 Available false 2 1000
-R002 Occupied false 4 1000
-R003 Available false 4 1000
-R004 Available false 2 900
-R005 Available false 1 1250
-R006 Occupied false 4 1000
-R007 Available false 2 900
-R008 Available false 2 900
-R009 Occupied false 1 1250
-R010 Available false 2 900
-R011 Available true 2 900
-R012 Available false 1 1300
-R013 Available false 4 1000
-R014 Available false 2 900
-R015 Available true 1 1300
-R016 Available false 2 900
-R017 Occupied false 2 1200
-R018 Available false 1 1300
-R019 Occupied false 2 900
-R020 Available false 3 1200
+R001 Occupied false Double
+R002 Available false Double
+R003 Available false Private
+R004 Available false Female-Only
+R005 Available false Twin
+R006 Occupied false Double
+R007 Available false Private
+R008 Available false Female-Only
+R009 Occupied false Single
+R010 Available false Twin
+R011 Available true Twin
+R012 Available false Single
+R013 Occupied false Double
+R014 Available false Female-Only
+R015 Available true Female-Only
+R016 Available false Female-Only
+R017 Occupied false Single
+R018 Available false Double
+R019 Occupied false Private
+R020 Available false Double
