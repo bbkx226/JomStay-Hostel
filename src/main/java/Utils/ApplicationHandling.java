@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class ApplicationHandling {
     private static final String PATH = "src/main/java/databases/application.txt";
     
-    private static final ArrayList<Room> totalRooms = new RoomHandling().getRooms();
-    private static final ArrayList<Student> totalStudents = new UserHandling().getStudents();   
-    public static ArrayList<Application> totalApplications = getTotalApplications();
+    private static final ArrayList<Room> totalRooms = RoomHandling.getRooms();
+    private static final ArrayList<Student> totalStudents = UserHandling.getStudents();   
+    public ArrayList<Application> totalApplications = getTotalApplications();
     public ArrayList<Application> pendingApplications = getPendingApplications();
     
     public static ArrayList<Application> getTotalApplications() {
@@ -49,7 +49,7 @@ public class ApplicationHandling {
     }
     
     // Return pending applications
-    public ArrayList<Application> getPendingApplications(){
+    public static ArrayList<Application> getPendingApplications(){
         ArrayList<Application> total = getTotalApplications();
         ArrayList<Application> buffer = new ArrayList<>();
         try{
