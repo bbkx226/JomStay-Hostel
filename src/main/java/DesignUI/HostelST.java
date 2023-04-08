@@ -8,8 +8,6 @@ import Models.*;
 import Utils.*;
 import java.awt.CardLayout;
 import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
 public class HostelST extends javax.swing.JFrame {
 
@@ -20,19 +18,16 @@ public class HostelST extends javax.swing.JFrame {
     private static ArrayList<String> roomTypes;
     private static Room selectedRoom = null;
     private static String selectedRoomType = null;
-
-    /**
-     * Creates new form HostelST
-     */
+    
     private static CardLayout card;
-
-    // custom component properties
-    private static final Color btnBgColor = Color.BLACK;
-    private static final Color btnHoverColor = new Color(43, 43, 43);
+    
+    private static final Color BUTTON_BG_COLOR = Color.BLACK;
+    private static final Color BUTTON_HOVER_COLOR = new Color(43, 43, 43);
 
     Border margin = new EmptyBorder(10, 10, 10, 10);
     CompoundBorder btnMarginBorder = new CompoundBorder(null, margin);
     
+    // Constructor
     public HostelST() {
         initData();
         initComponents();
@@ -77,10 +72,6 @@ public class HostelST extends javax.swing.JFrame {
         return currentUser;
     }
 
-    public static void setCurrentUser(Student currentUser) {
-        HostelST.currentUser = currentUser;
-    }
-
     public static Application getCurrentUserApplication() {
         return currentUserApplication;
     }
@@ -93,16 +84,8 @@ public class HostelST extends javax.swing.JFrame {
         return availableRooms;
     }
 
-    public static void setAvailableRooms(ArrayList<Room> availableRooms) {
-        HostelST.availableRooms = availableRooms;
-    }
-
     public static ArrayList<String> getRoomTypes() {
         return roomTypes;
-    }
-
-    public static void setRoomTypes(ArrayList<String> roomTypes) {
-        HostelST.roomTypes = roomTypes;
     }
 
     public static Room getCurrentUserRoom() {
@@ -115,14 +98,12 @@ public class HostelST extends javax.swing.JFrame {
 
     // methods to show pages
     public static void showHome() {
-        HomeST homePanel = new HomeST();
-        mainPanel.add(homePanel, "home");
+        mainPanel.add(new HomeST(), "home");
         card.show(mainPanel, "home");
     }
 
     public static void showRooms() {
-        RoomsST roomsPanel = new RoomsST();
-        mainPanel.add(roomsPanel, "rooms");
+        mainPanel.add(new RoomsST(), "rooms");
         card.show(mainPanel, "rooms");
     }
 
@@ -132,37 +113,32 @@ public class HostelST extends javax.swing.JFrame {
             HostelST.showRooms();
             return;
         }
-        ApplicationST applicationPanel = new ApplicationST();
-        mainPanel.add(applicationPanel, "apply");
+        mainPanel.add(new ApplicationST(), "apply");
         card.show(mainPanel, "apply");
     }
 
     public static void showTnC() {
-        ApplyTnCST TnCPanel = new ApplyTnCST();
-        mainPanel.add(TnCPanel, "T&C");
+        mainPanel.add(new ApplyTnCST(), "T&C");
         card.show(mainPanel, "T&C");
     }
 
     public static void showProfile() {
-        ProfileST profilePanel = new ProfileST();
-        mainPanel.add(profilePanel, "profile");
+        mainPanel.add(new ProfileST(), "profile");
         card.show(mainPanel, "profile");
     }
 
     public static void showPayment() {
-        PaymentST paymentPanel = new PaymentST();
-        mainPanel.add(paymentPanel, "payment");
+        mainPanel.add(new PaymentST(), "payment");
         card.show(mainPanel, "payment");
     }
 
-    public static JPanel getMainPanel() {
-        return mainPanel;
+    public void signOut() {
+        PopUpWindow.showGoodByeMessage("Thank you for using the system. See you!", "Sign Out");
+        setVisible(false);
+        dispose();
+        new Login().setVisible(true);
     }
-
-    public static CardLayout getCardManager() {
-        return card;
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -185,7 +161,6 @@ public class HostelST extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         jPanel2.setMinimumSize(new java.awt.Dimension(1280, 720));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -221,17 +196,24 @@ public class HostelST extends javax.swing.JFrame {
         homeBtn.setFocusPainted(false);
         homeBtn.setFocusable(false);
         homeBtn.setRequestFocusEnabled(false);
+        homeBtn.setVerifyInputWhenFocusTarget(false);
         homeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                homeBtnHover(evt);
+                btnHover(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                homeBtnExitHover(evt);
+                btnExitHover(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                homeBtnMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                homeBtnMouseReleased(evt);
             }
         });
         homeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                homeBtnActionPerformed(evt);
+                HostelST.this.actionPerformed(evt);
             }
         });
         sidePanel.add(homeBtn);
@@ -247,15 +229,15 @@ public class HostelST extends javax.swing.JFrame {
         roomsBtn.setRequestFocusEnabled(false);
         roomsBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                roomsBtnHover(evt);
+                btnHover(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                roomsBtnExitHover(evt);
+                btnExitHover(evt);
             }
         });
         roomsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomsBtnActionPerformed(evt);
+                HostelST.this.actionPerformed(evt);
             }
         });
         sidePanel.add(roomsBtn);
@@ -271,15 +253,15 @@ public class HostelST extends javax.swing.JFrame {
         applicationBtn.setRequestFocusEnabled(false);
         applicationBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                applicationBtnHover(evt);
+                btnHover(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                applicationBtnExitHover(evt);
+                btnExitHover(evt);
             }
         });
         applicationBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                applicationBtnActionPerformed(evt);
+                HostelST.this.actionPerformed(evt);
             }
         });
         sidePanel.add(applicationBtn);
@@ -295,15 +277,15 @@ public class HostelST extends javax.swing.JFrame {
         profileBtn.setRequestFocusEnabled(false);
         profileBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                profileBtnHover(evt);
+                btnHover(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                profileBtnExitHover(evt);
+                btnExitHover(evt);
             }
         });
         profileBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                profileBtnActionPerformed(evt);
+                HostelST.this.actionPerformed(evt);
             }
         });
         sidePanel.add(profileBtn);
@@ -319,15 +301,15 @@ public class HostelST extends javax.swing.JFrame {
         paymentBtn.setRequestFocusEnabled(false);
         paymentBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                paymentBtnHover(evt);
+                btnHover(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                paymentBtnExitHover(evt);
+                btnExitHover(evt);
             }
         });
         paymentBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentBtnActionPerformed(evt);
+                HostelST.this.actionPerformed(evt);
             }
         });
         sidePanel.add(paymentBtn);
@@ -343,15 +325,15 @@ public class HostelST extends javax.swing.JFrame {
         signOutBtn.setRequestFocusEnabled(false);
         signOutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                signOutBtnHover(evt);
+                btnHover(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                signOutBtnExitHover(evt);
+                btnExitHover(evt);
             }
         });
         signOutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                signOutBtnActionPerformed(evt);
+                HostelST.this.actionPerformed(evt);
             }
         });
         sidePanel.add(signOutBtn);
@@ -379,108 +361,39 @@ public class HostelST extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-
-    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
-        // TODO set color back to bg color when clicked:
-        showHome();
-        homeBtn.setFocusPainted(false);
-        homeBtn.setBackground(btnBgColor);
-    }//GEN-LAST:event_homeBtnActionPerformed
-
-    private void homeBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnHover
+    private void homeBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnMousePressed
         // TODO add your handling code here:
-        homeBtn.setBackground(btnHoverColor);
-    }//GEN-LAST:event_homeBtnHover
+        homeBtn.setBackground(Color.BLUE);
+    }//GEN-LAST:event_homeBtnMousePressed
 
-    private void homeBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnExitHover
+    private void homeBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnMouseReleased
         // TODO add your handling code here:
-        homeBtn.setBackground(btnBgColor);
-    }//GEN-LAST:event_homeBtnExitHover
+        homeBtn.setBackground(BUTTON_BG_COLOR);
+    }//GEN-LAST:event_homeBtnMouseReleased
 
-    private void roomsBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomsBtnHover
+    private void actionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionPerformed
         // TODO add your handling code here:
-        roomsBtn.setBackground(btnHoverColor);
-    }//GEN-LAST:event_roomsBtnHover
+        switch (evt.getActionCommand()) {
+            case "   Home           " -> showHome();
+            case "   Rooms         " -> showRooms();
+            case "    Apply          " -> showApplication();
+            case "   Profile        " -> showProfile();
+            case "   Payment     " -> showPayment();
+            case "   Sign Out     " -> signOut();
+            default -> {break;}
+        }
+    }//GEN-LAST:event_actionPerformed
 
-    private void roomsBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomsBtnExitHover
+    private void btnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHover
         // TODO add your handling code here:
-        roomsBtn.setBackground(btnBgColor);
-    }//GEN-LAST:event_roomsBtnExitHover
+        evt.getComponent().setBackground(BUTTON_HOVER_COLOR);
+    }//GEN-LAST:event_btnHover
 
-    private void roomsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsBtnActionPerformed
+    private void btnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitHover
         // TODO add your handling code here:
-        roomsBtn.setBackground(btnBgColor);
-        showRooms();
-    }//GEN-LAST:event_roomsBtnActionPerformed
-
-    private void paymentBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtnHover
-        // TODO add your handling code here:
-        paymentBtn.setBackground(btnHoverColor);
-    }//GEN-LAST:event_paymentBtnHover
-
-    private void paymentBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentBtnExitHover
-        // TODO add your handling code here:
-        paymentBtn.setBackground(btnBgColor);
-    }//GEN-LAST:event_paymentBtnExitHover
-
-    private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtnActionPerformed
-        // TODO add your handling code here:
-        paymentBtn.setBackground(btnBgColor);
-        showPayment();
-    }//GEN-LAST:event_paymentBtnActionPerformed
-
-    private void profileBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileBtnHover
-        // TODO add your handling code here:
-        profileBtn.setBackground(btnHoverColor);
-    }//GEN-LAST:event_profileBtnHover
-
-    private void profileBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileBtnExitHover
-        // TODO add your handling code here:
-        profileBtn.setBackground(btnBgColor);
-    }//GEN-LAST:event_profileBtnExitHover
-
-    private void profileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileBtnActionPerformed
-        // TODO add your handling code here:
-        profileBtn.setBackground(btnBgColor);
-        showProfile();
-    }//GEN-LAST:event_profileBtnActionPerformed
-
-    private void signOutBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signOutBtnHover
-        // TODO add your handling code here:
-        signOutBtn.setBackground(btnHoverColor);
-    }//GEN-LAST:event_signOutBtnHover
-
-    private void signOutBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signOutBtnExitHover
-        // TODO add your handling code here:
-        signOutBtn.setBackground(btnBgColor);
-    }//GEN-LAST:event_signOutBtnExitHover
-
-    private void signOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutBtnActionPerformed
-        // TODO add your handling code here:
-        signOutBtn.setBackground(btnBgColor);
-        PopUpWindow.showGoodByeMessage("Thank you for using the system. See you!", "Sign Out");
-        currentUser = null;
-        setVisible(false);
-        dispose();
-        new Login().setVisible(true);
-    }//GEN-LAST:event_signOutBtnActionPerformed
-
-    private void applicationBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationBtnHover
-        // TODO add your handling code here:
-        applicationBtn.setBackground(btnHoverColor);
-    }//GEN-LAST:event_applicationBtnHover
-
-    private void applicationBtnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationBtnExitHover
-        // TODO add your handling code here:
-        applicationBtn.setBackground(btnBgColor);
-    }//GEN-LAST:event_applicationBtnExitHover
-
-    private void applicationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applicationBtnActionPerformed
-        // TODO add your handling code here:
-        showApplication();
-    }//GEN-LAST:event_applicationBtnActionPerformed
-
-
+        evt.getComponent().setBackground(BUTTON_BG_COLOR);
+    }//GEN-LAST:event_btnExitHover
+    
     /**
      * @param args the command line arguments
      */
@@ -507,13 +420,9 @@ public class HostelST extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(HostelST.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HostelST().setVisible(true);
-            }
-        });
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

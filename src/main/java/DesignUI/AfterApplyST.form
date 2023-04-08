@@ -112,7 +112,7 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="HostelST.getCurrentUserApplication().getStatus()" type="code"/>
+              <Connection code="DesignUI.HostelST.getCurrentUserApplication().getStatus()" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -255,7 +255,7 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="HostelST.getCurrentUserRoom().getRoomID()" type="code"/>
+              <Connection code="DesignUI.HostelST.getCurrentUserRoom().getRoomID()" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
