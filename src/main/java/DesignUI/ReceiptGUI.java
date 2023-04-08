@@ -27,14 +27,14 @@ public class ReceiptGUI extends JFrame implements ActionListener {
     private final LinkedHashMap<String, String> DATA;
     private final JTextArea RECEIPT_TEXT_AREA;
 
-    private Runnable onClose;
+    private final Runnable ON_CLOSE;
 
     public static JButton confirmButton;
     
     public ReceiptGUI(LinkedHashMap<String, String> data, Runnable onClose) {
         super("Hostel Rental Receipt");
         this.DATA = data;
-        this.onClose = onClose;
+        this.ON_CLOSE = onClose;
 
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
@@ -67,7 +67,7 @@ public class ReceiptGUI extends JFrame implements ActionListener {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                // Call the onClose runnable
+                // Call the ON_CLOSE runnable
                 onClose.run();
             }
         });
@@ -89,7 +89,8 @@ public class ReceiptGUI extends JFrame implements ActionListener {
         sb.append("Hostel Rental Receipt\n");
         sb.append("=======================\n\n");
         for (Entry<String, String> entry : DATA.entrySet()) {
-            sb.append(entry.getKey() + ": " + entry.getValue() + "\n");
+            sb.append(entry.getKey()).append(": ");
+            sb.append(entry.getValue()).append("\n");
         }
         return sb.toString();
     }

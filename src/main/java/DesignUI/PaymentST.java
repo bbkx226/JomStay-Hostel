@@ -19,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.Objects;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -40,8 +41,6 @@ public class PaymentST extends javax.swing.JPanel {
     private static ArrayList<Payment> payments;
     private static Application application;
     private static LocalDate startDate;
-    
-    private static DefaultTableModel MyTableModel;
     
     /**
      * Creates new form PaymentST
@@ -436,7 +435,7 @@ public class PaymentST extends javax.swing.JPanel {
         if (selectedMonths.isEmpty()) {
             return false;
         }
-        if (selectedMonths.get(0) != totalMonths.get(0)) {
+        if (!Objects.equals(selectedMonths.get(0), totalMonths.get(0))) {
             return false;
         }
         if (! selectedMonths.equals(actualSelections)) {
@@ -507,13 +506,10 @@ public class PaymentST extends javax.swing.JPanel {
             data.put("Room Number", currentUserRoom.getRoomID());
             data.put("Total Price", "RM" + selectedAmt);
 
-            Runnable onClose = new Runnable() {
-                @Override
-                public void run() {
-                    Login.getHostelFrame().dispose();
-                    HostelST hostelST = new HostelST();
-                    Login.setHostelFrame(hostelST);
-                }
+            Runnable onClose = () -> {
+                Login.getHostelFrame().dispose();
+                HostelST hostelST = new HostelST();
+                Login.setHostelFrame(hostelST);
             };
             
             ReceiptGUI gui = new ReceiptGUI(data, onClose);

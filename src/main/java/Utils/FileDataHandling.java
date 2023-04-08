@@ -1,7 +1,6 @@
 // @author Brandon Ban Kai Xian TP067094
 package Utils;
 
-import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -39,7 +38,6 @@ public class FileDataHandling {
     // Update login time of user
     public static void updateLoginTime(String ID){
         String content = "";
-        FileWriter writer;
         LocalDateTime currentLocalDateTime = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
         String dateTime = currentLocalDateTime.format(dateTimeFormatter);

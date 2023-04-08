@@ -461,7 +461,6 @@ public class BeforeApplyST extends javax.swing.JPanel {
     }
     
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
-        // TODO add your handling code here:
         if (HostelST.getSelectedRoomType() == null) {
             PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
             HostelST.showRooms();

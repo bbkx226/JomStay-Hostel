@@ -155,7 +155,6 @@ public class ApplyTnCST extends javax.swing.JPanel {
     }
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
-        // TODO add your handling code here:
         if (!jCheckBox1.isSelected()) {
             PopUpWindow.showErrorMessage("Please ensure that you have agreed to the Terms and Conditions as stated by checking the checkbox.", "Error");
         } else {

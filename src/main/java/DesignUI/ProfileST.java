@@ -5,8 +5,6 @@
 package DesignUI;
 
 import Models.Student;
-import java.time.format.DateTimeFormatter;
-
 /**
  *
  * @author KZ
@@ -14,8 +12,6 @@ import java.time.format.DateTimeFormatter;
 public class ProfileST extends javax.swing.JPanel {
     
     private static Student currentStudent;
-    private static final String DOBFormat = "dd MMMM yyyy";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DOBFormat);
     
     /**
      * Creates new form ProfileST
