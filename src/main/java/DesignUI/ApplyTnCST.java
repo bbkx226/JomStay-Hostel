@@ -6,7 +6,6 @@ package DesignUI;
 
 import Models.Application;
 import Utils.ApplicationHandling;
-import static Utils.ApplicationHandling.totalApplications;
 import Utils.PopUpWindow;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -161,7 +160,7 @@ public class ApplyTnCST extends javax.swing.JPanel {
         } else {
             BeforeApplyST.confirmApplication();
             
-            String newApplicationID = String.format("A%03d", totalApplications.size() + 1);
+            String newApplicationID = String.format("A%03d", ApplicationHandling.getTotalApplications().size() + 1);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
             String createDate = LocalDateTime.now().format(formatter);
 

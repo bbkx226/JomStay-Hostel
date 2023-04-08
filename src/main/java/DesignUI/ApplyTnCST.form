@@ -86,9 +86,6 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="0"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;2. I declare that the particulars in this application form are true to the best of my knowledge, and I have not&lt;br/&gt;wilfully suppressed any material fact. Any misrepresentation or omission of information will render me ineligible&lt;br/&gt;for student accommodation.&lt;html/&gt;"/>
           </Properties>
           <Constraints>
@@ -102,9 +99,6 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="0"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;2. Booking confirmations by payment equivalent to one (1) month deposit and pro-rated rent up to the end&lt;br/&gt;of the month must be received by JomStay, failing which the&lt;br/&gt;JomStay will not be able to guarantee the accommodation requested. Thereafter, rent must be paid on a&lt;br/&gt;calendar month basis on or before the 7th day of each month.&lt;/html&gt;"/>
           </Properties>
           <Constraints>
@@ -117,9 +111,6 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="3. I undertake to abide by the Tenancy Agreement and Hostel Accommodation Code of Conduct."/>
           </Properties>
@@ -150,9 +141,6 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="0"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;3. All applicants are required to sign a tenancy agreement for a minimum period of one (1) academic year&lt;br/&gt;(12 months).&lt;html/&gt;"/>
           </Properties>
           <Constraints>
@@ -182,9 +170,6 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="0"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="1. Rooms are allocated on a first-come-first-serve-basis."/>
           </Properties>
           <Constraints>
@@ -197,9 +182,6 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="1. I understand and accept the general conditions for booking of hostel accommodation."/>
           </Properties>
@@ -216,9 +198,6 @@
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="I have read and agreed to the Terms and Conditions"/>
           </Properties>
