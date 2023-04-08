@@ -33,6 +33,7 @@ public class Splash extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 22)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/jomstaybg.png"))); // NOI18N
 
+        loadingProgress.setFont(new java.awt.Font("Baskerville Old Face", 1, 14)); // NOI18N
         loadingProgress.setForeground(new java.awt.Color(11, 180, 212));
         loadingProgress.setStringPainted(true);
 
