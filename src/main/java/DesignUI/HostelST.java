@@ -8,6 +8,7 @@ import Models.*;
 import Utils.*;
 import java.awt.CardLayout;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class HostelST extends javax.swing.JFrame {
@@ -217,6 +218,8 @@ public class HostelST extends javax.swing.JFrame {
         homeBtn.setText("   Home           ");
         homeBtn.setBorder(btnMarginBorder);
         homeBtn.setBorderPainted(false);
+        homeBtn.setFocusPainted(false);
+        homeBtn.setFocusable(false);
         homeBtn.setRequestFocusEnabled(false);
         homeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -240,6 +243,7 @@ public class HostelST extends javax.swing.JFrame {
         roomsBtn.setText("   Rooms         ");
         roomsBtn.setBorder(btnMarginBorder);
         roomsBtn.setBorderPainted(false);
+        roomsBtn.setFocusable(false);
         roomsBtn.setRequestFocusEnabled(false);
         roomsBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -263,6 +267,7 @@ public class HostelST extends javax.swing.JFrame {
         applicationBtn.setText("    Apply          ");
         applicationBtn.setBorder(btnMarginBorder);
         applicationBtn.setBorderPainted(false);
+        applicationBtn.setFocusable(false);
         applicationBtn.setRequestFocusEnabled(false);
         applicationBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -286,6 +291,7 @@ public class HostelST extends javax.swing.JFrame {
         profileBtn.setText("   Profile        ");
         profileBtn.setBorder(btnMarginBorder);
         profileBtn.setBorderPainted(false);
+        profileBtn.setFocusable(false);
         profileBtn.setRequestFocusEnabled(false);
         profileBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -309,6 +315,7 @@ public class HostelST extends javax.swing.JFrame {
         paymentBtn.setText("   Payment     ");
         paymentBtn.setBorder(btnMarginBorder);
         paymentBtn.setBorderPainted(false);
+        paymentBtn.setFocusable(false);
         paymentBtn.setRequestFocusEnabled(false);
         paymentBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -332,6 +339,7 @@ public class HostelST extends javax.swing.JFrame {
         signOutBtn.setText("   Sign Out     ");
         signOutBtn.setBorder(btnMarginBorder);
         signOutBtn.setBorderPainted(false);
+        signOutBtn.setFocusable(false);
         signOutBtn.setRequestFocusEnabled(false);
         signOutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -374,8 +382,9 @@ public class HostelST extends javax.swing.JFrame {
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // TODO set color back to bg color when clicked:
-        homeBtn.setBackground(btnBgColor);
         showHome();
+        homeBtn.setFocusPainted(false);
+        homeBtn.setBackground(btnBgColor);
     }//GEN-LAST:event_homeBtnActionPerformed
 
     private void homeBtnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnHover
@@ -471,16 +480,6 @@ public class HostelST extends javax.swing.JFrame {
         showApplication();
     }//GEN-LAST:event_applicationBtnActionPerformed
 
-//    public static void start() {
-//        if (currentUserRoom == null) {
-//            System.out.println("You have no room");
-//        }
-////        Splash screen = new Splash();
-////        screen.setVisible(true);
-////        screen.dispose();
-//        dispose();
-//        setVisible(true);
-//    }
 
     /**
      * @param args the command line arguments

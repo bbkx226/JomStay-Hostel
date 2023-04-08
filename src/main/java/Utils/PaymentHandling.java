@@ -110,7 +110,6 @@ public class PaymentHandling {
         LocalDate now = LocalDate.now();        
         ArrayList<Payment> payments = getAllPayments();
         ArrayList<String> buffer = new ArrayList<>();
-        System.out.println(payments.size());
         for (int i = 0; i < payments.size(); i++) {
             Payment payment = payments.get(i);
             Application application = payment.getApplication();

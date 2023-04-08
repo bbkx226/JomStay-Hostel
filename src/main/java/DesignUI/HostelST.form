@@ -119,6 +119,8 @@
                   <Connection code="btnMarginBorder" type="code"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="false"/>
+                <Property name="focusPainted" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -146,6 +148,7 @@
                   <Connection code="btnMarginBorder" type="code"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -173,6 +176,7 @@
                   <Connection code="btnMarginBorder" type="code"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -200,6 +204,7 @@
                   <Connection code="btnMarginBorder" type="code"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -227,6 +232,7 @@
                   <Connection code="btnMarginBorder" type="code"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -254,6 +260,7 @@
                   <Connection code="btnMarginBorder" type="code"/>
                 </Property>
                 <Property name="borderPainted" type="boolean" value="false"/>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
               </Properties>
               <Events>
