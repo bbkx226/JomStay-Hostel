@@ -1,29 +1,54 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+// @author Brandon Ban Kai Xian TP067094
 package Utils;
 
+import Models.Room;
+import Models.RoomType;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-/**
- *
- * @author KZ
- */
 public final class RoomTypeHandling {
     private static final String PATH = "src/main/java/databases/roomtypes.txt";
+    public static ArrayList<RoomType> totalRooms = getRoomTypes();
     
-    public static ArrayList<String> getRoomTypes() {
-        ArrayList<String> buffer = new ArrayList<>();
-        String roomString = "";
+    public static ArrayList<RoomType> getRoomTypes() {
+        ArrayList<RoomType> buffer = new ArrayList<>();
+        String tempBuffer = new String();
+
         for (String line : FileHandlerUtils.readLines(PATH)) {
-            if (line.isEmpty()) {
-                buffer.add(roomString);
-                roomString = "";
+            System.out.println(line);
+            System.out.println("-----------------------------");
+            if(!line.isEmpty()){
+                String[] data = line.split(": ");
+                String formattedData = data[1].replace("\n", "");
+                tempBuffer += formattedData + " ";
             } else {
-                roomString += line + "\n";
+                String[] finalData = tempBuffer.split(" ");
+                RoomType roomType = new RoomType(finalData[0], Integer.parseInt(finalData[1]), finalData[2], Double.parseDouble(finalData[3]), finalData[4], Boolean.parseBoolean(finalData[5]));
+                buffer.add(roomType);
+                tempBuffer = "";
+                Arrays.fill(finalData, "");
             }
         }
         return buffer;
     }
+
+    public static RoomType matchRoom(Room room) {
+        for(RoomType roomType : getRoomTypes()){
+            if(room.getRoomType().equals(roomType.getTypeName())) return roomType;
+        }
+        return null;
+    }
+    //     public static ArrayList<String> getRoomTypes() {
+    //        ArrayList<String> buffer = new ArrayList<>();
+    //        String roomString = "";
+    //        for (String line : FileHandlerUtils.readLines(PATH)) {
+    //            if (line.isEmpty()) {
+    //                buffer.add(roomString);
+    //                roomString = "";
+    //            } else {
+    //                roomString += line + "\n";
+    //            }
+    //        }
+    //       return buffer;
+    //}
 }

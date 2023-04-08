@@ -8,11 +8,11 @@ public class RoomHandling {
     private static final String PATH = "src/main/java/databases/room.txt";
     public ArrayList<Room> totalRooms = getRooms();
     
-    public ArrayList<Room> getRooms() {
+    public static ArrayList<Room> getRooms() {
         ArrayList<Room> buffer = new ArrayList<>();
         for (String line : FileHandlerUtils.readLines(PATH)) {
             String[] data = line.split(" ");
-            Room room = new Room(data[0], data[1], Boolean.parseBoolean(data[2]), Integer.parseInt(data[3]), Integer.parseInt(data[4]));
+            Room room = new Room(data[0], data[1], Boolean.parseBoolean(data[2]), data[3]);
             buffer.add(room);
         }
         return buffer;
@@ -20,9 +20,7 @@ public class RoomHandling {
     
     public static void updateRoomFile(ArrayList<Room> rooms) {
         String roomListString = "";
-        for (Room room : rooms) {
-            roomListString += room.toString();
-        }
+        for (Room room : rooms) roomListString += room.toString();
         FileHandlerUtils.writeString(PATH, roomListString, false);
     }
     
@@ -33,10 +31,12 @@ public class RoomHandling {
             if (room.getRoomID().equals(roomID)) {
                 continue;
             }
-            roomListString += String.format("R%03d %s %b %d %d\n", 
+            roomListString += String.format("R%03d %s %b %s\n", 
                                             i, room.getStatus(), 
-                                            room.isServicing(), room.getPax(), 
-                                            room.getPricePerPax());
+                                            room.isServicing(),
+                                            room.getRoomType()
+                                            );
+            i++;
         }
         FileHandlerUtils.writeString(PATH, roomListString, false);
     }
@@ -51,7 +51,7 @@ public class RoomHandling {
         for (String line : FileHandlerUtils.readLines(PATH)) {
             String[] data = line.split(" ");
             if (data[1].equals("Available")) {
-                Room room = new Room(data[0], data[1], Boolean.parseBoolean(data[2]), Integer.parseInt(data[3]), Integer.parseInt(data[4]));
+                Room room = new Room(data[0], data[1], Boolean.parseBoolean(data[2]), data[3]);
                 buffer.add(room);
             }
         }

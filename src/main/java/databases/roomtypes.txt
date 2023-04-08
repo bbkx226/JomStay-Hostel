@@ -26,10 +26,9 @@ Price (Monthly): RM 1,800.00
 Facilities: Shared Bathroom, Kitchen, Common Area, Laundry Area
 Free WiFi: Yes
 
-Room Type: Twin Room
+Room Type: Double
 Number of Beds: 2
 Gender: Mixed
 Price (Monthly): RM 1,500.00
 Facilities: Shared Bathroom, Kitchen, Common Area, Laundry Area
 Free WiFi: Yes
-

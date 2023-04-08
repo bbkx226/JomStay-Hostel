@@ -18,14 +18,12 @@ public final class FileHandlerUtils {
 
     public static ArrayList<String> readLines(String filePath) {
         ArrayList<String> lines = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            String line = reader.readLine();
-            while (line != null) {
-                lines.add(line);
-                line = reader.readLine();
-            }
-            reader.close();
+         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                String line = reader.readLine();
+                while (line != null) {
+                    lines.add(line);
+                    line = reader.readLine();
+                }
         } catch (IOException e) {
             System.out.println(filePath + " could not be found.");
             e.printStackTrace();
@@ -34,8 +32,7 @@ public final class FileHandlerUtils {
     }
 
     public static void writeString(String filePath, String str, boolean append) {
-        try {
-            FileWriter writer = new FileWriter(filePath, append);
+        try (FileWriter writer = new FileWriter(filePath, append)){
             writer.write(str);
             writer.close();
         } catch (IOException e) {
