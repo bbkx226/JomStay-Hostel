@@ -1,34 +1,34 @@
-Room Type: Single Bed Room
-Number of Beds: 5
-Gender: Mixed
-Price (Monthly): RM 2,000.00
-Facilities: Shared Bathroom, Kitchen, Common Area, Laundry Area
-Free WiFi: Yes
-
-Room Type: Double Bed Room
-Number of Beds: 3
-Gender: Mixed
-Price (Monthly): RM 1,800.00
-Facilities: Shared Bathroom, Kitchen, Common Area, Laundry Area
-Free WiFi: Yes
-
-Room Type: Private Room
-Number of Beds: 1
-Gender: Mixed
-Price (Monthly): RM 800.00
-Facilities: Private Bathroom, Kitchen
-Free WiFi: Yes
-
-Room Type: Female-Only Room
+Room Type: Single
 Number of Beds: 4
-Gender: Female only
-Price (Monthly): RM 1,800.00
-Facilities: Shared Bathroom, Kitchen, Common Area, Laundry Area
-Free WiFi: Yes
+Gender: Mixed
+Price (Annual): 25000.00
+Facilities: Shared_Bathroom,Kitchen,Common_Area,Laundry_Area
+Free WiFi: true
 
 Room Type: Double
 Number of Beds: 2
 Gender: Mixed
-Price (Monthly): RM 1,500.00
-Facilities: Shared Bathroom, Kitchen, Common Area, Laundry Area
-Free WiFi: Yes
+Price (Annual): 22000.00
+Facilities: Shared_Bathroom,Kitchen,Common_Area,Laundry_Area
+Free WiFi: true
+
+Room Type: Private
+Number of Beds: 1
+Gender: Mixed
+Price (Annual): 10000.00
+Facilities: Private_Bathroom,Kitchen
+Free WiFi: false
+
+Room Type: Twin
+Number of Beds: 2
+Gender: Mixed
+Price (Annual): 18000.00
+Facilities: Shared_Bathroom,Kitchen,Common_Area,Laundry_Area
+Free WiFi: true
+
+Room Type: Female-Only
+Number of Beds: 4
+Gender: Female
+Price (Annual): 22000.00
+Facilities: Shared_Bathroom,Kitchen,Common_Area,Laundry_Area
+Free WiFi: false
