@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 public class AvailableRoom extends javax.swing.JFrame {
+    private final ArrayList<Room> rooms = new RoomHandling().getRooms(); 
+
     /**
      * Creates new form availableRoom
      */

@@ -5,6 +5,7 @@
 package DesignUI;
 
 import Models.Room;
+import Models.RoomType;
 import Utils.*;
 import java.util.ArrayList;
 
@@ -271,7 +272,7 @@ public class RoomsST extends javax.swing.JPanel {
    
     private static void apply(int roomTypeNum) {
         ArrayList<Room> availableRooms = HostelST.getAvailableRooms();
-        ArrayList<String> roomTypes = HostelST.getRoomTypes();
+        ArrayList<RoomType> roomTypes = HostelST.getRoomTypes();
         boolean apply = PopUpWindow.showRoom(roomTypes.get(roomTypeNum) + "Available: IDK", "Room Details");
         if (apply) {
             if (HostelST.getCurrentUserRoom() != null 
@@ -282,7 +283,7 @@ public class RoomsST extends javax.swing.JPanel {
             } else {
                 // TODO: change to set the first selected room type that is available
                 HostelST.setSelectedRoom(availableRooms.get(0));
-                HostelST.setSelectedRoomType(roomTypes.get(roomTypeNum).split("\n")[0].split(": ")[1]);
+                HostelST.setSelectedRoomType(roomTypes.get(roomTypeNum));
             }
             HostelST.showApplication();
         }

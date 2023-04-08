@@ -38,17 +38,4 @@ public final class RoomTypeHandling {
         }
         return null;
     }
-    //     public static ArrayList<String> getRoomTypes() {
-    //        ArrayList<String> buffer = new ArrayList<>();
-    //        String roomString = "";
-    //        for (String line : FileHandlerUtils.readLines(PATH)) {
-    //            if (line.isEmpty()) {
-    //                buffer.add(roomString);
-    //                roomString = "";
-    //            } else {
-    //                roomString += line + "\n";
-    //            }
-    //        }
-    //       return buffer;
-    //}
 }

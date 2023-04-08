@@ -136,7 +136,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText(HostelST.getSelectedRoomType());
+        jLabel4.setText(DesignUI.HostelST.getSelectedRoomType().getTypeName());
         roomDetailsSection.add(jLabel4);
 
         jLabel47.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -146,7 +146,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText(HostelST.getSelectedRoom().getRoomID());
+        jLabel2.setText(DesignUI.HostelST.getSelectedRoom().getRoomID());
         roomDetailsSection.add(jLabel2);
 
         jLabel56.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -200,7 +200,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText(HostelST.getCurrentUser().getName().replace("_", " "));
+        jLabel5.setText(DesignUI.HostelST.getCurrentUser().getName().replace("_", " "));
         studentDetailsSection.add(jLabel5);
 
         jLabel35.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -210,7 +210,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText(HostelST.getCurrentUser().getEmail());
+        jLabel6.setText(DesignUI.HostelST.getCurrentUser().getEmail());
         studentDetailsSection.add(jLabel6);
 
         jLabel21.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -220,7 +220,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText(HostelST.getCurrentUser().getGender());
+        jLabel7.setText(DesignUI.HostelST.getCurrentUser().getGender());
         studentDetailsSection.add(jLabel7);
 
         jLabel33.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -230,7 +230,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText(HostelST.getCurrentUser().getPhoneNo());
+        jLabel8.setText(DesignUI.HostelST.getCurrentUser().getPhoneNo());
         studentDetailsSection.add(jLabel8);
 
         jLabel23.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -240,7 +240,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText(HostelST.getCurrentUser().getNRIC());
+        jLabel9.setText(DesignUI.HostelST.getCurrentUser().getNRIC());
         studentDetailsSection.add(jLabel9);
 
         jLabel27.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -373,7 +373,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
                     .addGap(0, 74, Short.MAX_VALUE)))
         );
 
-        if (HostelST.getSelectedRoom() == null) {
+        if (DesignUI.HostelST.getSelectedRoom() == null) {
             confirmBtn.setVisible(true);
         }
 

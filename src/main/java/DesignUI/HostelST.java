@@ -15,9 +15,9 @@ public class HostelST extends javax.swing.JFrame {
     private static Application currentUserApplication;
     private static Room currentUserRoom;
     private static ArrayList<Room> availableRooms;
-    private static ArrayList<String> roomTypes;
+    private static ArrayList<RoomType> roomTypes;
     private static Room selectedRoom = null;
-    private static String selectedRoomType = null;
+    private static RoomType selectedRoomType = null;
     
     private static CardLayout card;
     
@@ -56,7 +56,7 @@ public class HostelST extends javax.swing.JFrame {
         HostelST.selectedRoom = selectedRoom;
     }
 
-    public static void setSelectedRoomType(String selectedRoomType) {
+    public static void setSelectedRoomType(RoomType selectedRoomType) {
         HostelST.selectedRoomType = selectedRoomType;
     }
 
@@ -64,7 +64,7 @@ public class HostelST extends javax.swing.JFrame {
         return selectedRoom;
     }
 
-    public static String getSelectedRoomType() {
+    public static RoomType getSelectedRoomType() {
         return selectedRoomType;
     }
 
@@ -84,7 +84,7 @@ public class HostelST extends javax.swing.JFrame {
         return availableRooms;
     }
 
-    public static ArrayList<String> getRoomTypes() {
+    public static ArrayList<RoomType> getRoomTypes() {
         return roomTypes;
     }
 
