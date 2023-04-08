@@ -182,7 +182,6 @@ public class ApplyTnCST extends javax.swing.JPanel {
             
             PopUpWindow.showSuccessfulMessage("Application has been sent to JomStay. We will get back to you when your application has been checked and accepted.", "Success");
             HostelST.showApplication();
-
         }
     }//GEN-LAST:event_confirmBtnActionPerformed
 

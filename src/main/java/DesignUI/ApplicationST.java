@@ -29,14 +29,12 @@ public class ApplicationST extends javax.swing.JPanel {
     }
 
     private static void showNotAppliedPage() {
-        BeforeApplyST notAppliedPanel = new BeforeApplyST();
-        contentPanel.add(notAppliedPanel, "not applied");
+        contentPanel.add(new BeforeApplyST(), "not applied");
         card.show(contentPanel, "not applied");
     }
 
     private static void showAppliedPage() {
-        AfterApplyST appliedPanel = new AfterApplyST();
-        contentPanel.add(appliedPanel, "applied");
+        contentPanel.add(new AfterApplyST(), "applied");
         card.show(contentPanel, "applied");
     }
 
