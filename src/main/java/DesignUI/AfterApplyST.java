@@ -96,7 +96,7 @@ public class AfterApplyST extends javax.swing.JPanel {
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("Pending");
+        jLabel10.setText(HostelST.getCurrentUserApplication().getStatus());
         if (jLabel10.getText().equals("Pending")) {
             jLabel10.setForeground(Color.BLUE);
         } else if (jLabel10.getText().equals("Rejected")) {

@@ -12,6 +12,7 @@ import Utils.UserHandling;
 public class Login extends javax.swing.JFrame {
     
     private static Student currentUser;
+    private static HostelST hostelST;
     
     /**
      * Creates new form Login
@@ -73,7 +74,7 @@ public class Login extends javax.swing.JFrame {
                     PopUpWindow.showSuccessfulMessage("Welcome back, " + username + "!", "Login Success!");
                     setVisible(false);
                     
-                    new HostelST().start();
+                    hostelST = new HostelST();
                 }
                 default -> {
                     PopUpWindow.showErrorMessage("Invalid credentials, please try again", "Wrong credentials");
@@ -87,6 +88,14 @@ public class Login extends javax.swing.JFrame {
     
     public static Student getCurrentUser() {
         return currentUser;
+    }
+    
+    public static HostelST getHostelFrame() {
+        return hostelST;
+    }
+    
+    public static void setHostelFrame(HostelST hostelST) {
+        Login.hostelST = hostelST;
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

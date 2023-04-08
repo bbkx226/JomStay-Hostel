@@ -4,92 +4,119 @@
  */
 package Models;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  *
  * @author KZ
  */
 public class Payment {
-    private static DateTimeFormatter formatter;
-    
-    private static Application application;
-    private static boolean paymentStatus;
-    private static float amount;
-    private static String paymentID, method;
-    private static LocalDateTime date;
 
-    public Payment(String paymentID, Application application, boolean paymentStatus, float amount, String method, LocalDateTime date) {
-        Payment.paymentID = paymentID;
-        Payment.application = application;
-        Payment.paymentStatus = paymentStatus;
-        Payment.amount = amount;
-        Payment.method = method;
-        Payment.date = date;
+    private Application application;
+    private double amount;
+    private String paymentID, paymentStatus, method, date;
+
+    public Payment(String paymentID, Application application, String paymentStatus, double amount, String method, String date) {
+        this.paymentID = paymentID;
+        this.application = application;
+        this.paymentStatus = paymentStatus;
+        this.amount = amount;
+        this.method = method;
+        this.date = date;
     }
 
-    public static void setPaymentID(String paymentID) {
-        Payment.paymentID = paymentID;
-    }
-    
-    public static void setApplication(Application application) {
-        Payment.application = application;
+    public void setPaymentID(String paymentID) {
+        this.paymentID = paymentID;
     }
 
-    public static void setPaymentStatus(boolean paymentStatus) {
-        Payment.paymentStatus = paymentStatus;
+    public void setApplication(Application application) {
+        this.application = application;
     }
 
-    public static void setAmount(float amount) {
-        Payment.amount = amount;
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 
-    public static void setMethod(String method) {
-        Payment.method = method;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public static void setDate(LocalDateTime date) {
-        Payment.date = date;
+    public void setMethod(String method) {
+        this.method = method;
     }
 
-    public static void setDateString(String date, String format) {
-        formatter = DateTimeFormatter.ofPattern(format);
-        Payment.date = LocalDateTime.parse(date, formatter);
+    public void setDate(String date) {
+        this.date = date;
     }
-    
-    public static String getPaymentID() {
+
+    public String getPaymentID() {
         return paymentID;
     }
-    
-    public static Application getApplication() {
+
+    public Application getApplication() {
         return application;
     }
 
-    public static boolean getPaymentStatus() {
+    public String getPaymentStatus() {
         return paymentStatus;
     }
 
-    public static float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public static String getMethod() {
+    public String getMethod() {
         return method;
     }
 
-    public static LocalDateTime getDate() {
+    public String getDate() {
         return date;
     }
-    
-    public static String getDateString(String format) {
-        formatter = DateTimeFormatter.ofPattern(format);
-        return date.format(formatter);
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.paymentID);
+        hash = 83 * hash + Objects.hashCode(this.application);
+        hash = 83 * hash + Objects.hashCode(this.paymentStatus);
+        hash = 83 * hash + Objects.hashCode(this.amount);
+        hash = 83 * hash + Objects.hashCode(this.method);
+        hash = 83 * hash + Objects.hashCode(this.date);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Payment other = (Payment) obj;
+        if (!Objects.equals(this.paymentID, other.paymentID)) {
+            return false;
+        }
+        if (!Objects.equals(this.application, other.application)) {
+            return false;
+        }
+        if (!Objects.equals(this.paymentStatus, other.paymentStatus)) {
+            return false;
+        }
+        if (!Objects.equals(this.paymentStatus, other.paymentStatus)) {
+            return false;
+        }
+        if (!Objects.equals(this.amount, other.amount)) {
+            return false;
+        }
+        return Objects.equals(this.method, other.method);
     }
 
     @Override
     public String toString() {
-        return String.format("%s %s %b %.2f %s %s\n", paymentID, application.getApplicationID(), paymentStatus, amount, method, Payment.getDateString("yyyy-MM-dd?HH:mm"));
+        return paymentID + " " + application.getApplicationID() + " " + paymentStatus + " " + amount + " " + method.replace(" ", "_") + " " + date;
     }
-    
 }

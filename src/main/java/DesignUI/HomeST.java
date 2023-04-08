@@ -5,7 +5,13 @@
 package DesignUI;
 
 import Models.Application;
+import Models.Payment;
 import Models.Room;
+import Utils.PaymentHandling;
+import java.awt.Color;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,7 +19,13 @@ import Models.Room;
  */
 public class HomeST extends javax.swing.JPanel {
     
-    private static String roomNumLabel, servicingLabel, checkInDateLabel, checkOutDateLabel, paxLabel, paidLabel, totalPayableLabel, payDueDateLabel;
+    private static String roomNumLabel, servicingLabel, checkInDateLabel, checkOutDateLabel, paidLabel, totalPayableLabel, payDueDateLabel;
+    
+    private static final DateTimeFormatter PAYMENT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static String paymentStatus = "N/A";
+    private static String paymentDueDate = "N/A";
+    private static double paymentAmountDue = 0;
+    private static double paymentAmountPayable = 0;
     
     /**
      * Creates new form HomeST
@@ -31,7 +43,6 @@ public class HomeST extends javax.swing.JPanel {
             servicingLabel = "N/A";
             checkInDateLabel = "N/A";
             checkOutDateLabel = "N/A";
-            paxLabel = "N/A";
             paidLabel = "N/A";
             totalPayableLabel = "N/A";
             payDueDateLabel = "N/A";
@@ -44,7 +55,37 @@ public class HomeST extends javax.swing.JPanel {
             }
             checkInDateLabel = application.getStartDate().split("\\?")[0];
             checkOutDateLabel = application.getEndDate().split("\\?")[0];
-            paxLabel = Integer.toString(room.getPax());
+        }
+    }
+    
+    private static void initPaymentData() {
+        LocalDate now = LocalDate.now();
+        ArrayList<Payment> userPayments = PaymentHandling.getCurrentStudentPayments(HostelST.getCurrentUser());
+        Application application = userPayments.get(0).getApplication();
+        LocalDate startDate = application.getLocalStartDate().toLocalDate();
+
+        for (int i = 0; i < userPayments.size(); i++) {
+            Payment payment = userPayments.get(i);
+            LocalDate dueDate = startDate.plusMonths(i + 1).plusDays(7);
+
+            if (payment.getPaymentStatus().equals("Overdue")) {
+                paymentAmountDue += payment.getAmount();
+                if (paymentDueDate.equals("N/A")) {
+                    paymentStatus = "Overdue";
+                    paymentDueDate = dueDate.format(PAYMENT_FORMATTER);
+                }
+            } else if (! paymentStatus.equals("Overdue")
+                    && now.isAfter(dueDate.minusDays(7))
+                    && now.isBefore(dueDate)
+                    && payment.getPaymentStatus().equals("Pending")) {
+                paymentStatus = "Pending";
+                paymentDueDate = dueDate.format(PAYMENT_FORMATTER);
+                paymentAmountDue += payment.getAmount();
+            }
+
+            if (!payment.getPaymentStatus().equals("Paid")) {
+                paymentAmountPayable += payment.getAmount();
+            }
         }
     }
     
@@ -74,16 +115,19 @@ public class HomeST extends javax.swing.JPanel {
         checkOutDate = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        pax = new javax.swing.JLabel();
+        applicationStatus = new javax.swing.JLabel();
         paymentPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(930, 750));
@@ -240,11 +284,18 @@ public class HomeST extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText("Pax");
+        jLabel4.setText("Application Status");
 
-        pax.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        pax.setForeground(new java.awt.Color(0, 0, 0));
-        pax.setText(paxLabel);
+        applicationStatus.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        applicationStatus.setForeground(new java.awt.Color(0, 0, 0));
+        applicationStatus.setText(HostelST.getCurrentUserApplication().getStatus());
+        if (applicationStatus.getText().equals("Pending")) {
+            applicationStatus.setForeground(Color.BLUE);
+        } else if (applicationStatus.getText().equals("Rejected")) {
+            applicationStatus.setForeground(Color.RED);
+        } else {
+            applicationStatus.setForeground(Color.GREEN);
+        }
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -257,7 +308,7 @@ public class HomeST extends javax.swing.JPanel {
                         .addComponent(jLabel4))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(pax)))
+                        .addComponent(applicationStatus)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -265,88 +316,65 @@ public class HomeST extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(pax)
+                .addComponent(applicationStatus)
                 .addGap(0, 70, Short.MAX_VALUE))
         );
 
         overviewPanel.add(jPanel6);
 
+        paymentPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new java.awt.GridLayout(4, 2, 0, 10));
+
         jLabel12.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel12.setText("Paid?:");
+        jLabel12.setText("Payment Status");
+        jPanel1.add(jLabel12);
+
+        jLabel16.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel16.setText(paymentStatus);
+        jPanel1.add(jLabel16);
+
+        jLabel14.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel14.setText("Due Date");
+        jPanel1.add(jLabel14);
+
+        jLabel18.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel18.setText(paymentDueDate);
+        jPanel1.add(jLabel18);
+
+        jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel19.setText("Amount Due");
+        jPanel1.add(jLabel19);
+
+        jLabel20.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel20.setText("RM" + paymentAmountDue);
+        jPanel1.add(jLabel20);
+
+        jLabel15.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel15.setText("<html>Total Amount <br/>Payable</html>");
+        jPanel1.add(jLabel15);
+
+        jLabel17.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel17.setText("RM" + paymentAmountPayable);
+        jPanel1.add(jLabel17);
+
+        paymentPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 320, 320));
 
         jLabel13.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/usd-circle.png"))); // NOI18N
         jLabel13.setText("  Payment");
-
-        jLabel14.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel14.setText("Total Payable:");
-
-        jLabel15.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel15.setText("Payment Due Date: ");
+        paymentPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 16, -1, -1));
 
         jToggleButton1.setBackground(new java.awt.Color(0, 0, 0));
         jToggleButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton1.setText("Proceed to Payment");
-
-        jLabel16.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel16.setText("No");
-
-        jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel17.setText("29-3-2025");
-
-        jLabel18.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel18.setText("RM1500.00");
-
-        javax.swing.GroupLayout paymentPanelLayout = new javax.swing.GroupLayout(paymentPanel);
-        paymentPanel.setLayout(paymentPanelLayout);
-        paymentPanelLayout.setHorizontalGroup(
-            paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paymentPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel12))
-                .addGap(18, 18, 18)
-                .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel16))
-                .addContainerGap(54, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jToggleButton1)
-                .addGap(74, 74, 74))
-            .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(paymentPanelLayout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(jLabel13)
-                    .addContainerGap(196, Short.MAX_VALUE)))
-        );
-        paymentPanelLayout.setVerticalGroup(
-            paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paymentPanelLayout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel16))
-                .addGap(63, 63, 63)
-                .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel18))
-                .addGap(62, 62, 62)
-                .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel17))
-                .addGap(87, 87, 87)
-                .addComponent(jToggleButton1)
-                .addContainerGap(109, Short.MAX_VALUE))
-            .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(paymentPanelLayout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(jLabel13)
-                    .addContainerGap(452, Short.MAX_VALUE)))
-        );
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        paymentPanel.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -356,36 +384,42 @@ public class HomeST extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(overviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
-                        .addComponent(paymentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))))
+                        .addGap(18, 18, 18)
+                        .addComponent(paymentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(21, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(paymentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(overviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(paymentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(overviewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+        HostelST.showPayment();
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel applicationStatus;
     private javax.swing.JLabel checkInDate;
     private javax.swing.JLabel checkOutDate;
     private javax.swing.JLabel jLabel1;
@@ -396,11 +430,14 @@ public class HomeST extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -409,7 +446,6 @@ public class HomeST extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JPanel overviewPanel;
-    private javax.swing.JLabel pax;
     private javax.swing.JPanel paymentPanel;
     private javax.swing.JLabel roomNum;
     private javax.swing.JLabel servicing;

@@ -31,21 +31,28 @@ public class HostelST extends javax.swing.JFrame {
 
     Border margin = new EmptyBorder(10, 10, 10, 10);
     CompoundBorder btnMarginBorder = new CompoundBorder(null, margin);
-
+    
     public HostelST() {
         initData();
         initComponents();
         card = (CardLayout) mainPanel.getLayout();
         showHome();
+        if (currentUserRoom == null) {
+            System.out.println("You have no room");
+        }
+        Splash screen = new Splash();
+        screen.setVisible(true);
+        screen.dispose();
+        setVisible(true);
     }
-
+    
     public static void initData() {
         currentUser = Login.getCurrentUser();
-        System.out.println(currentUser.toString());
         currentUserApplication = ApplicationHandling.getCurrentStudentApplication(currentUser);
         currentUserRoom = currentUserApplication.getRoom();
         availableRooms = RoomHandling.getAvailableRooms();
         roomTypes = RoomTypeHandling.getRoomTypes();
+        PaymentHandling.refreshPaymentFile();
     }
 
     // setters and getters
@@ -464,15 +471,16 @@ public class HostelST extends javax.swing.JFrame {
         showApplication();
     }//GEN-LAST:event_applicationBtnActionPerformed
 
-    public void start() {
-        if (currentUserRoom == null) {
-            System.out.println("You have no room");
-        }
-        Splash screen = new Splash();
-        screen.setVisible(true);
-        screen.dispose();
-        new HostelST().setVisible(true);
-    }
+//    public static void start() {
+//        if (currentUserRoom == null) {
+//            System.out.println("You have no room");
+//        }
+////        Splash screen = new Splash();
+////        screen.setVisible(true);
+////        screen.dispose();
+//        dispose();
+//        setVisible(true);
+//    }
 
     /**
      * @param args the command line arguments
