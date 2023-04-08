@@ -65,7 +65,7 @@ public class ApplyTnCST extends javax.swing.JPanel {
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("<html>2. Booking confirmations by payment equivalent to one (1) month deposit and pro-rated rent up to the end<br/>of the month must be received by JomStay, failing which the<br/>JomStay will not be able to guarantee the accommodation requested. Thereafter, rent must be paid on a<br/>calendar month basis on or before the 7th day of each month.</html>");
+        jLabel10.setText("<html>2. Booking confirmations by payment equivalent to one (1) month deposit and pro-rated rent up to the end<br/>of the month must be received by JomStay, failing which will result in an extra fee of RM50 for each month of rent that is overdue. <br/>Thereafter, rent must be paid within the first week of each month, starting from the check-in date.</html>");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -81,7 +81,7 @@ public class ApplyTnCST extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("<html>3. All applicants are required to sign a tenancy agreement for a minimum period of one (1) academic year<br/>(12 months).<html/>");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, -1, -1));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, -1, -1));
 
         jLabel51.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel51.setForeground(new java.awt.Color(51, 51, 51));
@@ -129,7 +129,7 @@ public class ApplyTnCST extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(400, 400, 400)
                         .addComponent(confirmBtn)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

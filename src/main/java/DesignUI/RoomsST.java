@@ -274,7 +274,8 @@ public class RoomsST extends javax.swing.JPanel {
         ArrayList<String> roomTypes = HostelST.getRoomTypes();
         boolean apply = PopUpWindow.showRoom(roomTypes.get(roomTypeNum) + "Available: IDK", "Room Details");
         if (apply) {
-            if (HostelST.getCurrentUserRoom() != null) {
+            if (HostelST.getCurrentUserRoom() != null 
+             && ! HostelST.getCurrentUserApplication().getStatus().equals("Rejected")) {
                 PopUpWindow.showErrorMessage("You may only apply for one room at a time.", "Error");
             } else if (availableRooms.isEmpty()) {
                 PopUpWindow.showErrorMessage("Sorry, there are no available rooms at the moment.", "Unavailable");

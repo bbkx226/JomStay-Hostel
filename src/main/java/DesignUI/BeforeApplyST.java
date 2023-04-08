@@ -23,8 +23,22 @@ public class BeforeApplyST extends javax.swing.JPanel {
      */
     public BeforeApplyST() {
         initComponents();
+        if (HostelST.getCurrentUserApplication().getStatus().equals("Rejected")) {
+            fillFields();
+        }
     }
 
+    private void fillFields() {
+        jTextField1.setText(HostelST.getCurrentUser().getNationality().replace("_", " "));
+        jTextField2.setText(HostelST.getCurrentUser().getRace().replace("_", " "));
+        jTextField3.setText(HostelST.getCurrentUser().getReligion().replace("_", " "));
+        jTextField4.setText(HostelST.getCurrentUser().getPermanentAddress().replace("_", " "));
+        jTextField5.setText(HostelST.getCurrentUser().getMedicalCondition().replace("_", " "));
+        jTextField6.setText(HostelST.getCurrentUser().getEmerContactName().replace("_", " "));
+        jTextField7.setText(HostelST.getCurrentUser().getEmerContactRelationship().replace("_", " "));
+        jTextField8.setText(HostelST.getCurrentUser().getEmerContactNo());
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -339,7 +353,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         notAppliedPanelLayout.setHorizontalGroup(
             notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(notAppliedPanelLayout.createSequentialGroup()
-                .addGap(439, 439, 439)
+                .addGap(445, 445, 445)
                 .addComponent(confirmBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,13 +364,13 @@ public class BeforeApplyST extends javax.swing.JPanel {
         notAppliedPanelLayout.setVerticalGroup(
             notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, notAppliedPanelLayout.createSequentialGroup()
-                .addContainerGap(461, Short.MAX_VALUE)
+                .addContainerGap(470, Short.MAX_VALUE)
                 .addComponent(confirmBtn)
-                .addGap(16, 16, 16))
+                .addGap(35, 35, 35))
             .addGroup(notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(notAppliedPanelLayout.createSequentialGroup()
-                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 68, Short.MAX_VALUE)))
+                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 74, Short.MAX_VALUE)))
         );
 
         if (HostelST.getSelectedRoom() == null) {
@@ -373,7 +387,9 @@ public class BeforeApplyST extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(notAppliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(notAppliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

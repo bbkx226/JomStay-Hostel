@@ -39,7 +39,7 @@
                       <Component id="confirmBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -105,7 +105,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;2. Booking confirmations by payment equivalent to one (1) month deposit and pro-rated rent up to the end&lt;br/&gt;of the month must be received by JomStay, failing which the&lt;br/&gt;JomStay will not be able to guarantee the accommodation requested. Thereafter, rent must be paid on a&lt;br/&gt;calendar month basis on or before the 7th day of each month.&lt;/html&gt;"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;2. Booking confirmations by payment equivalent to one (1) month deposit and pro-rated rent up to the end&lt;br/&gt;of the month must be received by JomStay, failing which will result in an extra fee of RM50 for each month of rent that is overdue. &lt;br/&gt;Thereafter, rent must be paid within the first week of each month, starting from the check-in date.&lt;/html&gt;"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -157,7 +157,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="170" width="-1" height="-1"/>
+              <AbsoluteConstraints x="0" y="150" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
