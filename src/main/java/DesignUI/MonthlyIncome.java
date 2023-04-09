@@ -5,7 +5,7 @@ import Models.Application;
 import Models.Room;
 import Models.RoomType;
 import Utils.ApplicationHandling;
-import Utils.RoomTypeHandling;
+import Utils.RoomHandling;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -252,7 +252,7 @@ public class MonthlyIncome extends javax.swing.JFrame {
         
         for(Application application:acceptedApplication) {
             Room room = application.getRoom();
-            RoomType searchRoomPrice = RoomTypeHandling.matchRoom(room);
+            RoomType searchRoomPrice = RoomHandling.matchRoom(room);
             totalRevenue += (searchRoomPrice.getRentalFee() / 12);
         }
         return totalRevenue;

@@ -5,7 +5,6 @@ import Models.Room;
 import Models.RoomType;
 import Utils.PopUpWindow;
 import Utils.RoomHandling;
-import Utils.RoomTypeHandling;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -863,7 +862,7 @@ public class HostelAD extends javax.swing.JFrame {
     // It takes in the index of the room selected from the JList.
     private void showInForm(int index) {
         Room room = rooms.get(getValidIndex(index));
-        RoomType type = RoomTypeHandling.matchRoom(room);
+        RoomType type = RoomHandling.matchRoom(room);
         
         roomID.setText(room.getRoomID());
         roomStatus.setSelectedItem(room.getStatus());
@@ -913,11 +912,11 @@ public class HostelAD extends javax.swing.JFrame {
         Room roomToModify = rooms.get(record);
         String oldStatus = roomToModify.getStatus();
         boolean oldServicing = roomToModify.isServicing();
-        String oldRoomType = roomToModify.getRoomType();
+        RoomType oldRoomType = roomToModify.getRoomType();
         
         String newStatus = (String) roomStatus.getSelectedItem();
         boolean newServicing = yesRadioButton.isSelected();
-        String newRoomType = (String) roomType.getModel().getSelectedItem();
+        RoomType newRoomType = (RoomType) RoomHandling.compareToRoomType((String) roomType.getModel().getSelectedItem());
         
   
         boolean statusChanged = !oldStatus.equals(newStatus);
@@ -978,7 +977,7 @@ public class HostelAD extends javax.swing.JFrame {
                 roomID.getText(), 
                 (String) roomStatus.getModel().getSelectedItem(), 
                 yesRadioButton.isSelected(), 
-                (String) roomType.getModel().getSelectedItem());
+                (RoomType) RoomHandling.compareToRoomType((String) roomType.getModel().getSelectedItem()));
         RoomHandling.appendRoomFile(roomToAppend);
         PopUpWindow.showSuccessfulMessage(
             "The room details have been added successfully", 

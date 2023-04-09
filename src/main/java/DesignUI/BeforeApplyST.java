@@ -38,7 +38,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         jTextField7.setText(HostelST.getCurrentUser().getEmerContactRelationship().replace("_", " "));
         jTextField8.setText(HostelST.getCurrentUser().getEmerContactNo());
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -393,48 +393,57 @@ public class BeforeApplyST extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean requiredFieldsValid() {
-        boolean valid = true;
-        
-        if (jTextField9.getText().isBlank()) {
-            valid = false;
-        }
-        if (jTextField1.getText().isBlank()) {
-            valid = false;
-        }
-        if (jTextField4.getText().isBlank()) {
-            valid = false;
-        }
-        if (jTextField6.getText().isBlank()) {
-            valid = false;
-        }
-        if (jTextField7.getText().isBlank()) {
-            valid = false;
-        }
-        if (jTextField8.getText().isBlank()) {
-            valid = false;
-        }
-        
-        return valid;
-    }
-    
-    private static LocalDateTime getInputDate() {
-        String startDateString = jTextField9.getText();
+    /**
+     * Validates an input date string and returns a LocalDateTime object with a
+     * time of 12:00 PM.
+     *
+     * @param dateString the input date string to validate
+     * @return a LocalDateTime object with a time of 12:00 PM if the input date
+     * is valid and not in the past, or null otherwise
+     */
+    private static LocalDateTime validateInputDate(String dateString) {
+        // Define a DateTimeFormatter object to parse the input date string
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        // Declare a LocalDate object to hold the parsed date
         LocalDate date;
+
+        // Attempt to parse the input date string using the specified format
         try {
-            date = LocalDate.parse(startDateString, formatter);
+            date = LocalDate.parse(dateString, formatter);
         } catch (DateTimeParseException e) {
+            // Return null if the input date string is not in the correct format
             return null;
         }
+
+        // Check that the parsed date is not in the past
         if (date.isBefore(LocalDate.now())) {
+            // Return null if the input date is in the past
             return null;
         }
+
+        // Return a LocalDateTime object with a time of 12:00 PM on the input date
         return date.atTime(12, 0);
     }
-    
+
+    private boolean requiredFieldsValid() {
+        if (jTextField9.getText().isBlank()) {
+            return false;
+        } else if (jTextField1.getText().isBlank()) {
+            return false;
+        } else if (jTextField4.getText().isBlank()) {
+            return false;
+        } else if (jTextField6.getText().isBlank()) {
+            return false;
+        } else if (jTextField7.getText().isBlank()) {
+            return false;
+        } else {
+            return !jTextField8.getText().isBlank();
+        }
+    }
+
     public static void confirmApplication() {
-        ApplyTnCST.setStartDate(getInputDate());
+        ApplyTnCST.setStartDate(validateInputDate(jTextField9.getText()));
         ApplyTnCST.setStayPeriod(jComboBox1.getSelectedIndex() + 1);
         Student student = HostelST.getCurrentUser();
         student.setNationality(jTextField1.getText());
@@ -459,14 +468,14 @@ public class BeforeApplyST extends javax.swing.JPanel {
         student.setEmerContactNo(jTextField8.getText());
         UserHandling.updateStudentDetail(student);
     }
-    
+
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         if (HostelST.getSelectedRoomType() == null) {
             PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
             HostelST.showRooms();
         } else if (requiredFieldsValid() == false) {
             PopUpWindow.showErrorMessage("Please fill in all the required(*) fields.", "Error");
-        } else if (getInputDate() == null) {
+        } else if (validateInputDate(jTextField9.getText()) == null) {
             PopUpWindow.showErrorMessage("Invalid date or format.", "Error");
         } else {
             HostelST.showTnC();

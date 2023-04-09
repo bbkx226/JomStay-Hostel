@@ -6,6 +6,7 @@ package DesignUI;
 
 import Models.Application;
 import Models.Payment;
+import Models.Payment.PaymentStatus;
 import Models.Room;
 import Models.Student;
 import Utils.PaymentHandling;
@@ -51,7 +52,7 @@ public class PaymentST extends javax.swing.JPanel {
     }
     
     private static void initData() {
-        payments = PaymentHandling.getCurrentStudentPayments(HostelST.getCurrentUser());
+        payments = PaymentHandling.getApplicationPayments(HostelST.getCurrentUserApplication());
         application = payments.get(0).getApplication();
         startDate = application.getLocalStartDate().toLocalDate();
     }
@@ -333,7 +334,7 @@ public class PaymentST extends javax.swing.JPanel {
                 periodStart.format(FORMATTER) + " ~ " + periodEnd.format(FORMATTER),
                 payment.getAmount(),
                 dueDate.toString(),
-                payment.getPaymentStatus(),
+                payment.getStatus().getStatusString(),
                 payment.getMethod().replace("_", " "),
                 payment.getDate()
             };
@@ -420,7 +421,7 @@ public class PaymentST extends javax.swing.JPanel {
         ArrayList<Integer> totalMonths = new ArrayList<>();
         for (int i = 0; i < payments.size(); i++) {
             Payment payment = payments.get(i);
-            if (! payment.getPaymentStatus().equals("Paid")) {
+            if (! payment.getStatus().equals(PaymentStatus.PAID)) {
                 totalMonths.add(i + 1);
             }
         }
@@ -456,15 +457,15 @@ public class PaymentST extends javax.swing.JPanel {
     
     // TODO: make this more efficient
     private void updatePaymentFile(String paymentMethod) {
-        ArrayList<Payment> currentPayments = PaymentHandling.getCurrentStudentPayments(HostelST.getCurrentUser());
+        ArrayList<Payment> currentPayments = PaymentHandling.getApplicationPayments(HostelST.getCurrentUserApplication());
         for (int i = 0; i < currentPayments.size(); i++) {
             Payment payment = currentPayments.get(i);
-            if (payment.getPaymentStatus().equals("Paid")) {
+            if (payment.getStatus().equals(PaymentStatus.PAID)) {
                 continue;
             }
             for (int month : selectedMonths) {
                 if (i + 1 == month) {
-                    payment.setPaymentStatus("Paid");
+                    payment.setStatus(PaymentStatus.PAID);
                     payment.setMethod(paymentMethod);
                     payment.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                     PaymentHandling.updatePayment(payment);

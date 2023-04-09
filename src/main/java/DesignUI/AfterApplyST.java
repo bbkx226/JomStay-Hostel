@@ -96,7 +96,7 @@ public class AfterApplyST extends javax.swing.JPanel {
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText(HostelST.getCurrentUserApplication().getStatus());
+        jLabel10.setText(DesignUI.HostelST.getCurrentUserApplication().getStatus());
         if (jLabel10.getText().equals("Pending")) {
             jLabel10.setForeground(Color.BLUE);
         } else if (jLabel10.getText().equals("Rejected")) {
@@ -184,7 +184,7 @@ public class AfterApplyST extends javax.swing.JPanel {
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText(HostelST.getCurrentUserRoom().getRoomID());
+        jLabel11.setText(DesignUI.HostelST.getCurrentUserRoom().getRoomID());
         appliedPanel.add(jLabel11);
 
         jLabel55.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -194,7 +194,7 @@ public class AfterApplyST extends javax.swing.JPanel {
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("TODO: Admin add RoomType to rooms.txt");
+        jLabel12.setText(HostelST.getCurrentUserRoom().getRoomType().getTypeName());
         appliedPanel.add(jLabel12);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

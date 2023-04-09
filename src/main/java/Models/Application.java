@@ -1,12 +1,13 @@
 // @author Brandon Ban Kai Xian TP067094
 package Models;
 
+import Utils.Config;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Application {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
+    DateTimeFormatter formatter = Config.dateFormats.FILE_APPLICATION_CREATE_DATE.getFormatter();
     
     private String applicationID, status, createDate, startDate, endDate;
     private Student student;

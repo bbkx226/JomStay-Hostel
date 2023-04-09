@@ -6,7 +6,8 @@ package DesignUI;
 
 import Models.Room;
 import Models.RoomType;
-import Utils.*;
+import Utils.PopUpWindow;
+import Utils.RoomHandling;
 import java.util.ArrayList;
 
 /**
@@ -15,12 +16,17 @@ import java.util.ArrayList;
  */
 public class RoomsST extends javax.swing.JPanel {
     
+    private static ArrayList<RoomType> roomTypes;
+    
     /**
      * Creates new form RoomsST
      */
     public RoomsST() {
+        roomTypes = HostelST.getRoomTypes();
         initComponents();
     }
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,9 +39,9 @@ public class RoomsST extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        jPanel1 = new javax.swing.JPanel();
+        gridPanel = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
+        SingleRoomIcon = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
@@ -59,16 +65,16 @@ public class RoomsST extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
         add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 50, 1058, 10));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(930, 770));
-        jPanel1.setLayout(new java.awt.GridLayout(2, 3));
+        gridPanel.setBackground(new java.awt.Color(255, 255, 255));
+        gridPanel.setPreferredSize(new java.awt.Dimension(930, 770));
+        gridPanel.setLayout(new java.awt.GridLayout(2, 3));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
-        jLabel22.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jLabel22.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
+        SingleRoomIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
+        SingleRoomIcon.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        SingleRoomIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SingleRoomIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 singleRoomClicked(evt);
             }
@@ -86,7 +92,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
-                        .addComponent(jLabel22))
+                        .addComponent(SingleRoomIcon))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(107, 107, 107)
                         .addComponent(jLabel19)))
@@ -96,13 +102,13 @@ public class RoomsST extends javax.swing.JPanel {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jLabel22)
+                .addComponent(SingleRoomIcon)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel19)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel7);
+        gridPanel.add(jPanel7);
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -143,7 +149,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel8);
+        gridPanel.add(jPanel8);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -183,7 +189,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel9);
+        gridPanel.add(jPanel9);
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -224,7 +230,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel10);
+        gridPanel.add(jPanel10);
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -265,25 +271,23 @@ public class RoomsST extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel11);
+        gridPanel.add(jPanel11);
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1050, 490));
+        add(gridPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1050, 490));
     }// </editor-fold>//GEN-END:initComponents
    
     private static void apply(int roomTypeNum) {
-        ArrayList<Room> availableRooms = HostelST.getAvailableRooms();
-        ArrayList<RoomType> roomTypes = HostelST.getRoomTypes();
+        Room firstAvailableRoom = RoomHandling.getFirstAvailableRoom(roomTypes.get(roomTypeNum));
         boolean apply = PopUpWindow.showRoom(roomTypes.get(roomTypeNum) + "Available: IDK", "Room Details");
         if (apply) {
             if (HostelST.getCurrentUserRoom() != null 
              && ! HostelST.getCurrentUserApplication().getStatus().equals("Rejected")) {
                 PopUpWindow.showErrorMessage("You may only apply for one room at a time.", "Error");
-            } else if (availableRooms.isEmpty()) {
+            } else if (firstAvailableRoom == null) {
                 PopUpWindow.showErrorMessage("Sorry, there are no available rooms at the moment.", "Unavailable");
             } else {
-                // TODO: change to set the first selected room type that is available
-                HostelST.setSelectedRoom(availableRooms.get(0));
-                HostelST.setSelectedRoomType(roomTypes.get(roomTypeNum));
+                HostelST.setSelectedRoom(firstAvailableRoom);
+                HostelST.setSelectedRoomType(firstAvailableRoom.getRoomType());
             }
             HostelST.showApplication();
         }
@@ -316,10 +320,11 @@ public class RoomsST extends javax.swing.JPanel {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel SingleRoomIcon;
+    private javax.swing.JPanel gridPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -327,7 +332,6 @@ public class RoomsST extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel7;

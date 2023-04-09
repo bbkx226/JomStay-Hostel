@@ -47,7 +47,7 @@ public class HostelST extends javax.swing.JFrame {
         currentUserApplication = ApplicationHandling.getCurrentStudentApplication(currentUser);
         currentUserRoom = currentUserApplication.getRoom();
         availableRooms = RoomHandling.getAvailableRooms();
-        roomTypes = RoomTypeHandling.getRoomTypes();
+        roomTypes = RoomHandling.getRoomTypes();
         PaymentHandling.refreshPaymentFile();
     }
 

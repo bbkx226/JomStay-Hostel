@@ -4,22 +4,50 @@
  */
 package Models;
 
-import java.util.Objects;
+import Utils.Config;
 
 /**
  *
  * @author KZ
  */
+
 public class Payment {
 
+    public enum PaymentStatus {
+        PAID ("Paid"),
+        OVERDUE ("Overdue"),
+        PENDING ("Pending"),
+        NA (Config.NOT_APPLICABLE);
+        
+        private final String statusString;
+        
+        PaymentStatus(String statusString) {
+            this.statusString = statusString;
+        }
+        
+        public String getStatusString() {
+            return statusString;
+        }
+        
+        public static PaymentStatus fromString(String statusString) {
+            for (PaymentStatus status : PaymentStatus.values()) {
+                if (status.getStatusString().equalsIgnoreCase(statusString)) {
+                    return status;
+                }
+            }
+            throw new IllegalArgumentException("Invalid PaymentStatus string: " + statusString);
+        }
+    }
+    
     private Application application;
     private double amount;
-    private String paymentID, paymentStatus, method, date;
+    private String paymentID, method, date;
+    private PaymentStatus status;
 
-    public Payment(String paymentID, Application application, String paymentStatus, double amount, String method, String date) {
+    public Payment(String paymentID, Application application, PaymentStatus status, double amount, String method, String date) {
         this.paymentID = paymentID;
         this.application = application;
-        this.paymentStatus = paymentStatus;
+        this.status = status;
         this.amount = amount;
         this.method = method;
         this.date = date;
@@ -33,8 +61,8 @@ public class Payment {
         this.application = application;
     }
 
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setStatus(PaymentStatus status) {
+        this.status = status;
     }
 
     public void setAmount(double amount) {
@@ -57,8 +85,8 @@ public class Payment {
         return application;
     }
 
-    public String getPaymentStatus() {
-        return paymentStatus;
+    public PaymentStatus getStatus() {
+        return status;
     }
 
     public double getAmount() {
@@ -74,49 +102,7 @@ public class Payment {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 83 * hash + Objects.hashCode(this.paymentID);
-        hash = 83 * hash + Objects.hashCode(this.application);
-        hash = 83 * hash + Objects.hashCode(this.paymentStatus);
-        hash = 83 * hash + Objects.hashCode(this.amount);
-        hash = 83 * hash + Objects.hashCode(this.method);
-        hash = 83 * hash + Objects.hashCode(this.date);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Payment other = (Payment) obj;
-        if (!Objects.equals(this.paymentID, other.paymentID)) {
-            return false;
-        }
-        if (!Objects.equals(this.application, other.application)) {
-            return false;
-        }
-        if (!Objects.equals(this.paymentStatus, other.paymentStatus)) {
-            return false;
-        }
-        if (!Objects.equals(this.paymentStatus, other.paymentStatus)) {
-            return false;
-        }
-        if (!Objects.equals(this.amount, other.amount)) {
-            return false;
-        }
-        return Objects.equals(this.method, other.method);
-    }
-
-    @Override
     public String toString() {
-        return paymentID + " " + application.getApplicationID() + " " + paymentStatus + " " + amount + " " + method.replace(" ", "_") + " " + date;
+        return paymentID + " " + application.getApplicationID() + " " + status.getStatusString() + " " + amount + " " + method.replace(" ", "_") + " " + date;
     }
 }
