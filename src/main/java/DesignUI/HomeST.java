@@ -9,7 +9,6 @@ import Models.Room;
 import Models.RoomType;
 import Utils.ApplicationPaymentDetails;
 import Utils.Config;
-import Utils.PaymentHandling;
 import java.awt.Color;
 import java.time.format.DateTimeFormatter;
 
@@ -19,34 +18,26 @@ import java.time.format.DateTimeFormatter;
  */
 public class HomeST extends javax.swing.JPanel {
     
-    private static final String DEFAULT_LABEL = Config.NOT_APPLICABLE;
+    private static Room room;
+    private static Application application;
+    private static RoomType roomType;
+    private static DateTimeFormatter formatter;
+    private static ApplicationPaymentDetails paymentDetails;
     
     /**
      * Creates new form HomeST
      */
     public HomeST() {
+        initData();
         initComponents();
-        setLabels();
     }
-
-    private static void setLabels() {
-        Room room = HostelST.getCurrentUserRoom();
-        Application application = HostelST.getCurrentUserApplication();
-        RoomType roomType = room.getRoomType();
-        DateTimeFormatter formatter = Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormatter();
-        ApplicationPaymentDetails paymentDetails = new ApplicationPaymentDetails(application, PaymentHandling.getApplicationPayments(application));
-        
-        roomNumLabel.setText(room.getRoomID());
-        servicingLabel.setText(room.getServicingString());
-        checkInDateLabel.setText(application.getLocalStartDate().format(formatter));
-        checkOutDateLabel.setText(application.getLocalStartDate().format(formatter));
-        applicationStatusLabel.setText(application.getStatus());
-        roomTypeLabel.setText(roomType.getTypeName());
-        
-        paymentStatusLabel.setText(paymentDetails.getStatusString());
-        dueDateLabel.setText(paymentDetails.getDueDateString(Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormat()));
-        amtDueLabel.setText(paymentDetails.getTotalAmtDueString(Config.CURRRENCY));
-        totalAmtPayableLabel.setText(paymentDetails.getAmtPayableString(Config.CURRRENCY));
+    
+    private static void initData() {
+        room = HostelST.getCurrentUserRoom();
+        application = HostelST.getCurrentUserApplication();
+        roomType = room.getRoomType();
+        formatter = Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormatter();
+        paymentDetails = HostelST.getCurrentPaymentDetails();
     }
     
     /**
@@ -113,7 +104,7 @@ public class HomeST extends javax.swing.JPanel {
 
         roomNumLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         roomNumLabel.setForeground(new java.awt.Color(0, 0, 0));
-        roomNumLabel.setText(DEFAULT_LABEL);
+        roomNumLabel.setText(room.getRoomID());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -149,7 +140,7 @@ public class HomeST extends javax.swing.JPanel {
 
         servicingLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         servicingLabel.setForeground(new java.awt.Color(0, 0, 0));
-        servicingLabel.setText(DEFAULT_LABEL);
+        servicingLabel.setText(room.getServicingString());
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -184,7 +175,7 @@ public class HomeST extends javax.swing.JPanel {
 
         checkInDateLabel.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         checkInDateLabel.setForeground(new java.awt.Color(0, 0, 0));
-        checkInDateLabel.setText(DEFAULT_LABEL);
+        checkInDateLabel.setText(application.getLocalStartDate().format(formatter));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -219,7 +210,7 @@ public class HomeST extends javax.swing.JPanel {
 
         checkOutDateLabel.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         checkOutDateLabel.setForeground(new java.awt.Color(0, 0, 0));
-        checkOutDateLabel.setText(DEFAULT_LABEL);
+        checkOutDateLabel.setText(application.getLocalStartDate().format(formatter));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -254,14 +245,7 @@ public class HomeST extends javax.swing.JPanel {
 
         applicationStatusLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         applicationStatusLabel.setForeground(new java.awt.Color(0, 0, 0));
-        applicationStatusLabel.setText(DEFAULT_LABEL);
-        if (applicationStatusLabel.getText().equals("Pending")) {
-            applicationStatusLabel.setForeground(Color.BLUE);
-        } else if (applicationStatusLabel.getText().equals("Rejected")) {
-            applicationStatusLabel.setForeground(Color.RED);
-        } else {
-            applicationStatusLabel.setForeground(Color.GREEN);
-        }
+        applicationStatusLabel.setText(application.getStatus());
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -304,7 +288,7 @@ public class HomeST extends javax.swing.JPanel {
             roomTypeName = roomTypeName.replaceAll("\\s", "");
         }
         roomTypeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        roomTypeLabel.setText(DEFAULT_LABEL);
+        roomTypeLabel.setText(roomType.getTypeName());
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -342,7 +326,7 @@ public class HomeST extends javax.swing.JPanel {
         jPanel1.add(jLabel12);
 
         paymentStatusLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        paymentStatusLabel.setText(DEFAULT_LABEL);
+        paymentStatusLabel.setText(paymentDetails.getStatusString());
         jPanel1.add(paymentStatusLabel);
 
         jLabel14.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -350,7 +334,7 @@ public class HomeST extends javax.swing.JPanel {
         jPanel1.add(jLabel14);
 
         dueDateLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        dueDateLabel.setText(DEFAULT_LABEL);
+        dueDateLabel.setText(paymentDetails.getDueDateString(Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormat()));
         jPanel1.add(dueDateLabel);
 
         jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -358,7 +342,7 @@ public class HomeST extends javax.swing.JPanel {
         jPanel1.add(jLabel19);
 
         amtDueLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        amtDueLabel.setText(DEFAULT_LABEL);
+        amtDueLabel.setText(paymentDetails.getTotalAmtDueString(Config.CURRRENCY));
         jPanel1.add(amtDueLabel);
 
         jLabel15.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -366,7 +350,7 @@ public class HomeST extends javax.swing.JPanel {
         jPanel1.add(jLabel15);
 
         totalAmtPayableLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        totalAmtPayableLabel.setText(DEFAULT_LABEL);
+        totalAmtPayableLabel.setText(paymentDetails.getAmtPayableString(Config.CURRRENCY));
         jPanel1.add(totalAmtPayableLabel);
 
         paymentPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 320, 320));
@@ -380,38 +364,46 @@ public class HomeST extends javax.swing.JPanel {
         paymentBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         paymentBtn.setForeground(new java.awt.Color(255, 255, 255));
         paymentBtn.setText("Proceed to Payment");
+        paymentBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         paymentBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paymentBtnActionPerformed(evt);
             }
         });
-        paymentPanel.add(paymentBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, -1, -1));
+        paymentPanel.add(paymentBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, -1, -1));
 
-        add(paymentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 70, 363, 440));
+        add(paymentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 70, 363, 500));
 
         reApplyBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         reApplyBtn.setText("Re-apply");
         reApplyBtn.setToolTipText("");
+        reApplyBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         reApplyBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reApplyBtnActionPerformed(evt);
             }
         });
-        add(reApplyBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 120, 30));
-        if (applicationStatusLabel.getText().equals("Rejected")) {
-            reApplyBtn.setVisible(true);
-        } else {
-            reApplyBtn.setVisible(false);
+        add(reApplyBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 520, 120, 30));
+        reApplyBtn.setVisible(false);
+        switch (applicationStatusLabel.getText()) {
+            case "Pending" -> applicationStatusLabel.setForeground(Color.BLUE);
+            case "Rejected" -> {
+                applicationStatusLabel.setForeground(Color.RED);
+                reApplyBtn.setVisible(true);
+            }
+            case "Accepted" -> applicationStatusLabel.setForeground(Color.GREEN);
+            default -> {
+                applicationStatusLabel.setForeground(Color.BLACK);
+                reApplyBtn.setVisible(true);
+            }
         }
     }// </editor-fold>//GEN-END:initComponents
 
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtnActionPerformed
-        // TODO add your handling code here:
         HostelST.showPayment();
     }//GEN-LAST:event_paymentBtnActionPerformed
 
     private void reApplyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reApplyBtnActionPerformed
-        // TODO add your handling code here:
         HostelST.showRooms();
     }//GEN-LAST:event_reApplyBtnActionPerformed
 
@@ -446,7 +438,7 @@ public class HomeST extends javax.swing.JPanel {
     private javax.swing.JToggleButton paymentBtn;
     private javax.swing.JPanel paymentPanel;
     private static javax.swing.JLabel paymentStatusLabel;
-    private javax.swing.JButton reApplyBtn;
+    private static javax.swing.JButton reApplyBtn;
     private static javax.swing.JLabel roomNumLabel;
     private static javax.swing.JLabel roomTypeLabel;
     private static javax.swing.JLabel servicingLabel;

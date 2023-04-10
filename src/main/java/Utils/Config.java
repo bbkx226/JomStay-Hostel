@@ -23,7 +23,9 @@ public final class Config {
         DISPLAY_APPLICATION_CREATE_DATE ("yyyy-MM-dd HH:mm a"),
         DISPLAY_APPLICATION_START_DATE ("yyyy-MM-dd HH:mm a"),
         DISPLAY_APPLICATION_END_DATE ("yyyy-MM-dd HH:mm a"),
-        DISPLAY_PAYMENT_DATE ("yyyy-MM-dd");
+        DISPLAY_PAYMENT_DATE ("yyyy-MM-dd"),
+        ST_APPLICATION_DATE_INPUT ("dd-MM-yyyy"),
+        PAYMENT_RENT_PERIOD ("dd/MM/yyyy");
         
         private final String format;
         

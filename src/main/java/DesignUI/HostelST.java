@@ -7,7 +7,12 @@ import javax.swing.border.EmptyBorder;
 import Models.*;
 import Utils.*;
 import java.awt.CardLayout;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class HostelST extends javax.swing.JFrame {
 
@@ -18,15 +23,16 @@ public class HostelST extends javax.swing.JFrame {
     private static ArrayList<RoomType> roomTypes;
     private static Room selectedRoom = null;
     private static RoomType selectedRoomType = null;
-    
+    private static ApplicationPaymentDetails paymentDetails;
+
     private static CardLayout card;
-    
+
     private static final Color BUTTON_BG_COLOR = Color.BLACK;
     private static final Color BUTTON_HOVER_COLOR = new Color(43, 43, 43);
 
     Border margin = new EmptyBorder(10, 10, 10, 10);
     CompoundBorder btnMarginBorder = new CompoundBorder(null, margin);
-    
+
     // Constructor
     public HostelST() {
         initData();
@@ -41,7 +47,7 @@ public class HostelST extends javax.swing.JFrame {
         screen.dispose();
         setVisible(true);
     }
-    
+
     public static void initData() {
         currentUser = Login.getCurrentUser();
         currentUserApplication = ApplicationHandling.getCurrentStudentApplication(currentUser);
@@ -49,6 +55,7 @@ public class HostelST extends javax.swing.JFrame {
         availableRooms = RoomHandling.getAvailableRooms();
         roomTypes = RoomHandling.getRoomTypes();
         PaymentHandling.refreshPaymentFile();
+        paymentDetails = new ApplicationPaymentDetails(currentUserApplication, PaymentHandling.getApplicationPayments(currentUserApplication));
     }
 
     // setters and getters
@@ -96,6 +103,10 @@ public class HostelST extends javax.swing.JFrame {
         HostelST.currentUserRoom = currentUserRoom;
     }
 
+    public static ApplicationPaymentDetails getCurrentPaymentDetails() {
+        return paymentDetails;
+    }
+
     // methods to show pages
     public static void showHome() {
         mainPanel.add(new HomeST(), "home");
@@ -137,6 +148,73 @@ public class HostelST extends javax.swing.JFrame {
         setVisible(false);
         dispose();
         new Login().setVisible(true);
+    }
+
+    public static void apply(HashMap<String, String> applicationForm) {
+        DateTimeFormatter inputFormatter = Config.dateFormats.ST_APPLICATION_DATE_INPUT.getFormatter();
+        DateTimeFormatter createDateFormatter = Config.dateFormats.FILE_APPLICATION_CREATE_DATE.getFormatter();
+        DateTimeFormatter dateFormatter = Config.dateFormats.FILE_APPLICATION_START_DATE.getFormatter();
+
+        currentUser.setNationality(applicationForm.get("nationality"));
+        currentUser.setRace(applicationForm.get("race"));
+        currentUser.setReligion(applicationForm.get("religion"));
+        currentUser.setPermanentAddress(applicationForm.get("address"));
+        currentUser.setMedicalCondition(applicationForm.get("medicalCondition"));
+        currentUser.setEmerContactName(applicationForm.get("emerContactName"));
+        currentUser.setEmerContactRelationship(applicationForm.get("emerContactRelationship"));
+        currentUser.setEmerContactNo(applicationForm.get("emerContactNo"));
+        UserHandling.updateStudentDetail(currentUser);
+
+        String newApplicationID = String.format("A%03d", ApplicationHandling.getTotalApplications().size() + 1);
+        String createDate = LocalDateTime.now().format(createDateFormatter);
+
+        String checkInDateString = applicationForm.get("checkInDate");
+        LocalDateTime startDate = LocalDate.parse(checkInDateString, inputFormatter).atTime(12, 0);
+        String startDateString = startDate.format(dateFormatter);
+
+        String stayPeriodString = applicationForm.get("periodOfStay");
+        int stayLength = Integer.parseInt(stayPeriodString) + 1;
+
+        LocalDateTime endDate = startDate.plusYears(stayLength);
+        String endDateString = endDate.format(dateFormatter);
+
+        Application application = new Application(
+                newApplicationID,
+                currentUser,
+                selectedRoom,
+                "Pending", createDate,
+                startDateString,
+                endDateString);
+        ApplicationHandling.addNewApplication(application);
+        currentUserApplication = application;
+        currentUserRoom = selectedRoom;
+        
+        PopUpWindow.showSuccessfulMessage("Application has been sent to JomStay. We will get back to you when your application has been checked and accepted.", "Success");
+        showApplication();
+    }
+
+    public static void proceedWithPayment(String rentalPeriod, double selectedAmt) {
+        LocalDateTime dateStarted = LocalDateTime.parse(currentUserApplication.getStartDate(), Config.dateFormats.FILE_APPLICATION_START_DATE.getFormatter());
+        LocalDateTime dateEnded = LocalDateTime.parse(currentUserApplication.getEndDate(), Config.dateFormats.FILE_APPLICATION_END_DATE.getFormatter());
+        String dateStartedString = dateStarted.format(Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormatter());
+        String dateEndedString = dateEnded.format(Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormatter());
+
+        LinkedHashMap<String, String> data = new LinkedHashMap<>();
+        data.put("Customer Name", currentUser.getName().replace("_", " "));
+        data.put("Check-In Date", dateStartedString);
+        data.put("Check-Out Date", dateEndedString);
+        data.put("Rental Period", rentalPeriod);
+        data.put("Room Type", "Single (for now)");
+        data.put("Room Number", currentUserRoom.getRoomID());
+        data.put("Total Price", "RM" + selectedAmt);
+
+        Runnable onClose = () -> {
+            Login.getHostelFrame().dispose();
+            HostelST hostelST = new HostelST();
+            Login.setHostelFrame(hostelST);
+        };
+
+        ReceiptGUI gui = new ReceiptGUI(data, onClose);
     }
     
     /**
@@ -203,12 +281,6 @@ public class HostelST extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnExitHover(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                homeBtnMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                homeBtnMouseReleased(evt);
             }
         });
         homeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -352,48 +424,41 @@ public class HostelST extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void homeBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnMousePressed
-        // TODO add your handling code here:
-        homeBtn.setBackground(Color.BLUE);
-    }//GEN-LAST:event_homeBtnMousePressed
-
-    private void homeBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnMouseReleased
-        // TODO add your handling code here:
-        homeBtn.setBackground(BUTTON_BG_COLOR);
-    }//GEN-LAST:event_homeBtnMouseReleased
-
     private void actionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionPerformed
-        // TODO add your handling code here:
         switch (evt.getActionCommand()) {
-            case "   Home           " -> showHome();
-            case "   Rooms         " -> showRooms();
-            case "    Apply          " -> showApplication();
-            case "   Profile        " -> showProfile();
-            case "   Payment     " -> showPayment();
-            case "   Sign Out     " -> signOut();
-            default -> {break;}
+            case "   Home           " ->
+                showHome();
+            case "   Rooms         " ->
+                showRooms();
+            case "    Apply          " ->
+                showApplication();
+            case "   Profile        " ->
+                showProfile();
+            case "   Payment     " ->
+                showPayment();
+            case "   Sign Out     " ->
+                signOut();
+            default -> {
+                break;
+            }
         }
     }//GEN-LAST:event_actionPerformed
 
     private void btnHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHover
-        // TODO add your handling code here:
         evt.getComponent().setBackground(BUTTON_HOVER_COLOR);
     }//GEN-LAST:event_btnHover
 
     private void btnExitHover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitHover
-        // TODO add your handling code here:
         evt.getComponent().setBackground(BUTTON_BG_COLOR);
     }//GEN-LAST:event_btnExitHover
-    
+
     /**
      * @param args the command line arguments
      */

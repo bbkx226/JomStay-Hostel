@@ -122,7 +122,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="DEFAULT_LABEL" type="code"/>
+                  <Connection code="room.getRoomID()" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -186,7 +186,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="DEFAULT_LABEL" type="code"/>
+                  <Connection code="room.getServicingString()" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -252,7 +252,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="DEFAULT_LABEL" type="code"/>
+                  <Connection code="application.getLocalStartDate().format(formatter)" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -318,7 +318,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="DEFAULT_LABEL" type="code"/>
+                  <Connection code="application.getLocalStartDate().format(formatter)" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -384,11 +384,10 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="DEFAULT_LABEL" type="code"/>
+                  <Connection code="application.getStatus()" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if (applicationStatusLabel.getText().equals(&quot;Pending&quot;)) {&#xa;    applicationStatusLabel.setForeground(Color.BLUE);&#xa;} else if (applicationStatusLabel.getText().equals(&quot;Rejected&quot;)) {&#xa;    applicationStatusLabel.setForeground(Color.RED);&#xa;} else {&#xa;    applicationStatusLabel.setForeground(Color.GREEN);&#xa;}"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
               </AuxValues>
             </Component>
@@ -452,7 +451,7 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="DEFAULT_LABEL" type="code"/>
+                  <Connection code="roomType.getTypeName()" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -466,7 +465,7 @@
     <Container class="javax.swing.JPanel" name="paymentPanel">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="680" y="70" width="363" height="440"/>
+          <AbsoluteConstraints x="680" y="70" width="363" height="500"/>
         </Constraint>
       </Constraints>
 
@@ -501,7 +500,7 @@
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="DEFAULT_LABEL" type="code"/>
+                  <Connection code="paymentDetails.getStatusString()" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -522,7 +521,7 @@
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="DEFAULT_LABEL" type="code"/>
+                  <Connection code="paymentDetails.getDueDateString(Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormat())" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -543,7 +542,7 @@
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="DEFAULT_LABEL" type="code"/>
+                  <Connection code="paymentDetails.getTotalAmtDueString(Config.CURRRENCY)" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -564,7 +563,7 @@
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="DEFAULT_LABEL" type="code"/>
+                  <Connection code="paymentDetails.getAmtPayableString(Config.CURRRENCY)" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -601,13 +600,16 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Proceed to Payment"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="paymentBtnActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="80" y="400" width="-1" height="-1"/>
+              <AbsoluteConstraints x="80" y="430" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -620,16 +622,20 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Re-apply"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Hand Cursor"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reApplyBtnActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="if (applicationStatusLabel.getText().equals(&quot;Rejected&quot;)) {&#xa;    reApplyBtn.setVisible(true);&#xa;} else {&#xa;    reApplyBtn.setVisible(false);&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="reApplyBtn.setVisible(false);&#xa;switch (applicationStatusLabel.getText()) {&#xa;    case &quot;Pending&quot; -&gt; applicationStatusLabel.setForeground(Color.BLUE);&#xa;    case &quot;Rejected&quot; -&gt; {&#xa;        applicationStatusLabel.setForeground(Color.RED);&#xa;        reApplyBtn.setVisible(true);&#xa;    }&#xa;    case &quot;Accepted&quot; -&gt; applicationStatusLabel.setForeground(Color.GREEN);&#xa;    default -&gt; {&#xa;        applicationStatusLabel.setForeground(Color.BLACK);&#xa;        reApplyBtn.setVisible(true);&#xa;    }&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="400" y="520" width="120" height="30"/>
+          <AbsoluteConstraints x="260" y="520" width="120" height="30"/>
         </Constraint>
       </Constraints>
     </Component>

@@ -56,4 +56,12 @@ public class PopUpWindow {
         int confirm = JOptionPane.showOptionDialog(null, message, title, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, roomPic, options, title);
         return confirm == JOptionPane.OK_OPTION;
     }
+    
+    public static String getPaymentMethod() {
+        String input = JOptionPane.showInputDialog(null, "Enter your payment method: ", "Payment Method", JOptionPane.PLAIN_MESSAGE);
+        if (input != null && !input.trim().isEmpty()) {
+            return input;
+        }
+        return null;
+    }
 }

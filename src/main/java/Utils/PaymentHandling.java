@@ -8,10 +8,8 @@ import Models.Application;
 import Models.Payment;
 import Models.Payment.PaymentStatus;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -103,5 +101,22 @@ public final class PaymentHandling {
         }
         String stringToWrite = String.join("\n", buffer);
         FileHandlerUtils.writeString(PATH, stringToWrite, false);
+    }
+    
+    public static void updatePaymentFile(ArrayList<Payment> payments, ArrayList<Integer> selectedMonths, String paymentMethod) {
+        int paymentMonth = 1;
+        for (Payment payment : payments) {
+            paymentMonth++;
+            if (payment.getStatus().equals(Payment.PaymentStatus.PAID)) {
+                continue;
+            }
+            if (selectedMonths.contains(paymentMonth)) {
+                payment.setStatus(Payment.PaymentStatus.PAID);
+                payment.setMethod(paymentMethod);
+                payment.setDate(LocalDate.now().format(Config.dateFormats.FILE_PAYMENT_DATE.getFormatter()));
+                PaymentHandling.updatePayment(payment);
+                break;
+            }
+        }
     }
 }

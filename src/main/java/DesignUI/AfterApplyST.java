@@ -4,8 +4,10 @@
  */
 package DesignUI;
 
+import Models.Application;
+import Models.Room;
+import Utils.Config;
 import java.awt.Color;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -14,27 +16,36 @@ import java.time.format.DateTimeFormatter;
  */
 public class AfterApplyST extends javax.swing.JPanel {
 
-    private static String dateCreatedString;
-    private static String dateStartedString;
-    private static String dateEndedString;
-    
     /**
      * Creates new form AfterApplyST
      */
     public AfterApplyST() {
-        initData();
         initComponents();
+        setLabels();
     }
-    
-    private static void initData() {
-        DateTimeFormatter getFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
-        DateTimeFormatter setFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm a");
-        LocalDateTime dateCreated = LocalDateTime.parse(HostelST.getCurrentUserApplication().getCreateDate(), getFormatter);
-        LocalDateTime dateStarted = LocalDateTime.parse(HostelST.getCurrentUserApplication().getStartDate(), getFormatter);
-        LocalDateTime dateEnded = LocalDateTime.parse(HostelST.getCurrentUserApplication().getEndDate(), getFormatter);
-        dateCreatedString = dateCreated.format(setFormatter);
-        dateStartedString = dateStarted.format(setFormatter);
-        dateEndedString = dateEnded.format(setFormatter);
+
+    private static void setLabels() {
+        Application application = HostelST.getCurrentUserApplication();
+        Room room = HostelST.getCurrentUserRoom();
+        DateTimeFormatter createDateFormatter = Config.dateFormats.DISPLAY_APPLICATION_CREATE_DATE.getFormatter();
+        DateTimeFormatter dateFormatter = Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormatter();
+
+        statusLabel.setText(application.getStatus());
+        switch (statusLabel.getText()) {
+            case "Pending" ->
+                statusLabel.setForeground(Color.BLUE);
+            case "Rejected" ->
+                statusLabel.setForeground(Color.RED);
+            case "Accepted" ->
+                statusLabel.setForeground(Color.GREEN);
+            default ->
+                statusLabel.setForeground(Color.BLACK);
+        }
+        applicationDateLabel.setText(application.getLocalCreateDate().format(createDateFormatter));
+        checkInDateLabel.setText(application.getLocalStartDate().format(dateFormatter));
+        checkOutDateLabel.setText(application.getLocalEndDate().format(dateFormatter));
+        roomNumLabel.setText(room.getRoomID());
+        roomTypeLabel.setText(room.getRoomType().getTypeName());
     }
 
     /**
@@ -50,19 +61,19 @@ public class AfterApplyST extends javax.swing.JPanel {
         jLabel58 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel53 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        statusLabel = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        applicationDateLabel = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        checkInDateLabel = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        checkOutDateLabel = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel54 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        roomNumLabel = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        roomTypeLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -94,68 +105,68 @@ public class AfterApplyST extends javax.swing.JPanel {
         jLabel53.setText("Status");
         appliedPanel.add(jLabel53);
 
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText(DesignUI.HostelST.getCurrentUserApplication().getStatus());
-        if (jLabel10.getText().equals("Pending")) {
-            jLabel10.setForeground(Color.BLUE);
-        } else if (jLabel10.getText().equals("Rejected")) {
-            jLabel10.setForeground(Color.RED);
+        statusLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        statusLabel.setForeground(new java.awt.Color(0, 0, 0));
+        statusLabel.setText(Config.NOT_APPLICABLE);
+        if (statusLabel.getText().equals("Pending")) {
+            statusLabel.setForeground(Color.BLUE);
+        } else if (statusLabel.getText().equals("Rejected")) {
+            statusLabel.setForeground(Color.RED);
         } else {
-            jLabel10.setForeground(Color.GREEN);
+            statusLabel.setForeground(Color.GREEN);
         }
-        appliedPanel.add(jLabel10);
+        appliedPanel.add(statusLabel);
 
         jLabel61.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel61.setForeground(new java.awt.Color(51, 51, 51));
         jLabel61.setText("Application Date");
         appliedPanel.add(jLabel61);
 
-        jLabel15.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText(dateCreatedString);
-        if (jLabel10.getText().equals("Pending")) {
-            jLabel10.setForeground(Color.BLUE);
-        } else if (jLabel10.getText().equals("Rejected")) {
-            jLabel10.setForeground(Color.RED);
+        applicationDateLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        applicationDateLabel.setForeground(new java.awt.Color(0, 0, 0));
+        applicationDateLabel.setText(Config.NOT_APPLICABLE);
+        if (statusLabel.getText().equals("Pending")) {
+            statusLabel.setForeground(Color.BLUE);
+        } else if (statusLabel.getText().equals("Rejected")) {
+            statusLabel.setForeground(Color.RED);
         } else {
-            jLabel10.setForeground(Color.GREEN);
+            statusLabel.setForeground(Color.GREEN);
         }
-        appliedPanel.add(jLabel15);
+        appliedPanel.add(applicationDateLabel);
 
         jLabel59.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel59.setForeground(new java.awt.Color(51, 51, 51));
         jLabel59.setText("Check-In Date");
         appliedPanel.add(jLabel59);
 
-        jLabel13.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setText(dateStartedString);
-        if (jLabel10.getText().equals("Pending")) {
-            jLabel10.setForeground(Color.BLUE);
-        } else if (jLabel10.getText().equals("Rejected")) {
-            jLabel10.setForeground(Color.RED);
+        checkInDateLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        checkInDateLabel.setForeground(new java.awt.Color(0, 0, 0));
+        checkInDateLabel.setText(Config.NOT_APPLICABLE);
+        if (statusLabel.getText().equals("Pending")) {
+            statusLabel.setForeground(Color.BLUE);
+        } else if (statusLabel.getText().equals("Rejected")) {
+            statusLabel.setForeground(Color.RED);
         } else {
-            jLabel10.setForeground(Color.GREEN);
+            statusLabel.setForeground(Color.GREEN);
         }
-        appliedPanel.add(jLabel13);
+        appliedPanel.add(checkInDateLabel);
 
         jLabel60.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel60.setForeground(new java.awt.Color(51, 51, 51));
         jLabel60.setText("Check-Out Date");
         appliedPanel.add(jLabel60);
 
-        jLabel14.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText(dateEndedString);
-        if (jLabel10.getText().equals("Pending")) {
-            jLabel10.setForeground(Color.BLUE);
-        } else if (jLabel10.getText().equals("Rejected")) {
-            jLabel10.setForeground(Color.RED);
+        checkOutDateLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        checkOutDateLabel.setForeground(new java.awt.Color(0, 0, 0));
+        checkOutDateLabel.setText(Config.NOT_APPLICABLE);
+        if (statusLabel.getText().equals("Pending")) {
+            statusLabel.setForeground(Color.BLUE);
+        } else if (statusLabel.getText().equals("Rejected")) {
+            statusLabel.setForeground(Color.RED);
         } else {
-            jLabel10.setForeground(Color.GREEN);
+            statusLabel.setForeground(Color.GREEN);
         }
-        appliedPanel.add(jLabel14);
+        appliedPanel.add(checkOutDateLabel);
 
         jLabel52.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel52.setForeground(new java.awt.Color(51, 51, 51));
@@ -182,20 +193,20 @@ public class AfterApplyST extends javax.swing.JPanel {
         jLabel54.setText("Room Number");
         appliedPanel.add(jLabel54);
 
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText(DesignUI.HostelST.getCurrentUserRoom().getRoomID());
-        appliedPanel.add(jLabel11);
+        roomNumLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        roomNumLabel.setForeground(new java.awt.Color(0, 0, 0));
+        roomNumLabel.setText(Config.NOT_APPLICABLE);
+        appliedPanel.add(roomNumLabel);
 
         jLabel55.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel55.setForeground(new java.awt.Color(51, 51, 51));
         jLabel55.setText("Room Type");
         appliedPanel.add(jLabel55);
 
-        jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText(HostelST.getCurrentUserRoom().getRoomType().getTypeName());
-        appliedPanel.add(jLabel12);
+        roomTypeLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        roomTypeLabel.setForeground(new java.awt.Color(0, 0, 0));
+        roomTypeLabel.setText(Config.NOT_APPLICABLE);
+        appliedPanel.add(roomTypeLabel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -210,24 +221,21 @@ public class AfterApplyST extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
+            .addGap(0, 566, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 23, Short.MAX_VALUE)
                     .addComponent(appliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 23, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static javax.swing.JLabel applicationDateLabel;
     private javax.swing.JPanel appliedPanel;
-    private static javax.swing.JLabel jLabel10;
-    private static javax.swing.JLabel jLabel11;
-    private static javax.swing.JLabel jLabel12;
-    private static javax.swing.JLabel jLabel13;
-    private static javax.swing.JLabel jLabel14;
-    private static javax.swing.JLabel jLabel15;
+    private static javax.swing.JLabel checkInDateLabel;
+    private static javax.swing.JLabel checkOutDateLabel;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
@@ -238,5 +246,8 @@ public class AfterApplyST extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel61;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private static javax.swing.JLabel roomNumLabel;
+    private static javax.swing.JLabel roomTypeLabel;
+    private static javax.swing.JLabel statusLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,20 +22,12 @@ public class ApplicationST extends javax.swing.JPanel {
         card = (CardLayout) contentPanel.getLayout();
         if (HostelST.getCurrentUserRoom() == null
                 || HostelST.getCurrentUserApplication().getStatus().equals("Rejected")) {
-            showNotAppliedPage();
+            contentPanel.add(new BeforeApplyST(), "not applied");
+            card.show(contentPanel, "not applied");
         } else {
-            showAppliedPage();
+            contentPanel.add(new AfterApplyST(), "applied");
+            card.show(contentPanel, "applied");
         }
-    }
-
-    private static void showNotAppliedPage() {
-        contentPanel.add(new BeforeApplyST(), "not applied");
-        card.show(contentPanel, "not applied");
-    }
-
-    private static void showAppliedPage() {
-        contentPanel.add(new AfterApplyST(), "applied");
-        card.show(contentPanel, "applied");
     }
 
     /**

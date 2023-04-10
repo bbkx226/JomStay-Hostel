@@ -11,13 +11,13 @@ import Models.Student;
  */
 public class ProfileST extends javax.swing.JPanel {
     
-    private static Student currentStudent;
+    private static Student student;
     
     /**
      * Creates new form ProfileST
      */
     public ProfileST() {
-        currentStudent = Login.getCurrentUser();
+        student = HostelST.getCurrentUser();
         initComponents();
     }
     
@@ -34,31 +34,31 @@ public class ProfileST extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        genderLabel = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        hpNoLabel = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        NRICLabel = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
+        nationalityLabel = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
+        raceLabel = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
+        religionLabel = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        addressLabel = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        medCondLabel = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        emerContactNameLabel = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        emerContactRelationshipLabel = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
+        emerContactNoLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -73,130 +73,130 @@ public class ProfileST extends javax.swing.JPanel {
         jLabel19.setText("Full Name: ");
         jPanel2.add(jLabel19);
 
-        jLabel33.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel33.setText("HP No:");
-        jPanel2.add(jLabel33);
-
-        jLabel20.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel20.setText(currentStudent.getName().replace("_", " "));
-        jPanel2.add(jLabel20);
-
-        jLabel34.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel34.setText(currentStudent.getPhoneNo());
-        jPanel2.add(jLabel34);
-
-        jLabel21.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel21.setText("Gender:");
-        jPanel2.add(jLabel21);
-
-        jLabel37.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel37.setText("Permanent Address:");
-        jPanel2.add(jLabel37);
-
-        jLabel22.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel22.setText(currentStudent.getGender());
-        jPanel2.add(jLabel22);
-
-        jLabel38.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel38.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel38.setText(currentStudent.getPermanentAddress().replace("_", " "));
-        jPanel2.add(jLabel38);
-
-        jLabel23.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel23.setText("IC/Passport Number:");
-        jPanel2.add(jLabel23);
+        nameLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        nameLabel.setForeground(new java.awt.Color(51, 51, 51));
+        nameLabel.setText(student.getName().replace("_", " "));
+        jPanel2.add(nameLabel);
 
         jLabel35.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(51, 51, 51));
         jLabel35.setText("Email:");
         jPanel2.add(jLabel35);
 
-        jLabel24.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel24.setText(currentStudent.getNRIC());
-        jPanel2.add(jLabel24);
+        emailLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        emailLabel.setForeground(new java.awt.Color(51, 51, 51));
+        emailLabel.setText(student.getEmail());
+        jPanel2.add(emailLabel);
 
-        jLabel36.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel36.setText(currentStudent.getEmail());
-        jPanel2.add(jLabel36);
+        jLabel21.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel21.setText("Gender:");
+        jPanel2.add(jLabel21);
 
-        jLabel39.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel39.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel39.setText("Medical Condition(s):");
-        jPanel2.add(jLabel39);
+        genderLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        genderLabel.setForeground(new java.awt.Color(51, 51, 51));
+        genderLabel.setText(student.getGender());
+        jPanel2.add(genderLabel);
 
-        jLabel40.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel40.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel40.setText(currentStudent.getMedicalCondition().replace("_", " "));
-        jPanel2.add(jLabel40);
+        jLabel33.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel33.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel33.setText("HP No:");
+        jPanel2.add(jLabel33);
+
+        hpNoLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        hpNoLabel.setForeground(new java.awt.Color(51, 51, 51));
+        hpNoLabel.setText(student.getPhoneNo());
+        jPanel2.add(hpNoLabel);
+
+        jLabel23.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel23.setText("IC/Passport Number:");
+        jPanel2.add(jLabel23);
+
+        NRICLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        NRICLabel.setForeground(new java.awt.Color(51, 51, 51));
+        NRICLabel.setText(student.getNRIC());
+        jPanel2.add(NRICLabel);
 
         jLabel27.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(51, 51, 51));
         jLabel27.setText("Nationality:");
         jPanel2.add(jLabel27);
 
-        jLabel44.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel44.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel44.setText("Emergency Contact Name:");
-        jPanel2.add(jLabel44);
-
-        jLabel28.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel28.setText(currentStudent.getNationality().replace("_", " "));
-        jPanel2.add(jLabel28);
-
-        jLabel45.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel45.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel45.setText(currentStudent.getEmerContactName().replace("_", " "));
-        jPanel2.add(jLabel45);
+        nationalityLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        nationalityLabel.setForeground(new java.awt.Color(51, 51, 51));
+        nationalityLabel.setText(student.getNationality().replace("_", " "));
+        jPanel2.add(nationalityLabel);
 
         jLabel29.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(51, 51, 51));
         jLabel29.setText("Race:");
         jPanel2.add(jLabel29);
 
-        jLabel43.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel43.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel43.setText("Emergency Contact Relationship:");
-        jPanel2.add(jLabel43);
-
-        jLabel30.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel30.setText(currentStudent.getRace().replace("_", " "));
-        jPanel2.add(jLabel30);
-
-        jLabel46.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel46.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel46.setText(currentStudent.getEmerContactRelationship().replace("_", " "));
-        jPanel2.add(jLabel46);
+        raceLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        raceLabel.setForeground(new java.awt.Color(51, 51, 51));
+        raceLabel.setText(student.getRace().replace("_", " "));
+        jPanel2.add(raceLabel);
 
         jLabel31.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(51, 51, 51));
         jLabel31.setText("Religion:");
         jPanel2.add(jLabel31);
 
+        religionLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        religionLabel.setForeground(new java.awt.Color(51, 51, 51));
+        religionLabel.setText(student.getReligion().replace("_", " "));
+        jPanel2.add(religionLabel);
+
+        jLabel37.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel37.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel37.setText("Permanent Address:");
+        jPanel2.add(jLabel37);
+
+        addressLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        addressLabel.setForeground(new java.awt.Color(51, 51, 51));
+        addressLabel.setText(student.getPermanentAddress().replace("_", " "));
+        jPanel2.add(addressLabel);
+
+        jLabel39.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel39.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel39.setText("Medical Condition(s):");
+        jPanel2.add(jLabel39);
+
+        medCondLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        medCondLabel.setForeground(new java.awt.Color(51, 51, 51));
+        medCondLabel.setText(student.getMedicalCondition().replace("_", " "));
+        jPanel2.add(medCondLabel);
+
+        jLabel44.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel44.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel44.setText("Emergency Contact Name:");
+        jPanel2.add(jLabel44);
+
+        emerContactNameLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        emerContactNameLabel.setForeground(new java.awt.Color(51, 51, 51));
+        emerContactNameLabel.setText(student.getEmerContactName().replace("_", " "));
+        jPanel2.add(emerContactNameLabel);
+
+        jLabel43.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel43.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel43.setText("Emergency Contact Relationship:");
+        jPanel2.add(jLabel43);
+
+        emerContactRelationshipLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        emerContactRelationshipLabel.setForeground(new java.awt.Color(51, 51, 51));
+        emerContactRelationshipLabel.setText(student.getEmerContactRelationship().replace("_", " "));
+        jPanel2.add(emerContactRelationshipLabel);
+
         jLabel41.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(51, 51, 51));
         jLabel41.setText("Emergency Contact Number:");
         jPanel2.add(jLabel41);
 
-        jLabel32.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel32.setText(currentStudent.getReligion().replace("_", " "));
-        jPanel2.add(jLabel32);
-
-        jLabel42.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel42.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel42.setText(currentStudent.getEmerContactNo());
-        jPanel2.add(jLabel42);
+        emerContactNoLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        emerContactNoLabel.setForeground(new java.awt.Color(51, 51, 51));
+        emerContactNoLabel.setText(student.getEmerContactNo());
+        jPanel2.add(emerContactNoLabel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -229,34 +229,34 @@ public class ProfileST extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel NRICLabel;
+    private javax.swing.JLabel addressLabel;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JLabel emerContactNameLabel;
+    private javax.swing.JLabel emerContactNoLabel;
+    private javax.swing.JLabel emerContactRelationshipLabel;
+    private javax.swing.JLabel genderLabel;
+    private javax.swing.JLabel hpNoLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel medCondLabel;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel nationalityLabel;
+    private javax.swing.JLabel raceLabel;
+    private javax.swing.JLabel religionLabel;
     // End of variables declaration//GEN-END:variables
 }

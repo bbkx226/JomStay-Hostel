@@ -9,18 +9,25 @@ import Models.Payment;
 import Models.Payment.PaymentStatus;
 import Models.Room;
 import Models.Student;
+import Utils.ApplicationPaymentDetails;
+import Utils.Config;
 import Utils.PaymentHandling;
 import Utils.PopUpWindow;
+import Utils.Validator;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ItemEvent;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -35,13 +42,13 @@ import javax.swing.table.*;
  */
 public class PaymentST extends javax.swing.JPanel {
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    private static final String FORMAT = Config.dateFormats.PAYMENT_RENT_PERIOD.getFormat();
 
-    private static double selectedAmt = 0;
-    private static ArrayList<Integer> selectedMonths = new ArrayList<>();
+    private static double selectedAmt;
+    private static ArrayList<Integer> selectedMonths;
     private static ArrayList<Payment> payments;
     private static Application application;
-    private static LocalDate startDate;
+    private static ApplicationPaymentDetails paymentDetails;
     
     /**
      * Creates new form PaymentST
@@ -52,9 +59,11 @@ public class PaymentST extends javax.swing.JPanel {
     }
     
     private static void initData() {
-        payments = PaymentHandling.getApplicationPayments(HostelST.getCurrentUserApplication());
-        application = payments.get(0).getApplication();
-        startDate = application.getLocalStartDate().toLocalDate();
+        selectedAmt = 0;
+        selectedMonths = new ArrayList<>();
+        application = HostelST.getCurrentUserApplication();
+        payments = PaymentHandling.getApplicationPayments(application);
+        paymentDetails = HostelST.getCurrentPaymentDetails();
     }
     
     private class CheckboxCellRenderer extends JCheckBox implements TableCellRenderer {
@@ -289,18 +298,21 @@ public class PaymentST extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void showDataInPanel() {
-        selectedAmtLabel.setText("RM" + selectedAmt);
+        DecimalFormat formatter = new DecimalFormat("#,###.00");
+        selectedAmtLabel.setText(Config.CURRRENCY + formatter.format(selectedAmt));
         rentMonthsLabel.setText("" + selectedMonths.size());
                 
         Collections.sort(selectedMonths);
         if (selectedMonths.isEmpty()) {
-            rentalPeriodLabel.setText("N/A");
+            rentalPeriodLabel.setText(Config.NOT_APPLICABLE);
         } else {
-            String rentStart = (String) paymentTable.getValueAt(selectedMonths.get(0) - 1, 2);
+            int firstSelectedMonth = selectedMonths.get(0);
+            int lastSelectedMonth = selectedMonths.get(selectedMonths.size() - 1);
+            String rentStart = (String) paymentTable.getValueAt(firstSelectedMonth - 1, 2);
             rentStart = rentStart.split(" ")[0];
-            String rentEnd = (String) paymentTable.getValueAt(selectedMonths.get(selectedMonths.size() - 1) - 1, 2);
+            String rentEnd = (String) paymentTable.getValueAt(lastSelectedMonth - 1, 2);
             rentEnd = rentEnd.split("~ ")[1];
-            rentalPeriodLabel.setText("<html>" + rentStart + " ~ <br/>" + rentEnd + "<html/>");
+            rentalPeriodLabel.setText("<html>" + rentStart + "<br/> ~ <br/>" + rentEnd + "<html/>");
         }
     }
     
@@ -322,18 +334,20 @@ public class PaymentST extends javax.swing.JPanel {
     private void initTable() {
         DefaultTableModel tableModel = (DefaultTableModel) paymentTable.getModel();
         paymentTable.setRowSelectionAllowed(false);
+        ArrayList<String> rentalPeriods = paymentDetails.getStringRentalPeriods(FORMAT);
+        if (rentalPeriods.isEmpty()) {
+            return;
+        }
+        ArrayList<String> dueDates = paymentDetails.getStringDueDates(FORMAT);
         
         for (int i = 0; i < payments.size(); i++) {
             Payment payment = payments.get(i);
-            LocalDate periodStart = startDate.plusMonths(i);
-            LocalDate dueDate = periodStart.plusDays(7);
-            LocalDate periodEnd = periodStart.plusMonths(1);
             Object [] row = {
                 false,
                 i + 1,
-                periodStart.format(FORMATTER) + " ~ " + periodEnd.format(FORMATTER),
+                rentalPeriods.get(i),
                 payment.getAmount(),
-                dueDate.toString(),
+                dueDates.get(i),
                 payment.getStatus().getStatusString(),
                 payment.getMethod().replace("_", " "),
                 payment.getDate()
@@ -342,14 +356,14 @@ public class PaymentST extends javax.swing.JPanel {
         }
         
         TableColumnModel columnModel = paymentTable.getColumnModel();
-        columnModel.getColumn(0).setCellRenderer(new CheckboxCellRenderer(5, "Paid"));
-        columnModel.getColumn(0).setCellEditor(new CheckboxCellEditor(5, "Paid"));
+        columnModel.getColumn(0).setCellRenderer(new CheckboxCellRenderer(5, PaymentStatus.PAID.getStatusString()));
+        columnModel.getColumn(0).setCellEditor(new CheckboxCellEditor(5, PaymentStatus.PAID.getStatusString()));
         columnModel.getColumn(5).setCellRenderer(new PaymentStatusColorCellRenderer(5));
         
         tableModel.addTableModelListener(event -> {
             int row = event.getFirstRow();
             String status = (String) paymentTable.getValueAt(row, 5);
-            if (event.getColumn() == 0 && ! status.equals("Paid")) {
+            if (event.getColumn() == 0 && ! status.equals(PaymentStatus.PAID.getStatusString())) {
                 boolean isSelected = (boolean) paymentTable.getValueAt(row, 0);
                 if (isSelected) {
                     selectedAmt += (double) paymentTable.getValueAt(row, 3);
@@ -362,10 +376,9 @@ public class PaymentST extends javax.swing.JPanel {
                 System.out.println("Row: " + row + " selected: " + isSelected);
             }
         });
-        
-        TableColumn column = null;
+
         for (int i = 0; i < paymentTable.getColumnCount(); i++) {
-            column = columnModel.getColumn(i);
+            TableColumn column = columnModel.getColumn(i);
             switch (i) {
                 case 0 -> column.setMinWidth(40);
                 case 1 -> column.setMinWidth(35);
@@ -387,144 +400,21 @@ public class PaymentST extends javax.swing.JPanel {
         // TODO add your handling code here:
         initTable();
     }//GEN-LAST:event_showComponents
-
-    private boolean isRangeComplete(ArrayList<Integer> list) {
-        // Check if the list is empty
-        if (list.isEmpty()) {
-            throw new IllegalArgumentException("List cannot be empty");
-        }
-
-        // Find the minimum and maximum numbers in the list
-        int min = Collections.min(list);
-        int max = Collections.max(list);
-
-        // Create a boolean array to keep track of which numbers are present
-        boolean[] present = new boolean[max - min + 1];
-
-        // Iterate over the numbers in the list and mark each number as present in the boolean array
-        for (int i : list) {
-            present[i - min] = true;
-        }
-
-        // Iterate over the boolean array and return false if any number is missing
-        for (boolean p : present) {
-            if (!p) {
-                return false;
-            }
-        }
-
-        // If all the numbers are present, return true
-        return true;
-    }
-    
-    private boolean validateSelection() {
-        ArrayList<Integer> totalMonths = new ArrayList<>();
-        for (int i = 0; i < payments.size(); i++) {
-            Payment payment = payments.get(i);
-            if (! payment.getStatus().equals(PaymentStatus.PAID)) {
-                totalMonths.add(i + 1);
-            }
-        }
-        Collections.sort(selectedMonths);
-        ArrayList<Integer> actualSelections = new ArrayList<>();
-        for (int i = 0; i < paymentTable.getRowCount(); i++) {
-            if ((boolean) paymentTable.getValueAt(i, 0)) {
-                actualSelections.add(i + 1);
-            }
-        }
         
-        if (selectedMonths.isEmpty()) {
-            return false;
-        }
-        if (!Objects.equals(selectedMonths.get(0), totalMonths.get(0))) {
-            return false;
-        }
-        if (! selectedMonths.equals(actualSelections)) {
-            return false;
-        }
-        if (selectedMonths.size() > totalMonths.size()) {
-            return false;
-        }
-        // TODO: change to accomodate overdue extra charge
-        if (selectedAmt < (selectedMonths.size() * payments.get(0).getAmount())) {
-            return false;
-        }
-        if (selectedAmt > (selectedMonths.size() * payments.get(0).getAmount())) {
-            return false;
-        }
-        return isRangeComplete(selectedMonths);
-    }
-    
-    // TODO: make this more efficient
-    private void updatePaymentFile(String paymentMethod) {
-        ArrayList<Payment> currentPayments = PaymentHandling.getApplicationPayments(HostelST.getCurrentUserApplication());
-        for (int i = 0; i < currentPayments.size(); i++) {
-            Payment payment = currentPayments.get(i);
-            if (payment.getStatus().equals(PaymentStatus.PAID)) {
-                continue;
-            }
-            for (int month : selectedMonths) {
-                if (i + 1 == month) {
-                    payment.setStatus(PaymentStatus.PAID);
-                    payment.setMethod(paymentMethod);
-                    payment.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                    PaymentHandling.updatePayment(payment);
-                    break;
-                }
-            }
-        }
-    }
-    
-    private void proceedToPayment() {
-        JTextField textField = new JTextField();
-
-        JOptionPane optionPane = new JOptionPane(textField, JOptionPane.PLAIN_MESSAGE,
-                JOptionPane.OK_CANCEL_OPTION);
-        optionPane.createDialog(null, "Enter your payment method:").setVisible(true);
-
-        int option = (Integer) optionPane.getValue();
-
-        if (option == JOptionPane.OK_OPTION) {
-            String paymentMethodInput = textField.getText();
-
-            Student currentUser = HostelST.getCurrentUser();
-            Application currentUserApplication = HostelST.getCurrentUserApplication();
-            Room currentUserRoom = HostelST.getCurrentUserRoom();
-
-            DateTimeFormatter getFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
-            DateTimeFormatter setFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm a");
-            LocalDateTime dateStarted = LocalDateTime.parse(currentUserApplication.getStartDate(), getFormatter);
-            LocalDateTime dateEnded = LocalDateTime.parse(currentUserApplication.getEndDate(), getFormatter);
-            String dateStartedString = dateStarted.format(setFormatter);
-            String dateEndedString = dateEnded.format(setFormatter);
-
-            LinkedHashMap<String, String> data = new LinkedHashMap<>();
-            data.put("Customer Name", currentUser.getName().replace("_", " "));
-            data.put("Check-In Date", dateStartedString);
-            data.put("Check-Out Date", dateEndedString);
-            data.put("Rental Period", rentalPeriodLabel.getText());
-            data.put("Room Type", "Single (for now)");
-            data.put("Room Number", currentUserRoom.getRoomID());
-            data.put("Total Price", "RM" + selectedAmt);
-
-            Runnable onClose = () -> {
-                Login.getHostelFrame().dispose();
-                HostelST hostelST = new HostelST();
-                Login.setHostelFrame(hostelST);
-            };
-            
-            ReceiptGUI gui = new ReceiptGUI(data, onClose);
-            
-            updatePaymentFile(paymentMethodInput.replace(" ", "_"));   
-        }
-    }
-    
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
         // TODO add your handling code here:
-        if (! validateSelection()) {
+        if (! Validator.validatePaymentTableSelection(payments, paymentTable, selectedMonths, selectedAmt)) {
             PopUpWindow.showErrorMessage("Invalid selection. Please click the 'Reset' button if any values are invalid.", "Error");
         } else {
-            proceedToPayment();
+            String paymentMethodInput = PopUpWindow.getPaymentMethod();
+            if (paymentMethodInput != null) {
+                PaymentHandling.updatePaymentFile(payments, selectedMonths, paymentMethodInput.replace(" ", "_"));
+                // remove html tags
+                String rentalPeriod = rentalPeriodLabel.getText().replaceAll("<[^>]*>", "");
+                HostelST.proceedWithPayment(rentalPeriod, selectedAmt);
+            } else {
+                HostelST.showPayment();
+            }
         }
     }//GEN-LAST:event_payBtnActionPerformed
     

@@ -4,13 +4,17 @@
  */
 package DesignUI;
 
+import Models.Room;
 import Models.Student;
+import Utils.Config;
 import Utils.PopUpWindow;
-import Utils.UserHandling;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -18,25 +22,87 @@ import java.time.format.DateTimeParseException;
  */
 public class BeforeApplyST extends javax.swing.JPanel {
 
+    private static Room room;
+    private static Student student;
+    private static final String DATE_INPUT_FORMAT = Config.dateFormats.ST_APPLICATION_DATE_INPUT.getFormat();
+
+    private static HashMap<JLabel, JTextField> requiredFields;
+
     /**
      * Creates new form BeforeApplyST
      */
     public BeforeApplyST() {
+        initData();
         initComponents();
-        if (HostelST.getCurrentUserApplication().getStatus().equals("Rejected")) {
+        if (!student.getNationality().equals(Config.NOT_APPLICABLE)) {
             fillFields();
+        }
+        setRequiredFields();
+    }
+
+    private void initData() {
+        room = HostelST.getCurrentUserRoom();
+        student = HostelST.getCurrentUser();
+    }
+    
+    private void fillFields() {
+        nationalityField.setText(student.getNationality().replace("_", " "));
+        raceField.setText(student.getRace().replace("_", " "));
+        religionField.setText(student.getReligion().replace("_", " "));
+        addressField.setText(student.getPermanentAddress().replace("_", " "));
+        medCondField.setText(student.getMedicalCondition().replace("_", " "));
+        emerContactNameField.setText(student.getEmerContactName().replace("_", " "));
+        emerContactRelationshipField.setText(student.getEmerContactRelationship().replace("_", " "));
+        emerContactNoField.setText(student.getEmerContactNo());
+    }
+
+    private void setRequiredFields() {
+        requiredFields = new HashMap<>();
+        requiredFields.put(startDateLabel, startDateField);
+        requiredFields.put(nationalityLabel, nationalityField);
+        requiredFields.put(addressLabel, addressField);
+        requiredFields.put(emerContactNameLabel, emerContactNameField);
+        requiredFields.put(emerContactRelationshipLabel, emerContactRelationshipField);
+        requiredFields.put(emerContactNoLabel, emerContactNoField);
+
+        for (JLabel label : requiredFields.keySet()) {
+            String currentText = label.getText();
+            label.setText("<html>" + currentText + "<font color='red'>*</font></html>");
         }
     }
 
-    private void fillFields() {
-        jTextField1.setText(HostelST.getCurrentUser().getNationality().replace("_", " "));
-        jTextField2.setText(HostelST.getCurrentUser().getRace().replace("_", " "));
-        jTextField3.setText(HostelST.getCurrentUser().getReligion().replace("_", " "));
-        jTextField4.setText(HostelST.getCurrentUser().getPermanentAddress().replace("_", " "));
-        jTextField5.setText(HostelST.getCurrentUser().getMedicalCondition().replace("_", " "));
-        jTextField6.setText(HostelST.getCurrentUser().getEmerContactName().replace("_", " "));
-        jTextField7.setText(HostelST.getCurrentUser().getEmerContactRelationship().replace("_", " "));
-        jTextField8.setText(HostelST.getCurrentUser().getEmerContactNo());
+    public static HashMap<String, String> getInputForm() {
+        HashMap<String, String> buffer = new HashMap<>();
+        buffer.put("roomType", roomTypeLabel.getText());
+        buffer.put("roomNumber", roomNumLabel.getText());
+        buffer.put("checkInDate", startDateField.getText());
+        buffer.put("periodOfStay", "" + stayPeriodComboBox.getSelectedIndex());
+        buffer.put("fullName", nameLabel.getText());
+        buffer.put("email", emailLabel.getText());
+        buffer.put("gender", genderLabel.getText());
+        buffer.put("phoneNo", hpNoLabel.getText());
+        buffer.put("NRIC", NRICLabel.getText());
+        buffer.put("nationality", nationalityField.getText());
+        if (raceField.getText().isBlank()) {
+            buffer.put("race", Config.NOT_APPLICABLE);
+        } else {
+            buffer.put("race", raceField.getText());
+        }
+        if (religionField.getText().isBlank()) {
+            buffer.put("religion", Config.NOT_APPLICABLE);
+        } else {
+            buffer.put("religion", religionField.getText());
+        }
+        buffer.put("address", addressField.getText());
+        if (medCondField.getText().isBlank()) {
+            buffer.put("medicalCondition", Config.NOT_APPLICABLE);
+        } else {
+            buffer.put("medicalCondition", medCondField.getText());
+        }
+        buffer.put("emerContactName", emerContactNameField.getText());
+        buffer.put("emerContactRelationship", emerContactRelationshipField.getText());
+        buffer.put("emerContactNo", emerContactNoField.getText());
+        return buffer;
     }
 
     /**
@@ -48,58 +114,56 @@ public class BeforeApplyST extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        notAppliedPanel = new javax.swing.JPanel();
         scrollPane = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         roomDetailsSection = new javax.swing.JPanel();
         jLabel49 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel48 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        roomTypeLabel = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel56 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        roomNumLabel = new javax.swing.JLabel();
+        startDateLabel = new javax.swing.JLabel();
+        startDateField = new javax.swing.JTextField();
         jLabel57 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        stayPeriodComboBox = new javax.swing.JComboBox<>();
         studentDetailsSection = new javax.swing.JPanel();
         jLabel50 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        genderLabel = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        hpNoLabel = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        NRICLabel = new javax.swing.JLabel();
+        nationalityLabel = new javax.swing.JLabel();
+        nationalityField = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        raceField = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel37 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        religionField = new javax.swing.JTextField();
+        addressLabel = new javax.swing.JLabel();
+        addressField = new javax.swing.JTextField();
         jLabel39 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        medCondField = new javax.swing.JTextField();
         emerContactSection = new javax.swing.JPanel();
         jLabel51 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel44 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel43 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel41 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        emerContactNameLabel = new javax.swing.JLabel();
+        emerContactNameField = new javax.swing.JTextField();
+        emerContactRelationshipLabel = new javax.swing.JLabel();
+        emerContactRelationshipField = new javax.swing.JTextField();
+        emerContactNoLabel = new javax.swing.JLabel();
+        emerContactNoField = new javax.swing.JTextField();
         warningLabel = new javax.swing.JLabel();
         confirmBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-
-        notAppliedPanel.setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         scrollPane.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -134,39 +198,39 @@ public class BeforeApplyST extends javax.swing.JPanel {
         jLabel48.setText("Room Type");
         roomDetailsSection.add(jLabel48);
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText(DesignUI.HostelST.getSelectedRoomType().getTypeName());
-        roomDetailsSection.add(jLabel4);
+        roomTypeLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        roomTypeLabel.setForeground(new java.awt.Color(0, 0, 0));
+        roomTypeLabel.setText(room.getRoomType().getTypeName());
+        roomDetailsSection.add(roomTypeLabel);
 
         jLabel47.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel47.setForeground(new java.awt.Color(51, 51, 51));
         jLabel47.setText("Room Number");
         roomDetailsSection.add(jLabel47);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText(DesignUI.HostelST.getSelectedRoom().getRoomID());
-        roomDetailsSection.add(jLabel2);
+        roomNumLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        roomNumLabel.setForeground(new java.awt.Color(0, 0, 0));
+        roomNumLabel.setText(room.getRoomID());
+        roomDetailsSection.add(roomNumLabel);
 
-        jLabel56.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel56.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel56.setText("<html>Start Date<font color='red'>*</font> (DD-MM-YYYY)</html>");
-        roomDetailsSection.add(jLabel56);
+        startDateLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        startDateLabel.setForeground(new java.awt.Color(51, 51, 51));
+        startDateLabel.setText("Check-In Date (DD-MM-YYYY)");
+        roomDetailsSection.add(startDateLabel);
 
-        jTextField9.setBackground(new java.awt.Color(255, 255, 255));
-        roomDetailsSection.add(jTextField9);
+        startDateField.setBackground(new java.awt.Color(255, 255, 255));
+        roomDetailsSection.add(startDateField);
 
         jLabel57.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel57.setForeground(new java.awt.Color(51, 51, 51));
         jLabel57.setText("Period of Stay");
         roomDetailsSection.add(jLabel57);
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 year", "2 years", "3 years", "4 years", "5 years" }));
-        roomDetailsSection.add(jComboBox1);
+        stayPeriodComboBox.setBackground(new java.awt.Color(255, 255, 255));
+        stayPeriodComboBox.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        stayPeriodComboBox.setForeground(new java.awt.Color(0, 0, 0));
+        stayPeriodComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 year", "2 years", "3 years", "4 years", "5 years" }));
+        roomDetailsSection.add(stayPeriodComboBox);
 
         jPanel2.add(roomDetailsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 930, 270));
 
@@ -198,90 +262,90 @@ public class BeforeApplyST extends javax.swing.JPanel {
         jLabel19.setText("Full Name");
         studentDetailsSection.add(jLabel19);
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText(DesignUI.HostelST.getCurrentUser().getName().replace("_", " "));
-        studentDetailsSection.add(jLabel5);
+        nameLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        nameLabel.setForeground(new java.awt.Color(0, 0, 0));
+        nameLabel.setText(student.getName().replace("_", " "));
+        studentDetailsSection.add(nameLabel);
 
         jLabel35.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(51, 51, 51));
         jLabel35.setText("Email");
         studentDetailsSection.add(jLabel35);
 
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText(DesignUI.HostelST.getCurrentUser().getEmail());
-        studentDetailsSection.add(jLabel6);
+        emailLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        emailLabel.setForeground(new java.awt.Color(0, 0, 0));
+        emailLabel.setText(student.getEmail());
+        studentDetailsSection.add(emailLabel);
 
         jLabel21.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(51, 51, 51));
         jLabel21.setText("Gender");
         studentDetailsSection.add(jLabel21);
 
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText(DesignUI.HostelST.getCurrentUser().getGender());
-        studentDetailsSection.add(jLabel7);
+        genderLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        genderLabel.setForeground(new java.awt.Color(0, 0, 0));
+        genderLabel.setText(student.getGender());
+        studentDetailsSection.add(genderLabel);
 
         jLabel33.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(51, 51, 51));
         jLabel33.setText("HP No");
         studentDetailsSection.add(jLabel33);
 
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText(DesignUI.HostelST.getCurrentUser().getPhoneNo());
-        studentDetailsSection.add(jLabel8);
+        hpNoLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        hpNoLabel.setForeground(new java.awt.Color(0, 0, 0));
+        hpNoLabel.setText(student.getPhoneNo());
+        studentDetailsSection.add(hpNoLabel);
 
         jLabel23.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(51, 51, 51));
         jLabel23.setText("IC/Passport Number");
         studentDetailsSection.add(jLabel23);
 
-        jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText(DesignUI.HostelST.getCurrentUser().getNRIC());
-        studentDetailsSection.add(jLabel9);
+        NRICLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        NRICLabel.setForeground(new java.awt.Color(0, 0, 0));
+        NRICLabel.setText(student.getNRIC());
+        studentDetailsSection.add(NRICLabel);
 
-        jLabel27.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel27.setText("<html>Nationality<font color='red'>*</font></html>");
-        studentDetailsSection.add(jLabel27);
+        nationalityLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        nationalityLabel.setForeground(new java.awt.Color(51, 51, 51));
+        nationalityLabel.setText("Nationality");
+        studentDetailsSection.add(nationalityLabel);
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        studentDetailsSection.add(jTextField1);
+        nationalityField.setBackground(new java.awt.Color(255, 255, 255));
+        studentDetailsSection.add(nationalityField);
 
         jLabel29.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(51, 51, 51));
         jLabel29.setText("Race");
         studentDetailsSection.add(jLabel29);
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        studentDetailsSection.add(jTextField2);
+        raceField.setBackground(new java.awt.Color(255, 255, 255));
+        studentDetailsSection.add(raceField);
 
         jLabel31.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(51, 51, 51));
         jLabel31.setText("Religion");
         studentDetailsSection.add(jLabel31);
 
-        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
-        studentDetailsSection.add(jTextField3);
+        religionField.setBackground(new java.awt.Color(255, 255, 255));
+        studentDetailsSection.add(religionField);
 
-        jLabel37.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel37.setText("<html>Permanent Address<font color='red'>*</font></html>");
-        studentDetailsSection.add(jLabel37);
+        addressLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        addressLabel.setForeground(new java.awt.Color(51, 51, 51));
+        addressLabel.setText("Permanent Address");
+        studentDetailsSection.add(addressLabel);
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
-        studentDetailsSection.add(jTextField4);
+        addressField.setBackground(new java.awt.Color(255, 255, 255));
+        studentDetailsSection.add(addressField);
 
         jLabel39.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(51, 51, 51));
         jLabel39.setText("Medical Condition (if any)");
         studentDetailsSection.add(jLabel39);
 
-        jTextField5.setBackground(new java.awt.Color(255, 255, 255));
-        studentDetailsSection.add(jTextField5);
+        medCondField.setBackground(new java.awt.Color(255, 255, 255));
+        studentDetailsSection.add(medCondField);
 
         jPanel2.add(studentDetailsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 930, 630));
 
@@ -308,29 +372,29 @@ public class BeforeApplyST extends javax.swing.JPanel {
 
         emerContactSection.add(jPanel4);
 
-        jLabel44.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel44.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel44.setText("<html>Emergency Contact Name<font color='red'>*</font></html>");
-        emerContactSection.add(jLabel44);
+        emerContactNameLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        emerContactNameLabel.setForeground(new java.awt.Color(51, 51, 51));
+        emerContactNameLabel.setText("Emergency Contact Name");
+        emerContactSection.add(emerContactNameLabel);
 
-        jTextField6.setBackground(new java.awt.Color(255, 255, 255));
-        emerContactSection.add(jTextField6);
+        emerContactNameField.setBackground(new java.awt.Color(255, 255, 255));
+        emerContactSection.add(emerContactNameField);
 
-        jLabel43.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel43.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel43.setText("<html>Emergency Contact Relationship<font color='red'>*</font></html>");
-        emerContactSection.add(jLabel43);
+        emerContactRelationshipLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        emerContactRelationshipLabel.setForeground(new java.awt.Color(51, 51, 51));
+        emerContactRelationshipLabel.setText("Emergency Contact Relationship");
+        emerContactSection.add(emerContactRelationshipLabel);
 
-        jTextField7.setBackground(new java.awt.Color(255, 255, 255));
-        emerContactSection.add(jTextField7);
+        emerContactRelationshipField.setBackground(new java.awt.Color(255, 255, 255));
+        emerContactSection.add(emerContactRelationshipField);
 
-        jLabel41.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel41.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel41.setText("<html>Emergency Contact Number<font color='red'>*</font></html>");
-        emerContactSection.add(jLabel41);
+        emerContactNoLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        emerContactNoLabel.setForeground(new java.awt.Color(51, 51, 51));
+        emerContactNoLabel.setText("Emergency Contact Number");
+        emerContactSection.add(emerContactNoLabel);
 
-        jTextField8.setBackground(new java.awt.Color(255, 255, 255));
-        emerContactSection.add(jTextField8);
+        emerContactNoField.setBackground(new java.awt.Color(255, 255, 255));
+        emerContactSection.add(emerContactNoField);
 
         jPanel2.add(emerContactSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 970, 930, 250));
 
@@ -338,6 +402,8 @@ public class BeforeApplyST extends javax.swing.JPanel {
         jPanel2.add(warningLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, -1, -1));
 
         scrollPane.setViewportView(jPanel2);
+
+        add(scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1047, 460));
 
         confirmBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         confirmBtn.setText("Confirm");
@@ -347,63 +413,27 @@ public class BeforeApplyST extends javax.swing.JPanel {
                 confirmBtnActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout notAppliedPanelLayout = new javax.swing.GroupLayout(notAppliedPanel);
-        notAppliedPanel.setLayout(notAppliedPanelLayout);
-        notAppliedPanelLayout.setHorizontalGroup(
-            notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(notAppliedPanelLayout.createSequentialGroup()
-                .addGap(445, 445, 445)
-                .addComponent(confirmBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(notAppliedPanelLayout.createSequentialGroup()
-                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1047, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        notAppliedPanelLayout.setVerticalGroup(
-            notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, notAppliedPanelLayout.createSequentialGroup()
-                .addContainerGap(470, Short.MAX_VALUE)
-                .addComponent(confirmBtn)
-                .addGap(35, 35, 35))
-            .addGroup(notAppliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(notAppliedPanelLayout.createSequentialGroup()
-                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 74, Short.MAX_VALUE)))
-        );
-
+        add(confirmBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, -1, -1));
         if (DesignUI.HostelST.getSelectedRoom() == null) {
             confirmBtn.setVisible(true);
         }
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(notAppliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1044, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 9, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(notAppliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Validates an input date string and returns a LocalDateTime object with a
-     * time of 12:00 PM.
+     * Validates an input date string using the specified format and returns a
+     * LocalDateTime object with a time of 12:00 PM on the input date if the
+     * date is valid and not in the past.
      *
-     * @param dateString the input date string to validate
-     * @return a LocalDateTime object with a time of 12:00 PM if the input date
-     * is valid and not in the past, or null otherwise
+     * @param dateString A string representing the input date to be validated
+     * @param format A string representing the format of the input date string
+     * (e.g. "dd-MM-yyyy")
+     * @return A LocalDateTime object with a time of 12:00 PM on the input date
+     * if the date is valid and not in the past. Returns null if the input date
+     * string is not in the correct format or if the parsed date is in the past.
      */
-    private static LocalDateTime validateInputDate(String dateString) {
+    private static LocalDateTime validateInputDate(String dateString, String format) {
         // Define a DateTimeFormatter object to parse the input date string
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
 
         // Declare a LocalDate object to hold the parsed date
         LocalDate date;
@@ -427,46 +457,12 @@ public class BeforeApplyST extends javax.swing.JPanel {
     }
 
     private boolean requiredFieldsValid() {
-        if (jTextField9.getText().isBlank()) {
-            return false;
-        } else if (jTextField1.getText().isBlank()) {
-            return false;
-        } else if (jTextField4.getText().isBlank()) {
-            return false;
-        } else if (jTextField6.getText().isBlank()) {
-            return false;
-        } else if (jTextField7.getText().isBlank()) {
-            return false;
-        } else {
-            return !jTextField8.getText().isBlank();
+        for (JTextField field : requiredFields.values()) {
+            if (field.getText().isBlank()) {
+                return false;
+            }
         }
-    }
-
-    public static void confirmApplication() {
-        ApplyTnCST.setStartDate(validateInputDate(jTextField9.getText()));
-        ApplyTnCST.setStayPeriod(jComboBox1.getSelectedIndex() + 1);
-        Student student = HostelST.getCurrentUser();
-        student.setNationality(jTextField1.getText());
-        if (jTextField2.getText().isBlank()) {
-            student.setRace("N/A");
-        } else {
-            student.setRace(jTextField2.getText());
-        }
-        if (jTextField3.getText().isBlank()) {
-            student.setReligion("N/A");
-        } else {
-            student.setReligion(jTextField3.getText());
-        }
-        student.setPermanentAddress(jTextField4.getText());
-        if (jTextField5.getText().isBlank()) {
-            student.setMedicalCondition("N/A");
-        } else {
-            student.setMedicalCondition(jTextField5.getText());
-        }
-        student.setEmerContactName(jTextField6.getText());
-        student.setEmerContactRelationship(jTextField7.getText());
-        student.setEmerContactNo(jTextField8.getText());
-        UserHandling.updateStudentDetail(student);
+        return true;
     }
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
@@ -475,7 +471,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
             HostelST.showRooms();
         } else if (requiredFieldsValid() == false) {
             PopUpWindow.showErrorMessage("Please fill in all the required(*) fields.", "Error");
-        } else if (validateInputDate(jTextField9.getText()) == null) {
+        } else if (validateInputDate(startDateField.getText(), DATE_INPUT_FORMAT) == null) {
             PopUpWindow.showErrorMessage("Invalid date or format.", "Error");
         } else {
             HostelST.showTnC();
@@ -483,52 +479,51 @@ public class BeforeApplyST extends javax.swing.JPanel {
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static javax.swing.JLabel NRICLabel;
+    private static javax.swing.JTextField addressField;
+    private javax.swing.JLabel addressLabel;
     private javax.swing.JButton confirmBtn;
+    private static javax.swing.JLabel emailLabel;
+    private static javax.swing.JTextField emerContactNameField;
+    private javax.swing.JLabel emerContactNameLabel;
+    private static javax.swing.JTextField emerContactNoField;
+    private javax.swing.JLabel emerContactNoLabel;
+    private static javax.swing.JTextField emerContactRelationshipField;
+    private javax.swing.JLabel emerContactRelationshipLabel;
     private javax.swing.JPanel emerContactSection;
-    private static javax.swing.JComboBox<String> jComboBox1;
+    private static javax.swing.JLabel genderLabel;
+    private static javax.swing.JLabel hpNoLabel;
     private javax.swing.JLabel jLabel19;
-    private static javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel39;
-    private static javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private static javax.swing.JTextField jTextField1;
-    private static javax.swing.JTextField jTextField2;
-    private static javax.swing.JTextField jTextField3;
-    private static javax.swing.JTextField jTextField4;
-    private static javax.swing.JTextField jTextField5;
-    private static javax.swing.JTextField jTextField6;
-    private static javax.swing.JTextField jTextField7;
-    private static javax.swing.JTextField jTextField8;
-    private static javax.swing.JTextField jTextField9;
-    private javax.swing.JPanel notAppliedPanel;
+    private static javax.swing.JTextField medCondField;
+    private static javax.swing.JLabel nameLabel;
+    private static javax.swing.JTextField nationalityField;
+    private static javax.swing.JLabel nationalityLabel;
+    private static javax.swing.JTextField raceField;
+    private static javax.swing.JTextField religionField;
     private javax.swing.JPanel roomDetailsSection;
+    private static javax.swing.JLabel roomNumLabel;
+    private static javax.swing.JLabel roomTypeLabel;
     private javax.swing.JScrollPane scrollPane;
+    private static javax.swing.JTextField startDateField;
+    private javax.swing.JLabel startDateLabel;
+    private static javax.swing.JComboBox<String> stayPeriodComboBox;
     private javax.swing.JPanel studentDetailsSection;
     private javax.swing.JLabel warningLabel;
     // End of variables declaration//GEN-END:variables
