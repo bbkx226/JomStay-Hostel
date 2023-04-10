@@ -44,14 +44,18 @@ public final class PaymentHandling {
         return buffer;
     }
 
-    public static void addNewPayment(Payment payment) {
-        Application application = payment.getApplication();
+    public static void addNewPendingPayments(Application application) {
+        ArrayList<Payment> payments = getAllPayments();
+        
         LocalDate startDate = application.getLocalStartDate();
         LocalDate endDate = application.getLocalEndDate();
         long lengthOfStay = ChronoUnit.MONTHS.between(startDate, endDate);
         String stringToWrite = null;
         for (int i = 0; i < lengthOfStay; i++) {
-            stringToWrite += payment.toString() + "\n";
+            String newPaymentID = "P" + String.format("%04d", payments.size() + 1);
+            stringToWrite += newPaymentID + " " + application.getApplicationID() + " " 
+                    + application.getRoom().getRoomType().getRentalFee()/12 + " " 
+                    + Config.NOT_APPLICABLE + " " + Config.NOT_APPLICABLE + "\n";
         }
         FileHandlerUtils.writeString(PATH, stringToWrite, true);
     }
@@ -100,7 +104,7 @@ public final class PaymentHandling {
             buffer.add(payment.toString());
         }
         String stringToWrite = String.join("\n", buffer);
-        FileHandlerUtils.writeString(PATH, stringToWrite, false);
+        FileHandlerUtils.writeString(PATH, stringToWrite + "\n", false);
     }
     
     public static void updatePaymentFile(ArrayList<Payment> payments, ArrayList<Integer> selectedMonths, String paymentMethod) {
