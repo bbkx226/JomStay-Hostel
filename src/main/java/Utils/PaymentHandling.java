@@ -104,7 +104,7 @@ public final class PaymentHandling {
     }
     
     public static void updatePaymentFile(ArrayList<Payment> payments, ArrayList<Integer> selectedMonths, String paymentMethod) {
-        int paymentMonth = 1;
+        int paymentMonth = 0;
         for (Payment payment : payments) {
             paymentMonth++;
             if (payment.getStatus().equals(Payment.PaymentStatus.PAID)) {
@@ -114,8 +114,7 @@ public final class PaymentHandling {
                 payment.setStatus(Payment.PaymentStatus.PAID);
                 payment.setMethod(paymentMethod);
                 payment.setDate(LocalDate.now().format(Config.dateFormats.FILE_PAYMENT_DATE.getFormatter()));
-                PaymentHandling.updatePayment(payment);
-                break;
+                updatePayment(payment);
             }
         }
     }
