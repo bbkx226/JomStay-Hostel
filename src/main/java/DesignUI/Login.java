@@ -32,9 +32,6 @@ public class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     
     public int checkCredentials(String username, String password){
-        if(username.equals("abc") && password.equals("202cb962ac59075b964b07152d234b70")){ // Default username: abc, password: 123 (For Testing Purpose)
-            return 1;
-        }
         for (String line : FileHandlerUtils.readLines("src/main/java/databases/auth.txt")) {
             String[] data = line.split(" ");
             if (data[0].startsWith("AD")) {
@@ -64,6 +61,7 @@ public class Login extends javax.swing.JFrame {
         
         if (username.equals("") || password.equals("")){
             JOptionPane.showMessageDialog(null, "Please ensure you've fill in every text field", "Friendly Reminder", JOptionPane.QUESTION_MESSAGE);
+            nameBox.requestFocus();
         } else {
             switch (checkCredentials(username, decryptedPass)) {
                 case 1 -> {
@@ -73,15 +71,14 @@ public class Login extends javax.swing.JFrame {
                 }
                 case 2 -> {
                     PopUpWindow.showSuccessfulMessage("Welcome back, " + username + "!", "Login Success!");
-                    setVisible(false);
-                    
+                    setVisible(false);      
                     hostelST = new HostelST();
                 }
                 default -> {
                     PopUpWindow.showErrorMessage("Invalid credentials, please try again", "Wrong credentials");
                     nameBox.setText("");
                     passBox.setText("");
-
+                    nameBox.requestFocus();
                 }
             }
         }
@@ -158,7 +155,7 @@ public class Login extends javax.swing.JFrame {
         loginButton.setFont(new java.awt.Font("Baskerville Old Face", 1, 28)); // NOI18N
         loginButton.setText("Login");
         loginButton.setBorder(null);
-        loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginButton.setMaximumSize(new java.awt.Dimension(99, 30));
         loginButton.setMinimumSize(new java.awt.Dimension(99, 30));
         loginButton.setPreferredSize(new java.awt.Dimension(99, 30));
@@ -181,7 +178,7 @@ public class Login extends javax.swing.JFrame {
         registerButton.setText("Register");
         registerButton.setToolTipText("");
         registerButton.setBorder(null);
-        registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registerButton.setName(""); // NOI18N
         registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
