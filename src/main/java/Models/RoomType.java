@@ -121,7 +121,10 @@ public class RoomType {
     
     @Override
     public String toString() {
-        return "Room Type: " + typeName + "\nFacilities:" + getFacilitiesString() + "\nSpecifications: " + specification + "\nRental Fee: RM" + rentalFee + "\nBeds: " + beds + "\nFree WiFi: " + getFreeWifiString();
+        return String.format("%s\n%s\n%s\n%.2f\n%d\n%s\n",
+                typeName, getFacilitiesString(),
+                specification, rentalFee,
+                beds, getFreeWifiString());
     }
 
     

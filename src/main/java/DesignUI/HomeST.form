@@ -630,7 +630,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reApplyBtnActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="reApplyBtn.setVisible(false);&#xa;switch (applicationStatusLabel.getText()) {&#xa;    case &quot;Rejected&quot;, Config.NOT_APPLICABLE -&gt; reApplyBtn.setVisible(true);&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="reApplyBtn.setVisible(false);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
       <Constraints>

@@ -51,9 +51,15 @@ public class HomeST extends javax.swing.JPanel {
         applicationStatusLabel.setText(application.getStatus());
         switch (application.getStatus()) {
             case "Pending" -> applicationStatusLabel.setForeground(Color.BLUE);
-            case "Rejected" -> applicationStatusLabel.setForeground(Color.RED);
+            case "Rejected" -> {
+                applicationStatusLabel.setForeground(Color.RED);
+                reApplyBtn.setVisible(true);
+            }
             case "Accepted" -> applicationStatusLabel.setForeground(Color.GREEN);
-            default -> applicationStatusLabel.setForeground(Color.BLACK);
+            default -> {
+                applicationStatusLabel.setForeground(Color.BLACK);
+                reApplyBtn.setVisible(true);
+            }
         }
         roomTypeLabel.setText(roomType.getTypeName());
         paymentStatusLabel.setText(paymentDetails.getStatusString());
@@ -413,9 +419,6 @@ public class HomeST extends javax.swing.JPanel {
         });
         add(reApplyBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 520, 120, 30));
         reApplyBtn.setVisible(false);
-        switch (applicationStatusLabel.getText()) {
-            case "Rejected", Config.NOT_APPLICABLE -> reApplyBtn.setVisible(true);
-        }
     }// </editor-fold>//GEN-END:initComponents
 
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtnActionPerformed

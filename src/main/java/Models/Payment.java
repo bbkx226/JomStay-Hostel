@@ -103,6 +103,10 @@ public class Payment {
 
     @Override
     public String toString() {
-        return paymentID + " " + application.getApplicationID() + " " + status.getStatusString() + " " + amount + " " + method.replace(" ", "_") + " " + date;
+        return String.format("%s %s %s %.2f %s %s", 
+                paymentID, application.getApplicationID(), 
+                status.getStatusString(), amount, 
+                method.replace(" ", "_"), 
+                date);
     }
 }

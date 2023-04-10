@@ -81,16 +81,6 @@ public class ApplicationPaymentDetails {
     public String getStatusString() {
         return status.getStatusString();
     }
-
-    public String getDueDateString(String format) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-        return switch (this.status) {
-            case PAID, NA ->
-                Config.NOT_APPLICABLE;
-            default ->
-                dueDate.format(formatter);
-        };
-    }
     
     public String getDueDateString(DateTimeFormatter formatter) {
         return switch (this.status) {
@@ -118,15 +108,6 @@ public class ApplicationPaymentDetails {
                 currency + amtPayable;
         };
     }
-
-    public String getTotalRentalMonthsString() {
-        return switch (this.status) {
-            case PAID, NA ->
-                Config.NOT_APPLICABLE;
-            default ->
-                "" + totalRentalMonths;
-        };
-    }
     
     public ArrayList<String> getStringDueDates(String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
@@ -140,47 +121,8 @@ public class ApplicationPaymentDetails {
         return buffer;
     }
     
-    public ArrayList<String> getStringDueDates(DateTimeFormatter formatter) {
-        ArrayList<String> buffer = new ArrayList<>();
-        for (LocalDate date : rentalPeriodDates) {
-            if (rentalPeriodDates.indexOf(date) == rentalPeriodDates.size()) {
-                break;
-            }
-            buffer.add(date.plusDays(7).format(formatter));
-        }
-        return buffer;
-    }
-    
-    public ArrayList<String> getStringRentalPeriodDates(String format) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-        ArrayList<String> buffer = new ArrayList<>();
-        for (LocalDate date : rentalPeriodDates) {
-            buffer.add(date.format(formatter));
-        }
-        return buffer;
-    }
-    
-    public ArrayList<String> getStringRentalPeriodDates(DateTimeFormatter formatter) {
-        ArrayList<String> buffer = new ArrayList<>();
-        for (LocalDate date : rentalPeriodDates) {
-            buffer.add(date.format(formatter));
-        }
-        return buffer;
-    }
-    
     public ArrayList<String> getStringRentalPeriods(String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-        ArrayList<String> buffer = new ArrayList<>();
-        for (LocalDate date : rentalPeriodDates) {
-            if (rentalPeriodDates.indexOf(date) == rentalPeriodDates.size()) {
-                break;
-            }
-            buffer.add(date.format(formatter) + " ~ " + date.plusMonths(1).format(formatter));
-        }
-        return buffer;
-    }
-    
-    public ArrayList<String> getStringRentalPeriods(DateTimeFormatter formatter) {
         ArrayList<String> buffer = new ArrayList<>();
         for (LocalDate date : rentalPeriodDates) {
             if (rentalPeriodDates.indexOf(date) == rentalPeriodDates.size()) {

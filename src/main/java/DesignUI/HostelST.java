@@ -10,7 +10,6 @@ import java.awt.CardLayout;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -19,8 +18,6 @@ public class HostelST extends javax.swing.JFrame {
     private static Student currentUser;
     private static Application currentUserApplication;
     private static Room currentUserRoom;
-    private static ArrayList<Room> availableRooms;
-    private static ArrayList<RoomType> roomTypes;
     private static ApplicationPaymentDetails paymentDetails;
     private static Room selectedRoom = null;
 
@@ -49,10 +46,8 @@ public class HostelST extends javax.swing.JFrame {
 
     public static void initData() {
         currentUser = Login.getCurrentUser();
-        currentUserApplication = ApplicationHandling.getStudentApplication(currentUser);
+        currentUserApplication = ApplicationHandling.getStudentApplication(currentUser, ApplicationHandling.getTotalApplications());
         currentUserRoom = currentUserApplication.getRoom();
-        availableRooms = RoomHandling.getAvailableRooms();
-        roomTypes = RoomHandling.getRoomTypes();
         PaymentHandling.refreshPaymentFile();
         paymentDetails = new ApplicationPaymentDetails(currentUserApplication);
     }
@@ -74,24 +69,8 @@ public class HostelST extends javax.swing.JFrame {
         return currentUserApplication;
     }
 
-    public static void setCurrentUserApplication(Application currentUserApplication) {
-        HostelST.currentUserApplication = currentUserApplication;
-    }
-
-    public static ArrayList<Room> getAvailableRooms() {
-        return availableRooms;
-    }
-
-    public static ArrayList<RoomType> getRoomTypes() {
-        return roomTypes;
-    }
-
     public static Room getCurrentUserRoom() {
         return currentUserRoom;
-    }
-
-    public static void setCurrentUserRoom(Room currentUserRoom) {
-        HostelST.currentUserRoom = currentUserRoom;
     }
 
     public static ApplicationPaymentDetails getCurrentPaymentDetails() {

@@ -22,7 +22,7 @@ public class RoomsST extends javax.swing.JPanel {
      * Creates new form RoomsST
      */
     public RoomsST() {
-        roomTypes = HostelST.getRoomTypes();
+        roomTypes = RoomHandling.getRoomTypes();
         initComponents();
     }
     

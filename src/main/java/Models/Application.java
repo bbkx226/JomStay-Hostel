@@ -123,6 +123,10 @@ public class Application {
 
     @Override
     public String toString() {
-        return String.format("%s %s %s %s %s %s %s\n", applicationID, student.getID(), room.getRoomID(), status, createDate, startDate, endDate);
+        return String.format("%s %s %s %s %s %s %s\n", 
+                applicationID, student.getID(), 
+                room.getRoomID(), status, 
+                createDate, startDate, 
+                endDate);
     }
 }
