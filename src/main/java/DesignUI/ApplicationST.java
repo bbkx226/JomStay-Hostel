@@ -11,34 +11,25 @@ import java.awt.CardLayout;
  * @author KZ
  */
 public class ApplicationST extends javax.swing.JPanel {
-    
+
     private static CardLayout card;
-    
+
     /**
      * Creates new form ApplicationST
      */
     public ApplicationST() {
         initComponents();
         card = (CardLayout) contentPanel.getLayout();
-        if (HostelST.getCurrentUserRoom() == null) {
-            showNotAppliedPage();
+        if (HostelST.getCurrentUserRoom() == null
+                || HostelST.getCurrentUserApplication().getStatus().equals("Rejected")) {
+            contentPanel.add(new BeforeApplyST(), "not applied");
+            card.show(contentPanel, "not applied");
         } else {
-            showAppliedPage();
+            contentPanel.add(new AfterApplyST(), "applied");
+            card.show(contentPanel, "applied");
         }
     }
-    
-    private static void showNotAppliedPage() {
-        BeforeApplyST notAppliedPanel = new BeforeApplyST();
-        contentPanel.add(notAppliedPanel, "not applied");
-        card.show(contentPanel, "not applied");
-    }
-    
-    private static void showAppliedPage() {
-        AfterApplyST appliedPanel = new AfterApplyST();
-        contentPanel.add(appliedPanel, "applied");
-        card.show(contentPanel, "applied");
-    }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

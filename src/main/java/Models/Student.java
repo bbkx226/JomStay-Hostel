@@ -1,6 +1,5 @@
 package Models;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -11,7 +10,7 @@ import java.util.Objects;
 public class Student extends User {
     
     private String gender, loginDate, phoneNo, NRIC;
-    private static String nationality, race, religion, permanentAddress, medicalCondition, emerContactName, emerContactRelationship, emerContactNo;
+    private String nationality, race, religion, permanentAddress, medicalCondition, emerContactName, emerContactRelationship, emerContactNo;
     
     public Student(String ID, String name, String email, String username, String gender, String loginDate, String password, String phoneNo, String NRIC) {
         super(ID, name, email, username, password);
@@ -37,35 +36,35 @@ public class Student extends User {
         return NRIC;
     }
     
-    public static String getNationality() {
+    public String getNationality() {
         return nationality;
     }
 
-    public static String getRace() {
+    public String getRace() {
         return race;
     }
 
-    public static String getReligion() {
+    public String getReligion() {
         return religion;
     }
 
-    public static String getPermanentAddress() {
+    public String getPermanentAddress() {
         return permanentAddress;
     }
 
-    public static String getMedicalCondition() {
+    public String getMedicalCondition() {
         return medicalCondition;
     }
 
-    public static String getEmerContactName() {
+    public String getEmerContactName() {
         return emerContactName;
     }
 
-    public static String getEmerContactRelationship() {
+    public String getEmerContactRelationship() {
         return emerContactRelationship;
     }
 
-    public static String getEmerContactNo() {
+    public String getEmerContactNo() {
         return emerContactNo;
     }
     
@@ -85,36 +84,36 @@ public class Student extends User {
         this.NRIC = NRIC;
     }
     
-    public static void setNationality(String nationality) {
-        Student.nationality = nationality;
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 
-    public static void setRace(String race) {
-        Student.race = race;
+    public void setRace(String race) {
+        this.race = race;
     }
 
-    public static void setReligion(String religion) {
-        Student.religion = religion;
+    public void setReligion(String religion) {
+        this.religion = religion;
     }
 
-    public static void setPermanentAddress(String permanentAddress) {
-        Student.permanentAddress = permanentAddress;
+    public void setPermanentAddress(String permanentAddress) {
+        this.permanentAddress = permanentAddress;
     }
 
-    public static void setMedicalCondition(String medicalCondition) {
-        Student.medicalCondition = medicalCondition;
+    public void setMedicalCondition(String medicalCondition) {
+        this.medicalCondition = medicalCondition;
     }
 
-    public static void setEmerContactName(String emerContactName) {
-        Student.emerContactName = emerContactName;
+    public void setEmerContactName(String emerContactName) {
+        this.emerContactName = emerContactName;
     }
 
-    public static void setEmerContactRelationship(String emerContactRelationship) {
-        Student.emerContactRelationship = emerContactRelationship;
+    public void setEmerContactRelationship(String emerContactRelationship) {
+        this.emerContactRelationship = emerContactRelationship;
     }
 
-    public static void setEmerContactNo(String emerContactHPNo) {
-        Student.emerContactNo = emerContactHPNo;
+    public void setEmerContactNo(String emerContactHPNo) {
+        this.emerContactNo = emerContactHPNo;
     }
 
     @Override

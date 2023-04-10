@@ -4,11 +4,12 @@ package Models;
 import java.util.*;
 
 public class Room {
-    private String roomID, status, roomType;
+    private String roomID, status;
+    private RoomType roomType;
     private boolean servicing;
     private static final List<String> allStatus = new ArrayList<>(Arrays.asList("Available", "Occupied"));
     
-    public Room(String roomID, String status, boolean servicing, String roomType) {
+    public Room(String roomID, String status, boolean servicing, RoomType roomType) {
         this.roomID = roomID;
         this.status = status;
         this.servicing = servicing;
@@ -33,16 +34,23 @@ public class Room {
         }
     }
 
-    public String getRoomType() {
+    public RoomType getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(String roomType) {
+    public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
     }
 
     public boolean isServicing() {
         return servicing;
+    }
+    
+    public String getServicingString() {
+        if (servicing) {
+            return "Yes";
+        }
+        return "No";
     }
 
     public void setServicing(boolean servicing) {

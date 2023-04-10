@@ -30,6 +30,10 @@ public class RoomType {
         return facilities;
     }
 
+    public String getFacilitiesString() {
+        return facilities.replaceAll("_", " ").replaceAll(",", ", ");
+    }
+    
     public void setFacilities(String facilities) {
         this.facilities = facilities;
     }
@@ -62,6 +66,13 @@ public class RoomType {
         return isFreeWifi;
     }
 
+    public String getFreeWifiString() {
+        if (isFreeWifi) {
+            return "Yes";
+        }
+        return "No";
+    }
+    
     public void setIsFreeWifi(boolean isFreeWifi) {
         this.isFreeWifi = isFreeWifi;
     }
@@ -107,10 +118,10 @@ public class RoomType {
         }
         return Objects.equals(this.specification, other.specification);
     }
-
+    
     @Override
     public String toString() {
-        return "RoomType{" + "typeName=" + typeName + ", facilities=" + facilities + ", specification=" + specification + ", rentalFee=" + rentalFee + ", beds=" + beds + ", isFreeWifi=" + isFreeWifi + '}';
+        return "Room Type: " + typeName + "\nFacilities:" + getFacilitiesString() + "\nSpecifications: " + specification + "\nRental Fee: RM" + rentalFee + "\nBeds: " + beds + "\nFree WiFi: " + getFreeWifiString();
     }
 
     

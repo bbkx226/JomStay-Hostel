@@ -13,12 +13,12 @@ import java.awt.event.KeyEvent;
 public class Login extends javax.swing.JFrame {
     
     private static Student currentUser;
+    private static HostelST hostelST;
     
     /**
      * Creates new form Login
      */
     public Login() {
-        currentUser = null;
         initComponents();
     }
 
@@ -44,6 +44,7 @@ public class Login extends javax.swing.JFrame {
                     for (Student student : UserHandling.getStudents()) {
                         if (data[0].equals(student.getID())) {
                             currentUser = student;
+                            break;
                         }
                     }
                     return 2;
@@ -70,8 +71,8 @@ public class Login extends javax.swing.JFrame {
                 }
                 case 2 -> {
                     PopUpWindow.showSuccessfulMessage("Welcome back, " + username + "!", "Login Success!");
-                    setVisible(false);
-                    new HostelST().start();
+                    setVisible(false);      
+                    hostelST = new HostelST();
                 }
                 default -> {
                     PopUpWindow.showErrorMessage("Invalid credentials, please try again", "Wrong credentials");
@@ -85,6 +86,14 @@ public class Login extends javax.swing.JFrame {
     
     public static Student getCurrentUser() {
         return currentUser;
+    }
+    
+    public static HostelST getHostelFrame() {
+        return hostelST;
+    }
+    
+    public static void setHostelFrame(HostelST hostelST) {
+        Login.hostelST = hostelST;
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -102,7 +111,6 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login Page");
-        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 

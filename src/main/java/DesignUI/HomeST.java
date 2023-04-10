@@ -6,6 +6,11 @@ package DesignUI;
 
 import Models.Application;
 import Models.Room;
+import Models.RoomType;
+import Utils.ApplicationPaymentDetails;
+import Utils.Config;
+import java.awt.Color;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -13,7 +18,11 @@ import Models.Room;
  */
 public class HomeST extends javax.swing.JPanel {
     
-    private static String roomNumLabel, servicingLabel, checkInDateLabel, checkOutDateLabel, paxLabel, paidLabel, totalPayableLabel, payDueDateLabel;
+    private static Room room;
+    private static Application application;
+    private static RoomType roomType;
+    private static DateTimeFormatter formatter;
+    private static ApplicationPaymentDetails paymentDetails;
     
     /**
      * Creates new form HomeST
@@ -22,30 +31,13 @@ public class HomeST extends javax.swing.JPanel {
         initData();
         initComponents();
     }
-
+    
     private static void initData() {
-        Application application = HostelST.getCurrentUserApplication();
-        Room room = HostelST.getCurrentUserRoom();
-        if (room == null) {
-            roomNumLabel = "N/A";
-            servicingLabel = "N/A";
-            checkInDateLabel = "N/A";
-            checkOutDateLabel = "N/A";
-            paxLabel = "N/A";
-            paidLabel = "N/A";
-            totalPayableLabel = "N/A";
-            payDueDateLabel = "N/A";
-        } else {
-            roomNumLabel = room.getRoomID();
-            if (room.isServicing()) {
-                servicingLabel = "Yes";
-            } else {
-                servicingLabel = "No";
-            }
-            checkInDateLabel = application.getStartDate().split("\\?")[0];
-            checkOutDateLabel = application.getEndDate().split("\\?")[0];
-            paxLabel = Integer.toString(room.getPax());
-        }
+        room = HostelST.getCurrentUserRoom();
+        application = HostelST.getCurrentUserApplication();
+        roomType = room.getRoomType();
+        formatter = Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormatter();
+        paymentDetails = HostelST.getCurrentPaymentDetails();
     }
     
     /**
@@ -62,37 +54,47 @@ public class HomeST extends javax.swing.JPanel {
         overviewPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        roomNum = new javax.swing.JLabel();
+        roomNumLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        servicing = new javax.swing.JLabel();
+        servicingLabel = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        checkInDate = new javax.swing.JLabel();
+        checkInDateLabel = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        checkOutDate = new javax.swing.JLabel();
+        checkOutDateLabel = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        pax = new javax.swing.JLabel();
+        applicationStatusLabel = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        roomTypeLabel = new javax.swing.JLabel();
         paymentPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        paymentStatusLabel = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        dueDateLabel = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        amtDueLabel = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        totalAmtPayableLabel = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        paymentBtn = new javax.swing.JToggleButton();
+        reApplyBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(930, 750));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setText("Overview");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, 38));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 50, 1040, 10));
 
         overviewPanel.setBackground(new java.awt.Color(255, 255, 255));
-        overviewPanel.setLayout(new java.awt.GridLayout(3, 2));
+        overviewPanel.setLayout(new java.awt.GridLayout(3, 2, 0, 10));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -100,9 +102,9 @@ public class HomeST extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Room Number");
 
-        roomNum.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        roomNum.setForeground(new java.awt.Color(0, 0, 0));
-        roomNum.setText(roomNumLabel);
+        roomNumLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        roomNumLabel.setForeground(new java.awt.Color(0, 0, 0));
+        roomNumLabel.setText(room.getRoomID());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -115,7 +117,7 @@ public class HomeST extends javax.swing.JPanel {
                         .addComponent(jLabel2))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(roomNum)))
+                        .addComponent(roomNumLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -124,8 +126,8 @@ public class HomeST extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(roomNum)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addComponent(roomNumLabel)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         overviewPanel.add(jPanel2);
@@ -136,23 +138,22 @@ public class HomeST extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("Servicing");
 
-        servicing.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        servicing.setForeground(new java.awt.Color(0, 0, 0));
-        servicing.setText(servicingLabel);
+        servicingLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        servicingLabel.setForeground(new java.awt.Color(0, 0, 0));
+        servicingLabel.setText(room.getServicingString());
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(servicing, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addContainerGap(236, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(servicingLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,8 +161,8 @@ public class HomeST extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(servicing)
-                .addGap(0, 64, Short.MAX_VALUE))
+                .addComponent(servicingLabel)
+                .addGap(0, 38, Short.MAX_VALUE))
         );
 
         overviewPanel.add(jPanel3);
@@ -172,9 +173,9 @@ public class HomeST extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText("Check-in Date");
 
-        checkInDate.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        checkInDate.setForeground(new java.awt.Color(0, 0, 0));
-        checkInDate.setText(checkInDateLabel);
+        checkInDateLabel.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        checkInDateLabel.setForeground(new java.awt.Color(0, 0, 0));
+        checkInDateLabel.setText(application.getLocalStartDate().format(formatter));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -184,7 +185,7 @@ public class HomeST extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(checkInDate))
+                        .addComponent(checkInDateLabel))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel5)))
@@ -195,8 +196,8 @@ public class HomeST extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(checkInDate, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 70, Short.MAX_VALUE))
+                .addComponent(checkInDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 44, Short.MAX_VALUE))
         );
 
         overviewPanel.add(jPanel4);
@@ -207,9 +208,9 @@ public class HomeST extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("Check-out Date");
 
-        checkOutDate.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        checkOutDate.setForeground(new java.awt.Color(0, 0, 0));
-        checkOutDate.setText(checkOutDateLabel);
+        checkOutDateLabel.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        checkOutDateLabel.setForeground(new java.awt.Color(0, 0, 0));
+        checkOutDateLabel.setText(application.getLocalStartDate().format(formatter));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -222,7 +223,7 @@ public class HomeST extends javax.swing.JPanel {
                         .addComponent(jLabel6))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(checkOutDate)))
+                        .addComponent(checkOutDateLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -230,8 +231,8 @@ public class HomeST extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addComponent(checkOutDate, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 70, Short.MAX_VALUE))
+                .addComponent(checkOutDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         overviewPanel.add(jPanel5);
@@ -240,11 +241,11 @@ public class HomeST extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText("Pax");
+        jLabel4.setText("Application Status");
 
-        pax.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        pax.setForeground(new java.awt.Color(0, 0, 0));
-        pax.setText(paxLabel);
+        applicationStatusLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        applicationStatusLabel.setForeground(new java.awt.Color(0, 0, 0));
+        applicationStatusLabel.setText(application.getStatus());
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -257,7 +258,7 @@ public class HomeST extends javax.swing.JPanel {
                         .addComponent(jLabel4))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(pax)))
+                        .addComponent(applicationStatusLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -265,153 +266,182 @@ public class HomeST extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(pax)
-                .addGap(0, 70, Short.MAX_VALUE))
+                .addComponent(applicationStatusLabel)
+                .addGap(0, 44, Short.MAX_VALUE))
         );
 
         overviewPanel.add(jPanel6);
 
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel7.setText("Room Type");
+
+        roomTypeLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        roomTypeLabel.setForeground(new java.awt.Color(0, 0, 0));
+        String roomTypeName;
+        if (HostelST.getCurrentUserRoom() == null) {
+            roomTypeName = "N/A";
+        } else {
+            roomTypeName = HostelST.getCurrentUserRoom().getRoomType().getTypeName();
+            roomTypeName = roomTypeName.replaceAll("\\s", "");
+        }
+        roomTypeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        roomTypeLabel.setText(roomType.getTypeName());
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(roomTypeLabel)))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(roomTypeLabel)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
+        overviewPanel.add(jPanel7);
+
+        add(overviewPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 66, 650, 440));
+
+        paymentPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new java.awt.GridLayout(4, 2, 0, 10));
+
         jLabel12.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel12.setText("Paid?:");
+        jLabel12.setText("Payment Status");
+        jPanel1.add(jLabel12);
+
+        paymentStatusLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        paymentStatusLabel.setText(paymentDetails.getStatusString());
+        jPanel1.add(paymentStatusLabel);
+
+        jLabel14.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel14.setText("Due Date");
+        jPanel1.add(jLabel14);
+
+        dueDateLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        dueDateLabel.setText(paymentDetails.getDueDateString(Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormat()));
+        jPanel1.add(dueDateLabel);
+
+        jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel19.setText("Amount Due");
+        jPanel1.add(jLabel19);
+
+        amtDueLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        amtDueLabel.setText(paymentDetails.getTotalAmtDueString(Config.CURRRENCY));
+        jPanel1.add(amtDueLabel);
+
+        jLabel15.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel15.setText("<html>Total Amount <br/>Payable</html>");
+        jPanel1.add(jLabel15);
+
+        totalAmtPayableLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        totalAmtPayableLabel.setText(paymentDetails.getAmtPayableString(Config.CURRRENCY));
+        jPanel1.add(totalAmtPayableLabel);
+
+        paymentPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 320, 320));
 
         jLabel13.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/usd-circle.png"))); // NOI18N
         jLabel13.setText("  Payment");
+        paymentPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 16, -1, -1));
 
-        jLabel14.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel14.setText("Total Payable:");
+        paymentBtn.setBackground(new java.awt.Color(0, 0, 0));
+        paymentBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        paymentBtn.setForeground(new java.awt.Color(255, 255, 255));
+        paymentBtn.setText("Proceed to Payment");
+        paymentBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        paymentBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentBtnActionPerformed(evt);
+            }
+        });
+        paymentPanel.add(paymentBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel15.setText("Payment Due Date: ");
+        add(paymentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 70, 363, 500));
 
-        jToggleButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jToggleButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jToggleButton1.setText("Proceed to Payment");
-
-        jLabel16.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel16.setText("No");
-
-        jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel17.setText("29-3-2025");
-
-        jLabel18.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel18.setText("RM1500.00");
-
-        javax.swing.GroupLayout paymentPanelLayout = new javax.swing.GroupLayout(paymentPanel);
-        paymentPanel.setLayout(paymentPanelLayout);
-        paymentPanelLayout.setHorizontalGroup(
-            paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paymentPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel12))
-                .addGap(18, 18, 18)
-                .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel16))
-                .addContainerGap(54, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jToggleButton1)
-                .addGap(74, 74, 74))
-            .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(paymentPanelLayout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(jLabel13)
-                    .addContainerGap(196, Short.MAX_VALUE)))
-        );
-        paymentPanelLayout.setVerticalGroup(
-            paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paymentPanelLayout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel16))
-                .addGap(63, 63, 63)
-                .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel18))
-                .addGap(62, 62, 62)
-                .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel17))
-                .addGap(87, 87, 87)
-                .addComponent(jToggleButton1)
-                .addContainerGap(109, Short.MAX_VALUE))
-            .addGroup(paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(paymentPanelLayout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(jLabel13)
-                    .addContainerGap(452, Short.MAX_VALUE)))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(overviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
-                        .addComponent(paymentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(paymentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(overviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        reApplyBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        reApplyBtn.setText("Re-apply");
+        reApplyBtn.setToolTipText("");
+        reApplyBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        reApplyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reApplyBtnActionPerformed(evt);
+            }
+        });
+        add(reApplyBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 520, 120, 30));
+        reApplyBtn.setVisible(false);
+        switch (applicationStatusLabel.getText()) {
+            case "Pending" -> applicationStatusLabel.setForeground(Color.BLUE);
+            case "Rejected" -> {
+                applicationStatusLabel.setForeground(Color.RED);
+                reApplyBtn.setVisible(true);
+            }
+            case "Accepted" -> applicationStatusLabel.setForeground(Color.GREEN);
+            default -> {
+                applicationStatusLabel.setForeground(Color.BLACK);
+                reApplyBtn.setVisible(true);
+            }
+        }
     }// </editor-fold>//GEN-END:initComponents
+
+    private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtnActionPerformed
+        HostelST.showPayment();
+    }//GEN-LAST:event_paymentBtnActionPerformed
+
+    private void reApplyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reApplyBtnActionPerformed
+        HostelST.showRooms();
+    }//GEN-LAST:event_reApplyBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel checkInDate;
-    private javax.swing.JLabel checkOutDate;
+    private static javax.swing.JLabel amtDueLabel;
+    private static javax.swing.JLabel applicationStatusLabel;
+    private static javax.swing.JLabel checkInDateLabel;
+    private static javax.swing.JLabel checkOutDateLabel;
+    private static javax.swing.JLabel dueDateLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JPanel overviewPanel;
-    private javax.swing.JLabel pax;
+    private javax.swing.JToggleButton paymentBtn;
     private javax.swing.JPanel paymentPanel;
-    private javax.swing.JLabel roomNum;
-    private javax.swing.JLabel servicing;
+    private static javax.swing.JLabel paymentStatusLabel;
+    private static javax.swing.JButton reApplyBtn;
+    private static javax.swing.JLabel roomNumLabel;
+    private static javax.swing.JLabel roomTypeLabel;
+    private static javax.swing.JLabel servicingLabel;
+    private static javax.swing.JLabel totalAmtPayableLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -32,4 +32,3 @@ Gender: Female
 Price (Annual): 22000.00
 Facilities: Shared_Bathroom,Kitchen,Common_Area,Laundry_Area
 Free WiFi: false
-

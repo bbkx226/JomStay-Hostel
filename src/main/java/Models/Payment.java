@@ -4,92 +4,105 @@
  */
 package Models;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import Utils.Config;
 
 /**
  *
  * @author KZ
  */
+
 public class Payment {
-    private static DateTimeFormatter formatter;
-    
-    private static Application application;
-    private static boolean paymentStatus;
-    private static float amount;
-    private static String paymentID, method;
-    private static LocalDateTime date;
 
-    public Payment(String paymentID, Application application, boolean paymentStatus, float amount, String method, LocalDateTime date) {
-        Payment.paymentID = paymentID;
-        Payment.application = application;
-        Payment.paymentStatus = paymentStatus;
-        Payment.amount = amount;
-        Payment.method = method;
-        Payment.date = date;
-    }
-
-    public static void setPaymentID(String paymentID) {
-        Payment.paymentID = paymentID;
-    }
-    
-    public static void setApplication(Application application) {
-        Payment.application = application;
-    }
-
-    public static void setPaymentStatus(boolean paymentStatus) {
-        Payment.paymentStatus = paymentStatus;
-    }
-
-    public static void setAmount(float amount) {
-        Payment.amount = amount;
-    }
-
-    public static void setMethod(String method) {
-        Payment.method = method;
-    }
-
-    public static void setDate(LocalDateTime date) {
-        Payment.date = date;
-    }
-
-    public static void setDateString(String date, String format) {
-        formatter = DateTimeFormatter.ofPattern(format);
-        Payment.date = LocalDateTime.parse(date, formatter);
+    public enum PaymentStatus {
+        PAID ("Paid"),
+        OVERDUE ("Overdue"),
+        PENDING ("Pending"),
+        NA (Config.NOT_APPLICABLE);
+        
+        private final String statusString;
+        
+        PaymentStatus(String statusString) {
+            this.statusString = statusString;
+        }
+        
+        public String getStatusString() {
+            return statusString;
+        }
+        
+        public static PaymentStatus fromString(String statusString) {
+            for (PaymentStatus status : PaymentStatus.values()) {
+                if (status.getStatusString().equalsIgnoreCase(statusString)) {
+                    return status;
+                }
+            }
+            throw new IllegalArgumentException("Invalid PaymentStatus string: " + statusString);
+        }
     }
     
-    public static String getPaymentID() {
+    private Application application;
+    private double amount;
+    private String paymentID, method, date;
+    private PaymentStatus status;
+
+    public Payment(String paymentID, Application application, PaymentStatus status, double amount, String method, String date) {
+        this.paymentID = paymentID;
+        this.application = application;
+        this.status = status;
+        this.amount = amount;
+        this.method = method;
+        this.date = date;
+    }
+
+    public void setPaymentID(String paymentID) {
+        this.paymentID = paymentID;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
+    }
+
+    public void setStatus(PaymentStatus status) {
+        this.status = status;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getPaymentID() {
         return paymentID;
     }
-    
-    public static Application getApplication() {
+
+    public Application getApplication() {
         return application;
     }
 
-    public static boolean getPaymentStatus() {
-        return paymentStatus;
+    public PaymentStatus getStatus() {
+        return status;
     }
 
-    public static float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public static String getMethod() {
+    public String getMethod() {
         return method;
     }
 
-    public static LocalDateTime getDate() {
+    public String getDate() {
         return date;
-    }
-    
-    public static String getDateString(String format) {
-        formatter = DateTimeFormatter.ofPattern(format);
-        return date.format(formatter);
     }
 
     @Override
     public String toString() {
-        return String.format("%s %s %b %.2f %s %s\n", paymentID, application.getApplicationID(), paymentStatus, amount, method, Payment.getDateString("yyyy-MM-dd?HH:mm"));
+        return paymentID + " " + application.getApplicationID() + " " + status.getStatusString() + " " + amount + " " + method.replace(" ", "_") + " " + date;
     }
-    
 }
