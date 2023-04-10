@@ -4,8 +4,7 @@ package Utils;
 import Models.Application;
 import Models.Room;
 import Models.Student;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ApplicationHandling {
@@ -80,30 +79,25 @@ public class ApplicationHandling {
         FileHandlerUtils.writeString(PATH, application.toString(), true);
     }
     
-    public static Application getCurrentStudentApplication(Student currentStudent) {
-        LocalDateTime currentTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
-        Application buffer = new Application("N/A", currentStudent, null, "N/A", "N/A", "N/A", "N/A");
-        ArrayList<Application> currentApplications = new ArrayList<>();
+    public static Application getStudentApplication(Student student) {
+        Application buffer = new Application("N/A", student, null, "N/A", "N/A", "N/A", "N/A");
+        ArrayList<Application> applications = new ArrayList<>();
         for (String line : FileHandlerUtils.readLines(PATH)) {
             String[] data = line.split(" ");
-            LocalDateTime endDate = LocalDateTime.parse(data[6], formatter);
-            if (currentTime.isAfter(endDate)) {
+            LocalDate endDate = LocalDate.parse(data[6], Config.dateFormats.FILE_APPLICATION_START_END_DATE.getFormatter());
+            if (LocalDate.now().isAfter(endDate)) {
                 continue;
             }
-            if (currentStudent.getID().equals(data[1])) {
-                Student student = compareToStudent(data[1]);
+            if (student.getID().equals(data[1])) {
                 Room room = compareToRoom(data[2]);
-                currentApplications.add(new Application(data[0], student, room, data[3], data[4], data[5], data[6]));
+                applications.add(new Application(data[0], student, room, data[3], data[4], data[5], data[6]));
             }
         }
-        if (! currentApplications.isEmpty()) {
-            for (Application application : currentApplications) {
+        if (! applications.isEmpty()) {
+            for (Application application : applications) {
                 buffer = application;
             }
         }
         return buffer;
     }
-    
-    
 }

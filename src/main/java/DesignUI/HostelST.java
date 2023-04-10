@@ -21,9 +21,8 @@ public class HostelST extends javax.swing.JFrame {
     private static Room currentUserRoom;
     private static ArrayList<Room> availableRooms;
     private static ArrayList<RoomType> roomTypes;
-    private static Room selectedRoom = null;
-    private static RoomType selectedRoomType = null;
     private static ApplicationPaymentDetails paymentDetails;
+    private static Room selectedRoom = null;
 
     private static CardLayout card;
 
@@ -50,12 +49,12 @@ public class HostelST extends javax.swing.JFrame {
 
     public static void initData() {
         currentUser = Login.getCurrentUser();
-        currentUserApplication = ApplicationHandling.getCurrentStudentApplication(currentUser);
+        currentUserApplication = ApplicationHandling.getStudentApplication(currentUser);
         currentUserRoom = currentUserApplication.getRoom();
         availableRooms = RoomHandling.getAvailableRooms();
         roomTypes = RoomHandling.getRoomTypes();
         PaymentHandling.refreshPaymentFile();
-        paymentDetails = new ApplicationPaymentDetails(currentUserApplication, PaymentHandling.getApplicationPayments(currentUserApplication));
+        paymentDetails = new ApplicationPaymentDetails(currentUserApplication);
     }
 
     // setters and getters
@@ -63,16 +62,8 @@ public class HostelST extends javax.swing.JFrame {
         HostelST.selectedRoom = selectedRoom;
     }
 
-    public static void setSelectedRoomType(RoomType selectedRoomType) {
-        HostelST.selectedRoomType = selectedRoomType;
-    }
-
     public static Room getSelectedRoom() {
         return selectedRoom;
-    }
-
-    public static RoomType getSelectedRoomType() {
-        return selectedRoomType;
     }
 
     public static Student getCurrentUser() {
@@ -119,7 +110,7 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     public static void showApplication() {
-        if (selectedRoomType == null && currentUserRoom == null) {
+        if (selectedRoom == null && currentUserRoom == null) {
             PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
             HostelST.showRooms();
             return;
@@ -139,8 +130,14 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     public static void showPayment() {
-        mainPanel.add(new PaymentST(), "payment");
-        card.show(mainPanel, "payment");
+        switch (currentUserApplication.getStatus()) {
+            case Config.NOT_APPLICABLE -> PopUpWindow.showErrorMessage("Please apply for a room first.", "Error");
+            case "Pending" -> PopUpWindow.showErrorMessage("Please wait until your application has been accepted.", "Error");
+            default -> {
+                mainPanel.add(new PaymentST(), "payment");
+                card.show(mainPanel, "payment");
+            }
+        }
     }
 
     public void signOut() {
@@ -153,7 +150,7 @@ public class HostelST extends javax.swing.JFrame {
     public static void apply(HashMap<String, String> applicationForm) {
         DateTimeFormatter inputFormatter = Config.dateFormats.ST_APPLICATION_DATE_INPUT.getFormatter();
         DateTimeFormatter createDateFormatter = Config.dateFormats.FILE_APPLICATION_CREATE_DATE.getFormatter();
-        DateTimeFormatter dateFormatter = Config.dateFormats.FILE_APPLICATION_START_DATE.getFormatter();
+        DateTimeFormatter dateFormatter = Config.dateFormats.FILE_APPLICATION_START_END_DATE.getFormatter();
 
         currentUser.setNationality(applicationForm.get("nationality"));
         currentUser.setRace(applicationForm.get("race"));
@@ -194,17 +191,17 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     public static void proceedWithPayment(String rentalPeriod, double selectedAmt) {
-        LocalDateTime dateStarted = LocalDateTime.parse(currentUserApplication.getStartDate(), Config.dateFormats.FILE_APPLICATION_START_DATE.getFormatter());
-        LocalDateTime dateEnded = LocalDateTime.parse(currentUserApplication.getEndDate(), Config.dateFormats.FILE_APPLICATION_END_DATE.getFormatter());
-        String dateStartedString = dateStarted.format(Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormatter());
-        String dateEndedString = dateEnded.format(Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormatter());
+        LocalDate dateStarted = LocalDate.parse(currentUserApplication.getStartDate(), Config.dateFormats.FILE_APPLICATION_START_END_DATE.getFormatter());
+        LocalDate dateEnded = LocalDate.parse(currentUserApplication.getEndDate(), Config.dateFormats.FILE_APPLICATION_START_END_DATE.getFormatter());
+        String dateStartedString = dateStarted.format(Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter());
+        String dateEndedString = dateEnded.format(Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter());
 
         LinkedHashMap<String, String> data = new LinkedHashMap<>();
         data.put("Customer Name", currentUser.getName().replace("_", " "));
         data.put("Check-In Date", dateStartedString);
         data.put("Check-Out Date", dateEndedString);
         data.put("Rental Period", rentalPeriod);
-        data.put("Room Type", "Single (for now)");
+        data.put("Room Type", currentUserRoom.getRoomType().getTypeName());
         data.put("Room Number", currentUserRoom.getRoomID());
         data.put("Total Price", "RM" + selectedAmt);
 

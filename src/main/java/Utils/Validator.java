@@ -3,6 +3,9 @@ package Utils;
 
 import Models.Payment;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -93,5 +96,42 @@ public class Validator {
             && selectedAmt >= actualSelectedAmt
             && selectedAmt <= actualSelectedAmt
             && Validator.isRangeComplete(selectedMonths);
+    }
+    
+    /**
+     * Validates an input date string using the specified format and returns a
+     * LocalDateTime object with a time of 12:00 PM on the input date if the
+     * date is valid and not in the past.
+     *
+     * @param dateString A string representing the input date to be validated
+     * @param format A string representing the format of the input date string
+     * (e.g. "dd-MM-yyyy")
+     * @return A LocalDateTime object with a time of 12:00 PM on the input date
+     * if the date is valid and not in the past. Returns null if the input date
+     * string is not in the correct format or if the parsed date is in the past.
+     */
+    public static LocalDateTime validateApplicationInputDate(String dateString, String format) {
+        // Define a DateTimeFormatter object to parse the input date string
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+
+        // Declare a LocalDate object to hold the parsed date
+        LocalDate date;
+
+        // Attempt to parse the input date string using the specified format
+        try {
+            date = LocalDate.parse(dateString, formatter);
+        } catch (DateTimeParseException e) {
+            // Return null if the input date string is not in the correct format
+            return null;
+        }
+
+        // Check that the parsed date is not in the past
+        if (date.isBefore(LocalDate.now())) {
+            // Return null if the input date is in the past
+            return null;
+        }
+
+        // Return a LocalDateTime object with a time of 12:00 PM on the input date
+        return date.atTime(12, 0);
     }
 }

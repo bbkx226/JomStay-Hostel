@@ -287,7 +287,6 @@ public class RoomsST extends javax.swing.JPanel {
                 PopUpWindow.showErrorMessage("Sorry, there are no available rooms of the selected room type at the moment.", "Unavailable");
             } else {
                 HostelST.setSelectedRoom(firstAvailableRoom);
-                HostelST.setSelectedRoomType(firstAvailableRoom.getRoomType());
             }
             HostelST.showApplication();
         }

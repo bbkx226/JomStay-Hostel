@@ -46,8 +46,8 @@ public final class PaymentHandling {
 
     public static void addNewPayment(Payment payment) {
         Application application = payment.getApplication();
-        LocalDate startDate = application.getLocalStartDate().toLocalDate();
-        LocalDate endDate = application.getLocalEndDate().toLocalDate();
+        LocalDate startDate = application.getLocalStartDate();
+        LocalDate endDate = application.getLocalEndDate();
         long lengthOfStay = ChronoUnit.MONTHS.between(startDate, endDate);
         String stringToWrite = null;
         for (int i = 0; i < lengthOfStay; i++) {
@@ -84,7 +84,7 @@ public final class PaymentHandling {
         for (int i = 0; i < payments.size(); i++) {
             Payment payment = payments.get(i);
             Application application = payment.getApplication();
-            LocalDate startDate = application.getLocalStartDate().toLocalDate();
+            LocalDate startDate = application.getLocalStartDate();
             if (payment.getStatus().equals(PaymentStatus.PAID)) {
                 buffer.add(payment.toString());
                 continue;

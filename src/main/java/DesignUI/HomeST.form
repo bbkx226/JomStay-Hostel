@@ -122,7 +122,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="room.getRoomID()" type="code"/>
+                  <Connection code="Config.NOT_APPLICABLE" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -186,7 +186,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="room.getServicingString()" type="code"/>
+                  <Connection code="Config.NOT_APPLICABLE" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -252,7 +252,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="application.getLocalStartDate().format(formatter)" type="code"/>
+                  <Connection code="Config.NOT_APPLICABLE" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -318,7 +318,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="application.getLocalStartDate().format(formatter)" type="code"/>
+                  <Connection code="Config.NOT_APPLICABLE" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -384,7 +384,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="application.getStatus()" type="code"/>
+                  <Connection code="Config.NOT_APPLICABLE" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -451,7 +451,7 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="roomType.getTypeName()" type="code"/>
+                  <Connection code="Config.NOT_APPLICABLE" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -500,7 +500,7 @@
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="paymentDetails.getStatusString()" type="code"/>
+                  <Connection code="Config.NOT_APPLICABLE" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -521,7 +521,7 @@
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="paymentDetails.getDueDateString(Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormat())" type="code"/>
+                  <Connection code="Config.NOT_APPLICABLE" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -542,7 +542,7 @@
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="paymentDetails.getTotalAmtDueString(Config.CURRRENCY)" type="code"/>
+                  <Connection code="Config.NOT_APPLICABLE" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -563,7 +563,7 @@
                   <Font name="Arial" size="18" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="paymentDetails.getAmtPayableString(Config.CURRRENCY)" type="code"/>
+                  <Connection code="Config.NOT_APPLICABLE" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -630,7 +630,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reApplyBtnActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="reApplyBtn.setVisible(false);&#xa;switch (applicationStatusLabel.getText()) {&#xa;    case &quot;Pending&quot; -&gt; applicationStatusLabel.setForeground(Color.BLUE);&#xa;    case &quot;Rejected&quot; -&gt; {&#xa;        applicationStatusLabel.setForeground(Color.RED);&#xa;        reApplyBtn.setVisible(true);&#xa;    }&#xa;    case &quot;Accepted&quot; -&gt; applicationStatusLabel.setForeground(Color.GREEN);&#xa;    default -&gt; {&#xa;        applicationStatusLabel.setForeground(Color.BLACK);&#xa;        reApplyBtn.setVisible(true);&#xa;    }&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="reApplyBtn.setVisible(false);&#xa;switch (applicationStatusLabel.getText()) {&#xa;    case &quot;Rejected&quot;, Config.NOT_APPLICABLE -&gt; reApplyBtn.setVisible(true);&#xa;}"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
       <Constraints>

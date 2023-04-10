@@ -1,12 +1,11 @@
 // @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
-import Utils.FileDataHandling;
+import Models.Admin;
 import Utils.PasswordHandling;
 import Utils.PopUpWindow;
 import javax.swing.JOptionPane;
 import Models.Student;
-import Utils.FileHandlerUtils;
 import Utils.UserHandling;
 import java.awt.event.KeyEvent;
 
@@ -32,23 +31,15 @@ public class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     
     public int checkCredentials(String username, String password){
-        for (String line : FileHandlerUtils.readLines("src/main/java/databases/auth.txt")) {
-            String[] data = line.split(" ");
-            if (data[0].startsWith("AD")) {
-                if (data[3].equals(username) && data[4].equals(password)) {
-                    return 1;
-                }
-            } else if (data[0].startsWith("ST")){
-                if (data[3].equals(username) && data[6].equals(password)) {
-                    FileDataHandling.updateLoginTime(data[0]);
-                    for (Student student : UserHandling.getStudents()) {
-                        if (data[0].equals(student.getID())) {
-                            currentUser = student;
-                            break;
-                        }
-                    }
-                    return 2;
-                }
+        for (Admin admin : UserHandling.getAdmins()) {
+            if (username.equals(admin.getUsername()) && password.equals(admin.getPassword())) {
+                return 1;
+            }
+        }
+        for (Student student : UserHandling.getStudents()) {
+            if (username.equals(student.getUsername()) && password.equals(student.getPassword())) {
+                currentUser = student;
+                return 2;
             }
         }
         return 0;
