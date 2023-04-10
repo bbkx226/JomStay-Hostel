@@ -144,7 +144,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
@@ -163,7 +163,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Application"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
@@ -187,7 +187,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Sign out"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
@@ -211,7 +211,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Students"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
@@ -235,7 +235,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Reports"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
@@ -276,7 +276,7 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Search"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+          <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
         </Property>
       </Properties>
       <Events>
@@ -486,7 +486,7 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="alignmentY" type="float" value="0.0"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -537,7 +537,7 @@
             <Property name="text" type="java.lang.String" value="&gt;"/>
             <Property name="alignmentY" type="float" value="0.0"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
@@ -594,7 +594,7 @@
             <Property name="text" type="java.lang.String" value="&gt;|"/>
             <Property name="alignmentY" type="float" value="0.0"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -647,7 +647,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
           </Properties>
           <Events>
@@ -667,7 +667,7 @@
             <Property name="text" type="java.lang.String" value="&lt;"/>
             <Property name="alignmentY" type="float" value="0.0"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
@@ -687,7 +687,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Remove"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
           </Properties>
           <Events>
@@ -707,7 +707,7 @@
             <Property name="text" type="java.lang.String" value="Done"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="&#x9ed8;&#x8ba4;&#x5149;&#x6807;"/>
+              <Color id="&#x624b;&#x578b;&#x5149;&#x6807;"/>
             </Property>
           </Properties>
           <Events>
