@@ -70,7 +70,7 @@ public final class PaymentHandling {
             String newPaymentID = "P" + String.format("%04d", payments.size() + 1);
             stringBuilder.append(newPaymentID).append(" ")
                     .append(application.getApplicationID()).append(" ")
-                    .append(application.getRoom().getRoomType().getRentalFee() / 12).append(" ")
+                    .append(application.getRoom().getRoomType().getRentalFee()).append(" ")
                     .append(Config.NOT_APPLICABLE).append(" ")
                     .append(Config.NOT_APPLICABLE).append("\n");
         }
@@ -125,7 +125,7 @@ public final class PaymentHandling {
             LocalDate paymentDueDate = startDate.plusMonths(payments.indexOf(payment) + 1).plusDays(7);
             if (now.isAfter(paymentDueDate)) {
                 payment.setStatus(PaymentStatus.OVERDUE);
-                payment.setAmount(payment.getAmount() + application.getRoom().getRoomType().getRentalFee() / 12 + 50);
+                payment.setAmount(payment.getAmount() + application.getRoom().getRoomType().getRentalFee() + 50);
             }
             switch (payment.getStatus()) {
                 case PENDING, OVERDUE ->
