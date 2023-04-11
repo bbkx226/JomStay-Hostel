@@ -55,7 +55,7 @@ public class RoomHandling {
             roomListString += String.format("R%03d %s %b %s\n",
                     i, room.getStatus(),
                     room.isServicing(),
-                    room.getRoomType()
+                    room.getRoomType().getTypeName()
             );
             i++;
         }
@@ -63,7 +63,7 @@ public class RoomHandling {
     }
 
     public static void appendRoomFile(Room room) {
-        FileHandlerUtils.writeString(PATH, room.toString(), true);
+        FileHandlerUtils.writeString(PATH, room.toString() + "\n", true);
     }
 
     // Get available rooms
@@ -96,7 +96,7 @@ public class RoomHandling {
         for (String line : FileHandlerUtils.readLines(ROOM_TYPE_PATH)) {
             if (!line.isEmpty()) {
                 String[] data = line.split(": ");
-                String formattedData = data[1].replace("\n", "");
+                String formattedData = data[1].trim();
                 tempBuffer += formattedData + " ";
             } else {
                 String[] finalData = tempBuffer.split(" ");
