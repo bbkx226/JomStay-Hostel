@@ -118,7 +118,7 @@ public class AvailableRoom extends javax.swing.JFrame {
                 room.getRoomID(),
                 room.getStatus(),
                 room.isServicing(),
-                room.getRoomType()
+                room.getRoomType().getTypeName()
             });
     }//GEN-LAST:event_formComponentShown
     
@@ -156,10 +156,8 @@ public class AvailableRoom extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AvailableRoom().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AvailableRoom().setVisible(true);
         });
     }
 

@@ -16,8 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 public class RecordAD extends javax.swing.JFrame {
-    private final ArrayList<Student> totalStudents = new UserHandling().getStudents();
-    private final ArrayList<Application> totalApplications = new ApplicationHandling().getTotalApplications();
+    private final ArrayList<Student> totalStudents = UserHandling.getStudents();
+    private final ArrayList<Application> totalApplications = ApplicationHandling.getTotalApplications();
     private ArrayList<Application> studentApplications;
     private int record = 0;
 
@@ -441,7 +441,7 @@ public class RecordAD extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(emailBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(genderDropbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -516,9 +516,9 @@ public class RecordAD extends javax.swing.JFrame {
         TableColumnModel columnModel = recordTable.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(75);
         columnModel.getColumn(1).setPreferredWidth(80);
-        columnModel.getColumn(2).setPreferredWidth(75);
-        columnModel.getColumn(3).setPreferredWidth(175);
-        columnModel.getColumn(4).setPreferredWidth(175);
+        columnModel.getColumn(2).setPreferredWidth(90);
+        columnModel.getColumn(3).setPreferredWidth(150);
+        columnModel.getColumn(4).setPreferredWidth(150);
         columnModel.getColumn(5).setPreferredWidth(175);
         recordTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         int selectedRow = studentTable.getSelectedRow();
@@ -542,8 +542,8 @@ public class RecordAD extends javax.swing.JFrame {
                 application.getApplicationID(), 
                 application.getRoom().getRoomID(), 
                 application.getStatus(), 
-                ApplicationHandling.checkAndModifyDate(application.getStartDate()), 
-                ApplicationHandling.checkAndModifyDate(application.getEndDate()), 
+                application.getStartDate(),
+                application.getEndDate(),
                 ApplicationHandling.checkAndModifyDate(application.getCreateDate())
             });
         recordTable.setModel(recordModel);

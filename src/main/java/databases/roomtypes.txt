@@ -1,34 +1,35 @@
 Room Type: Single
 Number of Beds: 4
 Gender: Mixed
-Price (Annual): 25000.00
+Price (Monthly): 3000.00
 Facilities: Shared_Bathroom,Kitchen,Common_Area,Laundry_Area
 Free WiFi: true
 
 Room Type: Double
 Number of Beds: 2
 Gender: Mixed
-Price (Annual): 22000.00
+Price (Monthly): 3500.00
 Facilities: Shared_Bathroom,Kitchen,Common_Area,Laundry_Area
 Free WiFi: true
 
 Room Type: Private
 Number of Beds: 1
 Gender: Mixed
-Price (Annual): 10000.00
+Price (Monthly): 2000.00
 Facilities: Private_Bathroom,Kitchen
 Free WiFi: false
 
 Room Type: Twin
 Number of Beds: 2
 Gender: Mixed
-Price (Annual): 18000.00
+Price (Monthly): 2500.00
 Facilities: Shared_Bathroom,Kitchen,Common_Area,Laundry_Area
 Free WiFi: true
 
-Room Type: Female-Only
+Room Type: Female
 Number of Beds: 4
 Gender: Female
-Price (Annual): 22000.00
+Price (Monthly): 2750.00
 Facilities: Shared_Bathroom,Kitchen,Common_Area,Laundry_Area
 Free WiFi: false
+

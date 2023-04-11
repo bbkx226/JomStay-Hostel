@@ -298,6 +298,11 @@ public class ApplicationAD extends javax.swing.JFrame {
         startDateBox.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
         startDateBox.setText("-");
         startDateBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        startDateBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startDateBoxActionPerformed(evt);
+            }
+        });
 
         endDateBox.setEditable(false);
         endDateBox.setBackground(new java.awt.Color(255, 255, 255));
@@ -651,9 +656,9 @@ public class ApplicationAD extends javax.swing.JFrame {
         DefaultTableModel tableModel =  (DefaultTableModel) applicationTable.getModel();
         TableColumnModel columnModel = applicationTable.getColumnModel();
         tableModel.setRowCount(0);
-        columnModel.getColumn(0).setPreferredWidth(50);
+        columnModel.getColumn(0).setPreferredWidth(60);
         columnModel.getColumn(1).setPreferredWidth(300);
-        columnModel.getColumn(2).setPreferredWidth(50);
+        columnModel.getColumn(2).setPreferredWidth(60);
         columnModel.getColumn(3).setPreferredWidth(225);
         columnModel.getColumn(4).setPreferredWidth(100);
         applicationTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
@@ -783,6 +788,10 @@ public class ApplicationAD extends javax.swing.JFrame {
     private void rejectButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rejectButtonMouseExited
         rejectButton.setBackground(new java.awt.Color(153, 153, 255));
     }//GEN-LAST:event_rejectButtonMouseExited
+
+    private void startDateBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startDateBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_startDateBoxActionPerformed
     
     public void start() {
         new ApplicationAD().setVisible(true);
@@ -799,8 +808,8 @@ public class ApplicationAD extends javax.swing.JFrame {
         ICBox.setText(application.getStudent().getNRIC());
         emailBox.setText(application.getStudent().getEmail());
         roomIDBox.setText(application.getRoom().getRoomID());
-        startDateBox.setText(checkAndModifyDate(application.getStartDate()));
-        endDateBox.setText(checkAndModifyDate(application.getEndDate()));
+        startDateBox.setText(application.getStartDate());
+        endDateBox.setText(application.getEndDate());
     }
     
     // Check if the index is valid
@@ -845,7 +854,8 @@ public class ApplicationAD extends javax.swing.JFrame {
         Application applicationToDecision = pendingApplications.get(record);
         for (Application application : totalApplications){
             if(applicationToDecision.getApplicationID().equals(application.getApplicationID())){
-                application.setStatus(decision);
+                if(decision.equals("Rejected"))application.setStatus(decision);
+                else if(decision.equals("Accepted")) application.setStatus("Reserved");
                 break;
             }
         }
