@@ -656,9 +656,9 @@ public class ApplicationAD extends javax.swing.JFrame {
         DefaultTableModel tableModel =  (DefaultTableModel) applicationTable.getModel();
         TableColumnModel columnModel = applicationTable.getColumnModel();
         tableModel.setRowCount(0);
-        columnModel.getColumn(0).setPreferredWidth(60);
+        columnModel.getColumn(0).setPreferredWidth(75);
         columnModel.getColumn(1).setPreferredWidth(300);
-        columnModel.getColumn(2).setPreferredWidth(60);
+        columnModel.getColumn(2).setPreferredWidth(75);
         columnModel.getColumn(3).setPreferredWidth(225);
         columnModel.getColumn(4).setPreferredWidth(100);
         applicationTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
@@ -854,20 +854,19 @@ public class ApplicationAD extends javax.swing.JFrame {
         Application applicationToDecision = pendingApplications.get(record);
         for (Application application : totalApplications){
             if(applicationToDecision.getApplicationID().equals(application.getApplicationID())){
-                if(decision.equals("Rejected"))application.setStatus(decision);
-                else if(decision.equals("Accepted")) application.setStatus("Reserved");
+                application.setStatus(decision);
                 break;
             }
         }
         
-        //if(decision.equals("Accepted")){
-        //    for(Room room : rooms){
-        //       if(room.getRoomID().equals(applicationToDecision.getRoom().getRoomID())){
-        //            room.setStatus("Occupied");
-        //           break;
-        //        }
-        //    }
-        //}
+        if(decision.equals("Accepted")){
+            for(Room room : rooms){
+               if(room.equals(applicationToDecision.getRoom())){
+                    room.setStatus("Reserved");
+                    break;
+                }
+            }
+        }
         
         ApplicationHandling.updateApplicationFile(totalApplications);
         RoomHandling.updateRoomFile(rooms);
