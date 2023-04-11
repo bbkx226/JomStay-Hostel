@@ -7,6 +7,7 @@ package Utils;
 import Models.Application;
 import Models.Payment;
 import Models.Payment.PaymentStatus;
+import Utils.Config.filePath;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
  */
 public final class PaymentHandling {
 
-    private static final String PATH = "src/main/java/databases/payment.txt";
+    private static final String PATH = filePath.PAYMENT_PATH.getValue();
 
     public static ArrayList<Payment> getAllPayments() {
         return FileHandlerUtils.readLines(PATH).stream()

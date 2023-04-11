@@ -3,6 +3,7 @@ package Utils;
 
 import Models.Admin;
 import Models.Student;
+import Utils.Config.filePath;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class UserHandling {
-    private static final String PATH = "src/main/java/databases/auth.txt";
-    private static final String STUDENT_DETAILS_PATH = "src/main/java/databases/studentdetails.txt";
+    private static final String PATH = filePath.AUTHENTICATION_PATH.getValue();
+    private static final String STUDENT_DETAILS_PATH = filePath.STUDENTDETAIL_PATH.getValue();
 
     // Returns an ArrayList of Student objects from the database
     public static ArrayList<Student> getStudents() {
