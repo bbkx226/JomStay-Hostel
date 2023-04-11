@@ -7,8 +7,6 @@ package DesignUI;
 import Models.Application;
 import Models.Payment;
 import Models.Payment.PaymentStatus;
-import Models.Room;
-import Models.Student;
 import Utils.ApplicationPaymentDetails;
 import Utils.Config;
 import Utils.PaymentHandling;
@@ -18,22 +16,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ItemEvent;
 import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.*;
 
 /**
@@ -56,6 +44,7 @@ public class PaymentST extends javax.swing.JPanel {
     public PaymentST() {
         initData();
         initComponents();
+        initTable();
     }
     
     private static void initData() {
@@ -161,11 +150,6 @@ public class PaymentST extends javax.swing.JPanel {
         payBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                showComponents(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setText("Payment");
@@ -395,14 +379,8 @@ public class PaymentST extends javax.swing.JPanel {
         columnModel.getColumn(6).setCellRenderer(centerRenderer);
         columnModel.getColumn(7).setCellRenderer(centerRenderer);
     }
-    
-    private void showComponents(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_showComponents
-        // TODO add your handling code here:
-        initTable();
-    }//GEN-LAST:event_showComponents
-        
+            
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
-        // TODO add your handling code here:
         if (! Validator.validatePaymentTableSelection(payments, paymentTable, selectedMonths, selectedAmt)) {
             PopUpWindow.showErrorMessage("Invalid selection. Please click the 'Reset' button if any values are invalid.", "Error");
         } else {

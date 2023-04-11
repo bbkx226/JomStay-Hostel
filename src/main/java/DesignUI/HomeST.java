@@ -28,16 +28,51 @@ public class HomeST extends javax.swing.JPanel {
      * Creates new form HomeST
      */
     public HomeST() {
-        initData();
         initComponents();
+        if (HostelST.getCurrentUserRoom() != null) {
+            initData();
+            setLabels();
+        }
+        
     }
     
     private static void initData() {
         room = HostelST.getCurrentUserRoom();
         application = HostelST.getCurrentUserApplication();
         roomType = room.getRoomType();
-        formatter = Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormatter();
+        formatter = Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter();
         paymentDetails = HostelST.getCurrentPaymentDetails();
+    }
+
+    private static void setLabels() {
+        roomNumLabel.setText(room.getRoomID());
+        servicingLabel.setText(room.getServicingString());
+        checkInDateLabel.setText(application.getLocalStartDate().format(formatter));
+        checkOutDateLabel.setText(application.getLocalStartDate().format(formatter));
+        applicationStatusLabel.setText(application.getStatus());
+        switch (application.getStatus()) {
+            case "Pending" -> applicationStatusLabel.setForeground(Color.BLUE);
+            case "Rejected" -> {
+                applicationStatusLabel.setForeground(Color.RED);
+                reApplyBtn.setVisible(true);
+            }
+            case "Accepted" -> applicationStatusLabel.setForeground(Color.GREEN);
+            default -> {
+                applicationStatusLabel.setForeground(Color.BLACK);
+                reApplyBtn.setVisible(true);
+            }
+        }
+        roomTypeLabel.setText(roomType.getTypeName());
+        paymentStatusLabel.setText(paymentDetails.getStatusString());
+        switch (paymentDetails.getStatus()) {
+            case PENDING -> paymentStatusLabel.setForeground(Color.BLUE);
+            case OVERDUE -> paymentStatusLabel.setForeground(Color.RED);
+            case PAID -> paymentStatusLabel.setForeground(Color.GREEN);
+            default -> paymentStatusLabel.setForeground(Color.BLACK);
+        }
+        dueDateLabel.setText(paymentDetails.getDueDateString(Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter()));
+        amtDueLabel.setText(paymentDetails.getTotalAmtDueString(Config.CURRRENCY));
+        totalAmtPayableLabel.setText(paymentDetails.getAmtPayableString(Config.CURRRENCY));
     }
     
     /**
@@ -104,7 +139,7 @@ public class HomeST extends javax.swing.JPanel {
 
         roomNumLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         roomNumLabel.setForeground(new java.awt.Color(0, 0, 0));
-        roomNumLabel.setText(room.getRoomID());
+        roomNumLabel.setText(Config.NOT_APPLICABLE);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -140,7 +175,7 @@ public class HomeST extends javax.swing.JPanel {
 
         servicingLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         servicingLabel.setForeground(new java.awt.Color(0, 0, 0));
-        servicingLabel.setText(room.getServicingString());
+        servicingLabel.setText(Config.NOT_APPLICABLE);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -175,7 +210,7 @@ public class HomeST extends javax.swing.JPanel {
 
         checkInDateLabel.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         checkInDateLabel.setForeground(new java.awt.Color(0, 0, 0));
-        checkInDateLabel.setText(application.getLocalStartDate().format(formatter));
+        checkInDateLabel.setText(Config.NOT_APPLICABLE);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -210,7 +245,7 @@ public class HomeST extends javax.swing.JPanel {
 
         checkOutDateLabel.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         checkOutDateLabel.setForeground(new java.awt.Color(0, 0, 0));
-        checkOutDateLabel.setText(application.getLocalStartDate().format(formatter));
+        checkOutDateLabel.setText(Config.NOT_APPLICABLE);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -245,7 +280,7 @@ public class HomeST extends javax.swing.JPanel {
 
         applicationStatusLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         applicationStatusLabel.setForeground(new java.awt.Color(0, 0, 0));
-        applicationStatusLabel.setText(application.getStatus());
+        applicationStatusLabel.setText(Config.NOT_APPLICABLE);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -288,7 +323,7 @@ public class HomeST extends javax.swing.JPanel {
             roomTypeName = roomTypeName.replaceAll("\\s", "");
         }
         roomTypeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        roomTypeLabel.setText(roomType.getTypeName());
+        roomTypeLabel.setText(Config.NOT_APPLICABLE);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -326,7 +361,7 @@ public class HomeST extends javax.swing.JPanel {
         jPanel1.add(jLabel12);
 
         paymentStatusLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        paymentStatusLabel.setText(paymentDetails.getStatusString());
+        paymentStatusLabel.setText(Config.NOT_APPLICABLE);
         jPanel1.add(paymentStatusLabel);
 
         jLabel14.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -334,7 +369,7 @@ public class HomeST extends javax.swing.JPanel {
         jPanel1.add(jLabel14);
 
         dueDateLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        dueDateLabel.setText(paymentDetails.getDueDateString(Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormat()));
+        dueDateLabel.setText(Config.NOT_APPLICABLE);
         jPanel1.add(dueDateLabel);
 
         jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -342,7 +377,7 @@ public class HomeST extends javax.swing.JPanel {
         jPanel1.add(jLabel19);
 
         amtDueLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        amtDueLabel.setText(paymentDetails.getTotalAmtDueString(Config.CURRRENCY));
+        amtDueLabel.setText(Config.NOT_APPLICABLE);
         jPanel1.add(amtDueLabel);
 
         jLabel15.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -350,7 +385,7 @@ public class HomeST extends javax.swing.JPanel {
         jPanel1.add(jLabel15);
 
         totalAmtPayableLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        totalAmtPayableLabel.setText(paymentDetails.getAmtPayableString(Config.CURRRENCY));
+        totalAmtPayableLabel.setText(Config.NOT_APPLICABLE);
         jPanel1.add(totalAmtPayableLabel);
 
         paymentPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 320, 320));
@@ -385,18 +420,6 @@ public class HomeST extends javax.swing.JPanel {
         });
         add(reApplyBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 520, 120, 30));
         reApplyBtn.setVisible(false);
-        switch (applicationStatusLabel.getText()) {
-            case "Pending" -> applicationStatusLabel.setForeground(Color.BLUE);
-            case "Rejected" -> {
-                applicationStatusLabel.setForeground(Color.RED);
-                reApplyBtn.setVisible(true);
-            }
-            case "Accepted" -> applicationStatusLabel.setForeground(Color.GREEN);
-            default -> {
-                applicationStatusLabel.setForeground(Color.BLACK);
-                reApplyBtn.setVisible(true);
-            }
-        }
     }// </editor-fold>//GEN-END:initComponents
 
     private void paymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBtnActionPerformed

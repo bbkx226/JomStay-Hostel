@@ -5,6 +5,8 @@ import Models.Room;
 import Models.RoomType;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 public class RoomHandling {
 
@@ -13,22 +15,34 @@ public class RoomHandling {
     public ArrayList<Room> totalRooms = getRooms();
 
     public static ArrayList<Room> getRooms() {
-        ArrayList<Room> buffer = new ArrayList<>();
-        for (String line : FileHandlerUtils.readLines(PATH)) {
-            String[] data = line.split(" ");
-            RoomType roomType = compareToRoomType(data[3]);
-            Room room = new Room(data[0], data[1], Boolean.parseBoolean(data[2]), roomType);
-            buffer.add(room);
-        }
-        return buffer;
+        return FileHandlerUtils.readLines(PATH)
+                .stream()
+                .map(line -> {
+                    String[] data = line.split(" ");
+                    return new Room(data[0], data[1], Boolean.parseBoolean(data[2]), compareToRoomType(data[3]));
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
+//        ArrayList<Room> buffer = new ArrayList<>();
+//        for (String line : FileHandlerUtils.readLines(PATH)) {
+//            String[] data = line.split(" ");
+//            RoomType roomType = compareToRoomType(data[3]);
+//            Room room = new Room(data[0], data[1], Boolean.parseBoolean(data[2]), roomType);
+//            buffer.add(room);
+//        }
+//        return buffer;
     }
 
     public static void updateRoomFile(ArrayList<Room> rooms) {
-        String roomListString = "";
+        StringJoiner roomListString = new StringJoiner("\n");
         for (Room room : rooms) {
-            roomListString += room.toString();
+            roomListString.add(room.toString());
         }
-        FileHandlerUtils.writeString(PATH, roomListString, false);
+        FileHandlerUtils.writeString(PATH, roomListString.toString(), false);
+//        String roomListString = "";
+//        for (Room room : rooms) {
+//            roomListString += room.toString();
+//        }
+//        FileHandlerUtils.writeString(PATH, roomListString, false);
     }
 
     public static void deleteRoomData(ArrayList<Room> rooms, String roomID) {
@@ -65,7 +79,7 @@ public class RoomHandling {
         }
         return buffer;
     }
-    
+
     public static Room getFirstAvailableRoom(RoomType roomType) {
         for (Room room : getAvailableRooms()) {
             if (roomType.equals(room.getRoomType())) {

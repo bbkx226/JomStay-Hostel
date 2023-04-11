@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class UserHandling {
     private static final String PATH = "src/main/java/databases/auth.txt";
@@ -17,34 +18,42 @@ public class UserHandling {
 
     // Returns an ArrayList of Student objects from the database
     public static ArrayList<Student> getStudents() {
-        ArrayList<Student> buffer = new ArrayList<>();
-        boolean flag = false;
-        for (String line : FileHandlerUtils.readLines(PATH)) {
-            String[] data = line.split(" ");
-            if (data[0].startsWith("ST")) {
-                Student student = new Student(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
-                for (String sLine : FileHandlerUtils.readLines(STUDENT_DETAILS_PATH)) {
-                    String[] sData = sLine.split(" ");
-                    if (flag) {
-                        flag = false;
-                        break;
-                    }
-                    if (sData[0].equals(student.getID())) {
-                        student.setNationality(sData[1]);
-                        student.setRace(sData[2]);
-                        student.setReligion(sData[3]);
-                        student.setPermanentAddress(sData[4]);
-                        student.setMedicalCondition(sData[5]);
-                        student.setEmerContactName(sData[6]);
-                        student.setEmerContactRelationship(sData[7]);
-                        student.setEmerContactNo(sData[8]);
-                        buffer.add(student);
-                        flag = true;
-                    }
-                }
-            }
-        }
-        return buffer;
+//        ArrayList<Student> buffer = new ArrayList<>();
+//        
+//        for (String line : FileHandlerUtils.readLines(PATH)) {
+//            String[] data = line.split(" ");
+//            
+//            if (data[0].startsWith("ST")) {
+//                Student student = new Student(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
+//                setStudentDetails(student);
+//                buffer.add(student);
+//            }
+//        }
+//        return buffer;
+        return FileHandlerUtils.readLines(PATH).stream()
+            .map(line -> line.split(" "))
+            .filter(data -> data[0].startsWith("ST"))
+            .map(data -> new Student(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]))
+            .map(student -> setStudentDetails(student))
+            .collect(Collectors.toCollection(ArrayList::new));
+    }
+    
+    // Sets the extra student details of the specified student from the student details file and returns the student object
+    private static Student setStudentDetails(Student student) {
+        String ID = student.getID();
+        int numDigits = ID.substring(2).length();
+        int index = Integer.parseInt(ID.substring(ID.length() - numDigits)) - 1;
+        
+        String[] data = FileHandlerUtils.readLines(STUDENT_DETAILS_PATH).get(index).split(" ");
+        student.setNationality(data[1]);
+        student.setRace(data[2]);
+        student.setReligion(data[3]);
+        student.setPermanentAddress(data[4]);
+        student.setMedicalCondition(data[5]);
+        student.setEmerContactName(data[6]);
+        student.setEmerContactRelationship(data[7]);
+        student.setEmerContactNo(data[8]);
+        return student;
     }
 
     // Returns an ArrayList of Admin objects from the database
@@ -88,6 +97,15 @@ public class UserHandling {
             //if the printwriter throws an IOException, shows an error message
             PopUpWindow.showErrorMessage("Error writing to file", "Error");
         }
+    }
+    
+    public static void addNewEmptyStudentDetail(String studentID) {
+        String stringToWrite = studentID + " ";
+        for (int i = 0; i < 8; i++) {
+            stringToWrite += Config.NOT_APPLICABLE + " ";
+        }
+        stringToWrite += "\n";
+        FileHandlerUtils.writeString(STUDENT_DETAILS_PATH, stringToWrite, true);
     }
     
     public static void updateStudentDetail(Student student) {

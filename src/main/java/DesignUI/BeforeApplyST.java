@@ -8,10 +8,7 @@ import Models.Room;
 import Models.Student;
 import Utils.Config;
 import Utils.PopUpWindow;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import static Utils.Validator.validateApplicationInputDate;
 import java.util.HashMap;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -34,14 +31,14 @@ public class BeforeApplyST extends javax.swing.JPanel {
     public BeforeApplyST() {
         initData();
         initComponents();
+        setRequiredFields();
         if (!student.getNationality().equals(Config.NOT_APPLICABLE)) {
             fillFields();
         }
-        setRequiredFields();
     }
 
     private void initData() {
-        room = HostelST.getCurrentUserRoom();
+        room = HostelST.getSelectedRoom();
         student = HostelST.getCurrentUser();
     }
     
@@ -419,43 +416,6 @@ public class BeforeApplyST extends javax.swing.JPanel {
         }
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * Validates an input date string using the specified format and returns a
-     * LocalDateTime object with a time of 12:00 PM on the input date if the
-     * date is valid and not in the past.
-     *
-     * @param dateString A string representing the input date to be validated
-     * @param format A string representing the format of the input date string
-     * (e.g. "dd-MM-yyyy")
-     * @return A LocalDateTime object with a time of 12:00 PM on the input date
-     * if the date is valid and not in the past. Returns null if the input date
-     * string is not in the correct format or if the parsed date is in the past.
-     */
-    private static LocalDateTime validateInputDate(String dateString, String format) {
-        // Define a DateTimeFormatter object to parse the input date string
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-
-        // Declare a LocalDate object to hold the parsed date
-        LocalDate date;
-
-        // Attempt to parse the input date string using the specified format
-        try {
-            date = LocalDate.parse(dateString, formatter);
-        } catch (DateTimeParseException e) {
-            // Return null if the input date string is not in the correct format
-            return null;
-        }
-
-        // Check that the parsed date is not in the past
-        if (date.isBefore(LocalDate.now())) {
-            // Return null if the input date is in the past
-            return null;
-        }
-
-        // Return a LocalDateTime object with a time of 12:00 PM on the input date
-        return date.atTime(12, 0);
-    }
-
     private boolean requiredFieldsValid() {
         for (JTextField field : requiredFields.values()) {
             if (field.getText().isBlank()) {
@@ -466,12 +426,12 @@ public class BeforeApplyST extends javax.swing.JPanel {
     }
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
-        if (HostelST.getSelectedRoomType() == null) {
+        if (HostelST.getSelectedRoom() == null) {
             PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
             HostelST.showRooms();
         } else if (requiredFieldsValid() == false) {
             PopUpWindow.showErrorMessage("Please fill in all the required(*) fields.", "Error");
-        } else if (validateInputDate(startDateField.getText(), DATE_INPUT_FORMAT) == null) {
+        } else if (validateApplicationInputDate(startDateField.getText(), DATE_INPUT_FORMAT) == null) {
             PopUpWindow.showErrorMessage("Invalid date or format.", "Error");
         } else {
             HostelST.showTnC();
