@@ -67,10 +67,10 @@ public class HostelAD extends javax.swing.JFrame {
         priceBox = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        firstFacilitiesBox = new javax.swing.JTextField();
         specificationBox = new javax.swing.JTextField();
-        secondFacilitiesBox = new javax.swing.JTextField();
         freeWifiBox = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        facilitiesTextArea = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         roomTable = new javax.swing.JTable();
 
@@ -186,7 +186,7 @@ public class HostelAD extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(reportsIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(signoutIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(signoutIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,7 +261,8 @@ public class HostelAD extends javax.swing.JFrame {
         jLabel8.setText("Status:");
 
         roomStatus.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
-        roomStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Occupied" }));
+        roomStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Occupied", "Reserved" }));
+        roomStatus.setOpaque(true);
 
         nextQuery.setBackground(new java.awt.Color(153, 153, 255));
         nextQuery.setFont(new java.awt.Font("Baskerville Old Face", 1, 12)); // NOI18N
@@ -409,10 +410,11 @@ public class HostelAD extends javax.swing.JFrame {
         jLabel16.setText("Specification:");
 
         roomType.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
-        roomType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Single", "Double", "Private", "Female-Only", "Twin" }));
+        roomType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Single", "Double", "Private", "Female", "Twin" }));
+        roomType.setOpaque(true);
 
         jLabel17.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
-        jLabel17.setText("Price (Annual):");
+        jLabel17.setText("Price (Monthly):");
 
         priceBox.setEditable(false);
         priceBox.setBackground(new java.awt.Color(255, 255, 255));
@@ -425,25 +427,27 @@ public class HostelAD extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
         jLabel19.setText("Facilities:");
 
-        firstFacilitiesBox.setEditable(false);
-        firstFacilitiesBox.setBackground(new java.awt.Color(255, 255, 255));
-        firstFacilitiesBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
-        firstFacilitiesBox.setBorder(null);
-
         specificationBox.setEditable(false);
         specificationBox.setBackground(new java.awt.Color(255, 255, 255));
         specificationBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
         specificationBox.setBorder(null);
 
-        secondFacilitiesBox.setEditable(false);
-        secondFacilitiesBox.setBackground(new java.awt.Color(255, 255, 255));
-        secondFacilitiesBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
-        secondFacilitiesBox.setBorder(null);
-
         freeWifiBox.setEditable(false);
         freeWifiBox.setBackground(new java.awt.Color(255, 255, 255));
         freeWifiBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
         freeWifiBox.setBorder(null);
+
+        facilitiesTextArea.setEditable(false);
+        facilitiesTextArea.setBackground(new java.awt.Color(255, 255, 255));
+        facilitiesTextArea.setColumns(20);
+        facilitiesTextArea.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
+        facilitiesTextArea.setLineWrap(true);
+        facilitiesTextArea.setRows(2);
+        facilitiesTextArea.setWrapStyleWord(true);
+        facilitiesTextArea.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        facilitiesTextArea.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        facilitiesTextArea.setHighlighter(null);
+        jScrollPane2.setViewportView(facilitiesTextArea);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -505,16 +509,14 @@ public class HostelAD extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel17)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(priceBox))
+                                        .addComponent(priceBox, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel14)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(roomType, 0, 141, Short.MAX_VALUE)))
                                 .addGap(28, 28, 28))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(secondFacilitiesBox, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(firstFacilitiesBox, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -559,10 +561,8 @@ public class HostelAD extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(firstFacilitiesBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(secondFacilitiesBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(removeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -615,7 +615,7 @@ public class HostelAD extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -637,8 +637,10 @@ public class HostelAD extends javax.swing.JFrame {
                             .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         pack();
@@ -701,8 +703,7 @@ public class HostelAD extends javax.swing.JFrame {
         priceBox.setText("");
         noOfBedsBox.setText("");
         specificationBox.setText("");
-        firstFacilitiesBox.setText("");
-        secondFacilitiesBox.setText("");
+        facilitiesTextArea.setText("");
         freeWifiBox.setText("");
         roomType.setSelectedItem("Select");
         
@@ -733,7 +734,7 @@ public class HostelAD extends javax.swing.JFrame {
                 room.getRoomID(), 
                 room.getStatus(), 
                 room.isServicing(), 
-                room.getRoomType()
+                room.getRoomType().getTypeName()
             });
         showInForm(0);
     }//GEN-LAST:event_formComponentShown
@@ -879,19 +880,8 @@ public class HostelAD extends javax.swing.JFrame {
     }
 
     private void formatFacilitiesData(RoomType type){
-        int countLength = 0;
-        String formattedFacilities = type.getFacilities().replaceAll("_", " ");
-        String[] dataSplitShow = formattedFacilities.split(",");
-        String firstBox =  "", secondBox = "";
-        for(String data : dataSplitShow){
-            countLength += data.length();
-            if (countLength <= 30)firstBox += data + ", ";
-            else secondBox += data + ", ";
-        }
-        firstBox = firstBox.substring(0, firstBox.length() - 2);
-        secondBox = secondBox.substring(0, secondBox.length() - 2);
-        firstFacilitiesBox.setText(firstBox);
-        secondFacilitiesBox.setText(secondBox); 
+        String dataAll = type.getFacilitiesString();
+        facilitiesTextArea.setText(dataAll); 
     }
     // The code below is used to check the index of the room
     // and to make sure that the index is not out of bounds
@@ -1036,7 +1026,7 @@ public class HostelAD extends javax.swing.JFrame {
     private javax.swing.JLabel applicationIcon;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton doneButton;
-    private javax.swing.JTextField firstFacilitiesBox;
+    private javax.swing.JTextArea facilitiesTextArea;
     private javax.swing.JButton firstQuery;
     private javax.swing.JTextField freeWifiBox;
     private javax.swing.JLabel hostelIcon;
@@ -1053,6 +1043,7 @@ public class HostelAD extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton lastQuery;
     private javax.swing.JButton nextQuery;
     private javax.swing.JTextField noOfBedsBox;
@@ -1068,7 +1059,6 @@ public class HostelAD extends javax.swing.JFrame {
     private javax.swing.JTextField searchBox;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchField;
-    private javax.swing.JTextField secondFacilitiesBox;
     private javax.swing.JLabel signoutIcon;
     private javax.swing.JTextField specificationBox;
     private javax.swing.JLabel students;
