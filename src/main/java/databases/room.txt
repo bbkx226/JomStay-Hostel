@@ -8,7 +8,7 @@ R007 Available false Female
 R008 Occupied false Single
 R009 Available false Twin
 R010 Available true Twin
-R011 Available false Single
+R011 Reserved false Single
 R012 Occupied false Double
 R013 Available false Female
 R014 Available true Female

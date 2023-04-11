@@ -7,6 +7,7 @@ package Utils;
 import Models.Application;
 import Models.Payment;
 import Models.Payment.PaymentStatus;
+import Utils.Config.filePath;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
  */
 public final class PaymentHandling {
 
-    private static final String PATH = "src/main/java/databases/payment.txt";
+    private static final String PATH = filePath.PAYMENT_PATH.getValue();
 
     public static ArrayList<Payment> getAllPayments() {
         return FileHandlerUtils.readLines(PATH).stream()
@@ -70,6 +71,7 @@ public final class PaymentHandling {
             String newPaymentID = "P" + String.format("%04d", payments.size() + 1);
             stringBuilder.append(newPaymentID).append(" ")
                     .append(application.getApplicationID()).append(" ")
+                    .append(PaymentStatus.PENDING.getStatusString()).append(" ")
                     .append(application.getRoom().getRoomType().getRentalFee()).append(" ")
                     .append(Config.NOT_APPLICABLE).append(" ")
                     .append(Config.NOT_APPLICABLE).append("\n");

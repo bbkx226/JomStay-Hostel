@@ -3,6 +3,7 @@ package Utils;
 
 import Models.Room;
 import Models.RoomType;
+import Utils.Config.filePath;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringJoiner;
@@ -10,8 +11,8 @@ import java.util.stream.Collectors;
 
 public class RoomHandling {
 
-    private static final String PATH = "src/main/java/databases/room.txt";
-    private static final String ROOM_TYPE_PATH = "src/main/java/databases/roomtypes.txt";
+    private static final String PATH = filePath.ROOM_PATH.getValue();
+    private static final String ROOM_TYPE_PATH = filePath.ROOMTYPE_PATH.getValue();
     public ArrayList<Room> totalRooms = getRooms();
 
     public static ArrayList<Room> getRooms() {
