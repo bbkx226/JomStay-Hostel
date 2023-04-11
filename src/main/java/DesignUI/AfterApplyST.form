@@ -112,11 +112,11 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Config.NOT_APPLICABLE" type="code"/>
+              <Connection code="application.getStatus()" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if (statusLabel.getText().equals(&quot;Pending&quot;)) {&#xa;    statusLabel.setForeground(Color.BLUE);&#xa;} else if (statusLabel.getText().equals(&quot;Rejected&quot;)) {&#xa;    statusLabel.setForeground(Color.RED);&#xa;} else {&#xa;    statusLabel.setForeground(Color.GREEN);&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="switch (statusLabel.getText()) {&#xa;    case &quot;Pending&quot; -&gt;&#xa;        statusLabel.setForeground(Color.BLUE);&#xa;    case &quot;Rejected&quot; -&gt;&#xa;        statusLabel.setForeground(Color.RED);&#xa;    case &quot;Accepted&quot; -&gt;&#xa;        statusLabel.setForeground(Color.GREEN);&#xa;    default -&gt;&#xa;        statusLabel.setForeground(Color.BLACK);&#xa;}"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
           </AuxValues>
         </Component>
@@ -140,11 +140,10 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Config.NOT_APPLICABLE" type="code"/>
+              <Connection code="application.getLocalCreateDate().format(createDateFormatter)" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if (statusLabel.getText().equals(&quot;Pending&quot;)) {&#xa;    statusLabel.setForeground(Color.BLUE);&#xa;} else if (statusLabel.getText().equals(&quot;Rejected&quot;)) {&#xa;    statusLabel.setForeground(Color.RED);&#xa;} else {&#xa;    statusLabel.setForeground(Color.GREEN);&#xa;}"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
           </AuxValues>
         </Component>
@@ -168,11 +167,10 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Config.NOT_APPLICABLE" type="code"/>
+              <Connection code="application.getLocalStartDate().format(dateFormatter)" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if (statusLabel.getText().equals(&quot;Pending&quot;)) {&#xa;    statusLabel.setForeground(Color.BLUE);&#xa;} else if (statusLabel.getText().equals(&quot;Rejected&quot;)) {&#xa;    statusLabel.setForeground(Color.RED);&#xa;} else {&#xa;    statusLabel.setForeground(Color.GREEN);&#xa;}"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
           </AuxValues>
         </Component>
@@ -196,11 +194,10 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Config.NOT_APPLICABLE" type="code"/>
+              <Connection code="application.getLocalEndDate().format(dateFormatter)" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if (statusLabel.getText().equals(&quot;Pending&quot;)) {&#xa;    statusLabel.setForeground(Color.BLUE);&#xa;} else if (statusLabel.getText().equals(&quot;Rejected&quot;)) {&#xa;    statusLabel.setForeground(Color.RED);&#xa;} else {&#xa;    statusLabel.setForeground(Color.GREEN);&#xa;}"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
           </AuxValues>
         </Component>
@@ -255,7 +252,7 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Config.NOT_APPLICABLE" type="code"/>
+              <Connection code="room.getRoomID()" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -282,7 +279,7 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Config.NOT_APPLICABLE" type="code"/>
+              <Connection code="room.getRoomType().getTypeName()" type="code"/>
             </Property>
           </Properties>
           <AuxValues>

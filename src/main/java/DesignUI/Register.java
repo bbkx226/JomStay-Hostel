@@ -5,6 +5,7 @@ import Utils.Validator;
 import Utils.FileDataHandling;
 import Utils.PasswordHandling;
 import Utils.PopUpWindow;
+import Utils.UserHandling;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -47,9 +48,11 @@ public class Register extends javax.swing.JFrame {
             } else if (Validator.isValidEmail(email) && Validator.isValidPhone(phoneNumber) && PasswordHandling.checkPassword(password, confirmPassword) && FileDataHandling.validateData(username, email) && PasswordHandling.getPasswordStrength(password).equals("Strong")){
                 String EncryptedPass = PasswordHandling.encrypt(password);
                 writer = new BufferedWriter(new FileWriter(file.getAbsolutePath(), true));
-                writer.append("ST" + String.format("%03d", FileDataHandling.getID()+1) + " " + formattedName + " " + email + " " + username + " " + gender + " " + "date" + " " + EncryptedPass + " " + phoneNumber + " " + NRIC);
+                String studentID = "ST" + String.format("%03d", FileDataHandling.getID()+1);
+                writer.append(studentID + " " + formattedName + " " + email + " " + username + " " + gender + " " + "date" + " " + EncryptedPass + " " + phoneNumber + " " + NRIC);
                 writer.newLine();
                 writer.close();
+                UserHandling.addNewEmptyStudentDetail(studentID);
                 PopUpWindow.showSuccessfulMessage("Congratulations, your account has been registered. Click OK to proceed to the login page.", "Registration was successful");
                 setVisible(false);
                 new Login().setVisible(true);

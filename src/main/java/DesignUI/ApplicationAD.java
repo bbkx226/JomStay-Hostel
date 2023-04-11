@@ -4,6 +4,7 @@ package DesignUI;
 import Models.Application;
 import Models.Room;
 import Utils.ApplicationHandling;
+import Utils.PaymentHandling;
 import Utils.PopUpWindow;
 import Utils.RoomHandling;
 import java.awt.event.KeyEvent;
@@ -860,6 +861,7 @@ public class ApplicationAD extends javax.swing.JFrame {
         
         ApplicationHandling.updateApplicationFile(totalApplications);
         RoomHandling.updateRoomFile(rooms);
+        PaymentHandling.addNewPendingPayments(applicationToDecision);
         dispose();
         new ApplicationAD().start();
         PopUpWindow.showSuccessfulMessage("The application details has successfully been updated~", "Congrats!");

@@ -11,15 +11,13 @@ import java.awt.CardLayout;
  * @author KZ
  */
 public class ApplicationST extends javax.swing.JPanel {
-
-    private static CardLayout card;
-
+    
     /**
      * Creates new form ApplicationST
      */
     public ApplicationST() {
         initComponents();
-        card = (CardLayout) contentPanel.getLayout();
+        CardLayout card = (CardLayout) contentPanel.getLayout();
         if (HostelST.getCurrentUserRoom() == null
                 || HostelST.getCurrentUserApplication().getStatus().equals("Rejected")) {
             contentPanel.add(new BeforeApplyST(), "not applied");

@@ -53,6 +53,7 @@ public class ApplyTnCST extends javax.swing.JPanel {
         add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 66, 982, 10));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -105,6 +106,7 @@ public class ApplyTnCST extends javax.swing.JPanel {
 
         cancelBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelBtn.setText("Cancel");
+        cancelBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtnActionPerformed(evt);
@@ -114,6 +116,7 @@ public class ApplyTnCST extends javax.swing.JPanel {
 
         confirmBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         confirmBtn.setText("Confirm Application");
+        confirmBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         confirmBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmBtnActionPerformed(evt);

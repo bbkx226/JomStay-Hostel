@@ -17,12 +17,10 @@ public final class Config {
     
     public enum dateFormats {
         FILE_APPLICATION_CREATE_DATE ("yyyy-MM-dd?HH:mm"),
-        FILE_APPLICATION_START_DATE ("yyyy-MM-dd?HH:mm"),
-        FILE_APPLICATION_END_DATE ("yyyy-MM-dd?HH:mm"),
+        FILE_APPLICATION_START_END_DATE ("yyyy-MM-dd"),
         FILE_PAYMENT_DATE ("yyyy-MM-dd"),
         DISPLAY_APPLICATION_CREATE_DATE ("yyyy-MM-dd HH:mm a"),
-        DISPLAY_APPLICATION_START_DATE ("yyyy-MM-dd HH:mm a"),
-        DISPLAY_APPLICATION_END_DATE ("yyyy-MM-dd HH:mm a"),
+        DISPLAY_APPLICATION_START_END_DATE ("yyyy-MM-dd"),
         DISPLAY_PAYMENT_DATE ("yyyy-MM-dd"),
         ST_APPLICATION_DATE_INPUT ("dd-MM-yyyy"),
         PAYMENT_RENT_PERIOD ("dd/MM/yyyy");

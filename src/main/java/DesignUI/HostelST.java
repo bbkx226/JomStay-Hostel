@@ -1,16 +1,12 @@
 package DesignUI;
 
 import java.awt.Color;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 import Models.*;
 import Utils.*;
 import java.awt.CardLayout;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -19,19 +15,13 @@ public class HostelST extends javax.swing.JFrame {
     private static Student currentUser;
     private static Application currentUserApplication;
     private static Room currentUserRoom;
-    private static ArrayList<Room> availableRooms;
-    private static ArrayList<RoomType> roomTypes;
-    private static Room selectedRoom = null;
-    private static RoomType selectedRoomType = null;
     private static ApplicationPaymentDetails paymentDetails;
+    private static Room selectedRoom = null;
 
     private static CardLayout card;
 
     private static final Color BUTTON_BG_COLOR = Color.BLACK;
     private static final Color BUTTON_HOVER_COLOR = new Color(43, 43, 43);
-
-    Border margin = new EmptyBorder(10, 10, 10, 10);
-    CompoundBorder btnMarginBorder = new CompoundBorder(null, margin);
 
     // Constructor
     public HostelST() {
@@ -50,12 +40,10 @@ public class HostelST extends javax.swing.JFrame {
 
     public static void initData() {
         currentUser = Login.getCurrentUser();
-        currentUserApplication = ApplicationHandling.getCurrentStudentApplication(currentUser);
+        currentUserApplication = ApplicationHandling.getStudentApplication(currentUser, ApplicationHandling.getTotalApplications());
         currentUserRoom = currentUserApplication.getRoom();
-        availableRooms = RoomHandling.getAvailableRooms();
-        roomTypes = RoomHandling.getRoomTypes();
         PaymentHandling.refreshPaymentFile();
-        paymentDetails = new ApplicationPaymentDetails(currentUserApplication, PaymentHandling.getApplicationPayments(currentUserApplication));
+        paymentDetails = new ApplicationPaymentDetails(currentUserApplication);
     }
 
     // setters and getters
@@ -63,16 +51,8 @@ public class HostelST extends javax.swing.JFrame {
         HostelST.selectedRoom = selectedRoom;
     }
 
-    public static void setSelectedRoomType(RoomType selectedRoomType) {
-        HostelST.selectedRoomType = selectedRoomType;
-    }
-
     public static Room getSelectedRoom() {
         return selectedRoom;
-    }
-
-    public static RoomType getSelectedRoomType() {
-        return selectedRoomType;
     }
 
     public static Student getCurrentUser() {
@@ -83,31 +63,15 @@ public class HostelST extends javax.swing.JFrame {
         return currentUserApplication;
     }
 
-    public static void setCurrentUserApplication(Application currentUserApplication) {
-        HostelST.currentUserApplication = currentUserApplication;
-    }
-
-    public static ArrayList<Room> getAvailableRooms() {
-        return availableRooms;
-    }
-
-    public static ArrayList<RoomType> getRoomTypes() {
-        return roomTypes;
-    }
-
     public static Room getCurrentUserRoom() {
         return currentUserRoom;
-    }
-
-    public static void setCurrentUserRoom(Room currentUserRoom) {
-        HostelST.currentUserRoom = currentUserRoom;
     }
 
     public static ApplicationPaymentDetails getCurrentPaymentDetails() {
         return paymentDetails;
     }
 
-    // methods to show pages
+    // methods to show pages 
     public static void showHome() {
         mainPanel.add(new HomeST(), "home");
         card.show(mainPanel, "home");
@@ -119,7 +83,7 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     public static void showApplication() {
-        if (selectedRoomType == null && currentUserRoom == null) {
+        if (selectedRoom == null && currentUserRoom == null) {
             PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
             HostelST.showRooms();
             return;
@@ -139,8 +103,14 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     public static void showPayment() {
-        mainPanel.add(new PaymentST(), "payment");
-        card.show(mainPanel, "payment");
+        switch (currentUserApplication.getStatus()) {
+            case Config.NOT_APPLICABLE -> PopUpWindow.showErrorMessage("Please apply for a room first.", "Error");
+            case "Pending" -> PopUpWindow.showErrorMessage("Please wait until your application has been accepted.", "Error");
+            default -> {
+                mainPanel.add(new PaymentST(), "payment");
+                card.show(mainPanel, "payment");
+            }
+        }
     }
 
     public void signOut() {
@@ -153,7 +123,7 @@ public class HostelST extends javax.swing.JFrame {
     public static void apply(HashMap<String, String> applicationForm) {
         DateTimeFormatter inputFormatter = Config.dateFormats.ST_APPLICATION_DATE_INPUT.getFormatter();
         DateTimeFormatter createDateFormatter = Config.dateFormats.FILE_APPLICATION_CREATE_DATE.getFormatter();
-        DateTimeFormatter dateFormatter = Config.dateFormats.FILE_APPLICATION_START_DATE.getFormatter();
+        DateTimeFormatter dateFormatter = Config.dateFormats.FILE_APPLICATION_START_END_DATE.getFormatter();
 
         currentUser.setNationality(applicationForm.get("nationality"));
         currentUser.setRace(applicationForm.get("race"));
@@ -194,17 +164,17 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     public static void proceedWithPayment(String rentalPeriod, double selectedAmt) {
-        LocalDateTime dateStarted = LocalDateTime.parse(currentUserApplication.getStartDate(), Config.dateFormats.FILE_APPLICATION_START_DATE.getFormatter());
-        LocalDateTime dateEnded = LocalDateTime.parse(currentUserApplication.getEndDate(), Config.dateFormats.FILE_APPLICATION_END_DATE.getFormatter());
-        String dateStartedString = dateStarted.format(Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormatter());
-        String dateEndedString = dateEnded.format(Config.dateFormats.DISPLAY_APPLICATION_START_DATE.getFormatter());
+        LocalDate dateStarted = LocalDate.parse(currentUserApplication.getStartDate(), Config.dateFormats.FILE_APPLICATION_START_END_DATE.getFormatter());
+        LocalDate dateEnded = LocalDate.parse(currentUserApplication.getEndDate(), Config.dateFormats.FILE_APPLICATION_START_END_DATE.getFormatter());
+        String dateStartedString = dateStarted.format(Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter());
+        String dateEndedString = dateEnded.format(Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter());
 
         LinkedHashMap<String, String> data = new LinkedHashMap<>();
         data.put("Customer Name", currentUser.getName().replace("_", " "));
         data.put("Check-In Date", dateStartedString);
         data.put("Check-Out Date", dateEndedString);
         data.put("Rental Period", rentalPeriod);
-        data.put("Room Type", "Single (for now)");
+        data.put("Room Type", currentUserRoom.getRoomType().getTypeName());
         data.put("Room Number", currentUserRoom.getRoomID());
         data.put("Total Price", "RM" + selectedAmt);
 
@@ -230,12 +200,12 @@ public class HostelST extends javax.swing.JFrame {
         headerPanel = new javax.swing.JPanel();
         sidePanel = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
-        homeBtn = new javax.swing.JToggleButton();
-        roomsBtn = new javax.swing.JToggleButton();
-        applicationBtn = new javax.swing.JToggleButton();
-        profileBtn = new javax.swing.JToggleButton();
-        paymentBtn = new javax.swing.JToggleButton();
-        signOutBtn = new javax.swing.JToggleButton();
+        homeBtn = new javax.swing.JButton();
+        roomsBtn = new javax.swing.JButton();
+        applicationBtn = new javax.swing.JButton();
+        profileBtn = new javax.swing.JButton();
+        paymentBtn = new javax.swing.JButton();
+        signOutBtn = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -268,13 +238,12 @@ public class HostelST extends javax.swing.JFrame {
         homeBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         homeBtn.setForeground(new java.awt.Color(255, 255, 255));
         homeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/house-chimney.png"))); // NOI18N
-        homeBtn.setText("   Home           ");
-        homeBtn.setBorder(btnMarginBorder);
-        homeBtn.setBorderPainted(false);
+        homeBtn.setText("Home");
+        homeBtn.setBorder(null);
+        homeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         homeBtn.setFocusPainted(false);
-        homeBtn.setFocusable(false);
-        homeBtn.setRequestFocusEnabled(false);
-        homeBtn.setVerifyInputWhenFocusTarget(false);
+        homeBtn.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        homeBtn.setIconTextGap(30);
         homeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHover(evt);
@@ -294,11 +263,12 @@ public class HostelST extends javax.swing.JFrame {
         roomsBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         roomsBtn.setForeground(new java.awt.Color(255, 255, 255));
         roomsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bed-alt.png"))); // NOI18N
-        roomsBtn.setText("   Rooms         ");
-        roomsBtn.setBorder(btnMarginBorder);
-        roomsBtn.setBorderPainted(false);
-        roomsBtn.setFocusable(false);
-        roomsBtn.setRequestFocusEnabled(false);
+        roomsBtn.setText("Rooms");
+        roomsBtn.setBorder(null);
+        roomsBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        roomsBtn.setFocusPainted(false);
+        roomsBtn.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        roomsBtn.setIconTextGap(30);
         roomsBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHover(evt);
@@ -318,11 +288,12 @@ public class HostelST extends javax.swing.JFrame {
         applicationBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         applicationBtn.setForeground(new java.awt.Color(255, 255, 255));
         applicationBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/form.png"))); // NOI18N
-        applicationBtn.setText("    Apply          ");
-        applicationBtn.setBorder(btnMarginBorder);
-        applicationBtn.setBorderPainted(false);
-        applicationBtn.setFocusable(false);
-        applicationBtn.setRequestFocusEnabled(false);
+        applicationBtn.setText("Apply");
+        applicationBtn.setBorder(null);
+        applicationBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        applicationBtn.setFocusPainted(false);
+        applicationBtn.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        applicationBtn.setIconTextGap(30);
         applicationBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHover(evt);
@@ -342,11 +313,12 @@ public class HostelST extends javax.swing.JFrame {
         profileBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         profileBtn.setForeground(new java.awt.Color(255, 255, 255));
         profileBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/user.png"))); // NOI18N
-        profileBtn.setText("   Profile        ");
-        profileBtn.setBorder(btnMarginBorder);
-        profileBtn.setBorderPainted(false);
-        profileBtn.setFocusable(false);
-        profileBtn.setRequestFocusEnabled(false);
+        profileBtn.setText("Profile");
+        profileBtn.setBorder(null);
+        profileBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        profileBtn.setFocusPainted(false);
+        profileBtn.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        profileBtn.setIconTextGap(30);
         profileBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHover(evt);
@@ -366,11 +338,12 @@ public class HostelST extends javax.swing.JFrame {
         paymentBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         paymentBtn.setForeground(new java.awt.Color(255, 255, 255));
         paymentBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dollar.png"))); // NOI18N
-        paymentBtn.setText("   Payment     ");
-        paymentBtn.setBorder(btnMarginBorder);
-        paymentBtn.setBorderPainted(false);
-        paymentBtn.setFocusable(false);
-        paymentBtn.setRequestFocusEnabled(false);
+        paymentBtn.setText("Payment");
+        paymentBtn.setBorder(null);
+        paymentBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        paymentBtn.setFocusPainted(false);
+        paymentBtn.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        paymentBtn.setIconTextGap(30);
         paymentBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHover(evt);
@@ -390,11 +363,12 @@ public class HostelST extends javax.swing.JFrame {
         signOutBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         signOutBtn.setForeground(new java.awt.Color(255, 255, 255));
         signOutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/exit.png"))); // NOI18N
-        signOutBtn.setText("   Sign Out     ");
-        signOutBtn.setBorder(btnMarginBorder);
-        signOutBtn.setBorderPainted(false);
-        signOutBtn.setFocusable(false);
-        signOutBtn.setRequestFocusEnabled(false);
+        signOutBtn.setText("Sign Out");
+        signOutBtn.setBorder(null);
+        signOutBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        signOutBtn.setFocusPainted(false);
+        signOutBtn.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        signOutBtn.setIconTextGap(30);
         signOutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHover(evt);
@@ -430,20 +404,20 @@ public class HostelST extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void actionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionPerformed
         switch (evt.getActionCommand()) {
-            case "   Home           " ->
+            case "Home" ->
                 showHome();
-            case "   Rooms         " ->
+            case "Rooms" ->
                 showRooms();
-            case "    Apply          " ->
+            case "Apply" ->
                 showApplication();
-            case "   Profile        " ->
+            case "Profile" ->
                 showProfile();
-            case "   Payment     " ->
+            case "Payment" ->
                 showPayment();
-            case "   Sign Out     " ->
+            case "Sign Out" ->
                 signOut();
             default -> {
                 break;
@@ -491,16 +465,16 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton applicationBtn;
+    private javax.swing.JButton applicationBtn;
     private javax.swing.JPanel headerPanel;
-    private javax.swing.JToggleButton homeBtn;
+    private javax.swing.JButton homeBtn;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel logo;
     private static javax.swing.JPanel mainPanel;
-    private javax.swing.JToggleButton paymentBtn;
-    private javax.swing.JToggleButton profileBtn;
-    private javax.swing.JToggleButton roomsBtn;
-    private javax.swing.JPanel sidePanel;
-    private javax.swing.JToggleButton signOutBtn;
+    private javax.swing.JButton paymentBtn;
+    private javax.swing.JButton profileBtn;
+    private javax.swing.JButton roomsBtn;
+    private static javax.swing.JPanel sidePanel;
+    private javax.swing.JButton signOutBtn;
     // End of variables declaration//GEN-END:variables
 }

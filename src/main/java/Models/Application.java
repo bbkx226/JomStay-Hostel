@@ -2,12 +2,14 @@
 package Models;
 
 import Utils.Config;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Application {
-    DateTimeFormatter formatter = Config.dateFormats.FILE_APPLICATION_CREATE_DATE.getFormatter();
+    DateTimeFormatter createDateFormatter = Config.dateFormats.FILE_APPLICATION_CREATE_DATE.getFormatter();
+    DateTimeFormatter startEndDateFormatter = Config.dateFormats.FILE_APPLICATION_START_END_DATE.getFormatter();
     
     private String applicationID, status, createDate, startDate, endDate;
     private Student student;
@@ -44,15 +46,15 @@ public class Application {
     }
 
     public LocalDateTime getLocalCreateDate() {
-        return LocalDateTime.parse(createDate, formatter);
+        return LocalDateTime.parse(createDate, createDateFormatter);
     }
     
-    public LocalDateTime getLocalStartDate() {
-        return LocalDateTime.parse(startDate, formatter);
+    public LocalDate getLocalStartDate() {
+        return LocalDate.parse(startDate, startEndDateFormatter);
     }
     
-    public LocalDateTime getLocalEndDate() {
-        return LocalDateTime.parse(endDate, formatter);
+    public LocalDate getLocalEndDate() {
+        return LocalDate.parse(endDate, startEndDateFormatter);
     }
     
     public Student getStudent() {
@@ -121,6 +123,10 @@ public class Application {
 
     @Override
     public String toString() {
-        return String.format("%s %s %s %s %s %s %s\n", applicationID, student.getID(), room.getRoomID(), status, createDate, startDate, endDate);
+        return String.format("%s %s %s %s %s %s %s\n", 
+                applicationID, student.getID(), 
+                room.getRoomID(), status, 
+                createDate, startDate, 
+                endDate);
     }
 }

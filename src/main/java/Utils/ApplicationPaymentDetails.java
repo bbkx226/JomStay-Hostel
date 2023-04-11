@@ -20,20 +20,16 @@ import java.util.List;
  */
 public class ApplicationPaymentDetails {
 
-    private Application application;
     private PaymentStatus status;
     private LocalDate dueDate;
     private double totalAmtDue;
     private double amtPayable;
     private int totalRentalMonths;
     private ArrayList<LocalDate> rentalPeriodDates;
-    private ArrayList<LocalDate> dueDates;
-    private List<Payment> payments;
 
-    public ApplicationPaymentDetails(Application application, List<Payment> payments) {
+    public ApplicationPaymentDetails(Application application) {
         refreshPaymentFile();
-        this.application = application;
-        this.payments = payments;
+        List<Payment> payments = PaymentHandling.getApplicationPayments(application);
         if (payments.isEmpty()) {
             this.status = PaymentStatus.NA;
             return;
@@ -41,8 +37,8 @@ public class ApplicationPaymentDetails {
         this.totalAmtDue = 0;
         this.amtPayable = 0;
 
-        LocalDate startDate = application.getLocalStartDate().toLocalDate();
-        LocalDate endDate = application.getLocalEndDate().toLocalDate();
+        LocalDate startDate = application.getLocalStartDate();
+        LocalDate endDate = application.getLocalEndDate();
         this.totalRentalMonths = (int) ChronoUnit.MONTHS.between(startDate, endDate);
         this.rentalPeriodDates = new ArrayList<>();
         for (int i = 0; i < totalRentalMonths; i++) {
@@ -78,12 +74,15 @@ public class ApplicationPaymentDetails {
         }
     }
 
+    public PaymentStatus getStatus() {
+        return status;
+    }
+    
     public String getStatusString() {
         return status.getStatusString();
     }
-
-    public String getDueDateString(String format) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+    
+    public String getDueDateString(DateTimeFormatter formatter) {
         return switch (this.status) {
             case PAID, NA ->
                 Config.NOT_APPLICABLE;
@@ -109,15 +108,6 @@ public class ApplicationPaymentDetails {
                 currency + amtPayable;
         };
     }
-
-    public String getTotalRentalMonthsString() {
-        return switch (this.status) {
-            case PAID, NA ->
-                Config.NOT_APPLICABLE;
-            default ->
-                "" + totalRentalMonths;
-        };
-    }
     
     public ArrayList<String> getStringDueDates(String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
@@ -127,15 +117,6 @@ public class ApplicationPaymentDetails {
                 break;
             }
             buffer.add(date.plusDays(7).format(formatter));
-        }
-        return buffer;
-    }
-    
-    public ArrayList<String> getStringRentalPeriodDates(String format) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-        ArrayList<String> buffer = new ArrayList<>();
-        for (LocalDate date : rentalPeriodDates) {
-            buffer.add(date.format(formatter));
         }
         return buffer;
     }

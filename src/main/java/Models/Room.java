@@ -93,6 +93,9 @@ public class Room {
 
     @Override
     public String toString() {
-        return String.format("%s %s %b %s\n", getRoomID(), getStatus(), isServicing(), getRoomType());
+        return String.format("%s %s %b %s", 
+                roomID, status, 
+                servicing, 
+                roomType.getTypeName());
     }
 }
