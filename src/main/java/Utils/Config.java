@@ -40,4 +40,28 @@ public final class Config {
         }
     }
     
+    public enum filePath {
+        APPLICATION_PATH("Application", "src/main/java/databases/application.txt"),
+        AUTHENTICATION_PATH("Authentication", "src/main/java/databases/auth.txt"),
+        PAYMENT_PATH("Payment", "src/main/java/databases/payment.txt"),
+        ROOM_PATH("Room", "src/main/java/databases/room.txt"),
+        ROOMTYPE_PATH("Room Type", "src/main/java/databases/roomtypes.txt"),
+        STUDENTDETAIL_PATH("Student Details", "src/main/java/databases/studentdetails.txt");
+        
+        private final String key, value;
+        
+        filePath(String key, String value){
+            this.key = key;
+            this.value = value;
+        }
+        
+        public String getKey(){
+            return key;
+        }
+        
+        public String getValue(){
+            return value;
+        }
+        
+    }
 }

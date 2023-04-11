@@ -4,6 +4,7 @@ package Utils;
 import Models.Application;
 import Models.Room;
 import Models.Student;
+import Utils.Config.filePath;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class ApplicationHandling {
 
-    private static final String PATH = "src/main/java/databases/application.txt";
+    private static final String PATH = filePath.APPLICATION_PATH.getValue();
 
     private static final ArrayList<Room> totalRooms = RoomHandling.getRooms();
     private static final ArrayList<Student> totalStudents = UserHandling.getStudents();

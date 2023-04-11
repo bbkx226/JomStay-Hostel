@@ -1,11 +1,12 @@
 // @author Brandon Ban Kai Xian TP067094
 package Utils;
 
+import Utils.Config.filePath;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class FileDataHandling {
-    private static final String PATH = "src/main/java/databases/auth.txt";
+    private static final String PATH = filePath.AUTHENTICATION_PATH.getValue();
     private static int count = 0, buffer = 0;
     
     public static int getID() {
