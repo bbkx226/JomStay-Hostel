@@ -6,7 +6,8 @@ import Models.Room;
 import Models.Student;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ApplicationHandling {
@@ -102,17 +103,32 @@ public class ApplicationHandling {
         FileHandlerUtils.writeString(PATH, application.toString(), true);
     }
 
-    public static Application getStudentApplication(Student student, ArrayList<Application> applications) {
+    public static Application getStudentApplication(Student student) {
         LocalDate currentDate = LocalDate.now();
-        return applications.stream()
-                .filter(application -> !currentDate.isAfter(application.getLocalEndDate()))
-                .filter(application -> student.equals(application.getStudent()))
-                .sorted(Comparator.comparing(Application::getLocalEndDate).reversed())
-                .findFirst()
-                .orElse(new Application(Config.NOT_APPLICABLE,
-                        student, null, Config.NOT_APPLICABLE,
-                        Config.NOT_APPLICABLE, Config.NOT_APPLICABLE,
-                        Config.NOT_APPLICABLE));
+        List<Application> applications = getTotalApplications();
+        Collections.reverse(applications);
+        Application foundApplication = new Application(Config.NOT_APPLICABLE, student, null, Config.NOT_APPLICABLE,
+                        Config.NOT_APPLICABLE, Config.NOT_APPLICABLE, Config.NOT_APPLICABLE);;
+
+        for (Application application : applications) {
+            if (application.getStudent().equals(student)
+                    && application.getLocalEndDate().isAfter(currentDate)) {
+                foundApplication = application;
+                break;
+            }
+        }
+        return foundApplication;
+//        LocalDate currentDate = LocalDate.now();
+//        return getTotalApplications().stream()
+//                .filter(application -> application.getLocalEndDate().isAfter(currentDate))
+//                .filter(application -> application.getStudent().equals(student))
+//                .sorted(Comparator.comparing(Application::getLocalEndDate).reversed())
+//                .findFirst()
+//                .orElse(new Application(Config.NOT_APPLICABLE,
+//                        student, null, Config.NOT_APPLICABLE,
+//                        Config.NOT_APPLICABLE, Config.NOT_APPLICABLE,
+//                        Config.NOT_APPLICABLE));
+
 //        LocalDate currentDate = LocalDate.now();
 //        Application buffer = new Application("N/A", student, null, "N/A", "N/A", "N/A", "N/A");
 //        ArrayList<Application> applications = new ArrayList<>();
