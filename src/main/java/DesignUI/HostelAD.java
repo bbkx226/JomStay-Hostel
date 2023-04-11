@@ -412,7 +412,7 @@ public class HostelAD extends javax.swing.JFrame {
         roomType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Single", "Double", "Private", "Female-Only", "Twin" }));
 
         jLabel17.setFont(new java.awt.Font("Baskerville Old Face", 1, 20)); // NOI18N
-        jLabel17.setText("Price (Monthly):");
+        jLabel17.setText("Price (Annual):");
 
         priceBox.setEditable(false);
         priceBox.setBackground(new java.awt.Color(255, 255, 255));
