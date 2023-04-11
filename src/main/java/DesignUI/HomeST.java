@@ -33,6 +33,7 @@ public class HomeST extends javax.swing.JPanel {
             initData();
             setLabels();
         }
+        
     }
     
     private static void initData() {

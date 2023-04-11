@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import javax.swing.JButton;
 
 public class HostelST extends javax.swing.JFrame {
 
@@ -77,7 +78,7 @@ public class HostelST extends javax.swing.JFrame {
         return paymentDetails;
     }
 
-    // methods to show pages
+    // methods to show pages 
     public static void showHome() {
         mainPanel.add(new HomeST(), "home");
         card.show(mainPanel, "home");
@@ -206,7 +207,7 @@ public class HostelST extends javax.swing.JFrame {
         headerPanel = new javax.swing.JPanel();
         sidePanel = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
-        homeBtn = new javax.swing.JToggleButton();
+        homeBtn = new javax.swing.JButton();
         roomsBtn = new javax.swing.JToggleButton();
         applicationBtn = new javax.swing.JToggleButton();
         profileBtn = new javax.swing.JToggleButton();
@@ -244,13 +245,12 @@ public class HostelST extends javax.swing.JFrame {
         homeBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         homeBtn.setForeground(new java.awt.Color(255, 255, 255));
         homeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/house-chimney.png"))); // NOI18N
-        homeBtn.setText("   Home           ");
-        homeBtn.setBorder(btnMarginBorder);
-        homeBtn.setBorderPainted(false);
+        homeBtn.setText("Home");
+        homeBtn.setBorder(null);
+        homeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         homeBtn.setFocusPainted(false);
-        homeBtn.setFocusable(false);
-        homeBtn.setRequestFocusEnabled(false);
-        homeBtn.setVerifyInputWhenFocusTarget(false);
+        homeBtn.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        homeBtn.setIconTextGap(50);
         homeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHover(evt);
@@ -271,7 +271,7 @@ public class HostelST extends javax.swing.JFrame {
         roomsBtn.setForeground(new java.awt.Color(255, 255, 255));
         roomsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bed-alt.png"))); // NOI18N
         roomsBtn.setText("   Rooms         ");
-        roomsBtn.setBorder(btnMarginBorder);
+        roomsBtn.setBorder(null);
         roomsBtn.setBorderPainted(false);
         roomsBtn.setFocusable(false);
         roomsBtn.setRequestFocusEnabled(false);
@@ -406,7 +406,7 @@ public class HostelST extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void actionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionPerformed
         switch (evt.getActionCommand()) {
             case "   Home           " ->
@@ -469,14 +469,14 @@ public class HostelST extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton applicationBtn;
     private javax.swing.JPanel headerPanel;
-    private javax.swing.JToggleButton homeBtn;
+    private javax.swing.JButton homeBtn;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel logo;
     private static javax.swing.JPanel mainPanel;
     private javax.swing.JToggleButton paymentBtn;
     private javax.swing.JToggleButton profileBtn;
     private javax.swing.JToggleButton roomsBtn;
-    private javax.swing.JPanel sidePanel;
+    private static javax.swing.JPanel sidePanel;
     private javax.swing.JToggleButton signOutBtn;
     // End of variables declaration//GEN-END:variables
 }
