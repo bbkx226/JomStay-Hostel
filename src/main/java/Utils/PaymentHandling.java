@@ -70,6 +70,7 @@ public final class PaymentHandling {
             String newPaymentID = "P" + String.format("%04d", payments.size() + 1);
             stringBuilder.append(newPaymentID).append(" ")
                     .append(application.getApplicationID()).append(" ")
+                    .append(PaymentStatus.PENDING.getStatusString()).append(" ")
                     .append(application.getRoom().getRoomType().getRentalFee()).append(" ")
                     .append(Config.NOT_APPLICABLE).append(" ")
                     .append(Config.NOT_APPLICABLE).append("\n");

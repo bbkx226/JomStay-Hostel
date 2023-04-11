@@ -7,7 +7,7 @@ public class Room {
     private String roomID, status;
     private RoomType roomType;
     private boolean servicing;
-    private static final List<String> allStatus = new ArrayList<>(Arrays.asList("Available", "Occupied"));
+    private static final List<String> allStatus = new ArrayList<>(Arrays.asList("Available", "Occupied", "Reserved"));
     
     public Room(String roomID, String status, boolean servicing, RoomType roomType) {
         this.roomID = roomID;
