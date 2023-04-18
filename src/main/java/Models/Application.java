@@ -120,7 +120,7 @@ public class Application {
         if (!Objects.equals(this.student, other.student)) return false;
         return Objects.equals(this.room, other.room);
     }
-
+              
     @Override
     public String toString() {
         return String.format("%s %s %s %s %s %s %s\n", 
