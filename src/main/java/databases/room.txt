@@ -1,4 +1,4 @@
-R001 Available false Double
+R001 Reserved false Double
 R002 Available false Private
 R003 Available false Female
 R004 Available false Twin

@@ -6,6 +6,7 @@ import Utils.PasswordHandling;
 import Utils.PopUpWindow;
 import javax.swing.JOptionPane;
 import Models.Student;
+import Utils.FileDataHandling;
 import Utils.UserHandling;
 import java.awt.event.KeyEvent;
 
@@ -13,7 +14,7 @@ public class Login extends javax.swing.JFrame {
     
     private static Student currentUser;
     private static HostelST hostelST;
-    
+    private String loginID = "";
     /**
      * Creates new form Login
      */
@@ -38,6 +39,7 @@ public class Login extends javax.swing.JFrame {
         }
         for (Student student : UserHandling.getStudents()) {
             if (username.equals(student.getUsername()) && password.equals(student.getPassword())) {
+                loginID = student.getID();
                 currentUser = student;
                 return 2;
             }
@@ -62,6 +64,7 @@ public class Login extends javax.swing.JFrame {
                 }
                 case 2 -> {
                     PopUpWindow.showSuccessfulMessage("Welcome back, " + username + "!", "Login Success!");
+                    FileDataHandling.updateLoginTime(loginID);
                     setVisible(false);      
                     hostelST = new HostelST();
                 }

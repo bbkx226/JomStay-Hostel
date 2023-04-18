@@ -6,3 +6,4 @@ ST005 Malaysia Malay Islam a_random_address N/A Brandon_Ban_Kai_Xian Friend 0123
 ST006 Malaysia Chinese N/A a_random_address N/A They_Kai_Zhe Friend 01234556789
 ST007 United_States American Christian A_random_address N/A Ang_Xu_Tian Friend 0123456789
 ST008 Malaysian Chinese N/A another_random_address N/A Yupee Family 0123456789
+ST009 Malaysian N/A N/A Jalan_biru_123 N/A Axcell_Mom mom 0192759812
