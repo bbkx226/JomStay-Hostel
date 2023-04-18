@@ -1,5 +1,5 @@
-R001 Reserved false Double
-R002 Available false Private
+R001 Available false Double
+R002 Occupied false Private
 R003 Available false Female
 R004 Available false Twin
 R005 Occupied false Double

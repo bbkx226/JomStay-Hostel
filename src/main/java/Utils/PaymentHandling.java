@@ -41,23 +41,14 @@ public final class PaymentHandling {
     }
 
     public static ArrayList<Payment> getApplicationPayments(Application application) {
-        return FileHandlerUtils.readLines(PATH).stream()
-                .filter(line -> application.getApplicationID().equals(line.split(" ")[1]))
-                .map(line -> {
-                    String[] data = line.split(" ");
-                    return new Payment(data[0], application, PaymentStatus.fromString(data[2]), Double.parseDouble(data[3]), data[4], data[5]);
-                })
-                .collect(Collectors.toCollection(ArrayList::new));
-//        ArrayList<Payment> buffer = new ArrayList<>();
-//        for (String line : FileHandlerUtils.readLines(PATH)) {
-//            String[] data = line.split(" ");
-//            if (application.getApplicationID().equals(data[1])) {
-//                double amount = Double.parseDouble(data[3]);
-//                Payment payment = new Payment(data[0], application, PaymentStatus.fromString(data[2]), amount, data[4], data[5]);
-//                buffer.add(payment);
-//            }
-//        }
-//        return buffer;
+        ArrayList<Payment> allPayments = getAllPayments();
+        ArrayList<Payment> buffer = new ArrayList<>();
+        for (Payment payment : allPayments) {
+            if (application.equals(payment.getApplication())) {
+                buffer.add(payment);
+            }
+        }
+        return buffer;
     }
 
     public static void addNewPendingPayments(Application application) {
@@ -68,7 +59,7 @@ public final class PaymentHandling {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < lengthOfStay; i++) {
             ArrayList<Payment> payments = getAllPayments();
-            String newPaymentID = "P" + String.format("%04d", payments.size() + 1);
+            String newPaymentID = "P" + String.format("%04d", payments.size() + i + 1);
             stringBuilder.append(newPaymentID).append(" ")
                     .append(application.getApplicationID()).append(" ")
                     .append(PaymentStatus.PENDING.getStatusString()).append(" ")

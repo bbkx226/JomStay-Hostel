@@ -66,6 +66,18 @@ public class RoomHandling {
     public static void appendRoomFile(Room room) {
         FileHandlerUtils.writeString(PATH, room.toString() + "\n", true);
     }
+    
+    public static void updateRoomInFile(Room room) {
+        String ID = room.getRoomID();
+        String lineToWrite = room.toString();
+
+        int index = Integer.parseInt(ID.substring(ID.length() - 3)) - 1;
+        ArrayList<String> lines = FileHandlerUtils.readLines(PATH);
+        lines.set(index, lineToWrite);
+
+        String result = String.join("\n", lines);
+        FileHandlerUtils.writeString(PATH, result, false);
+    }
 
     // Get available rooms
     public static ArrayList<Room> getAvailableRooms() {
