@@ -2,6 +2,7 @@ package DesignUI;
 
 import java.awt.Color;
 import Models.*;
+import Models.Payment.PaymentStatus;
 import Utils.*;
 import java.awt.CardLayout;
 import java.time.LocalDate;
@@ -40,10 +41,14 @@ public class HostelST extends javax.swing.JFrame {
 
     public static void initData() {
         currentUser = Login.getCurrentUser();
-        currentUserApplication = ApplicationHandling.getStudentApplication(currentUser, ApplicationHandling.getTotalApplications());
+        currentUserApplication = ApplicationHandling.getStudentApplication(currentUser);
         currentUserRoom = currentUserApplication.getRoom();
-        PaymentHandling.refreshPaymentFile();
         paymentDetails = new ApplicationPaymentDetails(currentUserApplication);
+        if (paymentDetails.getStatus().equals(PaymentStatus.PAID)
+                || paymentDetails.getStatus().equals(PaymentStatus.PENDING)) {
+            currentUserRoom.setStatus("Occupied");
+            RoomHandling.updateRoomInFile(currentUserRoom);
+        }
     }
 
     // setters and getters
@@ -104,8 +109,10 @@ public class HostelST extends javax.swing.JFrame {
 
     public static void showPayment() {
         switch (currentUserApplication.getStatus()) {
-            case Config.NOT_APPLICABLE -> PopUpWindow.showErrorMessage("Please apply for a room first.", "Error");
-            case "Pending" -> PopUpWindow.showErrorMessage("Please wait until your application has been accepted.", "Error");
+            case Config.NOT_APPLICABLE ->
+                PopUpWindow.showErrorMessage("Please apply for a room first.", "Error");
+            case "Pending" ->
+                PopUpWindow.showErrorMessage("Please wait until your application has been accepted.", "Error");
             default -> {
                 mainPanel.add(new PaymentST(), "payment");
                 card.show(mainPanel, "payment");
@@ -158,7 +165,7 @@ public class HostelST extends javax.swing.JFrame {
         ApplicationHandling.addNewApplication(application);
         currentUserApplication = application;
         currentUserRoom = selectedRoom;
-        
+
         PopUpWindow.showSuccessfulMessage("Application has been sent to JomStay. We will get back to you when your application has been checked and accepted.", "Success");
         showApplication();
     }
@@ -186,7 +193,7 @@ public class HostelST extends javax.swing.JFrame {
 
         ReceiptGUI gui = new ReceiptGUI(data, onClose);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -404,7 +411,7 @@ public class HostelST extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void actionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionPerformed
         switch (evt.getActionCommand()) {
             case "Home" ->

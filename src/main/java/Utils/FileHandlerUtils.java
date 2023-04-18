@@ -25,8 +25,7 @@ public final class FileHandlerUtils {
                     line = reader.readLine();
                 }
         } catch (IOException e) {
-            System.out.println(filePath + " could not be found.");
-            e.printStackTrace();
+            PopUpWindow.showErrorMessage(filePath + " could not be found.", "File not found");
         }
         return lines;
     }
@@ -36,8 +35,7 @@ public final class FileHandlerUtils {
             writer.write(str);
             writer.close();
         } catch (IOException e) {
-            System.out.println("Could not write to " + filePath);
-            e.printStackTrace();
+            PopUpWindow.showErrorMessage(filePath + " could not be found.", "File not found");
         }
     }
 }
