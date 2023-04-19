@@ -25,6 +25,7 @@ public class Student extends User {
     }
 
     public String getLoginDate() {
+        if(loginDate.equals("date")) return "No record found";
         return loginDate;
     }
 
