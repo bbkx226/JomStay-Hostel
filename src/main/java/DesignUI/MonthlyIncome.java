@@ -9,9 +9,12 @@ import Utils.RoomHandling;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class MonthlyIncome extends javax.swing.JFrame {
     private final ArrayList<Application> totalApplications = ApplicationHandling.getTotalApplications();
+    private String yearSelect, monthSelect;
+    private boolean checkDate = false;
     /**
      * Creates new form MonthlyIncome
      */
@@ -37,12 +40,10 @@ public class MonthlyIncome extends javax.swing.JFrame {
         totalRevenueBox = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        expensesBox = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        netIncomeBox = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        monthDropBox = new javax.swing.JComboBox<>();
+        yearBox = new javax.swing.JTextField();
+        generateReportButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Monthly Income");
@@ -78,10 +79,10 @@ public class MonthlyIncome extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Baskerville Old Face", 1, 30)); // NOI18N
-        jLabel2.setText("Hotel Name:        JomStay Hotel");
+        jLabel2.setText("Hotel Name:            JomStay Hotel");
 
         jLabel3.setFont(new java.awt.Font("Baskerville Old Face", 1, 30)); // NOI18N
-        jLabel3.setText("Date Generated:");
+        jLabel3.setText("Year:");
 
         dateGeneratedBox.setEditable(false);
         dateGeneratedBox.setBackground(new java.awt.Color(255, 255, 255));
@@ -99,100 +100,87 @@ public class MonthlyIncome extends javax.swing.JFrame {
         jLabel4.setText("Total revenue:");
 
         jLabel5.setFont(new java.awt.Font("Baskerville Old Face", 1, 30)); // NOI18N
-        jLabel5.setText("Expenses:");
-
-        expensesBox.setEditable(false);
-        expensesBox.setBackground(new java.awt.Color(255, 255, 255));
-        expensesBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 24)); // NOI18N
-        expensesBox.setText("-");
-        expensesBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jLabel5.setText("Date Generated:");
 
         jLabel6.setFont(new java.awt.Font("Baskerville Old Face", 1, 30)); // NOI18N
-        jLabel6.setText("Net Income:");
+        jLabel6.setText("Month:");
 
-        netIncomeBox.setEditable(false);
-        netIncomeBox.setBackground(new java.awt.Color(255, 255, 255));
-        netIncomeBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 24)); // NOI18N
-        netIncomeBox.setText("-");
-        netIncomeBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        netIncomeBox.addActionListener(new java.awt.event.ActionListener() {
+        monthDropBox.setFont(new java.awt.Font("Baskerville Old Face", 1, 24)); // NOI18N
+        monthDropBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "January", "Febraury", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+
+        yearBox.setBackground(new java.awt.Color(255, 255, 255));
+        yearBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 24)); // NOI18N
+        yearBox.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 255)));
+
+        generateReportButton.setBackground(new java.awt.Color(153, 153, 255));
+        generateReportButton.setFont(new java.awt.Font("Baskerville Old Face", 1, 24)); // NOI18N
+        generateReportButton.setText("Generate Report");
+        generateReportButton.setBorder(null);
+        generateReportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                netIncomeBoxActionPerformed(evt);
+                generateReportButtonActionPerformed(evt);
             }
         });
-
-        jLabel7.setFont(new java.awt.Font("Baskerville Old Face", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel7.setText("Staff salaries: RM 1500");
-
-        jLabel8.setFont(new java.awt.Font("Baskerville Old Face", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel8.setText("Maintenance fee: RM 300");
-
-        jLabel9.setFont(new java.awt.Font("Baskerville Old Face", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel9.setText("Utilities fee: RM 200");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6)
+                                .addGap(29, 29, 29)
+                                .addComponent(monthDropBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(35, 35, 35)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(dateGeneratedBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(totalRevenueBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(expensesBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(dateGeneratedBox, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(totalRevenueBox, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(44, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(netIncomeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(124, 124, 124))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(generateReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(yearBox, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateGeneratedBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalRevenueBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(monthDropBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)
+                        .addComponent(yearBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(generateReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(expensesBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateGeneratedBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addGap(12, 12, 12)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(netIncomeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(130, 130, 130))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalRevenueBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,7 +198,7 @@ public class MonthlyIncome extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -218,29 +206,70 @@ public class MonthlyIncome extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void netIncomeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_netIncomeBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_netIncomeBoxActionPerformed
-
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         showInForm();
     }//GEN-LAST:event_formComponentShown
+
+    private void generateReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateReportButtonActionPerformed
+        checkDate = true;
+        showInForm();
+    }//GEN-LAST:event_generateReportButtonActionPerformed
+    
+    private String convertMonth(String monthSelect) {
+        switch(monthSelect){
+            case "January" -> {
+                return "01";
+            }
+            case "February" -> {
+                return "02";
+            }
+            case "March" -> {
+                return "03";
+            }
+            case "April" -> {
+                return "04";
+            }
+            case "May" -> {
+                return "05";
+            }
+            case "June" -> {
+                return "06";
+            }
+            case "July" -> {
+                return "07";
+            }
+            case "August" -> {
+                return "08";
+            }
+            case "September" -> {
+                return "09";
+            }
+            case "October" -> {
+                return "10";
+            }
+            case "November" -> {
+                return "11";
+            }
+            case "December" -> {
+                return "12";
+            }
+            default -> {
+                return "00";
+            }
+        }
+    }
     
     private double getTotalRevenue(){
         ArrayList<Application> acceptedApplication = new ArrayList<>();
         double totalRevenue = 0;
-        LocalDateTime currentLocalDateTime = LocalDateTime.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd?HH:mm");
-        String dateTime = currentLocalDateTime.format(dateTimeFormatter);
         for(Application application : totalApplications){
             String startTime = application.getStartDate();
             String endTime = application.getEndDate();
             String[] startTimeSplit = startTime.split("-");
             String[] endTimeSplit = endTime.split("-");
-            String[] dateNowSplit = dateTime.split("-");
             String compareStart = "" + startTimeSplit[0] + startTimeSplit[1];
             String compareEnd = "" + endTimeSplit[0] + endTimeSplit[1];
-            String compareNow = "" + dateNowSplit[0] + dateNowSplit[1];
+            String compareNow = "" + yearSelect + convertMonth(monthSelect);
             
             if(application.getStatus().equals("Accepted")){
                 if(Integer.parseInt(compareNow) >= Integer.parseInt(compareStart) 
@@ -249,30 +278,35 @@ public class MonthlyIncome extends javax.swing.JFrame {
                 }
             }
         }
-        
         for(Application application:acceptedApplication) {
             Room room = application.getRoom();
             RoomType searchRoomPrice = RoomHandling.matchRoom(room);
             totalRevenue += (searchRoomPrice.getRentalFee() / 12);
         }
+        
         return totalRevenue;
     }
     
-    private double getNetIncome(){
-        return getTotalRevenue() - 1500 - 300 - 200;
+    private void showInForm() {
+        if(checkDate){
+            LocalDateTime currentLocalDateTime = LocalDateTime.now();
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            String dateTime = currentLocalDateTime.format(dateTimeFormatter);
+            yearSelect = yearBox.getText();
+            monthSelect = (String) monthDropBox.getModel().getSelectedItem();
+            if (yearSelect.equals("") || monthSelect.equals("Select")){
+                JOptionPane.showMessageDialog(
+                        null, 
+                        "Please ensure you've fill in every text field", 
+                        "Friendly Reminder", 
+                        JOptionPane.QUESTION_MESSAGE);
+            } else {
+                dateGeneratedBox.setText(dateTime);
+                totalRevenueBox.setText(String.format("%.2f",getTotalRevenue()));
+            }
+        }
     }
     
-    private void showInForm() {
-        getTotalRevenue();
-        LocalDateTime currentLocalDateTime = LocalDateTime.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String dateTime = currentLocalDateTime.format(dateTimeFormatter);
-        
-        dateGeneratedBox.setText(dateTime);
-        totalRevenueBox.setText(String.format("%.2f",getTotalRevenue()));
-        expensesBox.setText("2000");
-        netIncomeBox.setText(String.format("%.2f",getNetIncome()));
-    }
     public void start(){
         new MonthlyIncome().setVisible(true);
         showInForm();
@@ -312,19 +346,17 @@ public class MonthlyIncome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField dateGeneratedBox;
-    private javax.swing.JTextField expensesBox;
+    private javax.swing.JButton generateReportButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField netIncomeBox;
+    private javax.swing.JComboBox<String> monthDropBox;
     private javax.swing.JTextField totalRevenueBox;
+    private javax.swing.JTextField yearBox;
     // End of variables declaration//GEN-END:variables
 }
