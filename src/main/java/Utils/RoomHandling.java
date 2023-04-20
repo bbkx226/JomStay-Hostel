@@ -139,4 +139,22 @@ public class RoomHandling {
         }
         return null;
     }
+    
+    public static String getRoomFloor(Room room) {
+        char checkFloor = room.getRoomID().charAt(1);
+        switch(checkFloor) {
+            case '1' -> {
+                return "1st Floor";
+            }
+            case '2' -> {
+                return "2nd Floor";
+            }
+            case '3' -> {
+                return "3rd Floor";
+            }
+            default -> {
+                return "Floor not found";
+            }
+        }
+    }
 }
