@@ -278,7 +278,7 @@ public class RoomsST extends javax.swing.JPanel {
    
     private static void apply(int roomTypeNum) {
         Room firstAvailableRoom = RoomHandling.getFirstAvailableRoom(roomTypes.get(roomTypeNum));
-        boolean apply = PopUpWindow.showRoom(roomTypes.get(roomTypeNum).toString(), "Room Details");
+        boolean apply = PopUpWindow.showRoom(roomTypes.get(roomTypeNum).toString(), "Room Details", "Apply");
         if (apply) {
             if (HostelST.getCurrentUserRoom() != null 
              && ! HostelST.getCurrentUserApplication().getStatus().equals("Rejected")) {

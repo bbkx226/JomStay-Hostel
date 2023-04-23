@@ -110,6 +110,7 @@ public class ApplicationHandling {
                 break;                
             }
         }
+        System.out.println(foundApplication.toString());
         return foundApplication;
     }
 }

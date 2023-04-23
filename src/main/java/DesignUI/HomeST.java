@@ -48,7 +48,7 @@ public class HomeST extends javax.swing.JPanel {
         roomNumLabel.setText(room.getRoomID());
         servicingLabel.setText(room.getServicingString());
         checkInDateLabel.setText(application.getLocalStartDate().format(formatter));
-        checkOutDateLabel.setText(application.getLocalStartDate().format(formatter));
+        checkOutDateLabel.setText(application.getLocalEndDate().format(formatter));
         applicationStatusLabel.setText(application.getStatus());
         switch (application.getStatus()) {
             case "Pending" -> applicationStatusLabel.setForeground(Color.BLUE);
