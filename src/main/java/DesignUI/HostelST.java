@@ -30,9 +30,6 @@ public class HostelST extends javax.swing.JFrame {
         initComponents();
         card = (CardLayout) mainPanel.getLayout();
         showHome();
-        if (currentUserRoom == null) {
-            System.out.println("You have no room");
-        }
         Splash screen = new Splash();
         screen.setVisible(true);
         screen.dispose();

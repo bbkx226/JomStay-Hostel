@@ -63,16 +63,18 @@ public class HomeST extends javax.swing.JPanel {
             }
         }
         roomTypeLabel.setText(roomType.getTypeName());
-        paymentStatusLabel.setText(paymentDetails.getStatusString());
-        switch (paymentDetails.getStatus()) {
-            case PENDING -> paymentStatusLabel.setForeground(Color.BLUE);
-            case OVERDUE -> paymentStatusLabel.setForeground(Color.RED);
-            case PAID -> paymentStatusLabel.setForeground(Color.GREEN);
-            default -> paymentStatusLabel.setForeground(Color.BLACK);
+        if (application.getStatus().equals("Accepted")) {
+            paymentStatusLabel.setText(paymentDetails.getStatusString());
+            switch (paymentDetails.getStatus()) {
+                case PENDING -> paymentStatusLabel.setForeground(Color.BLUE);
+                case OVERDUE -> paymentStatusLabel.setForeground(Color.RED);
+                case PAID -> paymentStatusLabel.setForeground(Color.GREEN);
+                default -> paymentStatusLabel.setForeground(Color.BLACK);
+            }
+            dueDateLabel.setText(paymentDetails.getDueDateString(Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter()));
+            amtDueLabel.setText(paymentDetails.getTotalAmtDueString(Config.CURRRENCY));
+            totalAmtPayableLabel.setText(paymentDetails.getAmtPayableString(Config.CURRRENCY));            
         }
-        dueDateLabel.setText(paymentDetails.getDueDateString(Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter()));
-        amtDueLabel.setText(paymentDetails.getTotalAmtDueString(Config.CURRRENCY));
-        totalAmtPayableLabel.setText(paymentDetails.getAmtPayableString(Config.CURRRENCY));
     }
     
     /**

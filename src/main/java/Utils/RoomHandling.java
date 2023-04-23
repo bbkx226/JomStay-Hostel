@@ -56,13 +56,12 @@ public class RoomHandling {
     }
     
     public static void updateRoomInFile(Room room) {
-        String ID = room.getRoomID();
-        String lineToWrite = room.toString();
-
-        int index = Integer.parseInt(ID.substring(ID.length() - 3)) - 1;
         ArrayList<String> lines = FileHandlerUtils.readLines(PATH);
-        lines.set(index, lineToWrite);
-
+        for (String line : lines) {
+            if (line.split(" ")[0].equals(room.getRoomID())) {
+                lines.set(lines.indexOf(line), room.toString());
+            }
+        }
         String result = String.join("\n", lines);
         FileHandlerUtils.writeString(PATH, result, false);
     }

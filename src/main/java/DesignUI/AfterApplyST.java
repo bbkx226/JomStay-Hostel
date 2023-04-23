@@ -30,6 +30,7 @@ public class AfterApplyST extends javax.swing.JPanel {
         initComponents();
     }
     
+    // initialize data to show in GUI
     private static void initData() {
         application = HostelST.getCurrentUserApplication();
         room = HostelST.getCurrentUserRoom();

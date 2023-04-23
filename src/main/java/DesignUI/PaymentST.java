@@ -155,7 +155,7 @@ public class PaymentST extends javax.swing.JPanel {
         jLabel1.setText("Payment");
 
         resetBtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        resetBtn.setText("Reset");
+        resetBtn.setText("Clear Selection");
         resetBtn.setToolTipText("");
         resetBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -357,7 +357,6 @@ public class PaymentST extends javax.swing.JPanel {
                     selectedMonths.remove((Integer) paymentTable.getValueAt(row, 1));
                 }
                 showDataInPanel();
-                System.out.println("Row: " + row + " selected: " + isSelected);
             }
         });
 
@@ -382,7 +381,8 @@ public class PaymentST extends javax.swing.JPanel {
             
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
         if (! Validator.validatePaymentTableSelection(payments, paymentTable, selectedMonths, selectedAmt)) {
-            PopUpWindow.showErrorMessage("Invalid selection. Please click the 'Reset' button if any values are invalid.", "Error");
+            PopUpWindow.showErrorMessage("Invalid selection.", "Error");
+            resetAll();
         } else {
             String paymentMethodInput = PopUpWindow.getPaymentMethod();
             if (paymentMethodInput != null) {
