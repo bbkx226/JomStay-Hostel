@@ -112,43 +112,14 @@ public class ApplicationHandling {
                         Config.NOT_APPLICABLE, Config.NOT_APPLICABLE, Config.NOT_APPLICABLE);;
 
         for (Application application : applications) {
-            if (application.getStudent().equals(student)
-                    && application.getLocalEndDate().isAfter(currentDate)) {
-                foundApplication = application;
+            if (application.getLocalEndDate().isBefore(currentDate)) {
                 break;
+            }
+            if (application.getStudent().equals(student)) {
+                foundApplication = application;
+                break;                
             }
         }
         return foundApplication;
-//        LocalDate currentDate = LocalDate.now();
-//        return getTotalApplications().stream()
-//                .filter(application -> application.getLocalEndDate().isAfter(currentDate))
-//                .filter(application -> application.getStudent().equals(student))
-//                .sorted(Comparator.comparing(Application::getLocalEndDate).reversed())
-//                .findFirst()
-//                .orElse(new Application(Config.NOT_APPLICABLE,
-//                        student, null, Config.NOT_APPLICABLE,
-//                        Config.NOT_APPLICABLE, Config.NOT_APPLICABLE,
-//                        Config.NOT_APPLICABLE));
-
-//        LocalDate currentDate = LocalDate.now();
-//        Application buffer = new Application("N/A", student, null, "N/A", "N/A", "N/A", "N/A");
-//        ArrayList<Application> applications = new ArrayList<>();
-//        for (String line : FileHandlerUtils.readLines(PATH)) {
-//            String[] data = line.split(" ");
-//            LocalDate endDate = LocalDate.parse(data[6], Config.dateFormats.FILE_APPLICATION_START_END_DATE.getFormatter());
-//            if (currentDate.isAfter(endDate)) {
-//                continue;
-//            }
-//            if (student.getID().equals(data[1])) {
-//                Room room = compareToRoom(data[2]);
-//                applications.add(new Application(data[0], student, room, data[3], data[4], data[5], data[6]));
-//            }
-//        }
-//        if (! applications.isEmpty()) {
-//            for (Application application : applications) {
-//                buffer = application;
-//            }
-//        }
-//        return buffer;
     }
 }
