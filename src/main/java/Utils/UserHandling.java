@@ -1,4 +1,5 @@
 // @author Brandon Ban Kai Xian TP067094
+// @co-author They Kai Zhe TP062802
 package Utils;
 
 import Models.Admin;
@@ -19,24 +20,18 @@ public class UserHandling {
 
     // Returns an ArrayList of Student objects from the database
     public static ArrayList<Student> getStudents() {
-//        ArrayList<Student> buffer = new ArrayList<>();
-//        
-//        for (String line : FileHandlerUtils.readLines(PATH)) {
-//            String[] data = line.split(" ");
-//            
-//            if (data[0].startsWith("ST")) {
-//                Student student = new Student(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
-//                setStudentDetails(student);
-//                buffer.add(student);
-//            }
-//        }
-//        return buffer;
-        return FileHandlerUtils.readLines(PATH).stream()
-            .map(line -> line.split(" "))
-            .filter(data -> data[0].startsWith("ST"))
-            .map(data -> new Student(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]))
-            .map(student -> setStudentDetails(student))
-            .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Student> buffer = new ArrayList<>();
+        
+        for (String line : FileHandlerUtils.readLines(PATH)) {
+            String[] data = line.split(" ");
+            
+            if (data[0].startsWith("ST")) {
+                Student student = new Student(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
+                setStudentDetails(student);
+                buffer.add(student);
+            }
+        }
+        return buffer;
     }
     
     // Sets the extra student details of the specified student from the student details file and returns the student object

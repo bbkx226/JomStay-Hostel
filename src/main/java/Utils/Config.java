@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 /**
  *
  * @author KZ
+ * @co-author bbkx
  */
 public final class Config {
     

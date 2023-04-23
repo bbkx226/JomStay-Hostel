@@ -1,4 +1,5 @@
-// @author Brandon Ban Kai Xian TP067094
+// @author They Kai Zhe TP062802
+// @co-author Brandon Ban Kai Xian TP067094
 package Utils;
 
 import Models.Room;
@@ -7,7 +8,6 @@ import Utils.Config.filePath;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 public class RoomHandling {
 
@@ -16,21 +16,14 @@ public class RoomHandling {
     public ArrayList<Room> totalRooms = getRooms();
 
     public static ArrayList<Room> getRooms() {
-        return FileHandlerUtils.readLines(PATH)
-                .stream()
-                .map(line -> {
-                    String[] data = line.split(" ");
-                    return new Room(data[0], data[1], Boolean.parseBoolean(data[2]), compareToRoomType(data[3]));
-                })
-                .collect(Collectors.toCollection(ArrayList::new));
-//        ArrayList<Room> buffer = new ArrayList<>();
-//        for (String line : FileHandlerUtils.readLines(PATH)) {
-//            String[] data = line.split(" ");
-//            RoomType roomType = compareToRoomType(data[3]);
-//            Room room = new Room(data[0], data[1], Boolean.parseBoolean(data[2]), roomType);
-//            buffer.add(room);
-//        }
-//        return buffer;
+        ArrayList<Room> buffer = new ArrayList<>();
+        for (String line : FileHandlerUtils.readLines(PATH)) {
+            String[] data = line.split(" ");
+            RoomType roomType = compareToRoomType(data[3]);
+            Room room = new Room(data[0], data[1], Boolean.parseBoolean(data[2]), roomType);
+            buffer.add(room);
+        }
+        return buffer;
     }
 
     public static void updateRoomFile(ArrayList<Room> rooms) {
@@ -39,11 +32,6 @@ public class RoomHandling {
             roomListString.add(room.toString());
         }
         FileHandlerUtils.writeString(PATH, roomListString.toString(), false);
-//        String roomListString = "";
-//        for (Room room : rooms) {
-//            roomListString += room.toString();
-//        }
-//        FileHandlerUtils.writeString(PATH, roomListString, false);
     }
 
     public static void deleteRoomData(ArrayList<Room> rooms, String roomID) {

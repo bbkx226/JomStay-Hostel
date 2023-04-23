@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ApplicationHandling {
 
@@ -21,35 +20,26 @@ public class ApplicationHandling {
     public ArrayList<Application> pendingApplications = getPendingApplications();
 
     public static ArrayList<Application> getTotalApplications() {
-        return FileHandlerUtils.readLines(PATH).stream()
-                .map(line -> line.split(" "))
-                .filter(data -> compareToStudent(data[1]) != null && compareToRoom(data[2]) != null)
-                .map(data -> new Application(data[0], compareToStudent(data[1]), compareToRoom(data[2]), data[3], data[4], data[5], data[6]))
-                .collect(Collectors.toCollection(ArrayList::new));
-//        ArrayList<Application> buffer = new ArrayList<>();
-//        
-//        for (String line : FileHandlerUtils.readLines(PATH)) {
-//            String[] data = line.split(" ");
-//            Student student = compareToStudent(data[1]);
-//            Room room = compareToRoom(data[2]);
-//            if (student != null && room != null) {
-//                Application application = new Application(data[0], student, room, data[3], data[4], data[5], data[6]);
-//                buffer.add(application);
-//            }
-//        }
-//        return buffer;
+        ArrayList<Application> buffer = new ArrayList<>();
+        
+        for (String line : FileHandlerUtils.readLines(PATH)) {
+            String[] data = line.split(" ");
+            Student student = compareToStudent(data[1]);
+            Room room = compareToRoom(data[2]);
+            if (student != null && room != null) {
+                Application application = new Application(data[0], student, room, data[3], data[4], data[5], data[6]);
+                buffer.add(application);
+            }
+        }
+        return buffer;
     }
 
     public static void updateApplicationFile(ArrayList<Application> applications) {
-        String applicationListString = applications.stream()
-                .map(Application::toString)
-                .collect(Collectors.joining());
+        String applicationListString = "";
+        for (Application application : applications) {
+            applicationListString += application.toString();
+        }
         FileHandlerUtils.writeString(PATH, applicationListString, false);
-//        String applicationListString = "";
-//        for (Application application : applications) {
-//            applicationListString += application.toString();
-//        }
-//        FileHandlerUtils.writeString(PATH, applicationListString, false);
     }
 
     // Format date to remove spaces
