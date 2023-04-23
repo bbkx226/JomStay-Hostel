@@ -115,14 +115,14 @@ public class UserHandling {
         lineToWrite.append(student.getMedicalCondition().replace(" ", "_")).append(" ");
         lineToWrite.append(student.getEmerContactName().replace(" ", "_")).append(" ");
         lineToWrite.append(student.getEmerContactRelationship().replace(" ", "_")).append(" ");
-        lineToWrite.append(student.getEmerContactNo()).append("\n");
+        lineToWrite.append(student.getEmerContactNo());
 
         int index = Integer.parseInt(ID.substring(ID.length() - 3)) - 1;
         
         ArrayList<String> lines = FileHandlerUtils.readLines(STUDENT_DETAILS_PATH);
         lines.set(index, lineToWrite.toString());
         
-        String result = String.join("\n", lines);
+        String result = String.join("\n", lines) + "\n";
         
         FileHandlerUtils.writeString(STUDENT_DETAILS_PATH, result, false);
     }
