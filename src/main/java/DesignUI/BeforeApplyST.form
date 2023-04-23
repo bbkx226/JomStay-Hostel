@@ -171,7 +171,7 @@
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="String.valueOf(room.getRoomID().charAt(1))" type="code"/>
+                      <Connection code="RoomHandling.getRoomFloor(room)" type="code"/>
                     </Property>
                   </Properties>
                   <AuxValues>

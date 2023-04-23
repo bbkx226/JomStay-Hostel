@@ -8,6 +8,7 @@ import Models.Room;
 import Models.Student;
 import Utils.Config;
 import Utils.PopUpWindow;
+import Utils.RoomHandling;
 import static Utils.Validator.validateApplicationInputDate;
 import java.util.HashMap;
 import javax.swing.JLabel;
@@ -37,11 +38,13 @@ public class BeforeApplyST extends javax.swing.JPanel {
         }
     }
 
+    // initialize data to show in GUI
     private void initData() {
         room = HostelST.getSelectedRoom();
         student = HostelST.getCurrentUser();
     }
-    
+
+    // fill in the text fields if the current user has filled in their details when applying before
     private void fillFields() {
         nationalityField.setText(student.getNationality().replace("_", " "));
         raceField.setText(student.getRace().replace("_", " "));
@@ -53,6 +56,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         emerContactNoField.setText(student.getEmerContactNo());
     }
 
+    // set the fields that are required
     private void setRequiredFields() {
         requiredFields = new HashMap<>();
         requiredFields.put(startDateLabel, startDateField);
@@ -68,6 +72,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         }
     }
 
+    // get a hashmap of the entire form
     public static HashMap<String, String> getInputForm() {
         HashMap<String, String> buffer = new HashMap<>();
         buffer.put("roomType", roomTypeLabel.getText());
@@ -219,7 +224,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
 
         roomNumLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         roomNumLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        roomNumLabel1.setText(String.valueOf(room.getRoomID().charAt(1)));
+        roomNumLabel1.setText(RoomHandling.getRoomFloor(room));
         roomDetailsSection.add(roomNumLabel1);
 
         startDateLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -428,6 +433,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         }
     }// </editor-fold>//GEN-END:initComponents
 
+    // checks whether any of the required fields are blank or not
     private boolean requiredFieldsValid() {
         for (JTextField field : requiredFields.values()) {
             if (field.getText().isBlank()) {

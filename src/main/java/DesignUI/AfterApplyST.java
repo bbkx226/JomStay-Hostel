@@ -8,6 +8,7 @@ import Models.Application;
 import Models.Room;
 import Utils.Config;
 import Utils.PopUpWindow;
+import Utils.RoomHandling;
 import java.awt.Color;
 import java.time.format.DateTimeFormatter;
 
@@ -169,7 +170,7 @@ public class AfterApplyST extends javax.swing.JPanel {
 
         roomTypeLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         roomTypeLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        roomTypeLabel1.setText(String.valueOf(room.getRoomID().charAt(1)));
+        roomTypeLabel1.setText(RoomHandling.getRoomFloor(room));
         appliedPanel.add(roomTypeLabel1);
 
         roomIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N

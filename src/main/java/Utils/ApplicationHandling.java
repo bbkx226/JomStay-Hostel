@@ -19,6 +19,7 @@ public class ApplicationHandling {
     public ArrayList<Application> totalApplications = getTotalApplications();
     public ArrayList<Application> pendingApplications = getPendingApplications();
 
+    // get all the applications in the application text file
     public static ArrayList<Application> getTotalApplications() {
         ArrayList<Application> buffer = new ArrayList<>();
         
@@ -34,6 +35,7 @@ public class ApplicationHandling {
         return buffer;
     }
 
+    // update the application file with the specified application arraylist
     public static void updateApplicationFile(ArrayList<Application> applications) {
         String applicationListString = "";
         for (Application application : applications) {
@@ -89,11 +91,13 @@ public class ApplicationHandling {
         }
         return null;
     }
-
+    
+    // add new application to the end of application file
     public static void addNewApplication(Application application) {
         FileHandlerUtils.writeString(PATH, application.toString(), true);
     }
 
+    // get the student's current application that is still ongoing
     public static Application getStudentApplication(Student student) {
         LocalDate currentDate = LocalDate.now();
         List<Application> applications = getTotalApplications();

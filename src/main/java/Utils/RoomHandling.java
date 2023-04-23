@@ -1,5 +1,5 @@
-// @author They Kai Zhe TP062802
-// @co-author Brandon Ban Kai Xian TP067094
+// @author Brandon Ban Kai Xian TP067094
+// @co-author They Kai Zhe TP062802
 package Utils;
 
 import Models.Room;
@@ -14,7 +14,8 @@ public class RoomHandling {
     private static final String PATH = filePath.ROOM_PATH.getValue();
     private static final String ROOM_TYPE_PATH = filePath.ROOMTYPE_PATH.getValue();
     public ArrayList<Room> totalRooms = getRooms();
-
+    
+    // get all the rooms from the room file
     public static ArrayList<Room> getRooms() {
         ArrayList<Room> buffer = new ArrayList<>();
         for (String line : FileHandlerUtils.readLines(PATH)) {
@@ -25,7 +26,8 @@ public class RoomHandling {
         }
         return buffer;
     }
-
+    
+    // update the room file with the specified room arraylist
     public static void updateRoomFile(ArrayList<Room> rooms) {
         StringJoiner roomListString = new StringJoiner("\n");
         for (Room room : rooms) {
@@ -33,7 +35,7 @@ public class RoomHandling {
         }
         FileHandlerUtils.writeString(PATH, roomListString.toString(), false);
     }
-
+    
     public static void deleteRoomData(ArrayList<Room> rooms, String roomID) {
         int i = 1;
         String roomListString = "";
@@ -55,6 +57,7 @@ public class RoomHandling {
         FileHandlerUtils.writeString(PATH, room.toString() + "\n", true);
     }
     
+    // update a specific room in the room file with the specified room
     public static void updateRoomInFile(Room room) {
         ArrayList<String> lines = FileHandlerUtils.readLines(PATH);
         for (String line : lines) {
@@ -80,6 +83,7 @@ public class RoomHandling {
         return buffer;
     }
 
+    // get the first available room of the specified room type
     public static Room getFirstAvailableRoom(RoomType roomType) {
         for (Room room : getAvailableRooms()) {
             if (roomType.equals(room.getRoomType())) {
@@ -89,6 +93,7 @@ public class RoomHandling {
         return null;
     }
 
+    // get all room types from the room types file
     public static ArrayList<RoomType> getRoomTypes() {
         ArrayList<RoomType> buffer = new ArrayList<>();
         String tempBuffer = new String();

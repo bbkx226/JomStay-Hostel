@@ -47,6 +47,7 @@ public class PaymentST extends javax.swing.JPanel {
         initTable();
     }
     
+    // initialize data to show in GUI
     private static void initData() {
         selectedAmt = 0;
         selectedMonths = new ArrayList<>();
@@ -55,6 +56,7 @@ public class PaymentST extends javax.swing.JPanel {
         paymentDetails = HostelST.getCurrentPaymentDetails();
     }
     
+    // class that implements the TableCellRenderer and extends JCheckbox to render the checkboxes in the table
     private class CheckboxCellRenderer extends JCheckBox implements TableCellRenderer {
         private final int disabledColumn;
         private final String disabledString;
@@ -73,6 +75,7 @@ public class PaymentST extends javax.swing.JPanel {
         }
     }
     
+    // class that implements TableCellEditor and extends CheckboxCellEditor to allow the checkboxes to be ticked in the table
     private class CheckboxCellEditor extends AbstractCellEditor implements TableCellEditor {
         private final int disabledColumn;
         private final String disabledString;
@@ -100,7 +103,8 @@ public class PaymentST extends javax.swing.JPanel {
             return checkBox;
         }
     }
-    
+   
+    // class that extends DefaultTableCellRenderer to change the color of the text under the status column according to the text in another column
     private class PaymentStatusColorCellRenderer extends DefaultTableCellRenderer {
         private final int column;
 
@@ -281,6 +285,7 @@ public class PaymentST extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    // display the data in the panel on the right of the table
     private void showDataInPanel() {
         DecimalFormat formatter = new DecimalFormat("#,###.00");
         selectedAmtLabel.setText(Config.CURRRENCY + formatter.format(selectedAmt));
@@ -305,6 +310,7 @@ public class PaymentST extends javax.swing.JPanel {
         resetAll();
     }//GEN-LAST:event_resetBtnActionPerformed
     
+    // clear all the selections in the table and reset the values in the right panel
     private void resetAll() {
         DefaultTableModel tableModel = (DefaultTableModel) paymentTable.getModel();
         for (int i = 0; i < tableModel.getRowCount(); i++) {
@@ -315,6 +321,7 @@ public class PaymentST extends javax.swing.JPanel {
         showDataInPanel();
     }
     
+    // initialize the table and display its contents
     private void initTable() {
         DefaultTableModel tableModel = (DefaultTableModel) paymentTable.getModel();
         paymentTable.setRowSelectionAllowed(false);

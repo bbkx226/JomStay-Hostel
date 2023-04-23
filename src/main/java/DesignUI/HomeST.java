@@ -36,6 +36,7 @@ public class HomeST extends javax.swing.JPanel {
         
     }
     
+    // initialize data to show in GUI    
     private static void initData() {
         room = HostelST.getCurrentUserRoom();
         application = HostelST.getCurrentUserApplication();
@@ -44,6 +45,7 @@ public class HomeST extends javax.swing.JPanel {
         paymentDetails = HostelST.getCurrentPaymentDetails();
     }
 
+    // set the labels that appear on the dashboard
     private static void setLabels() {
         roomNumLabel.setText(room.getRoomID());
         servicingLabel.setText(room.getServicingString());

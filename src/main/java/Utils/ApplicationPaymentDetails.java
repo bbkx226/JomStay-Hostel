@@ -18,6 +18,7 @@ import java.util.List;
  *
  * @author KZ
  */
+// class to store the extra details about payment
 public class ApplicationPaymentDetails {
 
     private PaymentStatus status;
@@ -27,6 +28,7 @@ public class ApplicationPaymentDetails {
     private int totalRentalMonths;
     private ArrayList<LocalDate> rentalPeriodDates;
 
+    // constructor
     public ApplicationPaymentDetails(Application application) {
         refreshPaymentFile();
         List<Payment> payments = PaymentHandling.getApplicationPayments(application);
@@ -77,7 +79,8 @@ public class ApplicationPaymentDetails {
             }
         }
     }
-
+    
+    // setters and getters
     public PaymentStatus getStatus() {
         return status;
     }

@@ -20,6 +20,7 @@ public final class PaymentHandling {
 
     private static final String PATH = filePath.PAYMENT_PATH.getValue();
 
+    // get all the payments from the payment file
     public static ArrayList<Payment> getAllPayments() {
         ArrayList<Payment> buffer = new ArrayList<>();
         for (String line : FileHandlerUtils.readLines(PATH)) {
@@ -32,6 +33,7 @@ public final class PaymentHandling {
         return buffer;
     }
 
+    // get all the payments of the specified application
     public static ArrayList<Payment> getApplicationPayments(Application application) {
         ArrayList<Payment> allPayments = getAllPayments();
         ArrayList<Payment> buffer = new ArrayList<>();
@@ -42,7 +44,8 @@ public final class PaymentHandling {
         }
         return buffer;
     }
-
+    
+    // add new payments to file when an application is accepted by an admin
     public static void addNewPendingPayments(Application application) {
         LocalDate startDate = application.getLocalStartDate();
         LocalDate endDate = application.getLocalEndDate();
@@ -62,6 +65,7 @@ public final class PaymentHandling {
         FileHandlerUtils.writeString(PATH, stringBuilder.toString(), true);
     }
 
+    // update the payment file with the specified payment
     public static void updatePayment(Payment payment) {
         String ID = payment.getPaymentID();
         String lineToWrite = payment.toString();
@@ -74,6 +78,7 @@ public final class PaymentHandling {
         FileHandlerUtils.writeString(PATH, result, false);
     }
 
+    // get the application object of the specified application id
     public static Application compareToApplication(String applicationID) {
         for (Application application : ApplicationHandling.getTotalApplications()) {
             if (applicationID.equals(application.getApplicationID())) {
@@ -82,7 +87,8 @@ public final class PaymentHandling {
         }
         return null;
     }
-
+    
+    // update the payment file to be up to date with the current date
     public static void refreshPaymentFile() {
         LocalDate now = LocalDate.now();
         ArrayList<Payment> payments = getAllPayments();
@@ -107,6 +113,7 @@ public final class PaymentHandling {
         FileHandlerUtils.writeString(PATH, stringBuilder.toString(), false);
     }
 
+    // update the payment file with the specified payment arraylist, the selected months to update and the payment method
     public static void updatePaymentFile(ArrayList<Payment> payments, ArrayList<Integer> selectedMonths, String paymentMethod) {
         int paymentMonth = 0;
         for (Payment payment : payments) {

@@ -275,7 +275,8 @@ public class RoomsST extends javax.swing.JPanel {
 
         add(gridPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1050, 490));
     }// </editor-fold>//GEN-END:initComponents
-   
+    
+    // apply for a room based on the room type that the user has selected
     private static void apply(int roomTypeNum) {
         Room firstAvailableRoom = RoomHandling.getFirstAvailableRoom(roomTypes.get(roomTypeNum));
         boolean apply = PopUpWindow.showRoom(roomTypes.get(roomTypeNum).toString(), "Room Details", "Apply");
