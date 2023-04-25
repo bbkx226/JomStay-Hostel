@@ -30,15 +30,13 @@ public class HostelST extends javax.swing.JFrame {
         initComponents();
         card = (CardLayout) mainPanel.getLayout();
         showHome();
-        if (currentUserRoom == null) {
-            System.out.println("You have no room");
-        }
         Splash screen = new Splash();
         screen.setVisible(true);
         screen.dispose();
         setVisible(true);
     }
 
+    // initialize data to show in GUI    
     public static void initData() {
         currentUser = Login.getCurrentUser();
         currentUserApplication = ApplicationHandling.getStudentApplication(currentUser);
@@ -126,7 +124,8 @@ public class HostelST extends javax.swing.JFrame {
         dispose();
         new Login().setVisible(true);
     }
-
+    
+    // called when the user applies for a room
     public static void apply(HashMap<String, String> applicationForm) {
         DateTimeFormatter inputFormatter = Config.dateFormats.ST_APPLICATION_DATE_INPUT.getFormatter();
         DateTimeFormatter createDateFormatter = Config.dateFormats.FILE_APPLICATION_CREATE_DATE.getFormatter();
@@ -170,6 +169,7 @@ public class HostelST extends javax.swing.JFrame {
         showApplication();
     }
 
+    // called when the user confirms payment
     public static void proceedWithPayment(String rentalPeriod, double selectedAmt) {
         LocalDate dateStarted = LocalDate.parse(currentUserApplication.getStartDate(), Config.dateFormats.FILE_APPLICATION_START_END_DATE.getFormatter());
         LocalDate dateEnded = LocalDate.parse(currentUserApplication.getEndDate(), Config.dateFormats.FILE_APPLICATION_START_END_DATE.getFormatter());

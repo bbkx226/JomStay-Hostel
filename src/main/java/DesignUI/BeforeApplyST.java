@@ -8,6 +8,7 @@ import Models.Room;
 import Models.Student;
 import Utils.Config;
 import Utils.PopUpWindow;
+import Utils.RoomHandling;
 import static Utils.Validator.validateApplicationInputDate;
 import java.util.HashMap;
 import javax.swing.JLabel;
@@ -37,11 +38,13 @@ public class BeforeApplyST extends javax.swing.JPanel {
         }
     }
 
+    // initialize data to show in GUI
     private void initData() {
         room = HostelST.getSelectedRoom();
         student = HostelST.getCurrentUser();
     }
-    
+
+    // fill in the text fields if the current user has filled in their details when applying before
     private void fillFields() {
         nationalityField.setText(student.getNationality().replace("_", " "));
         raceField.setText(student.getRace().replace("_", " "));
@@ -53,6 +56,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         emerContactNoField.setText(student.getEmerContactNo());
     }
 
+    // set the fields that are required
     private void setRequiredFields() {
         requiredFields = new HashMap<>();
         requiredFields.put(startDateLabel, startDateField);
@@ -68,6 +72,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         }
     }
 
+    // get a hashmap of the entire form
     public static HashMap<String, String> getInputForm() {
         HashMap<String, String> buffer = new HashMap<>();
         buffer.put("roomType", roomTypeLabel.getText());
@@ -120,6 +125,8 @@ public class BeforeApplyST extends javax.swing.JPanel {
         roomTypeLabel = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
         roomNumLabel = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        roomNumLabel1 = new javax.swing.JLabel();
         startDateLabel = new javax.swing.JLabel();
         startDateField = new javax.swing.JTextField();
         jLabel57 = new javax.swing.JLabel();
@@ -168,7 +175,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         roomDetailsSection.setBackground(new java.awt.Color(255, 255, 255));
-        roomDetailsSection.setLayout(new java.awt.GridLayout(5, 2, 0, 30));
+        roomDetailsSection.setLayout(new java.awt.GridLayout(6, 2, 0, 30));
 
         jLabel49.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel49.setForeground(new java.awt.Color(51, 51, 51));
@@ -185,7 +192,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGap(0, 33, Short.MAX_VALUE)
         );
 
         roomDetailsSection.add(jPanel1);
@@ -210,6 +217,16 @@ public class BeforeApplyST extends javax.swing.JPanel {
         roomNumLabel.setText(room.getRoomID());
         roomDetailsSection.add(roomNumLabel);
 
+        jLabel52.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel52.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel52.setText("Floor");
+        roomDetailsSection.add(jLabel52);
+
+        roomNumLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        roomNumLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        roomNumLabel1.setText(RoomHandling.getRoomFloor(room));
+        roomDetailsSection.add(roomNumLabel1);
+
         startDateLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         startDateLabel.setForeground(new java.awt.Color(51, 51, 51));
         startDateLabel.setText("Check-In Date (DD-MM-YYYY)");
@@ -229,7 +246,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         stayPeriodComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 year", "2 years", "3 years", "4 years", "5 years" }));
         roomDetailsSection.add(stayPeriodComboBox);
 
-        jPanel2.add(roomDetailsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 930, 270));
+        jPanel2.add(roomDetailsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 930, 350));
 
         studentDetailsSection.setBackground(new java.awt.Color(255, 255, 255));
         studentDetailsSection.setLayout(new java.awt.GridLayout(11, 2, 0, 30));
@@ -344,7 +361,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         medCondField.setBackground(new java.awt.Color(255, 255, 255));
         studentDetailsSection.add(medCondField);
 
-        jPanel2.add(studentDetailsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 930, 630));
+        jPanel2.add(studentDetailsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 930, 630));
 
         emerContactSection.setBackground(new java.awt.Color(255, 255, 255));
         emerContactSection.setLayout(new java.awt.GridLayout(4, 2, 0, 30));
@@ -393,14 +410,14 @@ public class BeforeApplyST extends javax.swing.JPanel {
         emerContactNoField.setBackground(new java.awt.Color(255, 255, 255));
         emerContactSection.add(emerContactNoField);
 
-        jPanel2.add(emerContactSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 970, 930, 250));
+        jPanel2.add(emerContactSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 1060, 930, 250));
 
         warningLabel.setText("<html><font color='red'>Please fill in all the required (*) fields</font></html>");
         jPanel2.add(warningLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, -1, -1));
 
         scrollPane.setViewportView(jPanel2);
 
-        add(scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1047, 460));
+        add(scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1047, 450));
 
         confirmBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         confirmBtn.setText("Confirm");
@@ -410,12 +427,13 @@ public class BeforeApplyST extends javax.swing.JPanel {
                 confirmBtnActionPerformed(evt);
             }
         });
-        add(confirmBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, -1, -1));
+        add(confirmBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 460, -1, -1));
         if (DesignUI.HostelST.getSelectedRoom() == null) {
             confirmBtn.setVisible(true);
         }
     }// </editor-fold>//GEN-END:initComponents
 
+    // checks whether any of the required fields are blank or not
     private boolean requiredFieldsValid() {
         for (JTextField field : requiredFields.values()) {
             if (field.getText().isBlank()) {
@@ -466,6 +484,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -479,6 +498,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
     private static javax.swing.JTextField religionField;
     private javax.swing.JPanel roomDetailsSection;
     private static javax.swing.JLabel roomNumLabel;
+    private static javax.swing.JLabel roomNumLabel1;
     private static javax.swing.JLabel roomTypeLabel;
     private javax.swing.JScrollPane scrollPane;
     private static javax.swing.JTextField startDateField;

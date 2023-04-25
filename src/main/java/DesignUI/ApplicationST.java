@@ -18,6 +18,7 @@ public class ApplicationST extends javax.swing.JPanel {
     public ApplicationST() {
         initComponents();
         CardLayout card = (CardLayout) contentPanel.getLayout();
+        // shows the application panel according to whether the currently logged in student has applied for a room or not
         if (HostelST.getCurrentUserRoom() == null
                 || HostelST.getCurrentUserApplication().getStatus().equals("Rejected")) {
             contentPanel.add(new BeforeApplyST(), "not applied");

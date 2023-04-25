@@ -1,4 +1,5 @@
 // @author Brandon Ban Kai Xian TP067094
+// @co-author They Kai Zhe TP062802
 package Utils;
 
 import Models.Room;
@@ -7,45 +8,34 @@ import Utils.Config.filePath;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 public class RoomHandling {
 
     private static final String PATH = filePath.ROOM_PATH.getValue();
     private static final String ROOM_TYPE_PATH = filePath.ROOMTYPE_PATH.getValue();
     public ArrayList<Room> totalRooms = getRooms();
-
+    
+    // get all the rooms from the room file
     public static ArrayList<Room> getRooms() {
-        return FileHandlerUtils.readLines(PATH)
-                .stream()
-                .map(line -> {
-                    String[] data = line.split(" ");
-                    return new Room(data[0], data[1], Boolean.parseBoolean(data[2]), compareToRoomType(data[3]));
-                })
-                .collect(Collectors.toCollection(ArrayList::new));
-//        ArrayList<Room> buffer = new ArrayList<>();
-//        for (String line : FileHandlerUtils.readLines(PATH)) {
-//            String[] data = line.split(" ");
-//            RoomType roomType = compareToRoomType(data[3]);
-//            Room room = new Room(data[0], data[1], Boolean.parseBoolean(data[2]), roomType);
-//            buffer.add(room);
-//        }
-//        return buffer;
+        ArrayList<Room> buffer = new ArrayList<>();
+        for (String line : FileHandlerUtils.readLines(PATH)) {
+            String[] data = line.split(" ");
+            RoomType roomType = compareToRoomType(data[3]);
+            Room room = new Room(data[0], data[1], Boolean.parseBoolean(data[2]), roomType);
+            buffer.add(room);
+        }
+        return buffer;
     }
-
+    
+    // update the room file with the specified room arraylist
     public static void updateRoomFile(ArrayList<Room> rooms) {
         StringJoiner roomListString = new StringJoiner("\n");
         for (Room room : rooms) {
             roomListString.add(room.toString());
         }
         FileHandlerUtils.writeString(PATH, roomListString.toString(), false);
-//        String roomListString = "";
-//        for (Room room : rooms) {
-//            roomListString += room.toString();
-//        }
-//        FileHandlerUtils.writeString(PATH, roomListString, false);
     }
-
+    
     public static void deleteRoomData(ArrayList<Room> rooms, String roomID) {
         int i = 1;
         String roomListString = "";
@@ -67,14 +57,14 @@ public class RoomHandling {
         FileHandlerUtils.writeString(PATH, room.toString() + "\n", true);
     }
     
+    // update a specific room in the room file with the specified room
     public static void updateRoomInFile(Room room) {
-        String ID = room.getRoomID();
-        String lineToWrite = room.toString();
-
-        int index = Integer.parseInt(ID.substring(ID.length() - 3)) - 1;
         ArrayList<String> lines = FileHandlerUtils.readLines(PATH);
-        lines.set(index, lineToWrite);
-
+        for (String line : lines) {
+            if (line.split(" ")[0].equals(room.getRoomID())) {
+                lines.set(lines.indexOf(line), room.toString());
+            }
+        }
         String result = String.join("\n", lines);
         FileHandlerUtils.writeString(PATH, result, false);
     }
@@ -93,6 +83,7 @@ public class RoomHandling {
         return buffer;
     }
 
+    // get the first available room of the specified room type
     public static Room getFirstAvailableRoom(RoomType roomType) {
         for (Room room : getAvailableRooms()) {
             if (roomType.equals(room.getRoomType())) {
@@ -102,6 +93,7 @@ public class RoomHandling {
         return null;
     }
 
+    // get all room types from the room types file
     public static ArrayList<RoomType> getRoomTypes() {
         ArrayList<RoomType> buffer = new ArrayList<>();
         String tempBuffer = new String();

@@ -18,6 +18,7 @@ import java.util.List;
  *
  * @author KZ
  */
+// class to store the extra details about payment
 public class ApplicationPaymentDetails {
 
     private PaymentStatus status;
@@ -27,12 +28,15 @@ public class ApplicationPaymentDetails {
     private int totalRentalMonths;
     private ArrayList<LocalDate> rentalPeriodDates;
 
+    // constructor
     public ApplicationPaymentDetails(Application application) {
         refreshPaymentFile();
         List<Payment> payments = PaymentHandling.getApplicationPayments(application);
         if (payments.isEmpty()) {
             this.status = PaymentStatus.NA;
             return;
+        } else {
+            this.status = PaymentStatus.PENDING;
         }
         this.totalAmtDue = 0;
         this.amtPayable = 0;
@@ -60,7 +64,9 @@ public class ApplicationPaymentDetails {
                 }
                 case PENDING -> {
                     LocalDate periodEndDate = periodStartDate.plusMonths(1);
-                    if (now.isAfter(periodStartDate) && now.isBefore(periodEndDate)) {
+                    if (now.isBefore(startDate)) {
+                        this.dueDate = startDate.plusDays(7);
+                    } else if (now.isAfter(periodStartDate) && now.isBefore(periodEndDate)) {
                         this.status = payment.getStatus();
                         this.dueDate = periodStartDate.plusDays(7);
                         this.totalAmtDue += payment.getAmount();
@@ -73,7 +79,8 @@ public class ApplicationPaymentDetails {
             }
         }
     }
-
+    
+    // setters and getters
     public PaymentStatus getStatus() {
         return status;
     }

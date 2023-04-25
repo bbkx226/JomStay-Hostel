@@ -142,9 +142,6 @@ public class Student extends User {
         if (!Objects.equals(this.gender, other.gender)) {
             return false;
         }
-        if (!Objects.equals(this.loginDate, other.loginDate)) {
-            return false;
-        }
         if (!Objects.equals(this.phoneNo, other.phoneNo)) {
             return false;
         }

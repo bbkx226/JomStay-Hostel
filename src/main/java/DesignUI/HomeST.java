@@ -36,6 +36,7 @@ public class HomeST extends javax.swing.JPanel {
         
     }
     
+    // initialize data to show in GUI    
     private static void initData() {
         room = HostelST.getCurrentUserRoom();
         application = HostelST.getCurrentUserApplication();
@@ -44,11 +45,12 @@ public class HomeST extends javax.swing.JPanel {
         paymentDetails = HostelST.getCurrentPaymentDetails();
     }
 
+    // set the labels that appear on the dashboard
     private static void setLabels() {
         roomNumLabel.setText(room.getRoomID());
         servicingLabel.setText(room.getServicingString());
         checkInDateLabel.setText(application.getLocalStartDate().format(formatter));
-        checkOutDateLabel.setText(application.getLocalStartDate().format(formatter));
+        checkOutDateLabel.setText(application.getLocalEndDate().format(formatter));
         applicationStatusLabel.setText(application.getStatus());
         switch (application.getStatus()) {
             case "Pending" -> applicationStatusLabel.setForeground(Color.BLUE);
@@ -63,16 +65,18 @@ public class HomeST extends javax.swing.JPanel {
             }
         }
         roomTypeLabel.setText(roomType.getTypeName());
-        paymentStatusLabel.setText(paymentDetails.getStatusString());
-        switch (paymentDetails.getStatus()) {
-            case PENDING -> paymentStatusLabel.setForeground(Color.BLUE);
-            case OVERDUE -> paymentStatusLabel.setForeground(Color.RED);
-            case PAID -> paymentStatusLabel.setForeground(Color.GREEN);
-            default -> paymentStatusLabel.setForeground(Color.BLACK);
+        if (application.getStatus().equals("Accepted")) {
+            paymentStatusLabel.setText(paymentDetails.getStatusString());
+            switch (paymentDetails.getStatus()) {
+                case PENDING -> paymentStatusLabel.setForeground(Color.BLUE);
+                case OVERDUE -> paymentStatusLabel.setForeground(Color.RED);
+                case PAID -> paymentStatusLabel.setForeground(Color.GREEN);
+                default -> paymentStatusLabel.setForeground(Color.BLACK);
+            }
+            dueDateLabel.setText(paymentDetails.getDueDateString(Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter()));
+            amtDueLabel.setText(paymentDetails.getTotalAmtDueString(Config.CURRRENCY));
+            totalAmtPayableLabel.setText(paymentDetails.getAmtPayableString(Config.CURRRENCY));            
         }
-        dueDateLabel.setText(paymentDetails.getDueDateString(Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter()));
-        amtDueLabel.setText(paymentDetails.getTotalAmtDueString(Config.CURRRENCY));
-        totalAmtPayableLabel.setText(paymentDetails.getAmtPayableString(Config.CURRRENCY));
     }
     
     /**

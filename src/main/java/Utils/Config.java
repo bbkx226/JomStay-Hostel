@@ -9,7 +9,9 @@ import java.time.format.DateTimeFormatter;
 /**
  *
  * @author KZ
+ * @co-author bbkx
  */
+// configurations file for system
 public final class Config {
     
     public static final String CURRRENCY = "RM";

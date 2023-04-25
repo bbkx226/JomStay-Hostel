@@ -7,6 +7,8 @@ package DesignUI;
 import Models.Application;
 import Models.Room;
 import Utils.Config;
+import Utils.PopUpWindow;
+import Utils.RoomHandling;
 import java.awt.Color;
 import java.time.format.DateTimeFormatter;
 
@@ -29,6 +31,7 @@ public class AfterApplyST extends javax.swing.JPanel {
         initComponents();
     }
     
+    // initialize data to show in GUI
     private static void initData() {
         application = HostelST.getCurrentUserApplication();
         room = HostelST.getCurrentUserRoom();
@@ -46,8 +49,6 @@ public class AfterApplyST extends javax.swing.JPanel {
     private void initComponents() {
 
         appliedPanel = new javax.swing.JPanel();
-        jLabel58 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
         jLabel53 = new javax.swing.JLabel();
         statusLabel = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
@@ -62,31 +63,15 @@ public class AfterApplyST extends javax.swing.JPanel {
         roomNumLabel = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
         roomTypeLabel = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        roomTypeLabel1 = new javax.swing.JLabel();
+        roomIcon = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         appliedPanel.setBackground(new java.awt.Color(255, 255, 255));
         appliedPanel.setLayout(new java.awt.GridLayout(8, 2, 0, 30));
-
-        jLabel58.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        jLabel58.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel58.setText("Application Details");
-        appliedPanel.add(jLabel58);
-
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 38, Short.MAX_VALUE)
-        );
-
-        appliedPanel.add(jPanel7);
 
         jLabel53.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel53.setForeground(new java.awt.Color(51, 51, 51));
@@ -149,11 +134,11 @@ public class AfterApplyST extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
+            .addGap(0, 412, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 38, Short.MAX_VALUE)
+            .addGap(0, 30, Short.MAX_VALUE)
         );
 
         appliedPanel.add(jPanel6);
@@ -178,27 +163,69 @@ public class AfterApplyST extends javax.swing.JPanel {
         roomTypeLabel.setText(room.getRoomType().getTypeName());
         appliedPanel.add(roomTypeLabel);
 
+        jLabel56.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel56.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel56.setText("Floor");
+        appliedPanel.add(jLabel56);
+
+        roomTypeLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        roomTypeLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        roomTypeLabel1.setText(RoomHandling.getRoomFloor(room));
+        appliedPanel.add(roomTypeLabel1);
+
+        roomIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dorm_room_pic_small.png"))); // NOI18N
+        roomIcon.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        roomIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        roomIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                roomIconsingleRoomClicked(evt);
+            }
+        });
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Click on the picture for more details");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1040, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(841, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(roomIcon)
+                        .addGap(16, 16, 16))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(appliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(appliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(209, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 566, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(267, Short.MAX_VALUE)
+                .addComponent(roomIcon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 23, Short.MAX_VALUE)
-                    .addComponent(appliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 23, Short.MAX_VALUE)))
+                    .addContainerGap()
+                    .addComponent(appliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void roomIconsingleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomIconsingleRoomClicked
+        // TODO add your handling code here:
+        PopUpWindow.showRoom(HostelST.getCurrentUserRoom().getRoomType().toString(), "Room Details", "OK");
+    }//GEN-LAST:event_roomIconsingleRoomClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -206,18 +233,20 @@ public class AfterApplyST extends javax.swing.JPanel {
     private javax.swing.JPanel appliedPanel;
     private static javax.swing.JLabel checkInDateLabel;
     private static javax.swing.JLabel checkOutDateLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
-    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel roomIcon;
     private static javax.swing.JLabel roomNumLabel;
     private static javax.swing.JLabel roomTypeLabel;
+    private static javax.swing.JLabel roomTypeLabel1;
     private static javax.swing.JLabel statusLabel;
     // End of variables declaration//GEN-END:variables
 }
