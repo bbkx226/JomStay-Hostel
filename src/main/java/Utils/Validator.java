@@ -7,7 +7,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -111,20 +113,16 @@ public class Validator {
      * if the date is valid and not in the past. Returns null if the input date
      * string is not in the correct format or if the parsed date is in the past.
      */
-    public static LocalDateTime validateApplicationInputDate(String dateString, String format) {
+    public static LocalDate validateApplicationInputDate(String dateString, String format) {
         // Define a DateTimeFormatter object to parse the input date string
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-
         // Declare a LocalDate object to hold the parsed date
         LocalDate date;
-
-        // Attempt to parse the input date string using the specified format
-        try {
-            date = LocalDate.parse(dateString, formatter);
-        } catch (DateTimeParseException e) {
-            // Return null if the input date string is not in the correct format
-            return null;
-        }
+        String[] dateSplit = dateString.split("-");
+        boolean checkDate = isInvalidDay(Integer.parseInt(dateSplit[2]),Integer.parseInt(dateSplit[1]),Integer.parseInt(dateSplit[0]));
+        System.out.println(checkDate);
+        if(!checkDate) return null;
+        date = LocalDate.parse(dateString, formatter);
 
         // Check that the parsed date is not in the past
         if (date.isBefore(LocalDate.now())) {
@@ -133,6 +131,15 @@ public class Validator {
         }
 
         // Return a LocalDateTime object with a time of 12:00 PM on the input date
-        return date.atTime(12, 0);
+        return date;
+    }
+    
+    public static boolean isInvalidDay(int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setLenient(false); // Ensure strict date validation
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month - 1); // Calendar.MONTH is zero-based
+        int maxDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        return day < 1 || day <= maxDayOfMonth;
     }
 }
