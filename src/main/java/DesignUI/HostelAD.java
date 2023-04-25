@@ -698,7 +698,8 @@ public class HostelAD extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void firstQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstQueryActionPerformed
-        showInForm(0);
+        record = 0;
+        showInForm(record);
     }//GEN-LAST:event_firstQueryActionPerformed
 
     private void nextQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextQueryActionPerformed
@@ -708,7 +709,8 @@ public class HostelAD extends javax.swing.JFrame {
 
     private void lastQueryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastQueryActionPerformed
         int total = rooms.size();
-        showInForm(total - 1);
+        record = total - 1;
+        showInForm(record);
     }//GEN-LAST:event_lastQueryActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
