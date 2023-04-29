@@ -12,7 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class UserHandling {
     private static final String PATH = filePath.AUTHENTICATION_PATH.getValue();
