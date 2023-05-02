@@ -126,7 +126,4 @@ public class RoomType {
                 specification, rentalFee,
                 beds, getFreeWifiString());
     }
-
-    
-    
 }
