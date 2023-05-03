@@ -617,9 +617,7 @@ public class RecordAD extends javax.swing.JFrame {
             studentModel.addRow(new Object[]{
                 student.getID(),
                 student.getName().replace("_", " "),
-                student.getGender(),
-                student.getNRIC(),
-                student.getEmail()
+                student.getLoginDate().replace("?", " ")
             });
    
         showStudentForm(0);
