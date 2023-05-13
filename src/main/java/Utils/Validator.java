@@ -23,7 +23,7 @@ public class Validator {
     private static final String EMAILREGEX = "^(.+)@(.+)$";
     private static final Pattern EMAILPATTERN = Pattern.compile(EMAILREGEX);
 
-    private static final String PHONEREGEX = "^(01)[0-46-9]*[0-9]{7,8}$";
+    private static final String PHONEREGEX = "^(\\+?6?01)[02-46-9]-*[0-9]{7}$|^(\\+?6?01)[1]-*[0-9]{8}$";
     private static final Pattern PHONEPATTERN = Pattern.compile(PHONEREGEX);
 
     // This code checks whether a given string matches the format of an email address.
