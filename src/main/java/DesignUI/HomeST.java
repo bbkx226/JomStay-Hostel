@@ -409,7 +409,9 @@ public class HomeST extends javax.swing.JPanel {
 
         add(paymentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 70, 363, 500));
 
+        reApplyBtn.setBackground(new java.awt.Color(0, 0, 0));
         reApplyBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        reApplyBtn.setForeground(new java.awt.Color(255, 255, 255));
         reApplyBtn.setText("Re-apply");
         reApplyBtn.setToolTipText("");
         reApplyBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

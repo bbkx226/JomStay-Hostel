@@ -2,11 +2,13 @@ package DesignUI;
 
 import Models.Application;
 import Models.Room;
+import Utils.ApplicationHandling;
 import Utils.Config;
 import Utils.PopUpWindow;
 import Utils.RoomHandling;
 import java.awt.Color;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,7 +16,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class AfterApplyST extends javax.swing.JPanel {
 
-    private static Application application;
+    private static Application currentApplication;
     private static Room room;
     private static DateTimeFormatter createDateFormatter;
     private static DateTimeFormatter dateFormatter;
@@ -29,7 +31,7 @@ public class AfterApplyST extends javax.swing.JPanel {
     
     // initialize data to show in GUI
     private static void initData() {
-        application = HostelST.getCurrentUserApplication();
+        currentApplication = HostelST.getCurrentUserApplication();
         room = HostelST.getCurrentUserRoom();
         createDateFormatter = Config.dateFormats.DISPLAY_APPLICATION_CREATE_DATE.getFormatter();
         dateFormatter = Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter();
@@ -54,7 +56,7 @@ public class AfterApplyST extends javax.swing.JPanel {
         jLabel60 = new javax.swing.JLabel();
         checkOutDateLabel = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel54 = new javax.swing.JLabel();
         roomNumLabel = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
@@ -63,6 +65,7 @@ public class AfterApplyST extends javax.swing.JPanel {
         roomTypeLabel1 = new javax.swing.JLabel();
         roomIcon = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        cancelApplicationBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -76,7 +79,7 @@ public class AfterApplyST extends javax.swing.JPanel {
 
         statusLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         statusLabel.setForeground(new java.awt.Color(0, 0, 0));
-        statusLabel.setText(application.getStatus());
+        statusLabel.setText(currentApplication.getStatus());
         switch (statusLabel.getText()) {
             case "Pending" ->
             statusLabel.setForeground(Color.BLUE);
@@ -96,7 +99,7 @@ public class AfterApplyST extends javax.swing.JPanel {
 
         applicationDateLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         applicationDateLabel.setForeground(new java.awt.Color(0, 0, 0));
-        applicationDateLabel.setText(application.getLocalCreateDate().format(createDateFormatter));
+        applicationDateLabel.setText(currentApplication.getLocalCreateDate().format(createDateFormatter));
         appliedPanel.add(applicationDateLabel);
 
         jLabel59.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -106,7 +109,7 @@ public class AfterApplyST extends javax.swing.JPanel {
 
         checkInDateLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         checkInDateLabel.setForeground(new java.awt.Color(0, 0, 0));
-        checkInDateLabel.setText(application.getLocalStartDate().format(dateFormatter));
+        checkInDateLabel.setText(currentApplication.getLocalStartDate().format(dateFormatter));
         appliedPanel.add(checkInDateLabel);
 
         jLabel60.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -116,7 +119,7 @@ public class AfterApplyST extends javax.swing.JPanel {
 
         checkOutDateLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         checkOutDateLabel.setForeground(new java.awt.Color(0, 0, 0));
-        checkOutDateLabel.setText(application.getLocalEndDate().format(dateFormatter));
+        checkOutDateLabel.setText(currentApplication.getLocalEndDate().format(dateFormatter));
         appliedPanel.add(checkOutDateLabel);
 
         jLabel52.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
@@ -124,20 +127,20 @@ public class AfterApplyST extends javax.swing.JPanel {
         jLabel52.setText("Room Details");
         appliedPanel.add(jLabel52);
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 412, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 383, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 30, Short.MAX_VALUE)
         );
 
-        appliedPanel.add(jPanel6);
+        appliedPanel.add(jPanel1);
 
         jLabel54.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel54.setForeground(new java.awt.Color(51, 51, 51));
@@ -183,29 +186,47 @@ public class AfterApplyST extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Click on the picture for more details");
 
+        cancelApplicationBtn.setBackground(new java.awt.Color(0, 0, 0));
+        cancelApplicationBtn.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        cancelApplicationBtn.setForeground(new java.awt.Color(255, 255, 255));
+        cancelApplicationBtn.setText("Cancel Application");
+        cancelApplicationBtn.setToolTipText(null);
+        cancelApplicationBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelApplicationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelApplicationBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(841, Short.MAX_VALUE)
+                .addContainerGap(808, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(roomIcon)
+                                .addGap(10, 10, 10)))
+                        .addGap(39, 39, 39))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(roomIcon)
-                        .addGap(16, 16, 16))))
+                        .addComponent(cancelApplicationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(appliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(209, Short.MAX_VALUE)))
+                    .addComponent(appliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 766, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(268, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(267, Short.MAX_VALUE)
+                .addGap(67, 67, 67)
+                .addComponent(cancelApplicationBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                 .addComponent(roomIcon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
@@ -216,6 +237,12 @@ public class AfterApplyST extends javax.swing.JPanel {
                     .addComponent(appliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
+
+        if (currentApplication.getStatus().equals("Pending")) {
+            cancelApplicationBtn.setVisible(true);
+        } else {
+            cancelApplicationBtn.setVisible(false);
+        }
     }// </editor-fold>//GEN-END:initComponents
 
     private void roomIconsingleRoomClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roomIconsingleRoomClicked
@@ -223,10 +250,32 @@ public class AfterApplyST extends javax.swing.JPanel {
         PopUpWindow.showRoom(HostelST.getCurrentUserRoom().getRoomType().toString(), "Room Details", "OK");
     }//GEN-LAST:event_roomIconsingleRoomClicked
 
+    // remove the application from the text file if cancel button is pressed
+    private void cancelApplicationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelApplicationBtnActionPerformed
+        ArrayList<Application> applications = ApplicationHandling.getTotalApplications();
+        int i = 0;
+        for (Application application : applications) {
+            if (application.equals(currentApplication)) {
+                i = applications.indexOf(application);
+            }
+        }
+        applications.remove(i);
+        ApplicationHandling.updateApplicationFile(applications);
+        boolean cancel = PopUpWindow.showConfirmMessage("Cancel application?", "Cancellation");
+        if (cancel) {
+            PopUpWindow.showSuccessfulMessage("Application cancelled.", "Cancellation");
+            Login.getHostelFrame().dispose();
+            HostelST hostelST = new HostelST();
+            HostelST.setSelectedRoom(null);
+            Login.setHostelFrame(hostelST);
+        }
+    }//GEN-LAST:event_cancelApplicationBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JLabel applicationDateLabel;
     private javax.swing.JPanel appliedPanel;
+    private static javax.swing.JButton cancelApplicationBtn;
     private static javax.swing.JLabel checkInDateLabel;
     private static javax.swing.JLabel checkOutDateLabel;
     private javax.swing.JLabel jLabel1;
@@ -238,7 +287,7 @@ public class AfterApplyST extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel roomIcon;
     private static javax.swing.JLabel roomNumLabel;
     private static javax.swing.JLabel roomTypeLabel;

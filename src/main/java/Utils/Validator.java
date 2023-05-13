@@ -120,7 +120,6 @@ public class Validator {
         LocalDate date;
         String[] dateSplit = dateString.split("-");
         boolean checkDate = isInvalidDay(Integer.parseInt(dateSplit[2]),Integer.parseInt(dateSplit[1]),Integer.parseInt(dateSplit[0]));
-        System.out.println(checkDate);
         if(!checkDate) return null;
         date = LocalDate.parse(dateString, formatter);
 

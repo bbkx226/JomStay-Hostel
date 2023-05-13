@@ -26,7 +26,6 @@ public class ApplicationPaymentDetails {
 
     // constructor
     public ApplicationPaymentDetails(Application application) {
-        refreshPaymentFile();
         List<Payment> payments = PaymentHandling.getApplicationPayments(application);
         if (payments.isEmpty()) {
             this.status = PaymentStatus.NA;
@@ -34,6 +33,7 @@ public class ApplicationPaymentDetails {
         } else {
             this.status = PaymentStatus.PENDING;
         }
+        refreshPaymentFile();
         this.totalAmtDue = 0;
         this.amtPayable = 0;
 
