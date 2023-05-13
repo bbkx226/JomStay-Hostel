@@ -8,6 +8,7 @@ import java.awt.CardLayout;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -140,8 +141,13 @@ public class HostelST extends javax.swing.JFrame {
         currentUser.setEmerContactRelationship(applicationForm.get("emerContactRelationship"));
         currentUser.setEmerContactNo(applicationForm.get("emerContactNo"));
         UserHandling.updateStudentDetail(currentUser);
-
-        String newApplicationID = String.format("A%03d", ApplicationHandling.getTotalApplications().size() + 1);
+        
+        ArrayList<Application> totalApplications = ApplicationHandling.getTotalApplications();
+        String lastApplicationID = totalApplications.get(totalApplications.size() - 1).getApplicationID();
+        String lastThree = lastApplicationID.substring(lastApplicationID.length() - 3); // extracts the last 3 characters
+        int num = Integer.parseInt(lastThree); // parses the last 3 characters as an integer
+        
+        String newApplicationID = String.format("A%03d", num + 1);
         String createDate = LocalDateTime.now().format(createDateFormatter);
 
         String checkInDateString = applicationForm.get("checkInDate");
