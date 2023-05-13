@@ -3,7 +3,7 @@ R102 Occupied false Private
 R103 Available false Female
 R104 Available false Twin
 R105 Occupied false Double
-R106 Available false Private
+R106 Reserved false Private
 R107 Occupied false Female
 R108 Occupied false Single
 R109 Available false Twin
