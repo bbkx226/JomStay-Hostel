@@ -1,11 +1,13 @@
 package DesignUI;
 
+import Utils.DatePicker;
 import Models.Room;
 import Models.Student;
 import Utils.Config;
 import Utils.PopUpWindow;
 import Utils.RoomHandling;
 import static Utils.Validator.validateApplicationInputDate;
+import java.time.LocalDate;
 import java.util.HashMap;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -124,7 +126,9 @@ public class BeforeApplyST extends javax.swing.JPanel {
         jLabel52 = new javax.swing.JLabel();
         roomNumLabel1 = new javax.swing.JLabel();
         startDateLabel = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         startDateField = new javax.swing.JTextField();
+        selectDateBtn = new javax.swing.JButton();
         jLabel57 = new javax.swing.JLabel();
         stayPeriodComboBox = new javax.swing.JComboBox<>();
         studentDetailsSection = new javax.swing.JPanel();
@@ -228,8 +232,24 @@ public class BeforeApplyST extends javax.swing.JPanel {
         startDateLabel.setText("Check-In Date (DD-MM-YYYY)");
         roomDetailsSection.add(startDateLabel);
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         startDateField.setBackground(new java.awt.Color(255, 255, 255));
-        roomDetailsSection.add(startDateField);
+        startDateField.setEditable(false);
+        jPanel5.add(startDateField, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 33));
+
+        selectDateBtn.setBackground(new java.awt.Color(0, 0, 0));
+        selectDateBtn.setForeground(new java.awt.Color(255, 255, 255));
+        selectDateBtn.setText("Select");
+        selectDateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectDateBtnActionPerformed(evt);
+            }
+        });
+        jPanel5.add(selectDateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 130, 30));
+
+        roomDetailsSection.add(jPanel5);
 
         jLabel57.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel57.setForeground(new java.awt.Color(51, 51, 51));
@@ -452,6 +472,16 @@ public class BeforeApplyST extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_confirmBtnActionPerformed
 
+    private void selectDateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectDateBtnActionPerformed
+        // TODO add your handling code here:
+        Runnable onClose = () -> {
+            startDateField.setText(DatePicker.getSelectedDateString(Config.dateFormats.ST_APPLICATION_DATE_INPUT.toString()));
+        };
+        DatePicker datePicker = new DatePicker(LocalDate.now().getYear(), 
+                LocalDate.now().plusYears(100).getYear(), 
+                onClose);
+    }//GEN-LAST:event_selectDateBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JLabel NRICLabel;
     private static javax.swing.JTextField addressField;
@@ -486,6 +516,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private static javax.swing.JTextField medCondField;
     private static javax.swing.JLabel nameLabel;
     private static javax.swing.JTextField nationalityField;
@@ -497,6 +528,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
     private static javax.swing.JLabel roomNumLabel1;
     private static javax.swing.JLabel roomTypeLabel;
     private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JButton selectDateBtn;
     private static javax.swing.JTextField startDateField;
     private javax.swing.JLabel startDateLabel;
     private static javax.swing.JComboBox<String> stayPeriodComboBox;
