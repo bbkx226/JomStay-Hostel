@@ -8,4 +8,4 @@ ST007 United_States American Christian A_random_address N/A Ang_Xu_Tian Friend 0
 ST008 Malaysian Chinese N/A another_random_address N/A Yupee Family 0123456789
 ST009 Malaysian N/A N/A Jalan_biru_123 N/A Axcell_Mom mom 0192759812
 ST010 Malaysian N/A N/A randomAddress N/A Pear Friend 0123456789
-ST011 Malaysian N/A N/A 44,_Jalan_Merah,_Taman_Kuning,_55100_W.P. N/A Brandon_Ban_Kai_Xian Friend 012345678
+ST011 N/A N/A N/A N/A N/A N/A N/A N/A 
