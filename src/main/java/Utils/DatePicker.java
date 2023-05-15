@@ -19,7 +19,8 @@ public class DatePicker extends JFrame {
     private static final String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
     private static final int CALROWS = 6;
     private static final int CALCOLS = 7;
-
+    private final Runnable ON_CLOSE;
+    
     private int firstYear = 1990;
     private int lastYear = 2100;
     private static LocalDate currentDate = LocalDate.now();
@@ -28,11 +29,13 @@ public class DatePicker extends JFrame {
     private static LocalDate selectedDate = null;
 
     public DatePicker(Runnable onClose) {
+        this.ON_CLOSE = onClose;
         initComponents();
         setVisible(true);
     }
 
     public DatePicker(int firstYear, int lastYear, Runnable onClose) {
+        this.ON_CLOSE = onClose;
         this.firstYear = firstYear;
         this.lastYear = lastYear;
         initComponents();
@@ -150,6 +153,7 @@ public class DatePicker extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                ON_CLOSE.run();
             }
         });
         cancelBtn = new JButton("Cancel");
@@ -158,6 +162,7 @@ public class DatePicker extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 selectedDate = null;
                 dispose();
+                ON_CLOSE.run();
             }
         });
         bottomPanel.add(selectedDateLabel);
@@ -177,6 +182,7 @@ public class DatePicker extends JFrame {
             public void windowClosing(WindowEvent e) {
                 selectedDate = null;
                 dispose();
+                ON_CLOSE.run();
             }
         });
     }
