@@ -10,17 +10,19 @@ import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author KZ
  */
 public class DatePicker extends JFrame {
-    private static final String[] daysOfWeek = { "Sat", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
-    private static final String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+    private static final String[] daysOfWeek = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+    private static final String[] months = { "January", "February", "March", "April", "May", "June", "July", "August",
+            "September", "October", "November", "December" };
     private static final int CALROWS = 6;
     private static final int CALCOLS = 7;
     private final Runnable ON_CLOSE;
-    
+
     private int firstYear = 1990;
     private int lastYear = 2100;
     private static LocalDate currentDate = LocalDate.now();
