@@ -466,7 +466,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
         } else if (requiredFieldsValid() == false) {
             PopUpWindow.showErrorMessage("Please fill in all the required(*) fields.", "Error");
         } else if (validateApplicationInputDate(startDateField.getText(), DATE_INPUT_FORMAT) == null) {
-            PopUpWindow.showErrorMessage("Invalid date or format.", "Error");
+            PopUpWindow.showErrorMessage("Invalid date.", "Error");
         } else {
             HostelST.showTnC();
         }
@@ -475,7 +475,7 @@ public class BeforeApplyST extends javax.swing.JPanel {
     private void selectDateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectDateBtnActionPerformed
         // TODO add your handling code here:
         Runnable onClose = () -> {
-            startDateField.setText(DatePicker.getSelectedDateString(Config.dateFormats.ST_APPLICATION_DATE_INPUT.toString()));
+            startDateField.setText(DatePicker.getSelectedDateString(Config.dateFormats.ST_APPLICATION_DATE_INPUT.getFormat()));
         };
         DatePicker datePicker = new DatePicker(LocalDate.now().getYear(), 
                 LocalDate.now().plusYears(100).getYear(), 
