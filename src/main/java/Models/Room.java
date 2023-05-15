@@ -69,25 +69,13 @@ public class Room {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         final Room other = (Room) obj;
-        if (this.servicing != other.servicing) {
-            return false;
-        }
-        if (!Objects.equals(this.roomID, other.roomID)) {
-            return false;
-        }
-        if (!Objects.equals(this.status, other.status)) {
-            return false;
-        }
+        if (this.servicing != other.servicing) return false;
+        if (!Objects.equals(this.roomID, other.roomID)) return false;
+        if (!Objects.equals(this.status, other.status)) return false;
         return Objects.equals(this.roomType, other.roomType);
     }
 

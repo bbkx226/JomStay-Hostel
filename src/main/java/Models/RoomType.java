@@ -91,31 +91,15 @@ public class RoomType {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         final RoomType other = (RoomType) obj;
-        if (Double.doubleToLongBits(this.rentalFee) != Double.doubleToLongBits(other.rentalFee)) {
-            return false;
-        }
-        if (this.beds != other.beds) {
-            return false;
-        }
-        if (this.isFreeWifi != other.isFreeWifi) {
-            return false;
-        }
-        if (!Objects.equals(this.typeName, other.typeName)) {
-            return false;
-        }
-        if (!Objects.equals(this.facilities, other.facilities)) {
-            return false;
-        }
+        if (Double.doubleToLongBits(this.rentalFee) != Double.doubleToLongBits(other.rentalFee)) return false;
+        if (this.beds != other.beds) return false;
+        if (this.isFreeWifi != other.isFreeWifi) return false;
+        if (!Objects.equals(this.typeName, other.typeName)) return false;
+        if (!Objects.equals(this.facilities, other.facilities)) return false;
         return Objects.equals(this.specification, other.specification);
     }
     
