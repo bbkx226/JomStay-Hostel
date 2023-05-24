@@ -129,22 +129,12 @@ public class Student extends User {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         final Student other = (Student) obj;
-        if (!Objects.equals(this.gender, other.gender)) {
-            return false;
-        }
-        if (!Objects.equals(this.phoneNo, other.phoneNo)) {
-            return false;
-        }
+        if (!Objects.equals(this.gender, other.gender)) return false;
+        if (!Objects.equals(this.phoneNo, other.phoneNo)) return false;
         return Objects.equals(this.NRIC, other.NRIC);
     }
 

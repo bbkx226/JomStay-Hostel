@@ -47,10 +47,10 @@ public class RoomsST extends javax.swing.JPanel {
         jLabel25 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(930, 750));
@@ -198,9 +198,9 @@ public class RoomsST extends javax.swing.JPanel {
             }
         });
 
-        jLabel29.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel29.setText("Female-only");
+        jLabel27.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel27.setText("Twin");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -212,8 +212,8 @@ public class RoomsST extends javax.swing.JPanel {
                         .addGap(68, 68, 68)
                         .addComponent(jLabel28))
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(jLabel29)))
+                        .addGap(130, 130, 130)
+                        .addComponent(jLabel27)))
                 .addContainerGap(113, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -222,7 +222,7 @@ public class RoomsST extends javax.swing.JPanel {
                 .addGap(38, 38, 38)
                 .addComponent(jLabel28)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel29)
+                .addComponent(jLabel27)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -239,9 +239,9 @@ public class RoomsST extends javax.swing.JPanel {
             }
         });
 
-        jLabel27.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel27.setText("Twin");
+        jLabel29.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel29.setText("Female-only");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -253,8 +253,8 @@ public class RoomsST extends javax.swing.JPanel {
                         .addGap(68, 68, 68)
                         .addComponent(jLabel20))
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jLabel27)))
+                        .addGap(101, 101, 101)
+                        .addComponent(jLabel29)))
                 .addContainerGap(113, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -262,9 +262,8 @@ public class RoomsST extends javax.swing.JPanel {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel20)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel27)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jLabel29))
         );
 
         gridPanel.add(jPanel11);

@@ -57,6 +57,18 @@ public class Application {
         return LocalDate.parse(endDate, startEndDateFormatter);
     }
     
+    public LocalDateTime getLocalCreateDate(String format) {
+        return LocalDateTime.parse(createDate, DateTimeFormatter.ofPattern(format));
+    }
+    
+    public LocalDate getLocalStartDate(String format) {
+        return LocalDate.parse(startDate, DateTimeFormatter.ofPattern(format));
+    }
+    
+    public LocalDate getLocalEndDate(String format) {
+        return LocalDate.parse(endDate, DateTimeFormatter.ofPattern(format));
+    }
+    
     public Student getStudent() {
         return student;
     }

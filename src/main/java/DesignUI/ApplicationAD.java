@@ -860,6 +860,7 @@ public class ApplicationAD extends javax.swing.JFrame {
         }
         
         if(decision.equals("Accepted")){
+            PaymentHandling.addNewPendingPayments(applicationToDecision);
             for(Room room : rooms){
                if(room.equals(applicationToDecision.getRoom())){
                     room.setStatus("Reserved");
@@ -870,7 +871,6 @@ public class ApplicationAD extends javax.swing.JFrame {
         
         ApplicationHandling.updateApplicationFile(totalApplications);
         RoomHandling.updateRoomFile(rooms);
-        PaymentHandling.addNewPendingPayments(applicationToDecision);
         dispose();
         new ApplicationAD().start();
         PopUpWindow.showSuccessfulMessage("The application details has successfully been updated~", "Congrats!");

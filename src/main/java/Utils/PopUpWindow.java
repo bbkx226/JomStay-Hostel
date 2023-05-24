@@ -64,4 +64,10 @@ public class PopUpWindow {
         }
         return null;
     }
+    
+    public static boolean showConfirmMessage(String message, String title) {
+        String[] options = { "Yes", "No" };
+        int confirm = JOptionPane.showOptionDialog(null, message, title, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, title);
+        return confirm == JOptionPane.OK_OPTION;
+    }
 }
