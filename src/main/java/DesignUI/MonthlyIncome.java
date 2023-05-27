@@ -6,6 +6,7 @@ import Models.Room;
 import Models.RoomType;
 import Utils.ApplicationHandling;
 import Utils.RoomHandling;
+import java.awt.Color;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -108,9 +109,17 @@ public class MonthlyIncome extends javax.swing.JFrame {
         monthDropBox.setFont(new java.awt.Font("Baskerville Old Face", 1, 24)); // NOI18N
         monthDropBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "January", "Febraury", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
 
-        yearBox.setBackground(new java.awt.Color(255, 255, 255));
         yearBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 24)); // NOI18N
+        yearBox.setText("e.g. 2023");
         yearBox.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 255)));
+        yearBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                yearBoxFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                yearBoxFocusLost(evt);
+            }
+        });
 
         generateReportButton.setBackground(new java.awt.Color(153, 153, 255));
         generateReportButton.setFont(new java.awt.Font("Baskerville Old Face", 1, 24)); // NOI18N
@@ -214,6 +223,19 @@ public class MonthlyIncome extends javax.swing.JFrame {
         checkDate = true;
         showInForm();
     }//GEN-LAST:event_generateReportButtonActionPerformed
+
+    private void yearBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_yearBoxFocusGained
+        if(yearBox.getText().equals("e.g. 2023")){
+            yearBox.setText("");
+            yearBox.setForeground(new Color( 0, 0, 0));
+        }
+    }//GEN-LAST:event_yearBoxFocusGained
+
+    private void yearBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_yearBoxFocusLost
+        if(yearBox.getText().equals("")){
+            yearBox.setText("e.g. 2023");
+            yearBox.setForeground(new Color(153, 153, 153));
+        }    }//GEN-LAST:event_yearBoxFocusLost
     
     private String convertMonth(String monthSelect) {
         switch(monthSelect){

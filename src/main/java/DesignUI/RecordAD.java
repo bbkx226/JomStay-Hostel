@@ -5,10 +5,12 @@ import Models.Application;
 import Models.Student;
 import Utils.ApplicationHandling;
 import Utils.FileDataHandling;
+import Utils.LogHandling;
 import Utils.PopUpWindow;
 import Utils.UserHandling;
 import Utils.Validator;
 import java.awt.event.KeyEvent;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -276,6 +278,20 @@ public class RecordAD extends javax.swing.JFrame {
         });
 
         searchBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
+        searchBox.setText("e.g. ST001");
+        searchBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchBoxFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchBoxFocusLost(evt);
+            }
+        });
+        searchBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBoxActionPerformed(evt);
+            }
+        });
         searchBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 searchBoxKeyPressed(evt);
@@ -453,7 +469,6 @@ public class RecordAD extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(ICBox, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -645,6 +660,7 @@ public class RecordAD extends javax.swing.JFrame {
         );
         if (dialogResult == JOptionPane.YES_OPTION){
             PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
+            LogHandling.writeLog("Admin Log Out", Login.adminID);
             setVisible(false);
             dispose();
             new Login().setVisible(true);
@@ -688,6 +704,24 @@ public class RecordAD extends javax.swing.JFrame {
     private void loginDateBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginDateBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_loginDateBoxActionPerformed
+
+    private void searchBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchBoxFocusGained
+        if(searchBox.getText().equals("e.g. ST001")){
+            searchBox.setText("");
+            searchBox.setForeground(new Color( 0, 0, 0));
+        }
+    }//GEN-LAST:event_searchBoxFocusGained
+
+    private void searchBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchBoxFocusLost
+        if(searchBox.getText().equals("")){
+            searchBox.setText("e.g. ST001");
+            searchBox.setForeground(new Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_searchBoxFocusLost
+
+    private void searchBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchBoxActionPerformed
     
     // Modify student details
     private void modifyStudent() {
@@ -743,6 +777,7 @@ public class RecordAD extends javax.swing.JFrame {
                 setVisible(false);
                 setVisible(true);
                 PopUpWindow.showSuccessfulMessage("Your updates to the student details have been successfully applied", "Congrats!");
+                LogHandling.writeLog("Modify Student Details", Login.adminID);
             } else {
                 JOptionPane.showMessageDialog(null, "Please ensure you've modified any details", "Friendly Reminder", JOptionPane.QUESTION_MESSAGE);
             }

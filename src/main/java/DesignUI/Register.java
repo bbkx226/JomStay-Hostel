@@ -3,6 +3,7 @@ package DesignUI;
 
 import Utils.Validator;
 import Utils.FileDataHandling;
+import Utils.LogHandling;
 import Utils.PasswordHandling;
 import Utils.PopUpWindow;
 import Utils.UserHandling;
@@ -46,6 +47,7 @@ public class Register extends javax.swing.JFrame {
             if (fullName.equals("") || email.equals("") || username.equals("") || password.equals("") || confirmPassword.equals("") || gender.equals("Select") || phoneNumber.equals("") || NRIC.equals("")){
                 PopUpWindow.showSuggestionMessage("Please ensure you've fill in every text field", "Friendly Reminder");
             } else if (Validator.isValidEmail(email) && Validator.isValidPhone(phoneNumber) && PasswordHandling.checkPassword(password, confirmPassword) && FileDataHandling.validateData(username, email) && PasswordHandling.getPasswordStrength(password).equals("Strong")){
+                LogHandling.writeLog("Register", "-");
                 String EncryptedPass = PasswordHandling.encrypt(password);
                 writer = new BufferedWriter(new FileWriter(file.getAbsolutePath(), true));
                 String studentID = "ST" + String.format("%03d", FileDataHandling.getID()+1);

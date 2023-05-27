@@ -37,18 +37,22 @@ public class RoomHandling {
     }
     
     public static void deleteRoomData(ArrayList<Room> rooms, String roomID) {
-        int i = 1;
-        String roomListString = "";
+        int i = 0, floor = 1;
+        String roomListString = "", ID;
+
         for (Room room : rooms) {
-            if (room.getRoomID().equals(roomID)) {
-                continue;
+            if (room.getRoomID().equals(roomID)) continue;
+            i++;
+            if(i % 11 == 0) {
+                i = 1;
+                floor += 1;
             }
-            roomListString += String.format("R%03d %s %b %s\n",
-                    i, room.getStatus(),
+            ID = "R" + String.format("%d", floor) + String.format("%02d", i);
+            roomListString += String.format("%s %s %b %s\n",
+                    ID, room.getStatus(),
                     room.isServicing(),
                     room.getRoomType().getTypeName()
             );
-            i++;
         }
         FileHandlerUtils.writeString(PATH, roomListString, false);
     }
