@@ -1,5 +1,6 @@
 package DesignUI;
 
+import Utils.LogHandling;
 import Utils.PopUpWindow;
 
 /**
@@ -131,6 +132,8 @@ public class ApplyTnCST extends javax.swing.JPanel {
         if (!jCheckBox1.isSelected()) {
             PopUpWindow.showErrorMessage("Please ensure that you have agreed to the Terms and Conditions as stated by checking the checkbox.", "Error");
         } else {
+            LogHandling.writeLog("Update User Extra Details", HostelST.getCurrentUser().getID());
+            LogHandling.writeLog("User Application", HostelST.getCurrentUser().getID());
             HostelST.apply(BeforeApplyST.getInputForm());
         }
     }//GEN-LAST:event_confirmBtnActionPerformed

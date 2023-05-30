@@ -5,6 +5,7 @@ import Models.Payment;
 import Models.Payment.PaymentStatus;
 import Utils.ApplicationPaymentDetails;
 import Utils.Config;
+import Utils.LogHandling;
 import Utils.PaymentHandling;
 import Utils.PopUpWindow;
 import Utils.Validator;
@@ -392,6 +393,7 @@ public class PaymentST extends javax.swing.JPanel {
                 PaymentHandling.updatePaymentFile(payments, selectedMonths, paymentMethodInput.replace(" ", "_"));
                 // remove html tags
                 String rentalPeriod = rentalPeriodLabel.getText().replaceAll("<[^>]*>", "");
+                LogHandling.writeLog("User Payment", HostelST.getCurrentUser().getID());
                 HostelST.proceedWithPayment(rentalPeriod, selectedAmt);
             } else {
                 HostelST.showPayment();
