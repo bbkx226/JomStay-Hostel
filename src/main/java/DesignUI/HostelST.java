@@ -91,6 +91,10 @@ public class HostelST extends javax.swing.JFrame {
             PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
             HostelST.showRooms();
             return;
+        } else if(selectedRoom == null){
+            PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
+            HostelST.showRooms();
+            return;   
         }
         mainPanel.add(new ApplicationST(), "apply");
         card.show(mainPanel, "apply");
@@ -112,6 +116,8 @@ public class HostelST extends javax.swing.JFrame {
                 PopUpWindow.showErrorMessage("Please apply for a room first.", "Error");
             case "Pending" ->
                 PopUpWindow.showErrorMessage("Please wait until your application has been accepted.", "Error");
+            case "Rejected" ->
+                PopUpWindow.showErrorMessage("Please wait until your application has been accepted.", "Error");
             default -> {
                 mainPanel.add(new PaymentST(), "payment");
                 card.show(mainPanel, "payment");
@@ -120,7 +126,7 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     public void signOut() {
-        LogHandling.writeLog("User Log Out", Login.loginID);
+        LogHandling.writeLog("User Logout", Login.loginID);
         PopUpWindow.showGoodByeMessage("Thank you for using the system. See you!", "Sign Out");
         setVisible(false);
         dispose();

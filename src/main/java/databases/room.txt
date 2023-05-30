@@ -14,7 +14,7 @@ R203 Available false Female
 R204 Available true Female
 R205 Available false Female
 R206 Occupied false Single
-R207 Available false Double
+R207 Occupied false Double
 R208 Occupied false Private
 R209 Available false Double
 R210 Available false Double

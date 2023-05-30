@@ -324,7 +324,6 @@
               <Font name="Baskerville Old Face" size="18" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="e.g. A001"/>
-            <Property name="requestFocusEnabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="searchBoxFocusGained"/>
