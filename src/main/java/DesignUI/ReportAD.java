@@ -1,6 +1,7 @@
 // @author Brandon Ban Kai Xian TP067094
 package DesignUI;
 
+import Utils.LogHandling;
 import Utils.PopUpWindow;
 import javax.swing.JOptionPane;
 
@@ -30,6 +31,9 @@ public class ReportAD extends javax.swing.JFrame {
         availableRoomsImg = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        logActivityButton = new javax.swing.JPanel();
+        logActivityImg = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         hostelIcon = new javax.swing.JLabel();
         applicationIcon = new javax.swing.JLabel();
@@ -158,16 +162,74 @@ public class ReportAD extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel5.setText("Generate Report");
 
+        logActivityButton.setBackground(new java.awt.Color(153, 153, 255));
+        logActivityButton.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 255)));
+        logActivityButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logActivityButton.setPreferredSize(new java.awt.Dimension(231, 191));
+        logActivityButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logActivityButtonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                logActivityButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                logActivityButtonMouseExited(evt);
+            }
+        });
+
+        logActivityImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/log.png"))); // NOI18N
+        logActivityImg.setToolTipText("");
+        logActivityImg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logActivityImgMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                logActivityImgMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                logActivityImgMouseExited(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel6.setText("Log Activity");
+
+        javax.swing.GroupLayout logActivityButtonLayout = new javax.swing.GroupLayout(logActivityButton);
+        logActivityButton.setLayout(logActivityButtonLayout);
+        logActivityButtonLayout.setHorizontalGroup(
+            logActivityButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logActivityButtonLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(logActivityButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addGroup(logActivityButtonLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(logActivityImg)))
+                .addContainerGap(63, Short.MAX_VALUE))
+        );
+        logActivityButtonLayout.setVerticalGroup(
+            logActivityButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logActivityButtonLayout.createSequentialGroup()
+                .addContainerGap(49, Short.MAX_VALUE)
+                .addComponent(logActivityImg, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addGap(22, 22, 22))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(314, 314, 314)
+                .addGap(112, 112, 112)
                 .addComponent(monthlyIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(291, 291, 291)
+                .addGap(220, 220, 220)
+                .addComponent(logActivityButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(availableRoomsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(112, 112, 112))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(544, Short.MAX_VALUE)
                 .addComponent(jLabel5)
@@ -179,9 +241,10 @@ public class ReportAD extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel5)
                 .addGap(99, 99, 99)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(monthlyIncomeButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(availableRoomsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(monthlyIncomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(availableRoomsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logActivityButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(124, Short.MAX_VALUE))
         );
 
@@ -323,6 +386,7 @@ public class ReportAD extends javax.swing.JFrame {
         );
         if (dialogResult == JOptionPane.YES_OPTION){
             PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
+            LogHandling.writeLog("Admin Log Out", Login.adminID);
             setVisible(false);
             dispose();
             new Login().setVisible(true);
@@ -339,18 +403,22 @@ public class ReportAD extends javax.swing.JFrame {
     }//GEN-LAST:event_exitButtonMouseClicked
 
     private void monthlyIncomeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_monthlyIncomeButtonMouseClicked
+        LogHandling.writeLog("Monthly Income Report", Login.adminID);
         new MonthlyIncome().start();
     }//GEN-LAST:event_monthlyIncomeButtonMouseClicked
 
     private void availableRoomsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_availableRoomsButtonMouseClicked
+        LogHandling.writeLog("Available Room Report", Login.adminID);        
         new AvailableRoom().start();
     }//GEN-LAST:event_availableRoomsButtonMouseClicked
 
     private void monthlyIncomeImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_monthlyIncomeImgMouseClicked
+        LogHandling.writeLog("Monthly Income Report", Login.adminID);
         new MonthlyIncome().start();
     }//GEN-LAST:event_monthlyIncomeImgMouseClicked
 
     private void availableRoomsImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_availableRoomsImgMouseClicked
+        LogHandling.writeLog("Available Room Report", Login.adminID);        
         new AvailableRoom().start();
     }//GEN-LAST:event_availableRoomsImgMouseClicked
 
@@ -428,6 +496,32 @@ public class ReportAD extends javax.swing.JFrame {
         availableRoomsButton.setBackground(new java.awt.Color(153, 153, 255));
     }//GEN-LAST:event_availableRoomsImgMouseExited
 
+    private void logActivityImgMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logActivityImgMouseEntered
+        logActivityButton.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_logActivityImgMouseEntered
+
+    private void logActivityImgMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logActivityImgMouseExited
+        logActivityButton.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_logActivityImgMouseExited
+
+    private void logActivityButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logActivityButtonMouseClicked
+        LogHandling.writeLog("Log Activity Report", Login.adminID);  
+        new LogActivity().start();
+    }//GEN-LAST:event_logActivityButtonMouseClicked
+
+    private void logActivityButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logActivityButtonMouseEntered
+        logActivityButton.setBackground(new java.awt.Color(173, 216, 230));
+    }//GEN-LAST:event_logActivityButtonMouseEntered
+
+    private void logActivityButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logActivityButtonMouseExited
+        logActivityButton.setBackground(new java.awt.Color(153, 153, 255));
+    }//GEN-LAST:event_logActivityButtonMouseExited
+
+    private void logActivityImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logActivityImgMouseClicked
+        LogHandling.writeLog("Log Activity Report", Login.adminID);  
+        new LogActivity().start();
+    }//GEN-LAST:event_logActivityImgMouseClicked
+
     public void start() {
         new ReportAD().setVisible(true);
     }
@@ -468,8 +562,11 @@ public class ReportAD extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel logActivityButton;
+    private javax.swing.JLabel logActivityImg;
     private javax.swing.JPanel monthlyIncomeButton;
     private javax.swing.JLabel monthlyIncomeImg;
     private javax.swing.JLabel reportsIcon;

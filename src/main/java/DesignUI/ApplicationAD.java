@@ -4,9 +4,11 @@ package DesignUI;
 import Models.Application;
 import Models.Room;
 import Utils.ApplicationHandling;
+import Utils.LogHandling;
 import Utils.PaymentHandling;
 import Utils.PopUpWindow;
 import Utils.RoomHandling;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -164,6 +166,21 @@ public class ApplicationAD extends javax.swing.JFrame {
         });
 
         searchBox.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
+        searchBox.setText("e.g. A001");
+        searchBox.setRequestFocusEnabled(false);
+        searchBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchBoxFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchBoxFocusLost(evt);
+            }
+        });
+        searchBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBoxActionPerformed(evt);
+            }
+        });
         searchBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 searchBoxKeyPressed(evt);
@@ -680,6 +697,7 @@ public class ApplicationAD extends javax.swing.JFrame {
         );
         if (dialogResult == JOptionPane.YES_OPTION){
             PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
+            LogHandling.writeLog("Admin Log Out", Login.adminID);
             setVisible(false);
             dispose();
             new Login().setVisible(true);
@@ -792,6 +810,24 @@ public class ApplicationAD extends javax.swing.JFrame {
     private void startDateBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startDateBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_startDateBoxActionPerformed
+
+    private void searchBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchBoxActionPerformed
+
+    private void searchBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchBoxFocusLost
+        if(searchBox.getText().equals("")){
+            searchBox.setText("e.g. A001");
+            searchBox.setForeground(new Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_searchBoxFocusLost
+
+    private void searchBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchBoxFocusGained
+        if(searchBox.getText().equals("e.g. A001")){
+            searchBox.setText("");
+            searchBox.setForeground(new Color( 0, 0, 0));
+        }
+    }//GEN-LAST:event_searchBoxFocusGained
     
     public void start() {
         new ApplicationAD().setVisible(true);
@@ -851,6 +887,8 @@ public class ApplicationAD extends javax.swing.JFrame {
     
     // Accept or reject the application
     private void acceptOrRejectApplication(String decision){
+        LogHandling.writeLog(decision, Login.adminID);
+        
         Application applicationToDecision = pendingApplications.get(record);
         for (Application application : totalApplications){
             if(applicationToDecision.getApplicationID().equals(application.getApplicationID())){

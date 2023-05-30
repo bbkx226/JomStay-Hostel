@@ -7,14 +7,17 @@ import Utils.PopUpWindow;
 import javax.swing.JOptionPane;
 import Models.Student;
 import Utils.FileDataHandling;
+import Utils.LogHandling;
 import Utils.UserHandling;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 public class Login extends javax.swing.JFrame {
     
     private static Student currentUser;
     private static HostelST hostelST;
-    private String loginID = "";
+    public static String adminID = "";
+    public static String loginID = "";
     /**
      * Creates new form Login
      */
@@ -34,13 +37,17 @@ public class Login extends javax.swing.JFrame {
     public int checkCredentials(String username, String password){
         for (Admin admin : UserHandling.getAdmins()) {
             if (username.equals(admin.getUsername()) && password.equals(admin.getPassword())) {
+                adminID = admin.getID();
+                LogHandling.writeLog("Admin Login", adminID);
                 return 1;
             }
         }
+        
         for (Student student : UserHandling.getStudents()) {
             if (username.equals(student.getUsername()) && password.equals(student.getPassword())) {
                 loginID = student.getID();
                 currentUser = student;
+                LogHandling.writeLog("User Login", loginID);
                 return 2;
             }
         }
@@ -139,6 +146,20 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Baskerville Old Face", 1, 24)); // NOI18N
         jLabel4.setText("Username:");
 
+        nameBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
+        nameBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nameBoxFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nameBoxFocusLost(evt);
+            }
+        });
+        nameBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameBoxActionPerformed(evt);
+            }
+        });
         nameBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nameBoxKeyPressed(evt);
@@ -188,6 +209,20 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        passBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
+        passBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passBoxFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passBoxFocusLost(evt);
+            }
+        });
+        passBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passBoxActionPerformed(evt);
+            }
+        });
         passBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 passBoxKeyPressed(evt);
@@ -280,6 +315,42 @@ public class Login extends javax.swing.JFrame {
     private void registerButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseExited
         registerButton.setBackground(new java.awt.Color(153, 153, 255));
     }//GEN-LAST:event_registerButtonMouseExited
+
+    private void nameBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameBoxActionPerformed
+
+    private void passBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passBoxActionPerformed
+
+    private void nameBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameBoxFocusGained
+        if(nameBox.getText().equals("Enter Username")){
+            nameBox.setText("");
+            nameBox.setForeground(new Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_nameBoxFocusGained
+
+    private void nameBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameBoxFocusLost
+        if(nameBox.getText().equals("")){
+            nameBox.setText("Enter Username");
+            nameBox.setForeground(new Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_nameBoxFocusLost
+
+    private void passBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passBoxFocusGained
+        if(passBox.getPassword().equals("Enter Password")){
+            passBox.setText("");
+            passBox.setForeground(new Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_passBoxFocusGained
+
+    private void passBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passBoxFocusLost
+        if(passBox.getPassword().equals("")){
+            passBox.setText("Enter Password");
+            passBox.setForeground(new Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_passBoxFocusLost
 
     /**
      * @param args the command line arguments

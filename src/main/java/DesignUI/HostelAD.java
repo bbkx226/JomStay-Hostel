@@ -3,8 +3,10 @@ package DesignUI;
 
 import Models.Room;
 import Models.RoomType;
+import Utils.LogHandling;
 import Utils.PopUpWindow;
 import Utils.RoomHandling;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -203,7 +205,21 @@ public class HostelAD extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Room Management");
 
-        searchBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 14)); // NOI18N
+        searchBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
+        searchBox.setText("e.g. R101");
+        searchBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchBoxFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchBoxFocusLost(evt);
+            }
+        });
+        searchBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBoxActionPerformed(evt);
+            }
+        });
         searchBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 searchBoxKeyPressed(evt);
@@ -673,6 +689,7 @@ public class HostelAD extends javax.swing.JFrame {
         );
         if (dialogResult == JOptionPane.YES_OPTION){
             PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
+            LogHandling.writeLog("Admin Log Out", Login.adminID);
             setVisible(false);
             dispose();
             new Login().setVisible(true);
@@ -715,7 +732,7 @@ public class HostelAD extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         isAppend = true;
-        String ID = String.format("R%03d", rooms.size()+1);
+        String ID = validateRoomID();
         roomID.setText(ID);
         roomStatus.setSelectedItem("Available");
         noRadioButton.doClick();
@@ -873,6 +890,24 @@ public class HostelAD extends javax.swing.JFrame {
     private void searchButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchButtonMouseExited
         searchButton.setBackground(new java.awt.Color(153, 153, 255));
     }//GEN-LAST:event_searchButtonMouseExited
+
+    private void searchBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchBoxFocusLost
+        if(searchBox.getText().equals("")){
+            searchBox.setText("e.g. R101");
+            searchBox.setForeground(new Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_searchBoxFocusLost
+
+    private void searchBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchBoxFocusGained
+        if(searchBox.getText().equals("e.g. R101")){
+            searchBox.setText("");
+            searchBox.setForeground(new Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_searchBoxFocusGained
+
+    private void searchBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchBoxActionPerformed
     
     // This method is used to set the screen to visible
     public void start() {
@@ -949,6 +984,7 @@ public class HostelAD extends javax.swing.JFrame {
                 "Nothing happened"
             );            
         }
+        LogHandling.writeLog("Modify Room", Login.adminID);
     }
 
     // This function searches a room number in the room list
@@ -980,6 +1016,7 @@ public class HostelAD extends javax.swing.JFrame {
         dispose();
         new HostelAD().start();
         showInForm(0);
+        LogHandling.writeLog("Delete Room", Login.adminID);
     }
     
     // Appends a room to the end of the room list.
@@ -994,6 +1031,7 @@ public class HostelAD extends javax.swing.JFrame {
             "The room details have been added successfully", 
             "Congrats!"
         );
+        LogHandling.writeLog("Append Room", Login.adminID);
         isAppend = false;
     }
 
@@ -1016,6 +1054,11 @@ public class HostelAD extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+    private String validateRoomID() {
+        if(rooms.size() % 10 == 0) return "R" + String.format("%d", (rooms.size() / 10) + 1) + String.format("%02d", 1);
+        return "R" + String.format("%d", (rooms.size() / 10) + 1) + String.format("%02d", (rooms.size() % 10) + 1);
+    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

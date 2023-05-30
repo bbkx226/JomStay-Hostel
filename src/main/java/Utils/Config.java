@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
  * @author KZ
  * @co-author bbkx
  */
+
 // configurations file for system
 public final class Config {
     
@@ -44,7 +45,8 @@ public final class Config {
         PAYMENT_PATH("Payment", "src/main/java/databases/payment.txt"),
         ROOM_PATH("Room", "src/main/java/databases/room.txt"),
         ROOMTYPE_PATH("Room Type", "src/main/java/databases/roomtypes.txt"),
-        STUDENTDETAIL_PATH("Student Details", "src/main/java/databases/studentdetails.txt");
+        STUDENTDETAIL_PATH("Student Details", "src/main/java/databases/studentdetails.txt"),
+        LOG_PATH("Log", "src/main/java/databases/log.txt");
         
         private final String key, value;
         

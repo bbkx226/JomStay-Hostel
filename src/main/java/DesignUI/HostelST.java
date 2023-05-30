@@ -120,6 +120,7 @@ public class HostelST extends javax.swing.JFrame {
     }
 
     public void signOut() {
+        LogHandling.writeLog("User Log Out", Login.loginID);
         PopUpWindow.showGoodByeMessage("Thank you for using the system. See you!", "Sign Out");
         setVisible(false);
         dispose();
@@ -181,7 +182,7 @@ public class HostelST extends javax.swing.JFrame {
         LocalDate dateEnded = LocalDate.parse(currentUserApplication.getEndDate(), Config.dateFormats.FILE_APPLICATION_START_END_DATE.getFormatter());
         String dateStartedString = dateStarted.format(Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter());
         String dateEndedString = dateEnded.format(Config.dateFormats.DISPLAY_APPLICATION_START_END_DATE.getFormatter());
-
+        LogHandling.writeLog("User Payment", Login.loginID);
         LinkedHashMap<String, String> data = new LinkedHashMap<>();
         data.put("Customer Name", currentUser.getName().replace("_", " "));
         data.put("Check-In Date", dateStartedString);
