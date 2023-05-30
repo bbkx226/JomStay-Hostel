@@ -386,7 +386,7 @@ public class ReportAD extends javax.swing.JFrame {
         );
         if (dialogResult == JOptionPane.YES_OPTION){
             PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
-            LogHandling.writeLog("Admin Log Out", Login.adminID);
+            LogHandling.writeLog("Admin Logout", Login.adminID);
             setVisible(false);
             dispose();
             new Login().setVisible(true);

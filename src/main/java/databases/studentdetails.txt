@@ -9,3 +9,4 @@ ST008 Malaysian Chinese N/A another_random_address N/A Yupee Family 0123456789
 ST009 Malaysian N/A N/A Jalan_biru_123 N/A Axcell_Mom mom 0192759812
 ST010 Malaysian N/A N/A randomAddress N/A Pear Friend 0123456789
 ST011 N/A N/A N/A N/A N/A N/A N/A N/A 
+ST012 Malaysian N/A N/A sdfdsddsfssfgg N/A fasdfasdfasdfasdf asdfasdfadsfsafsaf asdfasdfsadfsdafad

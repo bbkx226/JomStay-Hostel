@@ -167,7 +167,6 @@ public class ApplicationAD extends javax.swing.JFrame {
 
         searchBox.setFont(new java.awt.Font("Baskerville Old Face", 1, 18)); // NOI18N
         searchBox.setText("e.g. A001");
-        searchBox.setRequestFocusEnabled(false);
         searchBox.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 searchBoxFocusGained(evt);
@@ -697,7 +696,7 @@ public class ApplicationAD extends javax.swing.JFrame {
         );
         if (dialogResult == JOptionPane.YES_OPTION){
             PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
-            LogHandling.writeLog("Admin Log Out", Login.adminID);
+            LogHandling.writeLog("Admin Logout", Login.adminID);
             setVisible(false);
             dispose();
             new Login().setVisible(true);
