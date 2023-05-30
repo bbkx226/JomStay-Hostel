@@ -25,6 +25,8 @@ public class LogHandling {
             case "Available Room Report" -> "Report_for_Available_Room_has_been_generated";
             case "Monthly Income Report" -> "Report_for_Monthly_Income_has_been_generated";
             case "Log Activity Report" -> "Report_for_Log_Activity_has_been_generated";
+            case "Update User Extra Details" -> "Extra_details_of_the_user_has_been_updated";
+            case "User Application" -> "An_application_has_been_made_by_the_user";
             case "User Payment" -> "A_payment_has_been_made_by_the_user";
                 
             default -> "Unknown_event_occurred.";
