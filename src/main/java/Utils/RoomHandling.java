@@ -33,6 +33,7 @@ public class RoomHandling {
         for (Room room : rooms) {
             roomListString.add(room.toString());
         }
+        roomListString.add("");
         FileHandlerUtils.writeString(PATH, roomListString.toString(), false);
     }
     

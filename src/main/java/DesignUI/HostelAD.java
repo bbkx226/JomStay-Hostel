@@ -743,6 +743,11 @@ public class HostelAD extends javax.swing.JFrame {
         facilitiesTextArea.setText("");
         freeWifiBox.setText("");
         roomType.setSelectedItem("Select");
+        removeButton.setVisible(false);
+        firstQuery.setVisible(false);
+        previousQuery.setVisible(false);
+        nextQuery.setVisible(false);
+        lastQuery.setVisible(false);
         
     }//GEN-LAST:event_addButtonActionPerformed
 
