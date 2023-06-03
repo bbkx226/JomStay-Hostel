@@ -89,22 +89,25 @@ public final class PaymentHandling {
         LocalDate now = LocalDate.now();
         ArrayList<Payment> payments = getAllPayments();
         StringBuilder stringBuilder = new StringBuilder();
-        for (Payment payment : payments) {
-            Application application = payment.getApplication();
-            LocalDate startDate = application.getLocalStartDate();
-            if (payment.getStatus().equals(PaymentStatus.PAID)) {
-                stringBuilder.append(payment.toString()).append("\n");
-                continue;
+        int month = 0;
+        for (int i = 0; i < payments.size(); i++) {
+            Application application = payments.get(i).getApplication();
+            // after the first payment and check if it is the next application
+            if (i > 12 && ! application.equals(payments.get(i - 1).getApplication())) {
+                month = 0;
             }
-            LocalDate paymentDueDate = startDate.plusMonths(payments.indexOf(payment) + 1).plusDays(7);
-            if (now.isAfter(paymentDueDate)) {
-                payment.setStatus(PaymentStatus.OVERDUE);
-                payment.setAmount(payment.getAmount() + application.getRoom().getRoomType().getRentalFee() + 50);
+            
+            Payment payment = payments.get(i);
+            if (payment.getStatus().equals(PaymentStatus.PENDING)) {
+                LocalDate startDate = application.getLocalStartDate();
+                LocalDate paymentDueDate = startDate.plusMonths(month).plusDays(7);
+                if (now.isAfter(paymentDueDate)) {
+                    payment.setStatus(PaymentStatus.OVERDUE);
+                    payment.setAmount(application.getRoom().getRoomType().getRentalFee() + 50);
+                }
             }
-            switch (payment.getStatus()) {
-                case PENDING, OVERDUE ->
-                    stringBuilder.append(payment.toString()).append("\n");
-            }
+            month++;
+            stringBuilder.append(payment.toString()).append("\n");
         }
         FileHandlerUtils.writeString(PATH, stringBuilder.toString(), false);
     }

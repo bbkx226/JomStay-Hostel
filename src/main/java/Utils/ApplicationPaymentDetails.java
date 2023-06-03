@@ -30,10 +30,16 @@ public class ApplicationPaymentDetails {
         if (payments.isEmpty()) {
             this.status = PaymentStatus.NA;
             return;
-        } else {
-            this.status = PaymentStatus.PENDING;
         }
         refreshPaymentFile();
+        this.status = PaymentStatus.PENDING;
+        payments = PaymentHandling.getApplicationPayments(application);
+        for (Payment payment : payments) {
+            if (payment.getStatus().equals(PaymentStatus.OVERDUE)) {
+                this.status = PaymentStatus.OVERDUE;
+                break;
+            }
+        }
         this.totalAmtDue = 0;
         this.amtPayable = 0;
 

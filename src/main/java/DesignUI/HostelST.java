@@ -2,7 +2,6 @@ package DesignUI;
 
 import java.awt.Color;
 import Models.*;
-import Models.Payment.PaymentStatus;
 import Utils.*;
 import java.awt.CardLayout;
 import java.time.LocalDate;
@@ -43,11 +42,12 @@ public class HostelST extends javax.swing.JFrame {
         currentUserApplication = ApplicationHandling.getStudentApplication(currentUser);
         currentUserRoom = currentUserApplication.getRoom();
         paymentDetails = new ApplicationPaymentDetails(currentUserApplication);
-        if (paymentDetails.getStatus().equals(PaymentStatus.PAID)
-                || paymentDetails.getStatus().equals(PaymentStatus.PENDING)) {
-            currentUserRoom.setStatus("Occupied");
-            RoomHandling.updateRoomInFile(currentUserRoom);
+        switch (paymentDetails.getStatus()) {
+            case PAID, PENDING -> currentUserRoom.setStatus("Occupied");
+            case OVERDUE -> currentUserRoom.setStatus("Reserved");
+            default -> { return; }
         }
+        RoomHandling.updateRoomInFile(currentUserRoom);
     }
 
     // setters and getters
@@ -90,14 +90,10 @@ public class HostelST extends javax.swing.JFrame {
         if (selectedRoom == null && currentUserRoom == null) {
             PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
             HostelST.showRooms();
-            return;
-        } else if(selectedRoom == null){
-            PopUpWindow.showErrorMessage("Please select a room type in the Rooms page first.", "Error");
-            HostelST.showRooms();
-            return;   
+        } else {
+            mainPanel.add(new ApplicationST(), "apply");
+            card.show(mainPanel, "apply");
         }
-        mainPanel.add(new ApplicationST(), "apply");
-        card.show(mainPanel, "apply");
     }
 
     public static void showTnC() {
@@ -112,12 +108,8 @@ public class HostelST extends javax.swing.JFrame {
 
     public static void showPayment() {
         switch (currentUserApplication.getStatus()) {
-            case Config.NOT_APPLICABLE ->
-                PopUpWindow.showErrorMessage("Please apply for a room first.", "Error");
-            case "Pending" ->
-                PopUpWindow.showErrorMessage("Please wait until your application has been accepted.", "Error");
-            case "Rejected" ->
-                PopUpWindow.showErrorMessage("Please wait until your application has been accepted.", "Error");
+            case Config.NOT_APPLICABLE -> PopUpWindow.showErrorMessage("Please apply for a room first.", "Error");
+            case "Pending", "Rejected" -> PopUpWindow.showErrorMessage("Please wait until your application has been accepted.", "Error");
             default -> {
                 mainPanel.add(new PaymentST(), "payment");
                 card.show(mainPanel, "payment");
@@ -150,9 +142,13 @@ public class HostelST extends javax.swing.JFrame {
         UserHandling.updateStudentDetail(currentUser);
         
         ArrayList<Application> totalApplications = ApplicationHandling.getTotalApplications();
-        String lastApplicationID = totalApplications.get(totalApplications.size() - 1).getApplicationID();
-        String lastThree = lastApplicationID.substring(lastApplicationID.length() - 3); // extracts the last 3 characters
-        int num = Integer.parseInt(lastThree); // parses the last 3 characters as an integer
+        int num = 0;
+        // if there are applications in the database
+        if (!totalApplications.isEmpty()) {
+            String lastApplicationID = totalApplications.get(totalApplications.size() - 1).getApplicationID();
+            String lastThree = lastApplicationID.substring(lastApplicationID.length() - 3); // extracts the last 3 characters
+            num = Integer.parseInt(lastThree); // parses the last 3 characters as an integer
+        }
         
         String newApplicationID = String.format("A%03d", num + 1);
         String createDate = LocalDateTime.now().format(createDateFormatter);
@@ -167,6 +163,9 @@ public class HostelST extends javax.swing.JFrame {
         LocalDateTime endDate = startDate.plusYears(stayLength);
         String endDateString = endDate.format(dateFormatter);
 
+        selectedRoom.setStatus("Reserved");
+        RoomHandling.updateRoomInFile(selectedRoom);
+        
         Application application = new Application(
                 newApplicationID,
                 currentUser,
@@ -177,7 +176,7 @@ public class HostelST extends javax.swing.JFrame {
         ApplicationHandling.addNewApplication(application);
         currentUserApplication = application;
         currentUserRoom = selectedRoom;
-
+        
         PopUpWindow.showSuccessfulMessage("Application has been sent to JomStay. We will get back to you when your application has been checked and accepted.", "Success");
         showApplication();
     }
@@ -427,18 +426,12 @@ public class HostelST extends javax.swing.JFrame {
 
     private void actionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionPerformed
         switch (evt.getActionCommand()) {
-            case "Home" ->
-                showHome();
-            case "Rooms" ->
-                showRooms();
-            case "Apply" ->
-                showApplication();
-            case "Profile" ->
-                showProfile();
-            case "Payment" ->
-                showPayment();
-            case "Sign Out" ->
-                signOut();
+            case "Home" -> showHome();
+            case "Rooms" -> showRooms();
+            case "Apply" -> showApplication();
+            case "Profile" -> showProfile();
+            case "Payment" -> showPayment();
+            case "Sign Out" -> signOut();
             default -> {
                 break;
             }
