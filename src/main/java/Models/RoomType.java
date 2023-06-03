@@ -105,7 +105,14 @@ public class RoomType {
     
     @Override
     public String toString() {
-        return String.format("%s\n%s\n%s\n%.2f\n%d\n%s\n",
+        return String.format("""
+                             Room Type: %s
+                             Facilities: %s
+                             Gender: %s
+                             Monthly Fee: RM%.2f
+                             Number of Beds: %d
+                             Free Wifi: %s
+                             """,
                 typeName, getFacilitiesString(),
                 specification, rentalFee,
                 beds, getFreeWifiString());
