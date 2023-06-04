@@ -106,7 +106,7 @@ public class ApplicationHandling {
 
         for (Application application : applications) {
             if (application.getLocalEndDate().isBefore(currentDate)) {
-                break;
+                continue;
             }
             if (application.getStudent().getID().equals(student.getID())) {
                 foundApplication = application;
