@@ -2,9 +2,11 @@
 // @co-author They Kai Zhe TP062802
 package Utils;
 
+import Models.Application;
 import Models.Room;
 import Models.RoomType;
 import Utils.Config.filePath;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringJoiner;
@@ -151,6 +153,17 @@ public class RoomHandling {
             }
             default -> {
                 return "Floor not found";
+            }
+        }
+    }
+    
+    public static void refreshRoomFile() {
+        LocalDate now = LocalDate.now();
+        ArrayList<Application> applications = ApplicationHandling.getTotalApplications();
+        for (Application application : applications) {
+            if (now.isAfter(application.getLocalEndDate())) {
+                application.getRoom().setStatus("Available");
+                updateRoomInFile(application.getRoom());
             }
         }
     }

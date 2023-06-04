@@ -32,14 +32,6 @@ public class ApplicationPaymentDetails {
             return;
         }
         refreshPaymentFile();
-        this.status = PaymentStatus.PENDING;
-        payments = PaymentHandling.getApplicationPayments(application);
-        for (Payment payment : payments) {
-            if (payment.getStatus().equals(PaymentStatus.OVERDUE)) {
-                this.status = PaymentStatus.OVERDUE;
-                break;
-            }
-        }
         this.totalAmtDue = 0;
         this.amtPayable = 0;
 
@@ -52,6 +44,7 @@ public class ApplicationPaymentDetails {
         }
 
         LocalDate now = LocalDate.now();
+        this.status = PaymentStatus.PENDING;
         for (Payment payment : payments) {
             LocalDate periodStartDate = startDate.plusMonths(payments.indexOf(payment));
             switch (payment.getStatus()) {
@@ -63,13 +56,16 @@ public class ApplicationPaymentDetails {
                     this.status = PaymentStatus.OVERDUE;
                     this.dueDate = periodStartDate.plusDays(7);
                     this.totalAmtDue += payment.getAmount();
+                    break;
                 }
                 case PENDING -> {
                     LocalDate periodEndDate = periodStartDate.plusMonths(1);
                     if (now.isBefore(startDate)) {
                         this.dueDate = startDate.plusDays(7);
-                    } else if (now.isAfter(periodStartDate) && now.isBefore(periodEndDate)) {
-                        this.status = payment.getStatus();
+                    } else if (now.isAfter(periodStartDate)
+                            && now.isBefore(periodEndDate)
+                            && ! status.equals(PaymentStatus.OVERDUE)) {
+                        this.status = PaymentStatus.PENDING;
                         this.dueDate = periodStartDate.plusDays(7);
                         this.totalAmtDue += payment.getAmount();
                     }
