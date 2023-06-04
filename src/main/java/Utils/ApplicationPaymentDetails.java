@@ -63,13 +63,13 @@ public class ApplicationPaymentDetails {
                     this.status = PaymentStatus.OVERDUE;
                     this.dueDate = periodStartDate.plusDays(7);
                     this.totalAmtDue += payment.getAmount();
+                    break;
                 }
                 case PENDING -> {
                     LocalDate periodEndDate = periodStartDate.plusMonths(1);
                     if (now.isBefore(startDate)) {
                         this.dueDate = startDate.plusDays(7);
                     } else if (now.isAfter(periodStartDate) && now.isBefore(periodEndDate)) {
-                        this.status = payment.getStatus();
                         this.dueDate = periodStartDate.plusDays(7);
                         this.totalAmtDue += payment.getAmount();
                     }

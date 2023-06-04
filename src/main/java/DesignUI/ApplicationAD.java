@@ -697,7 +697,6 @@ public class ApplicationAD extends javax.swing.JFrame {
         if (dialogResult == JOptionPane.YES_OPTION){
             PopUpWindow.showGoodByeMessage("Thanks for using the system, have a nice day~", "Goodbye~");
             LogHandling.writeLog("Admin Logout", Login.adminID);
-            setVisible(false);
             dispose();
             new Login().setVisible(true);
         }
@@ -900,7 +899,14 @@ public class ApplicationAD extends javax.swing.JFrame {
             PaymentHandling.addNewPendingPayments(applicationToDecision);
             for(Room room : rooms){
                if(room.equals(applicationToDecision.getRoom())){
-                    room.setStatus("Reserved");
+                    room.setStatus("Occupied");
+                    break;
+                }
+            }
+        } else {
+            for(Room room : rooms){
+                if(room.getRoomID().equals(applicationToDecision.getRoom().getRoomID())){
+                    room.setStatus("Available");
                     break;
                 }
             }

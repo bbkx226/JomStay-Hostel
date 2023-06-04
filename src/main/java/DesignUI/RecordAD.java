@@ -737,7 +737,7 @@ public class RecordAD extends javax.swing.JFrame {
         String newName = studentNameBox.getText();
         String formattedNewName = FileDataHandling.nameWithSpaces(newName);
         String newUserName = userNameBox.getText();
-        String newEmail = userNameBox.getText();
+        String newEmail = emailBox.getText();
         String newIC = ICBox.getText();
         String newPhone = phoneBox.getText();
         String newGender = (String) genderDropbox.getModel().getSelectedItem();
@@ -792,7 +792,6 @@ public class RecordAD extends javax.swing.JFrame {
         studentNameBox.setText(student.getName().replace("_", " "));
         userNameBox.setText(student.getUsername());
         ICBox.setText(student.getNRIC());
-        userNameBox.setText(student.getEmail());
         phoneBox.setText(student.getPhoneNo());
         emailBox.setText(student.getEmail());
         loginDateBox.setText(student.getLoginDate().replace("?", " "));

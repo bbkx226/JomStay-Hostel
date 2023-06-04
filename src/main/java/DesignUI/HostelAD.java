@@ -21,6 +21,7 @@ public class HostelAD extends javax.swing.JFrame {
      * Creates new form Hostel
      */
     public HostelAD() {
+        RoomHandling.refreshRoomFile();
         initComponents();
     }
     /**
