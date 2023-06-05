@@ -101,6 +101,7 @@ public class ApplicationHandling {
     public static Application getStudentApplication(Student student) {
         LocalDate currentDate = LocalDate.now();
         List<Application> applications = getTotalApplications();
+        Collections.reverse(applications);
         Application foundApplication = new Application(Config.NOT_APPLICABLE, student, null, Config.NOT_APPLICABLE,
                         Config.NOT_APPLICABLE, Config.NOT_APPLICABLE, Config.NOT_APPLICABLE);;
 
@@ -110,7 +111,7 @@ public class ApplicationHandling {
             }
             if (application.getStudent().getID().equals(student.getID())) {
                 foundApplication = application;
-                break;                
+                break;
             }
         }
         return foundApplication;

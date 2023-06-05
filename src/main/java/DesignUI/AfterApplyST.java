@@ -252,17 +252,23 @@ public class AfterApplyST extends javax.swing.JPanel {
 
     // remove the application from the text file if cancel button is pressed
     private void cancelApplicationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelApplicationBtnActionPerformed
-        ArrayList<Application> applications = ApplicationHandling.getTotalApplications();
-        int i = 0;
-        for (Application application : applications) {
-            if (application.equals(currentApplication)) {
-                i = applications.indexOf(application);
-            }
-        }
-        applications.remove(i);
-        ApplicationHandling.updateApplicationFile(applications);
         boolean cancel = PopUpWindow.showConfirmMessage("Cancel application?", "Cancellation");
         if (cancel) {
+            ArrayList<Application> applications = ApplicationHandling.getTotalApplications();
+            ArrayList<Application> buffer = new ArrayList<>();
+            int i = 1;
+            for (Application application : applications) {
+                if (application.getApplicationID().equals(currentApplication.getApplicationID())) {
+                    application.getRoom().setStatus("Available");
+                    RoomHandling.updateRoomInFile(application.getRoom());
+                    continue;
+                }
+                application.setApplicationID(String.format("A%03d", i));
+                i++;
+                buffer.add(application);
+            }
+            ApplicationHandling.updateApplicationFile(buffer);
+            
             PopUpWindow.showSuccessfulMessage("Application cancelled.", "Cancellation");
             Login.getHostelFrame().dispose();
             HostelST hostelST = new HostelST();
