@@ -26,6 +26,7 @@ public class HostelST extends javax.swing.JFrame {
 
     // Constructor
     public HostelST() {
+        PaymentHandling.refreshPaymentFile();
         initData();
         initComponents();
         card = (CardLayout) mainPanel.getLayout();
