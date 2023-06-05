@@ -9,6 +9,7 @@ import Utils.Config.filePath;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.StringJoiner;
 
 public class RoomHandling {
@@ -160,10 +161,21 @@ public class RoomHandling {
     public static void refreshRoomFile() {
         LocalDate now = LocalDate.now();
         ArrayList<Application> applications = ApplicationHandling.getTotalApplications();
-        for (Application application : applications) {
-            if (now.isAfter(application.getLocalEndDate())) {
-                application.getRoom().setStatus("Available");
-                updateRoomInFile(application.getRoom());
+        ArrayList<Room> rooms = getRooms();
+        Collections.reverse(applications);
+        LocalDate endDate = LocalDate.of(1970, 1, 1);
+        int buffer = 0;
+        for (Room room : rooms) {
+            for (Application application : applications) {
+                if (application.getRoom().getRoomID().equals(room.getRoomID())
+                && application.getLocalEndDate().isAfter(endDate)) {
+                    endDate = application.getLocalEndDate();
+                    buffer = applications.indexOf(application);
+                }
+            }
+            if (now.isAfter(endDate)) {
+                applications.get(buffer).getRoom().setStatus("Available");
+                updateRoomInFile(applications.get(buffer).getRoom());
             }
         }
     }
