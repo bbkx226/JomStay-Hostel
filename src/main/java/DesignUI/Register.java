@@ -181,10 +181,8 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
-        passwordBox.setEchoChar((char)0);
         passwordBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
 
-        confirmPasswordBox.setEchoChar((char)0);
         confirmPasswordBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
 
         userNameBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N

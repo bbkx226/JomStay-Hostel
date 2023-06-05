@@ -209,7 +209,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        passBox.setEchoChar((char)0);
         passBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
         passBox.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
