@@ -166,7 +166,7 @@ public class Register extends javax.swing.JFrame {
 
         confirmButton.setFont(new java.awt.Font("Baskerville Old Face", 1, 30)); // NOI18N
         confirmButton.setText("Confirm");
-        confirmButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        confirmButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         confirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmButtonActionPerformed(evt);
@@ -174,15 +174,17 @@ public class Register extends javax.swing.JFrame {
         });
 
         backButton.setText("<");
-        backButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
 
+        passwordBox.setEchoChar((char)0);
         passwordBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
 
+        confirmPasswordBox.setEchoChar((char)0);
         confirmPasswordBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
 
         userNameBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N

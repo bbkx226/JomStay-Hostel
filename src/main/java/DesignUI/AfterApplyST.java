@@ -255,17 +255,19 @@ public class AfterApplyST extends javax.swing.JPanel {
         boolean cancel = PopUpWindow.showConfirmMessage("Cancel application?", "Cancellation");
         if (cancel) {
             ArrayList<Application> applications = ApplicationHandling.getTotalApplications();
-            int i = 0;
+            ArrayList<Application> buffer = new ArrayList<>();
+            int i = 1;
             for (Application application : applications) {
-                if (application.equals(currentApplication)) {
-                    i = applications.indexOf(application);
+                if (application.getApplicationID().equals(currentApplication.getApplicationID())) {
                     application.getRoom().setStatus("Available");
                     RoomHandling.updateRoomInFile(application.getRoom());
-                    break;
+                    continue;
                 }
+                application.setApplicationID(String.format("A%03d", i));
+                i++;
+                buffer.add(application);
             }
-            applications.remove(i);
-            ApplicationHandling.updateApplicationFile(applications);
+            ApplicationHandling.updateApplicationFile(buffer);
             
             PopUpWindow.showSuccessfulMessage("Application cancelled.", "Cancellation");
             Login.getHostelFrame().dispose();

@@ -170,7 +170,7 @@ public class Login extends javax.swing.JFrame {
         loginButton.setFont(new java.awt.Font("Baskerville Old Face", 1, 28)); // NOI18N
         loginButton.setText("Login");
         loginButton.setBorder(null);
-        loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         loginButton.setMaximumSize(new java.awt.Dimension(99, 30));
         loginButton.setMinimumSize(new java.awt.Dimension(99, 30));
         loginButton.setPreferredSize(new java.awt.Dimension(99, 30));
@@ -193,7 +193,7 @@ public class Login extends javax.swing.JFrame {
         registerButton.setText("Register");
         registerButton.setToolTipText("");
         registerButton.setBorder(null);
-        registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         registerButton.setName(""); // NOI18N
         registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -209,6 +209,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        passBox.setEchoChar((char)0);
         passBox.setFont(new java.awt.Font("Baskerville Old Face", 0, 18)); // NOI18N
         passBox.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
